@@ -10,7 +10,7 @@
   <link href="${pageContext.request.contextPath }/resources/style.css" rel="stylesheet"> <!-- 사용자css -->
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script> <!-- Jquery -->
   <script src="https://kit.fontawesome.com/d7766e5822.js" crossorigin="anonymous"></script> <!-- fontawesome  -->
-<title>회원가입</title>
+<title>진료기록</title>
 
 
 </head>
@@ -27,11 +27,27 @@
 			  
 		</div>
 		<div class="container-fluid">
-      		<div class="row" style="border: 1px solid orange; height: 100%;">
+      		<div class="row" style="height: 100%;">
 
-         		<div class="col-md-2" style="border: 1px solid green; height: 100%; background-color: lightgrey;">
-            		<h2 style="text-align: center">접수 / 대기</h2>
-            		<div class="form-group"></div>
+         		<div class="col-md-2" style=" height: 100%; background-color: lightgrey;">
+            		<p>
+            		<h3 style="text-align: center">진료내역</h3>
+            		
+            		<form role="form">
+	            		<div class="form-group">
+	            			<input type="text" id = "search" placeholder="이름/전화번호" class="form-control">
+	            		</div>
+	            		<div class="form-group">
+	            			<button type="submit" class="btn btn-primary" style="width: 100%">검색</button>
+	            		</div>
+	            		
+            		</form>
+            		</p>
+            		<div class="result" style="background-color: #00AAFF">
+	            		양승윤<br>
+	            		950522, 남<br>
+	            		감기<br>
+            		</div>
          		</div>
 
 
