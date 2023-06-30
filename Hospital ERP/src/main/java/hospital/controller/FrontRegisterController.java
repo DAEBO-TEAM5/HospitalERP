@@ -42,6 +42,11 @@ public class FrontRegisterController extends HttpServlet {
     		forward.setRedirect(false);
     		forward.setPath("/WEB-INF/views/main/main.jsp");
 
+    	}else if(urlcommand.equals("/history.do")) {
+    		forward = new ActionForward();
+    		forward.setRedirect(false);
+    		forward.setPath("/WEB-INF/views/main/history.jsp");
+
     	}
     	
     	if(forward != null) {
