@@ -12,15 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import hospital.action.Action;
 import hospital.action.ActionForward;
 
-/*
 
-Url 방식
-
-@WebServlet("*.do")  // a.do , b.do
-*.do >> login.do
-*.do >> loginok.do
-
-*/
 
 
 @WebServlet("*.do")
@@ -44,29 +36,37 @@ public class FrontRegisterController extends HttpServlet {
     	Action action=null;
     	ActionForward forward=null;
     	
-    	
-    	if(urlcommand.equals("/registe.do")) {
-//    		//UI 제공 (서비스 객체가 필요없다)
-//    		forward = new ActionForward();
-//    		forward.setRedirect(false);
-//    		forward.setPath("/WEB-INF/views/register/register.jsp");
+    	if(urlcommand.equals("/main.do")) {
+    		//UI 제공 (서비스 객체가 필요없다)
+    		forward = new ActionForward();
+    		forward.setRedirect(false);
+    		forward.setPath("/WEB-INF/views/main/main.jsp");
 
     	}
     	
-    	
+    	if(forward != null) {
+    		if(forward.isRedirect()) { //true 페이지 재 요청 (location.href="페이지"
+    			response.sendRedirect(forward.getPath());
+    		}else { //기본적으로 forward ....
+    			    //1. UI 전달된 경우
+    			    //2. UI + 로직
+    			RequestDispatcher dis = request.getRequestDispatcher(forward.getPath());
+    			dis.forward(request, response);
+    		}
+    	}
     	
 	}
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doProcess(request, response);
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		doProcess(request, response);
 	}
 
 }

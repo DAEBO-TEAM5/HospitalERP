@@ -1,0 +1,32 @@
+@charset "utf-8";
+
+#title{
+	background-color: #00AAFF;
+	line-height: 50px;
+}
+.title-a{
+	text-decoration: none;
+	font-size: 25px;
+	color: white;
+	font-weight: bold;
+}
+.container-fluid {
+   height: 100vh;
+   border: 1px solid black;
+}
+.col-md-3 {
+   height: 100%;
+   /* border: 1px solid red; */
+}
+.vr {
+   currentColor: blue;
+   color: black;
+
+   width: 0.2px;
+   font-size: 10px;
+}
+.verticalLine {
+   width: 0.2px;
+   border: 1px solid black;
+   height: 100%;
+}
