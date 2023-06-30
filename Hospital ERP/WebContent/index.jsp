@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<a href="main.do">MainPage</a>
 </body>
 </html>
