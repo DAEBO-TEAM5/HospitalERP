@@ -14,7 +14,7 @@ public class LoginDao {
 		PreparedStatement pstmt = null;
 		int resultrow = 0;
 		try {
-			conn = ConnectionHelper.getConnection("oracle");
+			conn = ConnectionHelper.getConnection();
 			String sql = "INSERT INTO login(id,pwd,h_name,email,phone,post,address) VALUES(?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 
