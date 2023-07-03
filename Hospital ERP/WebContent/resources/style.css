@@ -12,7 +12,7 @@
 }
 .container-fluid {
    height: 100vh;
-   border: 1px solid black;
+   padding: 0px;
 }
 .col-md-3 {
    height: 100%;
@@ -29,4 +29,24 @@
    width: 0.2px;
    border: 1px solid black;
    height: 100%;
+}
+.flex-grow-1{
+	font-size: 25px;
+	color: white;
+}
+.fa-solid{
+	color: #304080;
+}
+.col-md-2{
+	padding-left: 24px;
+}
+#search{
+	width: 100%;
+}
+#search::after, ::before{
+	box-sizing: border-box;
+}
+#search::-webkit-input-placeholder { text-align: center; }
+.result{
+	cursor:pointer; 
 }

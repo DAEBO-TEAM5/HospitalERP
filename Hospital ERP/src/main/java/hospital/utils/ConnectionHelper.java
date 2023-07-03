@@ -1,7 +1,6 @@
 package hospital.utils;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -15,7 +14,7 @@ public class ConnectionHelper {
 		
 			try {
 					Context context = new InitialContext();
-					DataSource ds = (DataSource)context.lookup("java:comp/env/jdbc/oracle");
+					DataSource ds = (DataSource)context.lookup("java:comp/env/jdbc/HospitalDB");
 					Connection conn = ds.getConnection();
 					return conn;
 			} catch (Exception e) {
