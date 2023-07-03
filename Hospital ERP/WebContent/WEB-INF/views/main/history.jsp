@@ -8,7 +8,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- 부트스트랩 -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> <!-- 부트스트랩 -->
   <link href="${pageContext.request.contextPath }/resources/style.css" rel="stylesheet"> <!-- 사용자css -->
-  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script> <!-- Jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- Jquery -->
   <script src="https://kit.fontawesome.com/d7766e5822.js" crossorigin="anonymous"></script> <!-- fontawesome  -->
 <title>진료기록</title>
 
@@ -35,18 +35,16 @@
             		
             		<form role="form">
 	            		<div class="form-group">
-	            			<input type="text" id = "search" placeholder="이름/전화번호" class="form-control">
+	            			<input type="text" id = "search" placeholder="이름/전화번호" class="form-control"  onKeypress="javascript:if(event.keyCode==13) {test()}">
 	            		</div>
 	            		<div class="form-group">
-	            			<button type="submit" class="btn btn-primary" style="width: 100%">검색</button>
+	            			<button type="button" id="patient_search"class="btn btn-primary" style="width: 100%">검색</button>
 	            		</div>
 	            		
             		</form>
             		</p>
-            		<div class="result" style="background-color: #00AAFF">
-	            		양승윤<br>
-	            		950522, 남<br>
-	            		감기<br>
+            		<div class="result" style="background-color: #00AAFF" id="open">
+	            		
             		</div>
          		</div>
 
@@ -55,11 +53,11 @@
             		<form role="form">
                			<div class="form-group">
 
-                  			<label for="exampleInputEmail1"> Email address </label> <input type="email" class="form-control" id="exampleInputEmail1" />
+                  			환자이름
                			</div>
                			<div class="form-group">
 
-                  			<label for="exampleInputPassword1"> Password </label> <input type="password" class="form-control" id="exampleInputPassword1" />
+                  			이름,나이,성별
               			</div>
                			<div class="form-group">
 
@@ -100,7 +98,35 @@
       		</div>
   		</div>
 	</div>
-	
+
+<script type="text/javascript">
+$(function() {
+	var str = "";
+	$('#patient_search').click(function(){
+			console.log($('#search').val());
+			$.ajax({	
+				url: "./patientsearch.do",
+				type: "post",
+				data : { name: $('#search').val()},
+				success: successFunc,
+				error: errFunc
+			});
+		
+	});
+});
+
+function successFunc(data){
+	var str = "";
+	var obj = JSON.parse(data);
+	console.log(obj.list[0].doctor);
+	str += obj.list[0].doctor + "<br>";
+	str += obj.list[0].disease + "<br>";
+	$('#open').html(str);
+}
+function errFunc(e){
+	alert("검색결과가 없습니다.");
+}
+</script>
 
 </body>
 </html>
