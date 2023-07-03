@@ -9,6 +9,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+<a href="main.do">MainPage</a>
+<a href="main2.do">만드는거</a>
+<a href="item.do">itemPage</a>
+<a href="login.do">Login</a>
 <%
 	try{
 
@@ -21,6 +25,7 @@
 	}
 %>
 <a href="history.do">MainPage</a>
+
 </body>
 </html>
 
