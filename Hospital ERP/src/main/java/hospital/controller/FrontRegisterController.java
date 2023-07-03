@@ -11,8 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import hospital.action.Action;
 import hospital.action.ActionForward;
-
-
+import hospital.service.SearchServiceAction;
 
 
 @WebServlet("*.do")
@@ -27,7 +26,6 @@ public class FrontRegisterController extends HttpServlet {
     private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
        	request.setCharacterEncoding("UTF-8");
-    	
        	String requestURI = request.getRequestURI();
     	String contextPath = request.getContextPath();
     	String urlcommand = requestURI.substring(contextPath.length());
@@ -47,6 +45,15 @@ public class FrontRegisterController extends HttpServlet {
     		forward.setRedirect(false);
     		forward.setPath("/WEB-INF/views/login/login.jsp");
 
+    	}else if(urlcommand.equals("/history.do")) {
+    		forward = new ActionForward();
+    		forward.setRedirect(false);
+    		forward.setPath("/WEB-INF/views/main/history.jsp");
+
+    	}else if(urlcommand.equals("/patientsearch.do")) {
+    		System.out.println("여기왔다");
+    		action = new SearchServiceAction();
+    		action.execute(request, response);
     	}
     	if(forward != null) {
     		if(forward.isRedirect()) { //true 페이지 재 요청 (location.href="페이지"
@@ -63,13 +70,11 @@ public class FrontRegisterController extends HttpServlet {
 
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doProcess(request, response);
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doProcess(request, response);
 	}
 
