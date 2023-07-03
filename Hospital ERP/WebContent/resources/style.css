@@ -50,3 +50,7 @@
 .result{
 	cursor:pointer; 
 }
+
+#text{
+	background-color: lightgray;
+}
