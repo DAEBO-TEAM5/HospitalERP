@@ -8,5 +8,6 @@
 </head>
 <body>
 <a href="main.do">MainPage</a>
+<a href="item.do">itemPage</a>
 </body>
 </html>

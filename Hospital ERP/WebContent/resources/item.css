@@ -1,0 +1,31 @@
+@charset "utf-8";
+
+.item_manage_memobox{
+   border: 1px solid gray;
+   background-color: white;
+   border-radius: 5px;
+   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+   margin: 5px; 
+   padding: 10px;
+   height: 500px;
+   width: 100%;
+}
+.item_manage_memobox_table{
+   border: 2px solid red;
+   background-color: green; 	
+}
+.item_manage_memobox_table > * {
+   border: 2px solid red;
+   background-color: green; 	
+}
+
+.item_manage_group{
+	margin: 10px;
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+}
+.item_manage_group > * {
+	width: 20%;
+	margin: 15px
+}
