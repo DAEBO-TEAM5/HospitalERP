@@ -10,7 +10,8 @@
 </head>
 <body>
 <a href="main.do">MainPage</a>
- <a href="login.do">Login</a>
+<a href="item.do">itemPage</a>
+<a href="login.do">Login</a>
 <%
 	try{
 
@@ -23,6 +24,7 @@
 	}
 %>
 <a href="history.do">MainPage</a>
+
 </body>
 </html>
 
