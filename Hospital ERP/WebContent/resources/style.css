@@ -13,12 +13,13 @@
 .container-fluid {
    height: 100vh;
    border: 1px solid black;
+   padding: 0px;
 }
 .col-md-3 {
    height: 100%;
    /* border: 1px solid red; */
 }
-.vr {
+.vr {   /*  지울거    */
    currentColor: blue;
    color: black;
 
@@ -30,3 +31,22 @@
    border: 1px solid black;
    height: 100%;
 }
+
+.info {
+	background-color: #F0F0F0;
+}
+
+.leftinfo {
+	border: 1px solid green;
+	height: 100%;
+	background-color: #BEBEBE;
+}
+
+table, th, tr, td {
+	border: 1px solid black;
+}
+
+#button-right {
+	float: right;
+}
+

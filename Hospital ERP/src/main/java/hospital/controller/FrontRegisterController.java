@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import hospital.action.Action;
 import hospital.action.ActionForward;
+import hospital.service.HospitalWaitingInfoService;
+import hospital.service.HospitalWaitingListService;
 
 
 
@@ -41,6 +43,17 @@ public class FrontRegisterController extends HttpServlet {
     		forward = new ActionForward();
     		forward.setRedirect(false);
     		forward.setPath("/WEB-INF/views/main/main.jsp");
+
+    	}
+    	else if(urlcommand.equals("/main2.do")) {
+    		//UI 제공 (서비스 객체가 필요없다)
+    		forward = new ActionForward();
+    		forward.setRedirect(false);
+    		forward.setPath("/WEB-INF/views/main/mainIndex.jsp");
+    		action = new HospitalWaitingListService();
+    		forward = action.execute(request, response);
+    		//action = new HospitalWaitingInfoService();
+    		//forward = action.execute(request, response);
 
     	}
     	

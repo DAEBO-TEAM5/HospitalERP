@@ -8,5 +8,6 @@
 </head>
 <body>
 <a href="main.do">MainPage</a>
+<a href="main2.do">만드는거</a>
 </body>
 </html>
