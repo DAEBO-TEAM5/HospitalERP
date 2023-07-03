@@ -11,7 +11,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 public class ConnectionHelper {
-	public static Connection getConnection() {
+	public static Connection getConnection(String string) {
 		
 			try {
 					Context context = new InitialContext();
