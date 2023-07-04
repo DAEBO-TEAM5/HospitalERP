@@ -81,6 +81,12 @@ public class FrontRegisterController extends HttpServlet {
     		//action = new HospitalWaitingInfoService();
     		//forward = action.execute(request, response);
 
+    	}else if(urlcommand.equals("/waitinginfo.do")) {
+    		//forward = new ActionForward();
+    		System.out.println("waitinginfo-----------");
+    		action = new HospitalWaitingInfoService();
+    		forward = action.execute(request, response);
+
     	}
     	
     	if(forward != null) {
