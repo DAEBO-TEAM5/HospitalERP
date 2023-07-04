@@ -18,7 +18,7 @@ public class PatientDao {
 	DataSource ds = null;
 	public PatientDao() throws NamingException {
 		Context context = new InitialContext();
-		ds = (DataSource)context.lookup("java:comp/env/jdbc/");
+		ds = (DataSource)context.lookup("java:comp/env/jdbc/HospitalDB");
 	}
 	
 	public ArrayList<String> getWaitingInfo(int num) {
