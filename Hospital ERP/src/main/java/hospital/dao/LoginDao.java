@@ -2,12 +2,39 @@ package hospital.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import hospital.utils.ConnectionHelper;
 import hospital.vo.LoginVO;
 
 public class LoginDao {
+
+	public int loginCheck(String id, String pwd) {
+		int ret = -1;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			conn = ConnectionHelper.getConnection();
+			String sql = "SELECT COUNT(*) FROM LOGIN WHERE ID = ? AND PWD = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, pwd);
+
+			rs = pstmt.executeQuery();
+			rs.next();
+
+			ret = rs.getInt(1);
+			System.out.println(ret);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionHelper.close(pstmt);
+			ConnectionHelper.close(conn);
+		}
+		return ret;
+	}
 
 	public int login(LoginVO vo) {
 		Connection conn = null;
@@ -27,7 +54,7 @@ public class LoginDao {
 			pstmt.setString(7, vo.getAddress());
 
 			resultrow = pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
