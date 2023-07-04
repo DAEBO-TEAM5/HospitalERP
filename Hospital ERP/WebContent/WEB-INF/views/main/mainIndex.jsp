@@ -24,7 +24,8 @@
  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- 부트스트랩 -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> <!-- 부트스트랩 -->
-  <link href="${pageContext.request.contextPath }/resources/style.css?after" rel="stylesheet"> <!-- 사용자css -->
+
+  <link href="${pageContext.request.contextPath }/resources/main.css" rel="stylesheet"> <!-- 사용자css -->
   <script src="https://code.jquery.com/jquery-3.7.0.js"></script> <!-- Jquery -->
   <script src="https://kit.fontawesome.com/d7766e5822.js" crossorigin="anonymous"></script> <!-- fontawesome  -->
 
@@ -56,32 +57,7 @@ table, th, tr, td {
 }
 </style>
  -->
- <script type="text/javascript">
-/*  function loadInfo() {
-	 var num = $("listinfo");
-	request.setAttribute("num", num});
-} */
- 
-<%--  $('#listinfo').click(function() {
-	var info = this.val();
-	console.log(var);
-	 $.ajax({
-		 type: 'POST',
-		 url: "<%=request.getContextPath()%>/Hospital.do",
-		 data : {"" : },
-		 success : function(data) {
-				var as = eval(data);  
-				alert("data : " + as[0] + "/ " + as[1]);
-			},
-		error : function(msg, error) {
-				alert(error);
-			}
-		 
-	 });
-	 
- }); --%>
- 
- </script>
+
  
 </head>
 <body>
@@ -108,7 +84,7 @@ table, th, tr, td {
 				
 				<div class="list-group">
 					<c:forEach var="waitlist" items="${ list }">
-						<button type="button" class="list-group-item list-group-item-action" id="listinfo" onclick=""> ${waitlist.name} / ${waitlist.sex} / ${waitlist.birth}</button>
+						<button type="button" class="list-group-item list-group-item-action" id="listinfo" value="${ waitlist.num }"> ${waitlist.name} / ${waitlist.sex} / ${waitlist.birth}</button>
 					</c:forEach>
 				</div>
 				
@@ -119,12 +95,12 @@ table, th, tr, td {
 			<!-- <div class="verticalLine"></div> -->
 
 			<div class="col-md-4"  style="border-right: 1px solid black;">
-				<h3>환자 이름</h3>
+				<h3 id="patientName" class="loadInfo"></h3>
 				<div> 
 					<!-- 환자 정보 load -->
-					생년월일 주소 나이 성별 전화번호
-					<div style="background-color: lightgrey;"> 접수 메모 <br>
-						<textarea class="form-control"></textarea>
+					<span id="patientinfo" class="loadInfo"></span>
+					<div id="patientMemo"> 접수 메모 <br>
+						<div class="form-control" id="jupsu" readonly="readonly"></div>
 					</div>
 				</div>
 				
@@ -133,7 +109,7 @@ table, th, tr, td {
 				
 				
 				<br><br><br>
-				<div style="border-top: 1px solid black">
+				<div style="border-top: 1px solid black" id="hLine">
 				<div class="container text-center">
       <div class="row">
         <div class="col-sm-4  gap-2 col-6 mx-auto">
@@ -222,7 +198,7 @@ table, th, tr, td {
           		<label>처방주의약품</label>
           		<textarea class="form-control" ></textarea>
           		</div>
-          		
+          		<br>
 				<input type="reset" id="button-right" value = "작성 취소">
           		<input type="submit" id="button-right" value = "작성 완료">
           		
@@ -230,7 +206,6 @@ table, th, tr, td {
           		
 			</div>
 
-			<!-- <div class="vr"></div> -->
 
 			<div class="col-md-2">
 			
@@ -243,6 +218,42 @@ table, th, tr, td {
 
 </div>
 
+
+<script type="text/javascript">
+
+ $(document).on('click', '#listinfo', function(){	 
+	 var info = $(this).val();
+	 console.log(info);
+	 console.log('clicked');
+	 
+	 $.ajax({
+		 type: 'get',
+		 url: "./waitinginfo.do",
+		 data : {num: info },
+		 success : patientInfo,
+		error : function(msg, error) {
+				alert(error);
+			}
+		 
+	 });
+}); 
+ 
+function patientInfo(data){
+				
+	var obj = JSON.parse(data);
+	var str = "";
+	str += obj.name+" / ";
+	str += obj.birth+" / ";
+	str += obj.sex;
+	console.log(str);
+	
+	$('#patientName').html(obj.name);
+	$('#patientinfo').html(str);
+	$('#jupsu').html(obj.symptom);
+}
+
+
+</script>
 
 
 </body>
