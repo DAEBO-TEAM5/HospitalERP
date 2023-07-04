@@ -5,8 +5,8 @@
    background-color: white;
    border-radius: 5px;
    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
-   margin: 5px; 
-   padding: 10px;
+   margin: 0px; 
+   padding: 0px;
    height: 500px;
    width: 100%;
 }
@@ -18,6 +18,16 @@
    border: 2px solid red;
    background-color: green; 	
 }
+.item_btn_click{
+	background-color: #00AAFF;
+	width: 250px;
+	margin: 30px 5px 15px 30px;
+}
+.item_btn_nonclick{
+	background-color: grey;
+	width: 250px;
+	margin: 30px 10px 15px 5px;
+}
 
 .item_manage_group{
 	margin: 10px;
@@ -28,4 +38,13 @@
 .item_manage_group > * {
 	width: 20%;
 	margin: 15px
+}
+.item_checkbox{
+	text-align: right;
+	margin: 10px 40px 10px 10px;
+}
+.item_table_main{
+	border:2px solid red;
+	width: 1050px;
+	margin: 15px 20px 15px 20px;
 }

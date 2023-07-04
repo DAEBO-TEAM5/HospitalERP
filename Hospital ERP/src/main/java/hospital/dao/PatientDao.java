@@ -11,6 +11,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import hospital.utils.ConnectionHelper;
 import hospital.vo.PatientVO;
 
 public class PatientDao {
@@ -18,7 +19,7 @@ public class PatientDao {
 	DataSource ds = null;
 	public PatientDao() throws NamingException {
 		Context context = new InitialContext();
-		ds = (DataSource)context.lookup("java:comp/env/jdbc/oracle");
+		ds = (DataSource)context.lookup("java:comp/env/jdbc/HospitalDB");
 	}
 	
 	public ArrayList<String> getWaitingInfo(int num) {
@@ -26,25 +27,30 @@ public class PatientDao {
 		ArrayList<String> list = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		try {
 			conn = ds.getConnection();
-			//String sql = "select p.num, p.name, p.birth, p.sex, w.symptom from patient join wait w on p.num = ?";
-			String sql = "select p.num, p.name, p.birth, p.sex, w.symptom from patient join wait w on p.num = ?";
+			//String sql = "select p.num, p.name, p.birth, p.sex, w.symptom from patient p join wait w on p.num = ?";
+			String sql = "select p.num, p.name, p.birth, p.sex, w.symptom from patient p join wait w on p.num = w.num where p.num = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			
-			ResultSet rs = pstmt.executeQuery();
+			rs = pstmt.executeQuery();
 			rs.next();
 			System.out.println("rs info ::::"+ rs.getString("name"));
 			list.add(Integer.toString( rs.getInt("num")));
 			list.add(rs.getString("name"));
-			list.add("birth");
-			list.add("sex");
-			list.add("symptom");
+			list.add(rs.getString("birth"));
+			list.add(rs.getString("sex"));
+			list.add(rs.getString("symptom"));
 			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			ConnectionHelper.close(rs);
+			ConnectionHelper.close(pstmt);
+			ConnectionHelper.close(conn);
 		}
 		
 		return list;
@@ -82,6 +88,9 @@ public class PatientDao {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			ConnectionHelper.close(pstmt);
+			ConnectionHelper.close(conn);
 		}
 		
 		return list;

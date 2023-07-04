@@ -42,4 +42,19 @@ public class HospitalDao {
 		}
 		return null;
 	}
+	
+	
+	
+	
+	public void insertHistory() {
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
 }

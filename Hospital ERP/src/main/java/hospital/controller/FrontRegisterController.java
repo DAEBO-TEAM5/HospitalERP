@@ -14,8 +14,8 @@ import hospital.action.ActionForward;
 
 import hospital.service.HospitalWaitingInfoService;
 import hospital.service.HospitalWaitingListService;
+import hospital.service.LoginOkServiceAction;
 import hospital.service.SearchServiceAction;
-
 
 @WebServlet("*.do")
 public class FrontRegisterController extends HttpServlet {
@@ -44,10 +44,16 @@ public class FrontRegisterController extends HttpServlet {
     		forward.setPath("/WEB-INF/views/main/main.jsp");
 
     	}else if(urlcommand.equals("/login.do")) { 
+    		System.out.println("여기는옴");
     		forward = new ActionForward();
     		forward.setRedirect(false);
     		forward.setPath("/WEB-INF/views/login/login.jsp");
-
+    		
+    	}else if(urlcommand.equals("/loginok.do")) { 
+    		System.out.println("여기는?");
+    		action = new LoginOkServiceAction();
+    		forward = action.execute(request, response); 
+    	
     	}else if(urlcommand.equals("/history.do")) {
     		forward = new ActionForward();
     		forward.setRedirect(false);
@@ -74,6 +80,12 @@ public class FrontRegisterController extends HttpServlet {
     		forward = action.execute(request, response);
     		//action = new HospitalWaitingInfoService();
     		//forward = action.execute(request, response);
+
+    	}else if(urlcommand.equals("/waitinginfo.do")) {
+    		//forward = new ActionForward();
+    		System.out.println("waitinginfo-----------");
+    		action = new HospitalWaitingInfoService();
+    		forward = action.execute(request, response);
 
     	}
     	

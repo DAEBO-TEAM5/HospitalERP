@@ -1,0 +1,85 @@
+@charset "utf-8";
+
+#title{
+	background-color: #00AAFF;
+	line-height: 50px;
+}
+.title-a{
+	text-decoration: none;
+	font-size: 25px;
+	color: white;
+	font-weight: bold;
+}
+.container-fluid {
+   height: 100vh;
+   padding: 0px;
+}
+.col-md-3 {
+   height: 100%;
+   /* border: 1px solid red; */
+}
+.vr {   /*  지울거    */
+   currentColor: blue;
+   color: black;
+
+   width: 0.2px;
+   font-size: 10px;
+}
+.verticalLine {
+   width: 0.2px;
+   border: 1px solid black;
+   height: 100%;
+}
+
+.info {
+	background-color: #F0F0F0;
+}
+
+.leftinfo {
+	
+	height: 100%;
+	background-color: #BEBEBE;
+}
+
+table, th, tr, td {
+	border: 1px solid black;
+}
+
+#button-right {
+	float: right;
+}
+
+.history {
+	width: 100%;
+}
+
+.loadInfo {
+	display: inline-block;
+	height: 30px;
+}
+
+#patientMemo {
+	width: 90%;
+	
+	background-color: lightgrey;
+	text-align: center;
+	height: 150px;
+	padding: 5px 0px;
+}
+
+
+#jupsu {
+	width: 95%;
+	height: 100px;
+	background-color: white;
+	display: inline-block;
+
+	align-items: center;
+	border-radius: 10px;
+	text-align: center;
+	vertical-align: center;
+}
+
+#hLine {
+	clear: both;
+}

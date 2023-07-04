@@ -8,7 +8,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- 부트스트랩 -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> <!-- 부트스트랩 -->
   <link href="${pageContext.request.contextPath }/resources/style.css?after" rel="stylesheet"> <!-- 사용자css -->
-  <link href="${pageContext.request.contextPath }/resources/style.css?after" rel="stylesheet"> <!-- 사용자css -->
+  <link href="${pageContext.request.contextPath }/resources/item.css?after" rel="stylesheet"> <!-- 사용자css -->
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script> <!-- Jquery -->
   <script src="https://kit.fontawesome.com/d7766e5822.js" crossorigin="anonymous"></script> <!-- fontawesome  -->
 <title>재고 관리</title>
@@ -35,22 +35,22 @@
             		<div class="form-group">
             			<div class="item_manage_memobox">왜 안나올까
             			<table class="item_manage_memobox_table">
-	            			<tr><th>번호</th></tr><br>
-	            			<tr><th>제품명</th></tr><br>
-	            			<tr class="item_manage_memobox_table"><td>재고</td></tr><br>
-	            			<tr class="item_manage_memobox_table"><td>재고수량</tr><br>
-	            			<tr class="item_manage_memobox_table"><td>메모<td></tr><br>
-	            			<tr class="item_manage_memobox_table"><td>메모내용<td></tr><br>
+	            			<tr><th>번호</th></tr>
+	            			<tr><th>제품명</th></tr>
+	            			<tr><td>재고</td></tr>
+	            			<tr><td>재고수량</tr>
+	            			<tr><td>메모<td></tr>
+	            			<tr><td>메모내용<td></tr>
             			</table>
             			</div>
             		</div>
             		<div style="border:3px solid pink; padding 10px;">이건 나오니?</div>
          		</div> <!-- 아래왼쪽섹션 -->
          	
-         		<div class="col-md-10" style ="background-color:skyblue;">
+         		<div class="col-md-10" style ="background-color:white;">
          			<div>
-         				<button type="button" class="btn text-white" style="background-color: #00AAFF;">품목 관리</button>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-         				<button type="button" class="btn text-white" style="background-color: grey;">재고 관리</button><br>
+         				<button type="button" class="btn text-white item_btn_click" >품목 관리</button>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+         				<button type="button" class="btn text-white item_btn_nonclick" >재고 관리</button><br>
          			</div>
          			<div class="item_manage_group">
 	         			<select class="form-select" >
@@ -67,13 +67,12 @@
 						</select>
          				<input type="search"  placeholder="품명 검색">  <!-- 돋보기 아이콘도 넣기 -->
          			</div>
-         			<div>
+         			<div class="item_checkbox">
 	        			<input type="checkbox"> 재고가 5개 이하인 품목만 표시
-	        			<input type="checkbox"> 엥 왜안돼
         			</div>
 
 					<div>
-		        		<table border="2" width="1000"> <!-- tr th td border, solid, border-collapse: collapse; -->
+		        		<table class="item_table_main"> <!-- tr th td border, solid, border-collapse: collapse; -->
 							<tr>
 								<th>번호</th>
 								<th>품명</th>
@@ -93,7 +92,7 @@
 								<td>7 </td>
 							</tr>
 							<tr>
-								<td>1 </td>
+								<td>2-1 </td>
 								<td>2 </td>
 								<td>3 </td>
 								<td>4 </td>
@@ -101,6 +100,43 @@
 								<td>6 </td>
 								<td>7 </td>
 							</tr>
+							<tr>
+								<td>3-1 </td>
+								<td>2 </td>
+								<td>3 </td>
+								<td>4 </td>
+								<td>5 </td>
+								<td>6 </td>
+								<td>7 </td>
+							</tr>
+							<tr>
+								<td>4-1 </td>
+								<td>2 </td>
+								<td>3 </td>
+								<td>4 </td>
+								<td>5 </td>
+								<td>6 </td>
+								<td>7 </td>
+							</tr>
+							<tr>
+								<td>5-1 </td>
+								<td>2 </td>
+								<td>3 </td>
+								<td>4 </td>
+								<td>5 </td>
+								<td>6 </td>
+								<td>7 </td>
+							</tr>
+							<tr>
+								<td>6-1 </td>
+								<td>2 </td>
+								<td>3 </td>
+								<td>4 </td>
+								<td>5 </td>
+								<td>6 </td>
+								<td>7 </td>
+							</tr>
+							
 		        		</table>
 	        		</div>
 	        		
