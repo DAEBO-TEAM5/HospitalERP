@@ -15,13 +15,13 @@ import hospital.action.ActionForward;
 import hospital.dao.HospitalDao;
 import hospital.vo.patientRecordVO;
 
-public class SearchServiceAction implements Action{
+public class InfoServiceAction implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		
-		String name = request.getParameter("name");
-		System.out.println(name);
+		String name = request.getParameter("name"); //환자 번호로 바꿔야함
+		System.out.println("여기는 환자 상세정보 page " + name);
 		HospitalDao dao = new HospitalDao();
 		List<patientRecordVO> list = dao.searchOK(name);
 		

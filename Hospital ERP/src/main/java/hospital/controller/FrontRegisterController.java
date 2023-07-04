@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import hospital.action.Action;
 import hospital.action.ActionForward;
-
 import hospital.service.HospitalWaitingInfoService;
 import hospital.service.HospitalWaitingListService;
+import hospital.service.InfoServiceAction;
 import hospital.service.LoginOkServiceAction;
 import hospital.service.SearchServiceAction;
 
@@ -22,9 +22,7 @@ public class FrontRegisterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     
-    public FrontRegisterController() {
-        // TODO Auto-generated constructor stub
-    }
+    public FrontRegisterController() {}
     
     private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
@@ -60,8 +58,11 @@ public class FrontRegisterController extends HttpServlet {
     		forward.setPath("/WEB-INF/views/main/history.jsp");
 
     	}else if(urlcommand.equals("/patientsearch.do")) {
-    		System.out.println("여기왔다");
     		action = new SearchServiceAction();
+    		action.execute(request, response);
+    		
+    	}else if(urlcommand.equals("/patientinfo.do")) {
+    		action = new InfoServiceAction();
     		action.execute(request, response);
     	}
     	

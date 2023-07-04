@@ -50,27 +50,15 @@
 
 
          		<div class="col-md-4"  style="border-right: 1px solid black;">
-            		<form role="form">
-               			<div class="form-group">
-
-                  			환자이름
-               			</div>
-               			<div class="form-group">
-
-                  			이름,나이,성별
-              			</div>
-               			<div class="form-group">
-
-                  			<label for="exampleInputFile"> File input </label> <input type="file" class="form-control-file" id="exampleInputFile" />
-                 			<p class="help-block">Example block-level help text here.</p>
-               			</div>
-               			<div class="checkbox">
-
-                  			<label> <input type="checkbox" /> Check me out</label>
-               			</div>
-               				<button type="submit" class="btn btn-primary">Submit</button>
-            		</form>
-            
+            		환자이름 <br>
+            		생년월일/주소/나이/성별/전화번호<br>
+            		<div style="border-bottom: 1px solid black; height: 25%;">
+	            		<div class="row" style=" background-color: lightgrey; margin-left: 50px; margin-right: 20px; height: 100%; border: 10px">
+	            		접수메모 (특이사항)
+	            		<textarea id="text" readonly= "readonly" cols="30" rows="7" onclick="this.select()" onfocus="this.select()" class="form-control"> 내용이 들어갑니다. </textarea>
+            			</div>
+            		</div>
+            		안녕하세요
          		</div>
 
 
@@ -101,9 +89,7 @@
 
 <script type="text/javascript">
 $(function() {
-	var str = "";
 	$('#patient_search').click(function(){
-			console.log($('#search').val());
 			$.ajax({	
 				url: "./patientsearch.do",
 				type: "post",
@@ -118,14 +104,37 @@ $(function() {
 function successFunc(data){
 	var str = "";
 	var obj = JSON.parse(data);
-	console.log(obj.list[0].doctor);
-	str += obj.list[0].doctor + "<br>";
-	str += obj.list[0].disease + "<br>";
+	console.log(obj.list.length)
+	for(var i =0; i< obj.list.length; i++){
+		str += "<div class='result_set'>"
+		str += "<span class = name>" + obj.list[i].doctor + "</span><br>";
+		str += obj.list[i].disease + "<br>";
+		str += "</div>"
+	}
+	
 	$('#open').html(str);
 }
 function errFunc(e){
 	alert("검색결과가 없습니다.");
 }
+$(function(){
+	$(document).on("click", ".result_set", function (e){
+		$.ajax({	
+			url: "./patientinfo.do",
+			type: "post",
+			data : { name: $(this).find(".name").text()},
+			success: function(data){
+				console.log(data)
+			},
+			error: function(){
+				console.log('통신실패!!!')
+			}
+		});
+		
+		
+		$(this).css("background-color", "pink");
+	});
+});
 </script>
 
 </body>
