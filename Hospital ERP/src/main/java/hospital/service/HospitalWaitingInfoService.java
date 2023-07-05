@@ -50,7 +50,7 @@ public class HospitalWaitingInfoService implements Action{
 			e.printStackTrace();
 		} 
 		
-		return forward;
+		return null;
 	}
 
 

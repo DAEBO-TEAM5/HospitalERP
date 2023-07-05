@@ -11,16 +11,6 @@
 <title>Insert title here</title>
 
 
-<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
-
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
- -->
  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- 부트스트랩 -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> <!-- 부트스트랩 -->
@@ -30,35 +20,6 @@
   <script src="https://kit.fontawesome.com/d7766e5822.js" crossorigin="anonymous"></script> <!-- fontawesome  -->
 
 
-<!-- 
-<style type="text/css">
-.container-fluid {
-	height: 100vh;
-	border: 1px solid black;
-}
-.col-md-3 {
-	height: 100%;
-	/* border: 1px solid red; */
-}
-.vr {
-	currentColor: blue;
-	color: black;
-
-	width: 0.2px;
-	font-size: 10px;
-}
-.verticalLine {
-	width: 0.2px;
-	border: 1px solid black;
-	height: 100%;
-}
-table, th, tr, td {
-	border: 1px solid black;
-}
-</style>
- -->
-
- 
 </head>
 <body>
 <div class="container-fluid">
@@ -82,12 +43,12 @@ table, th, tr, td {
 				
 				
 				
-				<div class="list-group">
+				<div class="list-group" id="waitList">
 					<c:forEach var="waitlist" items="${ list }">
 						<button type="button" class="list-group-item list-group-item-action" id="listinfo" value="${ waitlist.num }"> ${waitlist.name} / ${waitlist.sex} / ${waitlist.birth}</button>
 					</c:forEach>
 				</div>
-				
+				<button type='button' value=123>1231</button>
 				
 				<input type="button" value="등록" id="button-right">
 			</div>
@@ -153,31 +114,7 @@ table, th, tr, td {
     </div>
 				
 				</div>
-				
-				<!-- <form role="form">
-					<div class="form-group">
 
-						<label for="exampleInputEmail1"> Email address </label> <input
-							type="email" class="form-control" id="exampleInputEmail1" />
-					</div>
-					<div class="form-group">
-
-						<label for="exampleInputPassword1"> Password </label> <input
-							type="password" class="form-control" id="exampleInputPassword1" />
-					</div>
-					<div class="form-group">
-
-						<label for="exampleInputFile"> File input </label> <input
-							type="file" class="form-control-file" id="exampleInputFile" />
-						<p class="help-block">Example block-level help text here.</p>
-					</div>
-					<div class="checkbox">
-
-						<label> <input type="checkbox" /> Check me out
-						</label>
-					</div>
-					<button type="submit" class="btn btn-primary">Submit</button>
-				</form> -->
 				
 			</div>
 
@@ -197,6 +134,31 @@ table, th, tr, td {
           		
           		<label>처방주의약품</label>
           		<textarea class="form-control" ></textarea>
+          		
+          		<div class="form-group" style="">
+          			<label> < 처방전 > </label>
+          			
+          			<select id="addMed" class="form-control" >
+          				
+          			</select>
+          			<select id="medUsage">
+          				<option value=1>1</option>
+          				<option value=2>2</option>
+          				<option value=3>3</option>
+          				<option value=4>4</option>
+          				<option value=5>5</option>
+          				<option value=6>6</option>
+          			</select>
+          			<input class="btn btn-primary" type="button" value="+" onclick="prescriptionList();">
+          		</div>
+          		<div> 
+          			<table id="result_med">
+          				<th>약품명</th>
+          				<th>처방량</th>
+          			</table>
+          		</div>
+          		
+          		
           		</div>
           		<br>
 				<input type="reset" id="button-right" value = "작성 취소">
@@ -220,6 +182,69 @@ table, th, tr, td {
 
 
 <script type="text/javascript">
+
+$(document).ready(function(){
+	$.ajax({
+		type: 'get',
+		url: "./mainWaitList.do",
+		success : waitListFunc,
+		error: errFunc
+	});
+});
+
+/* $(function(){
+	$.ajax({
+		type: 'get',
+		url: "./mainWaitList.do",
+		success : waitListFunc,
+		error: errFunc
+	});
+}); */
+
+function waitListFunc(data){
+	console.log("함수실행됨");
+	var obj = JSON.parse(data);
+	console.log(obj);
+	console.log(obj.waitList[1]);
+	
+	for(var k in obj.waitList){
+		var num = obj.waitList[k].num;
+		var name = obj.waitList[k].name;
+		var birth = obj.waitList[k].birth;
+		var sex = obj.waitList[k].sex;
+		//console.log(name);
+		//var test = "<button id ='child' value='1234'>버튼</button>";
+		//$('#waitList').append(test);
+		var waitList = "<button class='list-group-item list-group-item-action' id='listinfo' value='" + num + "'>"+ name +" / "+ sex+" / "+ birth+ "</button>";
+		$('#waitList').append(waitList);
+	//console.log(waitList);
+	}
+
+	
+}
+
+$(function(){
+	$.ajax({
+		type: 'get',
+		url: "./mainMedList.do",
+		success : medListFunc,
+		error: errFunc
+	});
+});
+
+function medListFunc(data){
+	console.log("약품리스트 불러오기");
+	var obj = JSON.parse(data);
+	console.log(obj);
+	
+	for(var k in obj.list){
+		var m_name = obj.list[k].m_name;
+		var m_code = obj.list[k].m_code;
+		//console.log(m_name);
+		var selectOption = "<option  value='" + m_code + "'>" + m_name + "</option>";
+		$('#addMed').append(selectOption);
+	}
+}
 
  $(document).on('click', '#listinfo', function(){	 
 	 var info = $(this).val();
@@ -251,6 +276,38 @@ function patientInfo(data){
 	$('#patientinfo').html(str);
 	$('#jupsu').html(obj.symptom);
 }
+
+function errFunc(msg, error){
+	alert(error);
+}
+
+
+/* function handleOnChange(e) {
+	  // 선택된 데이터의 텍스트값 가져오기
+	  const text = e.options[e.selectedIndex].text;
+	  
+	  console.log(e.options);
+	  
+	  // 선택한 텍스트 출력
+	  document.getElementById('result').innerText
+	    += text;
+	} */
+	
+function prescriptionList() {
+
+	  var m_name = document.getElementById("addMed");
+	  var m_nameT = m_name.options[m_name.selectedIndex].text;
+	  
+	  var usage = document.getElementById("medUsage");
+	  var usageT = usage.options[usage.selectedIndex].text;
+	  
+	 
+	  
+	  var med_table = "<tr>  <td>  "+m_nameT+"</td> <td> " + usageT + "</td> </tr>";
+	  $('#result_med').append(med_table);
+	  
+	  
+	}
 
 
 </script>
