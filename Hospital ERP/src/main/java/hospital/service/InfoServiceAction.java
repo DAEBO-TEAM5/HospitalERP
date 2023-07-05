@@ -1,7 +1,6 @@
 package hospital.service;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,9 +20,11 @@ public class InfoServiceAction implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		
 		String name = request.getParameter("name"); //환자 번호로 바꿔야함
+		String phone = request.getParameter("phone");
 		System.out.println("여기는 환자 상세정보 page " + name);
+		System.out.println("여기는 환자 상세정보 page " + phone);
 		HospitalDao dao = new HospitalDao();
-		List<patientRecordVO> list = dao.searchOK(name);
+		List<patientRecordVO> list = dao.infoSearch(name,phone);
 		
 		
 		JSONObject sendObject = new JSONObject();
@@ -31,13 +32,26 @@ public class InfoServiceAction implements Action{
 		JSONObject jobj = null;
 		for(int i =0; i < list.size(); i++) {
 			jobj = new JSONObject();
-			jobj.put("disease", list.get(i).getDisease());
-			jobj.put("doctor", list.get(i).getDoctor());
+			jobj.put("num", list.get(i).getNum());
+			jobj.put("name", list.get(i).getName());
+			jobj.put("birth", list.get(i).getBirth());
+			jobj.put("phone", list.get(i).getPhone());
+			jobj.put("address", list.get(i).getAddress());
+			jobj.put("sex", list.get(i).getSex());
+			jobj.put("note", list.get(i).getNote());
+			jobj.put("r_date", list.get(i).getR_date());
+			jobj.put("r_ban", list.get(i).getR_ban());
+			jobj.put("r_d_code", list.get(i).getR_d_code());
+			jobj.put("symptom", list.get(i).getSymptom());
+			jobj.put("p_amount", list.get(i).getP_amount());
+			jobj.put("p_pay", list.get(i).getP_pay());
+			jobj.put("p_r_num", list.get(i).getP_r_num());
+			
 			sendArray.add(jobj);
 		}
 		
-		sendObject.put("list", sendArray);
-		System.out.println(sendObject);
+		sendObject.put("info", sendArray);
+		
 		try {
 			response.setContentType("application/text; charset=utf-8");
 			response.getWriter().print(sendObject);

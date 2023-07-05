@@ -50,15 +50,27 @@
 
 
          		<div class="col-md-4"  style="border-right: 1px solid black;">
+         			<div class="patientInfo">
             		환자이름 <br>
             		생년월일/주소/나이/성별/전화번호<br>
+            		</div>
             		<div style="border-bottom: 1px solid black; height: 25%;">
 	            		<div class="row" style=" background-color: lightgrey; margin-left: 50px; margin-right: 20px; height: 100%; border: 10px">
 	            		접수메모 (특이사항)
 	            		<textarea id="text" readonly= "readonly" cols="30" rows="7" onclick="this.select()" onfocus="this.select()" class="form-control"> 내용이 들어갑니다. </textarea>
             			</div>
             		</div>
-            		안녕하세요
+            		<div>
+            			<div class="box1"></div>
+            		<div class="box2">
+            		지난진료기록<br>
+            		증상
+	            		<textarea id="disease" readonly= "readonly" cols="10" rows="7" onclick="this.select()" onfocus="this.select()" class="form-control"> 증상 내용 </textarea>
+	            	병명
+	            		<textarea id="medicine" readonly= "readonly" cols="10" rows="7" onclick="this.select()" onfocus="this.select()" class="form-control"> 병명내용 </textarea>
+            		</div>
+            		</div>
+            		
          		</div>
 
 
@@ -100,15 +112,16 @@ $(function() {
 		
 	});
 });
-
+var temp;
 function successFunc(data){
 	var str = "";
 	var obj = JSON.parse(data);
 	console.log(obj.list.length)
 	for(var i =0; i< obj.list.length; i++){
 		str += "<div class='result_set'>"
-		str += "<span class = name>" + obj.list[i].doctor + "</span><br>";
-		str += obj.list[i].disease + "<br>";
+		str += "<span class = 'name'>" + obj.list[i].name + "</span><br>";
+		str += obj.list[i].birth + "<br>";
+		str += "<span class = 'phone'>" + obj.list[i].phone + "</span><br>";
 		str += "</div>"
 	}
 	
@@ -122,17 +135,42 @@ $(function(){
 		$.ajax({	
 			url: "./patientinfo.do",
 			type: "post",
-			data : { name: $(this).find(".name").text()},
-			success: function(data){
-				console.log(data)
+			data : { name: $(this).find(".name").text(),
+				phone: 	$(this).find(".phone").text()
 			},
+			success: infoFunc,
 			error: function(){
 				console.log('통신실패!!!')
 			}
 		});
-		
-		
 		$(this).css("background-color", "pink");
+	});
+});
+function infoFunc(data){
+	var obj = JSON.parse(data);
+	temp = obj;
+	var info_str = "";
+	info_str += obj.info[0].name + "<br>";
+	info_str += obj.info[0].birth + "/" + obj.info[0].address + "/"+  obj.info[0].sex + "/" + obj.info[0].phone;
+	$('.patientInfo').html(info_str);
+	$('#text').html(obj.info[0].note);
+	var str = "";
+	for(var i =0; i < obj.info.length; i++){
+		str += "<button class='btn btn-primary'>" + obj.info[i].record_date + "</button> <br>"
+	}
+	$('.box1').html(str);
+}
+$(function(){
+	$(document).on("click", ".box1 > button", function (e){
+		var str = "";
+		for(var i =0; i < temp.info.length; i++){
+			if(temp.info[i].record_date === $(this).text()){
+				str += temp.info[i].doctor + "<br>";
+				str += temp.info[i].disease + "/" + temp.info[i].medicine + "/"+  temp.info[i].record_date;
+			}
+		}
+		$('.patientInfo').html(str);
+		$('#text').html(str + "내용으로 바뀜");
 	});
 });
 </script>
