@@ -16,17 +16,17 @@ public class LoginOkServiceAction implements Action {
 		
 		ActionForward ret = new ActionForward();
 
-	      String id = request.getParameter("username");
-	      String pwd = request.getParameter("password");
-	      System.out.println("됨?"+ id+pwd);
+	      String h_id = request.getParameter("username");
+	      String h_pwd = request.getParameter("password");
+	      System.out.println("됨?"+ h_id+h_pwd);
 
 	      LoginDao dao = new LoginDao();
-	      boolean isLogin = dao.loginCheck(id, pwd) > 0;
+	      boolean isLogin = dao.loginCheck(h_id, h_pwd) > 0;
 	      
 	      if (isLogin) {
 	         HttpSession session = request.getSession();
-	         session.setAttribute("id", id);
-	         System.out.println(id);
+	         session.setAttribute("h_id", h_id);
+	         System.out.println(h_id);
 	         ret.setPath("main2.do");
 	      }
 	      else {

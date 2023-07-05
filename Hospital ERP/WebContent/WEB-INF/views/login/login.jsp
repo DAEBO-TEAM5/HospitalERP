@@ -3,12 +3,11 @@
 <!DOCTYPE html>
 <html>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="./resources/Login.css" rel="stylesheet" type="text/css">
 <head>
-<link rel="icon" href="${pageContext.request.contextPath }/image/hospital.png"/> <!-- //파비콘임 -->
+<link rel="icon" href="${pageContext.request.contextPath }/image/hp.png"/> <!-- //파비콘임 -->
 <meta charset="UTF-8">
 
 <title>ㅇㅇ Hospital</title>
@@ -35,7 +34,7 @@
                                 <input type="submit" name="submit" class="btn btn-info btn-md" value="로그인">
                             </div>
                             <div id="register-link" class="text-right"><br>
-                                <a href="#" class="text-info">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="SignUp.do" class="text-info">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <a href="#" class="text-info">ID/PW찾기</a>
                             </div>
                         </form>
