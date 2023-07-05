@@ -7,7 +7,6 @@
  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- 부트스트랩 -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> <!-- 부트스트랩 -->
-  <link href="${pageContext.request.contextPath }/resources/style.css?after" rel="stylesheet"> <!-- 사용자css -->
   <link href="${pageContext.request.contextPath }/resources/item.css?after" rel="stylesheet"> <!-- 사용자css -->
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script> <!-- Jquery -->
   <script src="https://kit.fontawesome.com/d7766e5822.js" crossorigin="anonymous"></script> <!-- fontawesome  -->
@@ -38,9 +37,9 @@
 	            			<tr><th>번호</th></tr>
 	            			<tr><th>제품명</th></tr>
 	            			<tr><td>재고</td></tr>
-	            			<tr><td>재고수량</tr>
-	            			<tr><td>메모<td></tr>
-	            			<tr><td>메모내용<td></tr>
+	            			<tr><td>재고수량</td></tr>
+	            			<tr><td>메모</td></tr>
+	            			<tr><td>메모내용</td></tr>
             			</table>
             			</div>
             		</div>
@@ -77,9 +76,11 @@
 								<th>번호</th>
 								<th>품명</th>
 								<th>품목코드</th>
-								<th>사용량</th>
-								<th>사용자</th>
-								<th>재고</th>
+								<th>카테고리</th>
+								<th>단위</th>
+								<th>재고량</th>
+								<th>유통기한</th>
+								<th>물품단가</th>
 								<th>비고</th>
 							</tr>
 							<tr>
@@ -90,6 +91,8 @@
 								<td>5 </td>
 								<td>6 </td>
 								<td>7 </td>
+								<td>8 </td>
+								<td>9 </td>
 							</tr>
 							<tr>
 								<td>2-1 </td>
@@ -99,6 +102,8 @@
 								<td>5 </td>
 								<td>6 </td>
 								<td>7 </td>
+								<td>8 </td>
+								<td>9 </td>
 							</tr>
 							<tr>
 								<td>3-1 </td>
@@ -108,6 +113,8 @@
 								<td>5 </td>
 								<td>6 </td>
 								<td>7 </td>
+								<td>8 </td>
+								<td>9 </td>
 							</tr>
 							<tr>
 								<td>4-1 </td>
@@ -117,6 +124,8 @@
 								<td>5 </td>
 								<td>6 </td>
 								<td>7 </td>
+								<td>8 </td>
+								<td>9 </td>
 							</tr>
 							<tr>
 								<td>5-1 </td>
@@ -126,6 +135,8 @@
 								<td>5 </td>
 								<td>6 </td>
 								<td>7 </td>
+								<td>8 </td>
+								<td>9 </td>
 							</tr>
 							<tr>
 								<td>6-1 </td>
@@ -135,6 +146,8 @@
 								<td>5 </td>
 								<td>6 </td>
 								<td>7 </td>
+								<td>8 </td>
+								<td>9 </td>
 							</tr>
 							
 		        		</table>
