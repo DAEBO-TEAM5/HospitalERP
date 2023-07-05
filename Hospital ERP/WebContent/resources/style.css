@@ -72,3 +72,15 @@ table, th, tr, td {
 #text{
 	background-color: lightgray;
 }
+.box1 {
+    float: left;
+    width: 30%;
+    height: 100px;
+}
+.box2 {
+    display: inline-block;
+    width: 60%;
+    height: 500px;
+    margin-left: 10px;
+    background-color: lightgray;
+}

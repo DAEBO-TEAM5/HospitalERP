@@ -12,15 +12,21 @@ import hospital.vo.patientRecordVO;
 
 public class HospitalDao {
 	
-	public List<patientRecordVO> searchOK(String name) {
+	public List<patientRecordVO> searchOK(String search_str, boolean check) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		try {
 			conn = ConnectionHelper.getConnection();
-			String sql = "select disease, medicine, prohibition, doctor from patient_record where doctor LIKE ?";
+			String sql = "";
+			if(check) {
+				sql = "select * from p_test where phone LIKE ?";	
+			}else {
+				sql = "select * from p_test where name LIKE ?";	
+			}
+			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1,"%"+name+"%");
+			pstmt.setString(1,"%"+search_str+"%");
 
 			ResultSet rs = pstmt.executeQuery();
 			
@@ -28,11 +34,69 @@ public class HospitalDao {
 			List<patientRecordVO> list = new ArrayList<>();
 			while(rs.next()) {
 				vo = new patientRecordVO();
-				vo.setDisease(rs.getString("disease"));
-				vo.setMedicine(rs.getString("medicine"));
-				vo.setProhibition(rs.getString("prohibition"));
-				vo.setDoctor(rs.getString("doctor"));
+				vo.setNum(rs.getInt("num"));
+				vo.setName(rs.getString("name"));
+				vo.setBirth(rs.getString("birth"));
+				vo.setPhone(rs.getString("phone"));
+				vo.setAddress(rs.getString("address"));
+				vo.setSex(rs.getString("sex"));
+				vo.setNote(rs.getString("note"));
+				vo.setR_date(rs.getString("r_date"));
+				vo.setR_ban(rs.getString("r_ban"));
+				vo.setR_d_code(rs.getString("r_d_code"));
+				vo.setSymptom(rs.getString("symptom"));
+				vo.setP_amount(rs.getInt("p_amount"));
+				vo.setP_pay(rs.getInt("p_pay"));
+				vo.setP_r_num(rs.getInt("p_r_num"));
 				list.add(vo);
+				System.out.println(vo);
+			}
+			
+			ConnectionHelper.close(rs);
+			ConnectionHelper.close(pstmt);
+			ConnectionHelper.close(conn);
+			return list;
+				
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public List<patientRecordVO> infoSearch(String name, String phone) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			conn = ConnectionHelper.getConnection();
+			String sql = "select * from p_test where name = ? and phone = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setString(2, phone);
+
+			ResultSet rs = pstmt.executeQuery();
+			
+			patientRecordVO vo = null;
+			List<patientRecordVO> list = new ArrayList<>();
+			while(rs.next()) {
+				vo = new patientRecordVO();
+				vo.setNum(rs.getInt("num"));
+				vo.setName(rs.getString("name"));
+				vo.setBirth(rs.getString("birth"));
+				vo.setPhone(rs.getString("phone"));
+				vo.setAddress(rs.getString("address"));
+				vo.setSex(rs.getString("sex"));
+				vo.setNote(rs.getString("note"));
+				vo.setR_date(rs.getString("r_date"));
+				vo.setR_ban(rs.getString("r_ban"));
+				vo.setR_d_code(rs.getString("r_d_code"));
+				vo.setSymptom(rs.getString("symptom"));
+				vo.setP_amount(rs.getInt("p_amount"));
+				vo.setP_pay(rs.getInt("p_pay"));
+				vo.setP_r_num(rs.getInt("p_r_num"));
+				list.add(vo);
+				System.out.println(vo);
 			}
 			
 			ConnectionHelper.close(rs);
