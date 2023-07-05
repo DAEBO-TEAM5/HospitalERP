@@ -1,6 +1,6 @@
-package hospital.dao;
+package hospital.vo;
 
-public class WaitDao {
+public class WaitVO {
 	private int num;
 	private String symptom;
 	public int getNum() {

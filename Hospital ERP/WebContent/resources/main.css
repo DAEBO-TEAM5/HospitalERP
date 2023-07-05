@@ -50,6 +50,7 @@ table, th, tr, td {
 }
 
 .history {
+	border: 1px solid black;
 	width: 100%;
 }
 
@@ -82,4 +83,15 @@ table, th, tr, td {
 
 #hLine {
 	clear: both;
+}
+
+#addMed {
+	
+	
+}
+
+#result_med {
+	border: 1px solid black;
+	width: 100%;
+	
 }

@@ -15,6 +15,7 @@ import hospital.service.HospitalWaitingInfoService;
 import hospital.service.HospitalWaitingListService;
 import hospital.service.InfoServiceAction;
 import hospital.service.LoginOkServiceAction;
+import hospital.service.MedicineListServiceAction;
 import hospital.service.SearchServiceAction;
 
 @WebServlet("*.do")
@@ -77,10 +78,20 @@ public class FrontRegisterController extends HttpServlet {
     		forward = new ActionForward();
     		forward.setRedirect(false);
     		forward.setPath("/WEB-INF/views/main/mainIndex.jsp");
-    		action = new HospitalWaitingListService();
-    		forward = action.execute(request, response);
-    		//action = new HospitalWaitingInfoService();
+    		//action = new HospitalWaitingListService();
     		//forward = action.execute(request, response);
+    		//action = new MedicineListServiceAction();
+    		//forward = action.execute(request, response);
+    		
+
+    	}else if(urlcommand.equals("/mainWaitList.do")) {
+    		System.out.println("mainwaitList-----대기리스트-------");
+    		action = new HospitalWaitingListService();
+    		action.execute(request, response);
+
+    	}else if(urlcommand.equals("/mainMedList.do")) {
+    		action = new MedicineListServiceAction();
+    		action.execute(request, response);
 
     	}else if(urlcommand.equals("/waitinginfo.do")) {
     		//forward = new ActionForward();
