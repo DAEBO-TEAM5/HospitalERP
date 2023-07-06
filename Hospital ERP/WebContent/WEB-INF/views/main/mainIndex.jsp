@@ -48,12 +48,9 @@
 						<button type="button" class="list-group-item list-group-item-action" id="listinfo" value="${ waitlist.num }"> ${waitlist.name} / ${waitlist.sex} / ${waitlist.birth}</button>
 					</c:forEach>
 				</div>
-				<button type='button' value=123>1231</button>
 				
 				<input type="button" value="등록" id="button-right">
 			</div>
-
-			<!-- <div class="verticalLine"></div> -->
 
 			<div class="col-md-4"  style="border-right: 1px solid black;">
 				<h3 id="patientName" class="loadInfo"></h3>
@@ -121,26 +118,14 @@
 
 			<div class="col-md-4" style="border-right: 1px solid black;">
 				<h3> 진료 기록 작성</h3>
-				<form role="form" method="post">
+				<!-- <form role="form" method="post" > -->
 					<div class="form-group">
-				<label>증상</label>
-          		<textarea class="form-control" ></textarea>
-          		
-          		<label>병명</label>
-          		<textarea class="form-control" ></textarea>
-          		
-          		<label>처방</label>
-          		<textarea class="form-control" ></textarea>
-          		
-          		<label>처방주의약품</label>
-          		<textarea class="form-control" ></textarea>
+				<label>의사 소견</label>
+          		<textarea class="form-control" name="d_note" id="d_note"></textarea>
           		
           		<div class="form-group" style="">
-          			<label> < 처방전 > </label>
-          			
-          			<select id="addMed" class="form-control" >
-          				
-          			</select>
+          			<label> < 처방약  > </label>
+          			<select id="addMed" class="form-control" ></select>
           			<select id="medUsage">
           				<option value=1>1</option>
           				<option value=2>2</option>
@@ -148,8 +133,10 @@
           				<option value=4>4</option>
           				<option value=5>5</option>
           				<option value=6>6</option>
+          				<option value=7>7</option>
           			</select>
           			<input class="btn btn-primary" type="button" value="+" onclick="prescriptionList();">
+          			<input class="btn btn-primary" type="button" value="-" onclick="prescriptionListDelete();">
           		</div>
           		<div> 
           			<table id="result_med">
@@ -159,12 +146,57 @@
           		</div>
           		
           		
+          		
+          		<div class="form-group" style="">
+          			<label> < 물리치료  > </label>
+          			
+          			<select id="addTh" class="form-control" ></select>
+          			
+          			<input class="btn btn-primary" type="button" value="+" onclick="therapyList();">
+          			<input class="btn btn-primary" type="button" value="-" onclick="therapyDelete();">
+          		</div>
+          		<div> 
+          			<table id="result_Th"> <th>물리치료 목록</th> </table>
+          		</div>
+          		
+          		
+          		
+          		<div class="form-group" style="">
+          			<label> < 진단 질병  > </label>
+          			
+          			<select id="addD" class="form-control" ></select>
+          		
+          			<input class="btn btn-primary" type="button" value="+" onclick="prescriptionList('#result_D');">
+          			<input class="btn btn-primary" type="button" value="-" onclick="prescriptionListDelete('#result_D');">
+          		</div>
+          		<div> 
+          			<table id="result_D">
+          				<th>약품명</th>
+          				<th>처방량</th>
+          			</table>
+          		</div>
+          		
+          		
+          		
+          		
+          		
+          		
+          		
+          		
+          		
+          		
+          		
+          		
+          		
+          		
+          		
+          		
           		</div>
           		<br>
-				<input type="reset" id="button-right" value = "작성 취소">
-          		<input type="submit" id="button-right" value = "작성 완료">
+				<input type="reset" id="button-right" value = "작성 취소" >
+          		<input type="submit" id="button-right" value = "작성 완료" onclick="insertRec();">
           		
-          		</form>
+          		<!-- </form> -->
           		
 			</div>
 
@@ -202,10 +234,8 @@ $(document).ready(function(){
 }); */
 
 function waitListFunc(data){
-	console.log("함수실행됨");
+	
 	var obj = JSON.parse(data);
-	console.log(obj);
-	console.log(obj.waitList[1]);
 	
 	for(var k in obj.waitList){
 		var num = obj.waitList[k].num;
@@ -217,12 +247,10 @@ function waitListFunc(data){
 		//$('#waitList').append(test);
 		var waitList = "<button class='list-group-item list-group-item-action' id='listinfo' value='" + num + "'>"+ name +" / "+ sex+" / "+ birth+ "</button>";
 		$('#waitList').append(waitList);
-	//console.log(waitList);
 	}
-
-	
 }
 
+//약품리스트 불러오기
 $(function(){
 	$.ajax({
 		type: 'get',
@@ -233,18 +261,40 @@ $(function(){
 });
 
 function medListFunc(data){
-	console.log("약품리스트 불러오기");
 	var obj = JSON.parse(data);
-	console.log(obj);
 	
-	for(var k in obj.list){
-		var m_name = obj.list[k].m_name;
-		var m_code = obj.list[k].m_code;
-		//console.log(m_name);
+	console.log("obj---"+obj);
+	console.log("medlist---"+obj.final[0]);
+	console.log("therapylist---"+obj.final[1]);
+	console.log("diseaselist---"+obj.final[2]);
+	console.log(Array.isArray(obj.final[1]));
+	
+	for(var k in obj.final[0]){
+		var m_name = obj.final[0][k].m_name;
+		var m_code = obj.final[0][k].m_code;
 		var selectOption = "<option  value='" + m_code + "'>" + m_name + "</option>";
 		$('#addMed').append(selectOption);
 	}
+	
+	for(var k in obj.final[1]){
+		var therapy = obj.final[1][k];
+		var selectOption = "<option  value='" + therapy + "'>" + therapy + "</option>";
+		$('#addTh').append(selectOption);
+	}
+	
+	for(var k in obj.final[2]){
+		var disease = obj.final[2][k];
+		var selectOption = "<option  value='" + disease + "'>" + disease + "</option>";
+		$('#addD').append(selectOption);
+	}
 }
+
+
+
+
+
+
+
 
  $(document).on('click', '#listinfo', function(){	 
 	 var info = $(this).val();
@@ -301,15 +351,103 @@ function prescriptionList() {
 	  var usage = document.getElementById("medUsage");
 	  var usageT = usage.options[usage.selectedIndex].text;
 	  
-	 
-	  
-	  var med_table = "<tr>  <td>  "+m_nameT+"</td> <td> " + usageT + "</td> </tr>";
+	  var med_table = "<tr id='prescriptionMedList'>  <td>" + m_nameT + "</td> <td>" + usageT + "</td> </tr>";
 	  $('#result_med').append(med_table);
+}
+
+/* function prescriptionList(,,name) {
+
+		  var m_name = document.getElementById("addMed");
+		  var m_nameT = m_name.options[m_name.selectedIndex].text;
+		  
+		  var usage = document.getElementById("medUsage");
+		  var usageT = usage.options[usage.selectedIndex].text;
+		  
+		  var med_table = "<tr id='prescriptionMedList'>  <td>  "+m_nameT+"</td> <td> " + usageT + "</td> </tr>";
+		  $(name).append(med_table);
+} */
+
+function prescriptionListDelete() {
+	$("tr").remove("#prescriptionMedList");
+}
+
+function therapyList() {
+	  var t_name = document.getElementById("addTh");
+	  var t_nameT = t_name.options[t_name.selectedIndex].text;
 	  
-	  
+	  var med_table = "<tr id='prescriptionThList'>  <td>" + t_nameT + "</td>  </tr>";
+	  $('#result_Th').append(med_table);
+}
+function therapyDelete() {
+	$("tr").remove("#prescriptionThList");
+}
+
+
+
+	
+function insertRec() {
+	var note = $('#d_note').val();
+	var medTable = document.getElementById('result_med');
+	var medRowList = medTable.rows;
+	var medPres = [medRowList.length-1];
+	
+	for(i=1; i<medRowList.length; i++){
+		var row = medRowList[i];
+		
+		var m_name = row.cells[0].innerHTML;
+		var yang = row.cells[1].innerHTML;
+		console.log(m_name);
+		console.log(yang);
+		
+		//medPres[m_name] = yang;
+		medPres[i-1] = {"med": m_name, "yang": yang} ;
+		
+		
+	}
+	
+	//console.log("딕서너리 잘 들어갔나++++++++"+medPres);
+	console.log(medPres);
+	
+	//console.log(note);
+	//console.log(typeof note);
+	//console.log(typeof medPres);
+	//console.log(Array.isArray(medPres));
+	
+	/* for(var key in medPres){
+		console.log("key: "+key+ " value: "+medPres[key]);
+	} */
+
+	
+	/* var testtest = [{med: "약1", yang: 2},{med: "약2", yang: 1},{med: "약3", yang: 3},
+		]; */
+	//console.log(testtest);
+	
+	var tList = [];
+	var thTable = document.getElementById('result_Th');
+	var ThRowList = thTable.rows;
+	for(i=1; i<ThRowList.length; i++){
+		var row = ThRowList[i];
+		var t_name = row.cells[0].innerHTML;
+		tList[i-1] = t_name;
 	}
 
+	$.ajax({
+		 type: 'post',
+		 url: "./insertRecord.do",
+		 data : {"note": note, "medPres": JSON.stringify(medPres), "tList": JSON.stringify(tList) },
+		 success : insertRecord(),
+		error : function(msg, error) {
+				alert(error);
+			}
+		 
+	 });  
+	
+}
 
+function insertRecord(){
+	console.log("insert 성공");
+}
+	
 </script>
 
 

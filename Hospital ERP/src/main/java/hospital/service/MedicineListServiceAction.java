@@ -1,5 +1,6 @@
 package hospital.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,35 +30,50 @@ public class MedicineListServiceAction implements Action {
 			JSONObject medObj = new JSONObject();
 			JSONArray sendArray = new JSONArray();
 			JSONObject sendObject = new JSONObject();
+			JSONArray hapArrap = new JSONArray();
+			JSONArray tArray = new JSONArray();
+			JSONArray dArray = new JSONArray();
 			
-//			for(int i=0; i<list.size(); i++) {
-//				medObj = new JSONObject();
-//				System.out.println(  );
-//				medObj.put("m_name", list.get(0));
-//				medObj.put("m_code", list.get(1));
-//				sendArray.add(medObj);
-//				System.out.println(sendArray);
-//			}
 			for(String str: list.keySet()) {
 				medObj = new JSONObject();
 				medObj.put("m_name", str);
 				medObj.put("m_code", list.get(str));
 				sendArray.add(medObj);
-				//System.out.println(sendArray);
 			}
-			sendObject.put("list", sendArray);
 			
-			//System.out.println("birth: "+list.get(2));
-			System.out.println(sendObject);
+			//hapArrap.add(sendArray);
 			
-			response.setContentType("application/text; charset=utf-8");
-			response.getWriter().print(sendObject);
+			
 			
 			System.out.println("MedicineInfo : "+list); ////////////////////////////////////
 			
-//			forward = new ActionForward();
-//			forward.setRedirect(false); // forward
-//			forward.setPath("/WEB-INF/views/main/mainIndex.jsp");
+			ArrayList<String> tlist = new ArrayList<>();
+			ArrayList<String> dlist = new ArrayList<>();
+			tlist = dao.SelectList("therapy");
+			dlist = dao.SelectList("disease");
+			
+			for(String s: tlist) {
+				//medObj = new JSONObject();
+				//medObj.put("t_name", s);
+				tArray.add(s);
+				//tArray.put("t_name", s);
+			}
+			
+			for(String s: dlist) {
+				//dArray.put("d_name", s);
+				dArray.add(s);
+			}
+			
+			hapArrap.add(sendArray);
+			hapArrap.add(tArray);
+			hapArrap.add(dArray);
+			
+			sendObject.put("final", hapArrap);
+			
+			
+			System.out.println(sendObject);
+			response.setContentType("application/text; charset=utf-8");
+			response.getWriter().print(sendObject);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
