@@ -64,8 +64,31 @@
 						  <option>이렇게</option>
 						  <option>나눠보자</option>
 						</select>
-         				<input type="search"  placeholder="품명 검색">  <!-- 돋보기 아이콘도 넣기 -->
+						
+							<div class="search-input">
+							  <i class="fa-solid fa-magnifying-glass"></i>
+							  <input class="search-input_bar"type="text" placeholder="검색어 입력">
+							</div>
          			</div>
+         			
+         			<div class="search-mode">
+					    <input type="text" >
+					
+					    <div class="icon">
+					      <div class="search">
+					        <i class="fas fa-search"></i>
+					      </div>
+					
+					      <div class="plus-option">
+					        <i class="fas fa-keyboard"></i>
+					        <i class="fas fa-microphone"></i>
+					      </div>
+					    </div>
+					
+					    </div>
+				    </div>
+         			
+         			
          			<div class="item_checkbox">
 	        			<input type="checkbox"> 재고가 5개 이하인 품목만 표시
         			</div>

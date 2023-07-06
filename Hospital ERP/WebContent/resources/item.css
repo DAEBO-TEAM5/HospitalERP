@@ -63,7 +63,22 @@ th {
 	width: 250px;
 	margin: 30px 10px 15px 5px;
 }
-
+.search-input {
+  width: 220px;
+  height: 27px;
+  border-radius: 5px;
+  border: solid 1px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  z-index: 1;
+  opacity: 1;
+}
+.search-input_bar {
+  width: 200px;
+  height:27px;
+  display: flex;
+}
 .item_manage_group{
 	margin: 10px;
 	display: flex;
