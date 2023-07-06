@@ -1,7 +1,8 @@
 @charset "utf-8";
 
 #title{
-	background-color: #00AAFF;
+	/* background-color: #00AAFF; */
+	background-color: rgba(46, 91, 219);
 	line-height: 50px;
 }
 .title-a{
