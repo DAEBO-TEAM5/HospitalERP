@@ -12,7 +12,7 @@ public class ItemRelServiceAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward foward = null;
 		
-		ItemDao dao =n
+		
 		
 		
 		return null;
