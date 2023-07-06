@@ -1,5 +1,8 @@
 package hospital.service;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -30,7 +33,20 @@ public class LoginOkServiceAction implements Action {
 	         ret.setPath("main2.do");
 	      }
 	      else {
-	    	  
+	    	  response.setContentType("text/html; charset=UTF-8");
+	    	  PrintWriter out;
+			try {
+				
+				out = response.getWriter();
+				out.println("<script language='javascript'>");
+				out.println("alert('ID 비밀번호 확인해주세요')");
+				out.println("location.href='login.do';");
+				out.println("</script>");
+				out.flush();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
 	      }
 	      ret.setRedirect(false);
 	      return ret;
