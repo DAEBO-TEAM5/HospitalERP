@@ -6,6 +6,7 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="./resources/Login.css" rel="stylesheet" type="text/css">
+<link href="./resources/SignUp.css" rel="stylesheet" type="text/css">
 <head>
 <link rel="icon" href="${pageContext.request.contextPath }/image/hp.png"/> <!-- //파비콘임 -->
 <meta charset="UTF-8">
@@ -20,7 +21,7 @@
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
                     <div id="login-box" class="col-md-12">
-                        <form id="login-form" class="form" action="./loginok.do" method="post">
+                        <form id="login-form" class="form" method="post">
                             <h3 class="text-center text-info">Login</h3>
                             <div class="form-group">
                                 <label for="username" class="text-info">ID:</label><br>
@@ -31,10 +32,10 @@
                                 <input type="password" name="password" id="password" class="form-control">
                             </div>
                             <div class="form-group">
-                                <input type="submit" name="submit" class="btn btn-info btn-md" value="로그인">
+                                <input type="submit" name="submit" class="btn btn-info btn-md" onclick="javascript:form.action='./loginok.do';" value="로그인">
                             </div>
                             <div id="register-link" class="text-right"><br>
-                                <a href="SignUp.do" class="text-info">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="#" onclick="openPopup();return false;" class="text-info">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <a href="#" class="text-info">ID/PW찾기</a>
                             </div>
                         </form>
@@ -43,5 +44,40 @@
             </div>
         </div>
     </div>
+   <div id="popup" class="popup-overlay">
+	<div class="popup-content">
+		<span class="close-btn" onclick="closePopup()">&times;</span>
+		<h2>회원가입</h2>
+		<form>
+			<input type="text" placeholder="ID">
+			<input type="text" placeholder="병원이름"> 
+			<input type="text" placeholder="병원주소">
+			<input type="text" placeholder="연락처">
+			<div>
+				<input type="password" placeholder="비밀번호" >
+				<input type="password" placeholder="비밀번호 확인" >
+			</div>
+			<input type="email" placeholder="이메일">
+			<input type="text" placeholder="병원우편번호">
+			<input type="text" placeholder="직원코드">
+			
+			
+			<input type="submit" value="가입">
+		</form>
+	</div>
+</div>
 </body>
 </html>
+<script>
+	function openPopup() {
+		var popup = document.getElementById("popup");
+		popup.style.visibility = "visible";
+		popup.style.opacity = "1";
+	}
+
+	function closePopup() {
+		var popup = document.getElementById("popup");
+		popup.style.visibility = "hidden";
+		popup.style.opacity = "0";
+	}
+</script>
