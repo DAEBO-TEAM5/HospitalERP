@@ -27,7 +27,7 @@ table {
 	border: 1px solid black;
 }
 tr, td {
-	border: 1px solid black;
+	border: 1px solid black; 
 }
 th {
 	border: 1px solid black;
@@ -63,7 +63,14 @@ th {
 	width: 250px;
 	margin: 30px 10px 15px 5px;
 }
-
+.input-search{
+position:relative;
+width:50px;
+height:50px;
+text-align:center;
+line-height: 55px;
+border-radius: 30px;
+}
 .item_manage_group{
 	margin: 10px;
 	display: flex;
@@ -79,12 +86,20 @@ th {
 	margin: 10px 40px 10px 10px;
 }
 .item_table_main{
-	border:2px solid red;
+	border:2px solid yellow;
 	width: 1050px;
 	height: 350px;
 	margin: 15px 20px 15px 20px;
 	text-align: center;
 }
-.item_table_main >td{
-	text-align: right;
+.item_table_main >tr{
+	text-align: right; 
+	background-color: skyblue; 
 }
+.item_table_main >tr>td{
+	text-align: left; 
+	background-color: green; 
+}
+.item_table_main >tr>td:nth-child(1){
+	width:10px;
+} 

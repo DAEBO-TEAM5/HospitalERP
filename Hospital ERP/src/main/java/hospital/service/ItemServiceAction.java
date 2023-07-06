@@ -15,7 +15,7 @@ import hospital.action.ActionForward;
 import hospital.dao.ItemDao;
 import hospital.vo.ItemVO;
 
-public class itemServiceAction implements Action {
+public class ItemServiceAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {

@@ -56,9 +56,9 @@ select * from wait;
 
 
 --진료기록 번호/ 진료날짜/ 처방금지 약품/ 처방코드/ 환자번호/ 질병코드/ 물리치료 코드/ 직원 코드
-insert into RECORD values(1, '2023-07-02', '처방금지1', 1001, 1, 3344, 1, 220011);
-insert into record values(2, '2023-07-04', '처방금지2', 2002, 2, 5566, 2, 210341);
-select r_num"진료기록 번호", r_date"진료날짜", r_ban"처방금지 약품", r_p_code"처방코드", r_p_num"환자번호", r_p_code"질병코드", r_t_code"물리치료 코드", r_e_code"직원코드" from record; 
+insert into RECORD values(1, '2023-07-02', '의사소견1', 1001, 1, 3344, 1, 220011);
+insert into record values(2, '2023-07-04', '의사소견2', 2002, 2, 5566, 2, 210341);
+select r_num"진료기록 번호", r_date"진료날짜", r_opinion"의사소견(진단결과)", r_p_code"처방코드", r_p_num"환자번호", r_p_code"질병코드", r_t_code"물리치료 코드", r_e_code"직원코드" from record; 
 select * from record;
 
 

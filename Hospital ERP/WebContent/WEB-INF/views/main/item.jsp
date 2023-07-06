@@ -49,7 +49,7 @@
          		<div class="col-md-10" style ="background-color:white;">
          			<div>
          				<button type="button" id ="item_maintable" class="btn text-white item_btn_click" >품목 관리</button>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-         				<button type="button" class="btn text-white item_btn_nonclick" >재고 관리</button><br>
+         				<button type="button" id ="item_release" class="btn text-white item_btn_nonclick" >재고 관리</button><br>
          			</div>
          			<div class="item_manage_group">
 	         			<select class="form-select" >
@@ -64,8 +64,13 @@
 						  <option>이렇게</option>
 						  <option>나눠보자</option>
 						</select>
-         				<input type="search"  placeholder="품명 검색">  <!-- 돋보기 아이콘도 넣기 -->
+						
+							<div class="search-input">
+							  <i class="fa-solid fa-magnifying-glass"></i>
+							  <input class="search-input_bar"type="text" placeholder="검색어 입력">
+							</div>
          			</div>
+         			
          			<div class="item_checkbox">
 	        			<input type="checkbox"> 재고가 5개 이하인 품목만 표시
         			</div>
@@ -73,6 +78,9 @@
 					<div class="item_result">
 
 		        		 <table id="mainTable" class="item_table_main">
+		        			
+.
+		        		 <tr><td>TD확인</td></tr>
 		        		</table>
 	        		</div>
 	        		
@@ -109,12 +117,45 @@ $(function() {
  				$('#mainTable').html(str);
 			},
 			error: function(){
-				alert('안됐다.')
+				alert('검색할 수 없습니다.')
 			}
 		});
 
 	});
 });	
+
+$(function() {
+	$('#item_release').click(function(){
+		var str = "";
+		$.ajax({	
+			url: "./itemRelTable.do",
+			type: "post",
+			success: function(data){
+				var obj = JSON.parse(data);
+				str += "<tr><th>번호</th><th>품명</th><th>품목코드</th><th>카테고리</th><th>단위</th><th>재고량</th><th>유통기한</th><th>물품단가</th><th>비고</th></tr>"
+				for(var i =0; i < obj.item.length; i++){
+					str += "<tr>";
+					str += "<td>" +obj.item[i].i_num + "</td>"
+					str += "<td>" +obj.item[i].i_name + "</td>"
+					str += "<td>" +obj.item[i].i_code + "</td>"
+					str += "<td>" +obj.item[i].i_category + "</td>"
+					str += "<td>" +obj.item[i].i_unit + "</td>"
+					str += "<td>" +obj.item[i].i_stock + "</td>"
+					str += "<td>" +obj.item[i].i_expire + "</td>"
+					str += "<td>" +obj.item[i].i_price + "</td>"
+					str += "<td>" +obj.item[i].i_remark + "</td>"
+					str += "</tr>";
+				}
+ 				$('#mainTable11').html(str);
+			},
+			error: function(){
+				alert('검색할 수 없습니다.')
+			}
+		});
+
+	});
+});	 
+
 </script>
 </body>
 </html>

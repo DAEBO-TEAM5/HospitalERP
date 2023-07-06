@@ -48,5 +48,59 @@ public class RecordDao {
 	}
 	
 	
+	public ArrayList<String> SelectList(String table) {   
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<String> list = new ArrayList<>();
+		
+		try {
+			conn = ConnectionHelper.getConnection();
+			
+			String str = "select * from "+ table;
+			String sql = str;
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				list.add(rs.getString(2));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionHelper.close(rs);
+			ConnectionHelper.close(pstmt);
+			ConnectionHelper.close(conn);
+		}
+		return list;
+	}
+	
+	
+	
+	
+	
+	
+	public void insertRecord() {
+		
+		
+	}
+	
+	public void insertPrescription() {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = ConnectionHelper.getConnection();
+			String sql = "insert into prescription values(p_code_seq.nextval, )";
+			pstmt = conn.prepareStatement(sql);
+			int num = pstmt.executeUpdate();
+			if(num>0) System.out.println(num+"개 행 업데이트 완료");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	
 }

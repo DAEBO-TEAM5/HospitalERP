@@ -14,7 +14,6 @@
 <a href="main2.do">만드는거</a>
 <a href="item.do">itemPage</a>
 <a href="login.do">Login</a>
-<a href="SignUp.do">sign</a>
 
 <%
 	try{

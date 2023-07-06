@@ -14,10 +14,14 @@ import hospital.action.ActionForward;
 import hospital.service.HospitalWaitingInfoService;
 import hospital.service.HospitalWaitingListService;
 import hospital.service.InfoServiceAction;
+import hospital.service.InsertRecordServiceAction;
 import hospital.service.LoginOkServiceAction;
 import hospital.service.MedicineListServiceAction;
 import hospital.service.SearchServiceAction;
-import hospital.service.itemServiceAction;
+import hospital.service.ItemServiceAction;
+import hospital.service.SignUpServiceAction;
+
+
 
 @WebServlet("*.do")
 public class FrontRegisterController extends HttpServlet {
@@ -52,8 +56,13 @@ public class FrontRegisterController extends HttpServlet {
     	}else if(urlcommand.equals("/loginok.do")) { 
     		System.out.println("여기는?");
     		action = new LoginOkServiceAction();
-    		forward = action.execute(request, response); 
+    		forward = action.execute(request, response);
     		
+    	}else if(urlcommand.equals("/signup.do")) {
+    		System.out.println("오나요 사인?");
+    		action = new SignUpServiceAction();
+    		forward = action.execute(request, response);
+
     	}else if(urlcommand.equals("/history.do")) {
     		forward = new ActionForward();
     		forward.setRedirect(false);
@@ -66,30 +75,29 @@ public class FrontRegisterController extends HttpServlet {
     	}else if(urlcommand.equals("/patientinfo.do")) {
     		action = new InfoServiceAction();
     		action.execute(request, response);
-    	}
     	
-    	if(urlcommand.equals("/item.do")) {
+    	
+    	}else if(urlcommand.equals("/item.do")) {
     		forward = new ActionForward();
     		forward.setRedirect(false);
     		forward.setPath("/WEB-INF/views/main/item.jsp");
 
     	}else if(urlcommand.equals("/itemMainTable.do")){
-    		action = new itemServiceAction();
+    		action = new ItemServiceAction();
     		action.execute(request, response);
 		
+    	}else if(urlcommand.equals("/itemRelTable.do")){
+    		action = new ItemServiceAction();
+    		action.execute(request, response);
+    		
     	}else if(urlcommand.equals("/main2.do")) {
     		//UI 제공 (서비스 객체가 필요없다)
     		forward = new ActionForward();
     		forward.setRedirect(false);
     		forward.setPath("/WEB-INF/views/main/mainIndex.jsp");
-    		//action = new HospitalWaitingListService();
-    		//forward = action.execute(request, response);
-    		//action = new MedicineListServiceAction();
-    		//forward = action.execute(request, response);
-    		
 
     	}else if(urlcommand.equals("/mainWaitList.do")) {
-    		System.out.println("mainwaitList-----대기리스트-------");
+    		//System.out.println("mainwaitList-----대기리스트-------");
     		action = new HospitalWaitingListService();
     		action.execute(request, response);
 
@@ -99,9 +107,14 @@ public class FrontRegisterController extends HttpServlet {
 
     	}else if(urlcommand.equals("/waitinginfo.do")) {
     		//forward = new ActionForward();
-    		System.out.println("waitinginfo-----------");
+    		//System.out.println("waitinginfo-----------");
     		action = new HospitalWaitingInfoService();
     		forward = action.execute(request, response);
+    	}
+    	else if(urlcommand.equals("/insertRecord.do")) {
+    		System.out.println("insertRecord-----------");
+    		action = new InsertRecordServiceAction();
+    		action.execute(request, response);
     	}
     	
     		
