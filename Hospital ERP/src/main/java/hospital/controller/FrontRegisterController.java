@@ -74,7 +74,6 @@ public class FrontRegisterController extends HttpServlet {
     		forward.setPath("/WEB-INF/views/main/item.jsp");
 
     	}else if(urlcommand.equals("/itemMainTable.do")){
-    		System.out.println("이곳은 아이템 메인테이블입니다.");
     		action = new itemServiceAction();
     		action.execute(request, response);
 		

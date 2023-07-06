@@ -8,7 +8,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- 부트스트랩 -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> <!-- 부트스트랩 -->
   <link href="${pageContext.request.contextPath }/resources/item.css?after" rel="stylesheet"> <!-- 사용자css -->
-  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script> <!-- Jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- Jquery -->
   <script src="https://kit.fontawesome.com/d7766e5822.js" crossorigin="anonymous"></script> <!-- fontawesome  -->
 <title>재고 관리</title>
 
@@ -70,86 +70,9 @@
 	        			<input type="checkbox"> 재고가 5개 이하인 품목만 표시
         			</div>
 
-					<div>
-		        		<table id="mainTable" class="item_table_main"> <!-- tr th td border, solid, border-collapse: collapse; -->
-							<tr>
-								<th>번호</th>
-								<th>품명</th>
-								<th>품목코드</th>
-								<th>카테고리</th>
-								<th>단위</th>
-								<th>재고량</th>
-								<th>유통기한</th>
-								<th>물품단가</th>
-								<th>비고</th>
-							</tr>
-							<tr>
-								<td>1 </td>
-								<td>2 </td>
-								<td>3 </td>
-								<td>4 </td>
-								<td>5 </td>
-								<td>6 </td>
-								<td>7 </td>
-								<td>8 </td>
-								<td>9 </td>
-							</tr>
-							<tr>
-								<td>2-1 </td>
-								<td>2 </td>
-								<td>3 </td>
-								<td>4 </td>
-								<td>5 </td>
-								<td>6 </td>
-								<td>7 </td>
-								<td>8 </td>
-								<td>9 </td>
-							</tr>
-							<tr>
-								<td>3-1 </td>
-								<td>2 </td>
-								<td>3 </td>
-								<td>4 </td>
-								<td>5 </td>
-								<td>6 </td>
-								<td>7 </td>
-								<td>8 </td>
-								<td>9 </td>
-							</tr>
-							<tr>
-								<td>4-1 </td>
-								<td>2 </td>
-								<td>3 </td>
-								<td>4 </td>
-								<td>5 </td>
-								<td>6 </td>
-								<td>7 </td>
-								<td>8 </td>
-								<td>9 </td>
-							</tr>
-							<tr>
-								<td>5-1 </td>
-								<td>2 </td>
-								<td>3 </td>
-								<td>4 </td>
-								<td>5 </td>
-								<td>6 </td>
-								<td>7 </td>
-								<td>8 </td>
-								<td>9 </td>
-							</tr>
-							<tr>
-								<td>6-1 </td>
-								<td>2 </td>
-								<td>3 </td>
-								<td>4 </td>
-								<td>5 </td>
-								<td>6 </td>
-								<td>7 </td>
-								<td>8 </td>
-								<td>9 </td>
-							</tr>
-							
+					<div class="item_result">
+
+		        		 <table id="mainTable" class="item_table_main">
 		        		</table>
 	        		</div>
 	        		
@@ -163,15 +86,33 @@
 <script type="text/javascript">
 $(function() {
 	$('#item_maintable').click(function(){
-		alert('양승윤 멍청이')
+		var str = "";
 		$.ajax({	
-			url: "itemMainTable.do",
+			url: "./itemMainTable.do",
 			type: "post",
-			data : { name: $('#mainTable').val()},
-			success: successFunc,
-			error: errFunc
+			success: function(data){
+				var obj = JSON.parse(data);
+				str += "<tr><th>번호</th><th>품명</th><th>품목코드</th><th>카테고리</th><th>단위</th><th>재고량</th><th>유통기한</th><th>물품단가</th><th>비고</th></tr>"
+				for(var i =0; i < obj.item.length; i++){
+					str += "<tr>";
+					str += "<td>" +obj.item[i].i_num + "</td>"
+					str += "<td>" +obj.item[i].i_name + "</td>"
+					str += "<td>" +obj.item[i].i_code + "</td>"
+					str += "<td>" +obj.item[i].i_category + "</td>"
+					str += "<td>" +obj.item[i].i_unit + "</td>"
+					str += "<td>" +obj.item[i].i_stock + "</td>"
+					str += "<td>" +obj.item[i].i_expire + "</td>"
+					str += "<td>" +obj.item[i].i_price + "</td>"
+					str += "<td>" +obj.item[i].i_remark + "</td>"
+					str += "</tr>";
+				}
+ 				$('#mainTable').html(str);
+			},
+			error: function(){
+				alert('안됐다.')
+			}
 		});
-		
+
 	});
 });	
 </script>

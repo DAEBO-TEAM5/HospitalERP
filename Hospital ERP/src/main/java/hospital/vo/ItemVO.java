@@ -84,6 +84,13 @@ public class ItemVO {
 
 	public void setI_memo(String i_memo) {
 		this.i_memo = i_memo;
+	}
+
+	@Override
+	public String toString() {
+		return "ItemVO [i_code=" + i_code + ", i_num=" + i_num + ", i_stock=" + i_stock + ", i_price=" + i_price
+				+ ", i_name=" + i_name + ", i_category=" + i_category + ", i_unit=" + i_unit + ", i_expire=" + i_expire
+				+ ", i_remark=" + i_remark + ", i_memo=" + i_memo + "]";
 	} ;
 	
 	
