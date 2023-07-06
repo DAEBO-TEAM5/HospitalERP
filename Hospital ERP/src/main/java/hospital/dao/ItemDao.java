@@ -44,12 +44,14 @@ public class ItemDao {
 				dao.setI_remark(rs.getString("i_remark"));
 				
 				list.add(dao);
+				
 			}
+			
+			rs.close();
+			pstmt.close();
+			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
-			ConnectionHelper.close(pstmt);
-			ConnectionHelper.close(conn);
 		}
 		
 		return list;

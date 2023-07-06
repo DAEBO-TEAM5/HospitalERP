@@ -43,7 +43,7 @@
 	            		
             		</form>
             		</p>
-            		<div class="result" style="background-color: #00AAFF" id="open">
+            		<div class="result" style="background-color: #00AAFF; overFlow-y : auto;" id="open">
 	            		
             		</div>
          		</div>
@@ -65,9 +65,9 @@
             		<div class="box2">
             		지난진료기록<br>
             		증상
-	            		<textarea id="disease" readonly= "readonly" cols="10" rows="7" onclick="this.select()" onfocus="this.select()" class="form-control"> 증상 내용 </textarea>
+	            		<textarea id="symptom" readonly= "readonly" cols="10" rows="7" onclick="this.select()" onfocus="this.select()" class="form-control"> 증상 내용 </textarea>
 	            	병명
-	            		<textarea id="medicine" readonly= "readonly" cols="10" rows="7" onclick="this.select()" onfocus="this.select()" class="form-control"> 병명내용 </textarea>
+	            		<textarea id="r_d_code" readonly= "readonly" cols="10" rows="7" onclick="this.select()" onfocus="this.select()" class="form-control"> 병명내용 </textarea>
             		</div>
             		</div>
             		
@@ -154,23 +154,26 @@ function infoFunc(data){
 	info_str += obj.info[0].birth + "/" + obj.info[0].address + "/"+  obj.info[0].sex + "/" + obj.info[0].phone;
 	$('.patientInfo').html(info_str);
 	$('#text').html(obj.info[0].note);
+	$('#symptom').html(obj.info[0].symptom);
+	$('#r_d_code').html(obj.info[0].r_d_code);
 	var str = "";
 	for(var i =0; i < obj.info.length; i++){
-		str += "<button class='btn btn-primary'>" + obj.info[i].record_date + "</button> <br>"
+		str += "<button class='btn btn-primary' style='width:100%;'>" + obj.info[i].r_date + "</button>"
 	}
 	$('.box1').html(str);
 }
 $(function(){
 	$(document).on("click", ".box1 > button", function (e){
 		var str = "";
+		console.log($(this).index())
 		for(var i =0; i < temp.info.length; i++){
-			if(temp.info[i].record_date === $(this).text()){
-				str += temp.info[i].doctor + "<br>";
-				str += temp.info[i].disease + "/" + temp.info[i].medicine + "/"+  temp.info[i].record_date;
+			if(i === $(this).index()){
+				$('#text').html(temp.info[i].note);
+				$('#symptom').html(temp.info[i].symptom);
+				$('#r_d_code').html(temp.info[i].r_d_code);
 			}
 		}
-		$('.patientInfo').html(str);
-		$('#text').html(str + "내용으로 바뀜");
+		
 	});
 });
 </script>
