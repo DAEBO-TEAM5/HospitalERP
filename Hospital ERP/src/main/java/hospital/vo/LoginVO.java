@@ -1,21 +1,11 @@
 package hospital.vo;
 
-// CREATE TABLE hospital_id ( --병원아이디
-//		h_id	varchar2(20)		NOT NULL, --병원ID
-//		h_name	varchar2(50)		NULL, --병원명
-//		h_pwd	varchar2(30)		NOT NULL, --병원 비밀번호
-//		h_phone	varchar2(20)		NULL, --병원 전화번호
-//      h_email varchar2(40)        NOT NULL, --병원 이메일
-//		h_post	varchar2(10)		NULL --병원 우편번호
-//		h_address	varchar2(200)		NULL, --병원주소
-//	);
-
-
 //로그인 정보
 public class LoginVO {
 
 	private String h_id, h_name, h_address, h_phone, h_pwd, h_email, h_post;
-
+	private int h_e_code;
+	
 	public LoginVO() {	}
 
 	public String getH_id() {
@@ -74,5 +64,12 @@ public class LoginVO {
 		this.h_address = h_address;
 	}
 
+	public int getH_e_code() {
+		return h_e_code;
+	}
+
+	public void setH_e_code(int h_e_code) {
+		this.h_e_code = h_e_code;
+	}
 	
 }
