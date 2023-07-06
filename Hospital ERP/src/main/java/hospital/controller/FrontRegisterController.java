@@ -18,7 +18,7 @@ import hospital.service.InsertRecordServiceAction;
 import hospital.service.LoginOkServiceAction;
 import hospital.service.MedicineListServiceAction;
 import hospital.service.SearchServiceAction;
-import hospital.service.itemServiceAction;
+import hospital.service.ItemServiceAction;
 
 @WebServlet("*.do")
 public class FrontRegisterController extends HttpServlet {
@@ -67,17 +67,21 @@ public class FrontRegisterController extends HttpServlet {
     	}else if(urlcommand.equals("/patientinfo.do")) {
     		action = new InfoServiceAction();
     		action.execute(request, response);
-    	}
     	
-    	if(urlcommand.equals("/item.do")) {
+    	
+    	}else if(urlcommand.equals("/item.do")) {
     		forward = new ActionForward();
     		forward.setRedirect(false);
     		forward.setPath("/WEB-INF/views/main/item.jsp");
 
     	}else if(urlcommand.equals("/itemMainTable.do")){
-    		action = new itemServiceAction();
+    		action = new ItemServiceAction();
     		action.execute(request, response);
 		
+    	}else if(urlcommand.equals("/itemRelTable.do")){
+    		action = new ItemServiceAction();
+    		action.execute(request, response);
+    		
     	}else if(urlcommand.equals("/main2.do")) {
     		//UI 제공 (서비스 객체가 필요없다)
     		forward = new ActionForward();

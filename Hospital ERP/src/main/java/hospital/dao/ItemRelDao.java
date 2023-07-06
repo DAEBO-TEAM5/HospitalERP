@@ -10,16 +10,15 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import hospital.utils.ConnectionHelper;
 import hospital.vo.ItemVO;
 
-public class ItemDao {
+public class ItemRelDao {
 	DataSource ds = null;
-	public ItemDao() throws NamingException {
+	public ItemRelDao() throws NamingException {
 		Context context = new InitialContext();
 		ds = (DataSource)context.lookup("java:comp/env/jdbc/HospitalDB");
 	}
-	public ArrayList<ItemVO> itemTable(){
+public ArrayList<ItemVO> itemTable(){
 		
 		ArrayList<ItemVO> list = new ArrayList<>();
 		Connection conn = null;
@@ -27,7 +26,7 @@ public class ItemDao {
 		ResultSet rs = null;
 		try {
 			conn = ds.getConnection();
-			String sql ="SELECT I_NUM, I_NAME, I_CODE, I_CATEGORY, I_UNIT, I_STOCK, I_EXPIRE, I_PRICE, I_REMARK FROM ITEM ";
+			String sql ="select i_num, i_name, i_code, i_category, i_unit, i_stock, i_expire, i_price, i_remark from item ";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery(sql);
 			
@@ -57,4 +56,7 @@ public class ItemDao {
 		return list;
 		
 	}
+	
+	
+	
 }
