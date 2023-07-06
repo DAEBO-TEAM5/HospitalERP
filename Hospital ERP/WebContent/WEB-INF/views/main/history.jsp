@@ -8,6 +8,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- 부트스트랩 -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> <!-- 부트스트랩 -->
   <link href="${pageContext.request.contextPath }/resources/style.css" rel="stylesheet"> <!-- 사용자css -->
+  <link href="${pageContext.request.contextPath }/resources/main.css" rel="stylesheet"> <!-- 사용자css -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- Jquery -->
   <script src="https://kit.fontawesome.com/d7766e5822.js" crossorigin="anonymous"></script> <!-- fontawesome  -->
 <title>진료기록</title>
@@ -16,23 +17,19 @@
 </head>
 <body>
 	<div class="container-fluid">
-	
 		<div class="d-flex" id="title">
 			<div class="p-2 flex-grow-1">
 				<i class="fa-solid fa-circle-user fa-lg"></i>&nbsp;ㅇㅇ병원님 반갑습니다.
 			</div>
-		    <div class="p-2"><a href="#" class="title-a">진료</a></div>
-			<div class="p-2"><a href="#" class="title-a">재고</a></div>
-			<div class="p-2"><a href="#" class="title-a">진료기록</a></div>
-			  
+		    <div class="p-2"><a href="main2.do" class="title-a">진료</a></div>
+			<div class="p-2"><a href="item.do" class="title-a">재고</a></div>
+			<div class="p-2"><a href="#" class="title-a">진료기록</a></div>  
 		</div>
-		<div class="container-fluid">
+		<div class="container-fluid info">
       		<div class="row" style="height: 100%;">
-
-         		<div class="col-md-2" style=" height: 100%; background-color: lightgrey;">
+         		<div class="col-md-2 leftinfo">
             		<p>
-            		<h3 style="text-align: center">진료내역</h3>
-            		
+            		<h2 style="text-align: center"><b>진료내역</b></h2>
             		<form role="form">
 	            		<div class="form-group">
 	            			<input type="text" id = "search" placeholder="이름/전화번호" class="form-control"  onKeypress="javascript:if(event.keyCode==13) {test()}">
@@ -40,53 +37,90 @@
 	            		<div class="form-group">
 	            			<button type="button" id="patient_search"class="btn btn-primary" style="width: 100%">검색</button>
 	            		</div>
-	            		
             		</form>
-            		</p>
             		<div class="result" style="background-color: #00AAFF; overFlow-y : auto;" id="open">
-	            		
             		</div>
-         		</div>
-
-
+         		</div> <!-- 진료내역 -->
          		<div class="col-md-4"  style="border-right: 1px solid black;">
-         			<div class="patientInfo">
-            		환자이름 <br>
-            		생년월일/주소/나이/성별/전화번호<br>
-            		</div>
-            		<div style="border-bottom: 1px solid black; height: 25%;">
-	            		<div class="row" style=" background-color: lightgrey; margin-left: 50px; margin-right: 20px; height: 100%; border: 10px">
-	            		접수메모 (특이사항)
-	            		<textarea id="text" readonly= "readonly" cols="30" rows="7" onclick="this.select()" onfocus="this.select()" class="form-control"> 내용이 들어갑니다. </textarea>
-            			</div>
-            		</div>
-            		<div>
-            			<div class="box1"></div>
-            		<div class="box2">
-            		지난진료기록<br>
-            		증상
-	            		<textarea id="symptom" readonly= "readonly" cols="10" rows="7" onclick="this.select()" onfocus="this.select()" class="form-control"> 증상 내용 </textarea>
-	            	병명
-	            		<textarea id="r_d_code" readonly= "readonly" cols="10" rows="7" onclick="this.select()" onfocus="this.select()" class="form-control"> 병명내용 </textarea>
-            		</div>
-            		</div>
-            		
-         		</div>
-
-
-         		<div class="col-md-4" style="border-right: 1px solid black;">
-            		<p>
-		                Lorem ipsum dolor sit amet, <strong>consectetur adipiscing
-		                elit</strong>. Aliquam eget sapien sapien. Curabitur in metus urna. In hac
-		                habitasse platea dictumst. Phasellus eu sem sapien, sed vestibulum
-		                velit. Nam purus nibh, lacinia non faucibus et, pharetra in dolor.
-		                Sed iaculis posuere diam ut cursus. <em>Morbi commodo sodales
-		                nisi id sodales. Proin consectetur, nisi id commodo imperdiet,
-		                metus nunc consequat lectus, id bibendum diam velit et dui.</em> Proin
-		                massa magna, vulputate nec bibendum nec, posuere nec lacus. <small>Aliquam
-		                mi erat, aliquam vel luctus eu, pharetra quis elit. Nulla euismod
-		                ultrices massa, et feugiat ipsum consequat eu.</small>
-            		</p>
+         			<div style="height:60px;" id ="patientinfo"></div>
+					<div> 
+						<div id="patientMemo"> 접수 메모 <br>
+							<div class="form-control" id="jupsu" style="overflow-y:auto;"></div>
+						</div>
+					</div>
+					<br><br><br>
+					<div style="border-top: 1px solid black" id="hLine">
+						<div class="container text-center">
+      						<div class="row">
+        						<div class="col-sm-4  gap-2 col-6 mx-auto box1">
+          							<input class="btn btn-primary" type="button" value="날짜1">
+          							<button type="button" class="btn btn-secondary" data-bs-toggle="button" autocomplete="off">Secondary</button>
+        						</div>
+        						<div class="col-sm-8">
+         							<label>지난 진료 기록</label>
+          								<div>
+	          								<label>증상</label>
+	          								<textarea class="form-control" id="symptom"></textarea>
+	          								<label>병명</label>
+	          								<textarea class="form-control" id="r_d_code"></textarea>
+	          								<label>처방</label>
+	       									<table class="history">
+								          		<th>품명</th>
+								          		<th>중량</th>
+								          		<th>수</th>
+								          		<tr>
+								          			<td>1</td>
+								          			<td></td>
+								          			<td></td>
+								          		</tr>
+								          		<tr>
+								          			<td>2</td>
+								          			<td></td>
+								          			<td></td>
+								          		</tr>
+								          	</table>
+	          							</div>
+        						</div>
+      						</div>
+      					</div>
+					</div>
+				</div>		
+    			<div class="col-md-4" style="border-right: 1px solid black;">
+		            <div style="background-color: skyblue; width:100%; height:100%;">
+		            	<h3 style="padding: 5px">수납내역</h3>
+		            	<div style="display: flex;">
+			            	<div class="pay_title" style="width: 50%;">받을 금액</div>
+			            	<div class="pay" style="width: 50%;">원</div>
+		            	</div>
+		            	<div class="form-control" style="width:90%; margin: 0 auto;">
+							<ul>
+								<li>총액</li>
+								<ul>
+									<li>50000원</li>
+								</ul>
+								<li>항목별 금액</li>
+								<ul>
+									<li>주사 3000원</li>
+									<li>수액 5000원</li>
+									<li>진료비 30000원</li>
+									<li>팁 12000원</li>
+								</ul>
+							</ul>
+		            	</div>
+		            	<div style="display: flex;">
+			            	<div class="pay_title" style="width: 50%;">수납 금액</div>
+			            	<div class="pay" style="width: 50%;">원</div>
+		            	</div>
+		            	<br>
+		            	<div style="display: flex;">
+			            	<div class="pay_title" style="width: 50%;">남은 금액</div>
+			            	<div class="pay" style="width: 50%;">원</div>
+		            	</div>
+		            	<br>
+		            	<div style="border-top: 1px solid black" id="hLine">
+		            	<h3 style="padding: 5px">문서발급</h3>
+		            	</div>
+					</div>	
          		</div>
 
          		<div class="col-md-2">
@@ -98,6 +132,7 @@
       		</div>
   		</div>
 	</div>
+</body>
 
 <script type="text/javascript">
 $(function() {
@@ -150,10 +185,11 @@ function infoFunc(data){
 	var obj = JSON.parse(data);
 	temp = obj;
 	var info_str = "";
-	info_str += obj.info[0].name + "<br>";
+	info_str += "<h3 style='height:30px'>" + obj.info[0].name +"</h3>"
 	info_str += obj.info[0].birth + "/" + obj.info[0].address + "/"+  obj.info[0].sex + "/" + obj.info[0].phone;
-	$('.patientInfo').html(info_str);
-	$('#text').html(obj.info[0].note);
+	$('#patientName').html(obj.info[0].name);
+	$('#patientinfo').html(info_str);
+	$('#jupsu').html(obj.info[0].note);
 	$('#symptom').html(obj.info[0].symptom);
 	$('#r_d_code').html(obj.info[0].r_d_code);
 	var str = "";
@@ -168,7 +204,7 @@ $(function(){
 		console.log($(this).index())
 		for(var i =0; i < temp.info.length; i++){
 			if(i === $(this).index()){
-				$('#text').html(temp.info[i].note);
+				$('#jupsu').html(temp.info[i].note);
 				$('#symptom').html(temp.info[i].symptom);
 				$('#r_d_code').html(temp.info[i].r_d_code);
 			}
@@ -177,6 +213,4 @@ $(function(){
 	});
 });
 </script>
-
-</body>
 </html>

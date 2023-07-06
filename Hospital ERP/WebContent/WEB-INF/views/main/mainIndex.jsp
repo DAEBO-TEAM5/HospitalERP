@@ -38,7 +38,8 @@
 		<div class="row" style=" height: 100%;">
 
 			<div class="col-md-2 leftinfo" >
-				<h2><b>접수 / 대기</b></h2>
+			<p>
+				<h2 style="text-align: center"><b>접수 / 대기</b></h2>
 				<div class="form-group"></div>
 				
 				
@@ -51,6 +52,7 @@
 				<button type='button' value=123>1231</button>
 				
 				<input type="button" value="등록" id="button-right">
+
 			</div>
 
 			<!-- <div class="verticalLine"></div> -->
@@ -71,6 +73,7 @@
 				
 				<br><br><br>
 				<div style="border-top: 1px solid black" id="hLine">
+				
 				<div class="container text-center">
       <div class="row">
         <div class="col-sm-4  gap-2 col-6 mx-auto">

@@ -95,3 +95,12 @@ table, th, tr, td {
 	width: 100%;
 	
 }
+.col-md-2{
+	padding-left: 24px;
+}
+h3{
+	height: 30px;
+}
+.pay{
+	text-align: right;
+}
