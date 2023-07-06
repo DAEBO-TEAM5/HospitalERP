@@ -60,7 +60,6 @@ public class FrontRegisterController extends HttpServlet {
     		action = new LoginOkServiceAction();
     		forward = action.execute(request, response); 
     		
-    	
     	}else if(urlcommand.equals("/history.do")) {
     		forward = new ActionForward();
     		forward.setRedirect(false);
