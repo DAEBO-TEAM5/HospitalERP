@@ -17,6 +17,7 @@ import hospital.service.InfoServiceAction;
 import hospital.service.LoginOkServiceAction;
 import hospital.service.MedicineListServiceAction;
 import hospital.service.SearchServiceAction;
+import hospital.service.itemServiceAction;
 
 @WebServlet("*.do")
 public class FrontRegisterController extends HttpServlet {
@@ -79,8 +80,12 @@ public class FrontRegisterController extends HttpServlet {
     		forward.setRedirect(false);
     		forward.setPath("/WEB-INF/views/main/item.jsp");
 
-    	}
-    	else if(urlcommand.equals("/main2.do")) {
+    	}else if(urlcommand.equals("/itemMainTable.do")){
+    		System.out.println("이곳은 아이템 메인테이블입니다.");
+    		action = new itemServiceAction();
+    		action.execute(request, response);
+		
+    	}else if(urlcommand.equals("/main2.do")) {
     		//UI 제공 (서비스 객체가 필요없다)
     		forward = new ActionForward();
     		forward.setRedirect(false);
@@ -105,9 +110,9 @@ public class FrontRegisterController extends HttpServlet {
     		System.out.println("waitinginfo-----------");
     		action = new HospitalWaitingInfoService();
     		forward = action.execute(request, response);
-
     	}
     	
+    		
     	if(forward != null) {
     		if(forward.isRedirect()) { //true 페이지 재 요청 (location.href="페이지"
     			response.sendRedirect(forward.getPath());

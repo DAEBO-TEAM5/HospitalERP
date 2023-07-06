@@ -48,7 +48,7 @@
          	
          		<div class="col-md-10" style ="background-color:white;">
          			<div>
-         				<button type="button" class="btn text-white item_btn_click" >품목 관리</button>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+         				<button type="button" id ="item_maintable" class="btn text-white item_btn_click" >품목 관리</button>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
          				<button type="button" class="btn text-white item_btn_nonclick" >재고 관리</button><br>
          			</div>
          			<div class="item_manage_group">
@@ -71,7 +71,7 @@
         			</div>
 
 					<div>
-		        		<table class="item_table_main"> <!-- tr th td border, solid, border-collapse: collapse; -->
+		        		<table id="mainTable" class="item_table_main"> <!-- tr th td border, solid, border-collapse: collapse; -->
 							<tr>
 								<th>번호</th>
 								<th>품명</th>
@@ -160,6 +160,20 @@
   		</div> <!-- 아래 섹션 -->
 	</div> <!-- 전체 container-fluid -->
 	
-
+<script type="text/javascript">
+$(function() {
+	$('#item_maintable').click(function(){
+		alert('양승윤 멍청이')
+		$.ajax({	
+			url: "itemMainTable.do",
+			type: "post",
+			data : { name: $('#mainTable').val()},
+			success: successFunc,
+			error: errFunc
+		});
+		
+	});
+});	
+</script>
 </body>
 </html>
