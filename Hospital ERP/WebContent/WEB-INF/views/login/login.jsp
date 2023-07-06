@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -14,6 +16,7 @@
 <title>ㅇㅇ Hospital</title>
 </head>
 <body>
+
 
  <div id="login">
         <h3 class="text-center text-white pt-5">5조 프로젝트</h3>
@@ -48,18 +51,18 @@
 	<div class="popup-content">
 		<span class="close-btn" onclick="closePopup()">&times;</span>
 		<h2>회원가입</h2>
-		<form>
-			<input type="text" placeholder="ID">
-			<input type="text" placeholder="병원이름"> 
-			<input type="text" placeholder="병원주소">
-			<input type="text" placeholder="연락처">
+		<form action="${pageContext.request.contextPath}/signup.do"  method="POST">
+			<input type="text" name="h_id" id="h_id" placeholder="ID">
+			<input type="text" name="h_name" id="h_name" placeholder="병원이름"> 
+			<input type="text" name="h_address" id="h_address" placeholder="병원주소">
+			<input type="text" name="h_phone" id="h_phone" placeholder="연락처">
 			<div>
-				<input type="password" placeholder="비밀번호" >
-				<input type="password" placeholder="비밀번호 확인" >
+				<input type="password" name="h_pwd" id="h_pwd" placeholder="비밀번호" >
+				<input type="password" name="h_pwd" id="h_pwd" placeholder="비밀번호 확인" >
 			</div>
-			<input type="email" placeholder="이메일">
-			<input type="text" placeholder="병원우편번호">
-			<input type="text" placeholder="직원코드">
+			<input type="email" name="h_email" id="h_email" placeholder="이메일">
+			<input type="text" name="h_post" id="h_post" placeholder="병원우편번호">
+			<input type="text" name="h_e_code" id="h_e_code" placeholder="직원코드">
 			
 			
 			<input type="submit" value="가입">

@@ -19,6 +19,9 @@ import hospital.service.LoginOkServiceAction;
 import hospital.service.MedicineListServiceAction;
 import hospital.service.SearchServiceAction;
 import hospital.service.ItemServiceAction;
+import hospital.service.SignUpServiceAction;
+
+
 
 @WebServlet("*.do")
 public class FrontRegisterController extends HttpServlet {
@@ -53,8 +56,13 @@ public class FrontRegisterController extends HttpServlet {
     	}else if(urlcommand.equals("/loginok.do")) { 
     		System.out.println("여기는?");
     		action = new LoginOkServiceAction();
-    		forward = action.execute(request, response); 
+    		forward = action.execute(request, response);
     		
+    	}else if(urlcommand.equals("/signup.do")) {
+    		System.out.println("오나요 사인?");
+    		action = new SignUpServiceAction();
+    		forward = action.execute(request, response);
+
     	}else if(urlcommand.equals("/history.do")) {
     		forward = new ActionForward();
     		forward.setRedirect(false);

@@ -1,7 +1,7 @@
 package hospital.vo;
 
 public class ItemRelVO {
-	String 
+	
 }
 
 
