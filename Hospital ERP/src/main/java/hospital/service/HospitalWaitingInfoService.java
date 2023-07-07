@@ -19,11 +19,11 @@ public class HospitalWaitingInfoService implements Action{
 		ActionForward forward = null;
 		
 		try {
-			System.out.println("hospitalWaitingInfoService-----------");
+			//System.out.println("hospitalWaitingInfoService-----------");
 			PatientDao dao = new PatientDao();
 			String num = request.getParameter("num");
 			
-			System.out.println(num);
+			//System.out.println(num);
 			
 			ArrayList<String> list = new ArrayList<>();
 			list = dao.getWaitingInfo(Integer.parseInt(num));   
@@ -40,11 +40,7 @@ public class HospitalWaitingInfoService implements Action{
 			response.setContentType("application/text; charset=utf-8");
 			response.getWriter().print(sendObject);
 			
-			System.out.println("Waitinginfo : "+list); ////////////////////////////////////
-			
-//			forward = new ActionForward();
-//			forward.setRedirect(false); // forward
-//			forward.setPath("/WEB-INF/views/main/mainIndex.jsp");
+			//System.out.println("Waitinginfo : "+list); ////////////////////////////////////
 			
 		} catch (Exception e) {
 			e.printStackTrace();
