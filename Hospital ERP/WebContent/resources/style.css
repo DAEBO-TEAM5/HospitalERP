@@ -41,9 +41,6 @@
 	background-color: #BEBEBE;
 }
 
-table, th, tr, td {
-	border: 1px solid black;
-}
 
 #button-right {
 	float: right;
@@ -56,7 +53,7 @@ table, th, tr, td {
 .fa-solid{
 	color: #304080;
 }
-.col-md-2{
+.leftinfo{
 	padding-left: 24px;
 }
 #search{
@@ -83,4 +80,96 @@ table, th, tr, td {
     height: 500px;
     margin-left: 10px;
     background-color: lightgray;
+}
+.col-md-2.right{
+	padding: 12px;
+}
+
+
+        .test {
+            height: auto;
+            background-color: white;
+            width: auto;
+            padding: 0px;
+           	
+            margin: 0 auto;
+            border-radius:5px;
+           	box-shadow:0px 5px 30px -20px rgba(0,0,0,0.3);
+        }
+
+      .Calendar > td {
+            width: 100px;
+            height: 100px;
+        }
+		.Calendar > table, th, tr, td{
+			border: 0px;
+		}
+
+        .Calendar {
+            text-align: center;
+        }
+
+        .Calendar>thead>tr:first-child>td {
+            font-family: 'Questrial', sans-serif;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .Calendar>thead>tr:last-child>td {
+            font-family: 'Questrial', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 600;     
+        }
+
+        .Calendar>tbody>tr>td>p {
+            font-family: 'Questrial','Montserrat', sans-serif;
+            height: 30px;
+            width: 30px;
+            border-radius: 30px;
+            transition-duration: .2s;
+            line-height: 30px;
+            margin: 2.5px;
+            display: block;
+            text-align: center;
+        }
+
+        .pastDay {
+            color: lightgray;
+            cursor: pointer;
+        }
+        .pastDay:hover{
+            background: #eee;
+        }
+
+        .today {
+            background-color: #F5D042;            
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .futureDay {
+            background-color: #FFFFFF;
+            cursor: pointer;
+        }
+        .futureDay:hover{
+            background:#eee;
+        }
+
+        .futureDay.choiceDay,
+        .today.choiceDay {
+            background: #0A174E;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .pastDay.choiceDay {
+            background: darkgray;
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+.row{
+	margin-right: 0px;
 }
