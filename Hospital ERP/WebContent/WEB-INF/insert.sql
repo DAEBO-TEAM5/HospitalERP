@@ -6,13 +6,6 @@ select m_code"약품 코드", m_name"약품 이름" from medicine;
 select * from medicine;
 
 
---처방
-insert into prescription values(1001, 1111, 3);
-insert into prescription values(2002, 2222, 99);
-select p_code"처방 코드", p_m_code"약품 코드", p_use"약품 사용량" from prescription;
-select *from prescription;
-
-
 --질병
 insert into disease values(3344, '코로나');
 insert into disease values(5566, 'A형간염');
@@ -55,22 +48,30 @@ select w_num"접수번호", w_symptom"증상내용", w_p_num "환자 번호" fro
 select * from wait;
 
 
---진료기록 번호/ 진료날짜/ 처방금지 약품/ 처방코드/ 환자번호/ 질병코드/ 물리치료 코드/ 직원 코드
-insert into RECORD values(1, '2023-07-02', '의사소견1', 1001, 1, 3344, 1, 220011);
-insert into record values(2, '2023-07-04', '의사소견2', 2002, 2, 5566, 2, 210341);
-select r_num"진료기록 번호", r_date"진료날짜", r_opinion"의사소견(진단결과)", r_p_code"처방코드", r_p_num"환자번호", r_p_code"질병코드", r_t_code"물리치료 코드", r_e_code"직원코드" from record; 
+--진료기록 번호/ 진료날짜/ 의사소견/ 환자번호/ 질병코드/ 직원 코드
+insert into RECORD values(1, '2023-07-02', '의사소견1', 1, 3344, 220011);
+insert into record values(2, '2023-07-04', '의사소견2', 2, 5566, 210341);
+select r_num"진료기록 번호", r_date"진료날짜", r_opinion"의사소견(진단결과)", r_p_num"환자번호", r_p_code"질병코드", r_e_code"직원코드" from record; 
 select * from record;
 
 
+--처방
+insert into prescription values(1001, 1111, 3, 1);
+insert into prescription values(2002, 2222, 99, 2);
+select p_num"맵핑 번호", p_m_code"약품 코드", p_use"약품 사용량", p_r_num"진료 기록 번호" from prescription;
+select *from prescription;
+
+
 --요금 수납
-insert into payment values(50000, 0, 1); 
-insert into payment values(20000, 0, 2); 
-select p_amount"처방금액", p_pay"수납한 금액", p_r_num"진료기록 번호" from payment;
+insert into payment values(1, 50000, 0, 1); 
+insert into payment values(2, 20000, 0, 2); 
+select pay_num"수납 번호", pay_amount"처방금액", pay_pay"수납한 금액", pay_r_num"진료기록 번호" from payment;
 select * from payment;
 
 
 --물품재고 
 insert into item values( 35923, 1, '이쑤시개', '소모품', '다스', 2, '2023-09-03', 30000, '비고', '메모');
+insert into item values( 11111, 2, '면봉', '소모품', '다스', 5, '2023-09-03', 50000, '비고', '메모');
 select i_code"품목코드", i_num"물품번호", i_name"물품이름", i_category"카테고리", i_unit"단위", i_stock"재고량", i_expire"유통기한", i_price"물품단가", i_remark"비고", i_memo"메모" from item;
 select * from item;
 
@@ -86,3 +87,12 @@ insert into discard values( 35923, '2023-07-05','16:49', '폐기담당자', 30, 
 select dis_i_code"품목코드", dis_date"폐기날짜", dis_time"폐기시간", dis_user"폐기담당자", dis_amount"폐기량", dis_remark"비고" from discard;
 select * from discard;
 
+
+-- 물리치료 환자 맵핑
+insert into tr_mapping values(1, 1, 1);
+insert into tr_mapping values(2, 2, 2);
+select tr_num"물리치료 맵핑번호", tr_t_code"물리치료 코드", tr_r_num"진료 기록 번호" from tr_mapping;
+select * from tr_mapping;
+
+
+commit;

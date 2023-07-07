@@ -88,7 +88,7 @@ border-radius: 30px;
 .item_table_main{
 	border:2px solid yellow;
 	width: 1050px;
-	height: 350px;
+/* 	height: 350px; */
 	margin: 15px 20px 15px 20px;
 	text-align: center;
 }
@@ -101,5 +101,5 @@ border-radius: 30px;
 	background-color: green; 
 }
 .item_table_main >tr>td:nth-child(1){
-	width:10px;
+/* 	width:10px; */
 } 

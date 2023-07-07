@@ -15,6 +15,7 @@ import hospital.service.HospitalWaitingInfoService;
 import hospital.service.HospitalWaitingListService;
 import hospital.service.InfoServiceAction;
 import hospital.service.InsertRecordServiceAction;
+import hospital.service.ItemRelServiceAction;
 import hospital.service.LoginOkServiceAction;
 import hospital.service.SelectListServiceAction;
 import hospital.service.SearchServiceAction;
@@ -86,7 +87,7 @@ public class FrontRegisterController extends HttpServlet {
     		action.execute(request, response);
 		
     	}else if(urlcommand.equals("/itemRelTable.do")){
-    		action = new ItemServiceAction();
+    		action = new ItemRelServiceAction();
     		action.execute(request, response);
     		
     	}else if(urlcommand.equals("/main2.do")) {
