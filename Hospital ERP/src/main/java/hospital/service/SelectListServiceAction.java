@@ -13,7 +13,7 @@ import hospital.action.Action;
 import hospital.action.ActionForward;
 import hospital.dao.RecordDao;
 
-public class MedicineListServiceAction implements Action {
+public class SelectListServiceAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
@@ -40,12 +40,7 @@ public class MedicineListServiceAction implements Action {
 				medObj.put("m_code", list.get(str));
 				sendArray.add(medObj);
 			}
-			
-			//hapArrap.add(sendArray);
-			
-			
-			
-			System.out.println("MedicineInfo : "+list); ////////////////////////////////////
+			//System.out.println("MedicineInfo : "+list); ////////////////////////////////////
 			
 			ArrayList<String> tlist = new ArrayList<>();
 			ArrayList<String> dlist = new ArrayList<>();
@@ -69,7 +64,6 @@ public class MedicineListServiceAction implements Action {
 			hapArrap.add(dArray);
 			
 			sendObject.put("final", hapArrap);
-			
 			
 			System.out.println(sendObject);
 			response.setContentType("application/text; charset=utf-8");

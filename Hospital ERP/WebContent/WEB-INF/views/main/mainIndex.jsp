@@ -169,8 +169,8 @@
           			
           			<select id="addD" class="form-control" ></select>
           		
-          			<input class="btn btn-primary" type="button" value="+" onclick="prescriptionList('#result_D');">
-          			<input class="btn btn-primary" type="button" value="-" onclick="prescriptionListDelete('#result_D');">
+          			<input class="btn btn-primary" type="button" value="+" onclick="diseaseList();">
+          			<input class="btn btn-primary" type="button" value="-" onclick="diseaseDelete();">
           		</div>
           		<div> 
           			<table id="result_D">
@@ -253,17 +253,17 @@ function waitListFunc(data){
 	}
 }
 
-//약품리스트 불러오기
+//처방전_select리스트 불러오기
 $(function(){
 	$.ajax({
 		type: 'get',
-		url: "./mainMedList.do",
-		success : medListFunc,
+		url: "./mainSelectList.do",
+		success : selectListFunc,
 		error: errFunc
 	});
 });
 
-function medListFunc(data){
+function selectListFunc(data){
 	var obj = JSON.parse(data);
 	
 	console.log("obj---"+obj);
@@ -385,6 +385,17 @@ function therapyDelete() {
 	$("tr").remove("#prescriptionThList");
 }
 
+function diseaseList() {
+	  var d_name = document.getElementById("addD");
+	  var d_nameT = d_name.options[d_name.selectedIndex].text;
+	  
+	  var med_table = "<tr id='prescriptionDList'>  <td>" + d_nameT + "</td>  </tr>";
+	  $('#result_D').append(med_table);
+}
+function diseaseDelete() {
+	$("tr").remove("#prescriptionDList");
+}
+
 
 
 	
@@ -403,7 +414,8 @@ function insertRec() {
 		console.log(yang);
 		
 		//medPres[m_name] = yang;
-		medPres[i-1] = {"med": m_name, "yang": yang} ;
+		medPres[i-1] = {m_name,yang};
+		console.log("-------------------"+medPres[i-1]);
 		
 		
 	}
@@ -433,11 +445,20 @@ function insertRec() {
 		var t_name = row.cells[0].innerHTML;
 		tList[i-1] = t_name;
 	}
+	
+	
+	  var d_name = document.getElementById("addD");
+	  var d_nameT = d_name.options[d_name.selectedIndex].text;
+	  
+	  var patientName = $('#patientName').text();
+	  
+	  //console.log("이름--------------------"+patientName);
 
 	$.ajax({
 		 type: 'post',
 		 url: "./insertRecord.do",
-		 data : {"note": note, "medPres": JSON.stringify(medPres), "tList": JSON.stringify(tList) },
+		 data : {"note": note, "medPres": JSON.stringify(medPres), "tList": JSON.stringify(tList),
+			 	"dName": d_nameT, "p_name": patientName },
 		 success : insertRecord(),
 		error : function(msg, error) {
 				alert(error);

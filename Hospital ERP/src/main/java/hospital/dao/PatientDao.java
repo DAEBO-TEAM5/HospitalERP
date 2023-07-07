@@ -16,12 +16,6 @@ import hospital.vo.PatientVO;
 
 public class PatientDao {
 	
-	DataSource ds = null;
-	public PatientDao() throws NamingException {
-		Context context = new InitialContext();
-		ds = (DataSource)context.lookup("java:comp/env/jdbc/HospitalDB");
-	}
-	
 	public ArrayList<String> getWaitingInfo(int num) {
 		
 		ArrayList<String> list = new ArrayList<>();
@@ -29,9 +23,8 @@ public class PatientDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			conn = ds.getConnection();
-			//String sql = "select p.num, p.name, p.birth, p.sex, w.symptom from patient p join wait w on p.num = ?";
-			String sql = "select p.num, p.name, p.birth, p.sex, w.symptom from patient p join wait w on p.num = w.num where p.num = ?";
+			conn = ConnectionHelper.getConnection();
+			String sql = "select p.num, p.name, p.birth, p.sex, w.w_symptom from patient p join wait w on p.num = w.w_p_num where p.num = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			
@@ -42,8 +35,7 @@ public class PatientDao {
 			list.add(rs.getString("name"));
 			list.add(rs.getString("birth"));
 			list.add(rs.getString("sex"));
-			list.add(rs.getString("symptom"));
-			
+			list.add(rs.getString("w_symptom"));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -52,7 +44,6 @@ public class PatientDao {
 			ConnectionHelper.close(pstmt);
 			ConnectionHelper.close(conn);
 		}
-		
 		return list;
 	}
 
@@ -63,13 +54,11 @@ public class PatientDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
-			conn = ds.getConnection();
-			//String sql = "select p.num, p.name, p.birth, p.sex, w.symptom from patient join wait w on p.num = ?";
-			String sql = "select p.num, p.name, p.birth, p.sex from patient p join wait w on p.num = w.num";
+			conn = ConnectionHelper.getConnection();
+			String sql = "select p.num, p.name, p.birth, p.sex from patient p join wait w on p.num = w.w_p_num";
 			pstmt = conn.prepareStatement(sql);
 			
 			ResultSet rs = pstmt.executeQuery();
-			
 			
 			while(rs.next()) {
 				PatientVO dao = new PatientVO();
@@ -82,9 +71,6 @@ public class PatientDao {
 				list.add(dao);
 				System.out.println("Dao List: "+dao.getName());
 			}
-			//list.add(dao);
-			
-			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -92,7 +78,6 @@ public class PatientDao {
 			ConnectionHelper.close(pstmt);
 			ConnectionHelper.close(conn);
 		}
-		
 		return list;
 	}
 	
