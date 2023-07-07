@@ -52,6 +52,10 @@
 		background-color: #3f51b5;
 		color: #fff;
 		cursor: pointer;
+		display: inline-block;
+	}
+	.popup-content input[type="reset"] {
+		display: inline-block;
 	}
 	.popup-content input[type="submit"]:hover {
 		background-color: #303f9f;
