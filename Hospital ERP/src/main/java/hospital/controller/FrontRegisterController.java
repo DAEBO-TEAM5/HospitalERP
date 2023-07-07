@@ -75,8 +75,7 @@ public class FrontRegisterController extends HttpServlet {
     	}else if(urlcommand.equals("/patientinfo.do")) {
     		action = new InfoServiceAction();
     		action.execute(request, response);
-    	
-    	
+    		
     	}else if(urlcommand.equals("/item.do")) {
     		forward = new ActionForward();
     		forward.setRedirect(false);

@@ -41,7 +41,7 @@
 	background-color: #BEBEBE;
 }
 
-table, th, tr, td {
+.history, .history tr, .history th, .history td{
 	border: 1px solid black;
 }
 
@@ -95,7 +95,7 @@ table, th, tr, td {
 	width: 100%;
 	
 }
-.col-md-2{
+.col-md-2 .leftinfo{
 	padding-left: 24px;
 }
 h3{

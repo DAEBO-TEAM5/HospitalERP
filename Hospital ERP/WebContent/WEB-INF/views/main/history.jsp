@@ -7,10 +7,14 @@
  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- 부트스트랩 -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> <!-- 부트스트랩 -->
-  <link href="${pageContext.request.contextPath }/resources/style.css" rel="stylesheet"> <!-- 사용자css -->
+ 
   <link href="${pageContext.request.contextPath }/resources/main.css" rel="stylesheet"> <!-- 사용자css -->
+   <link href="${pageContext.request.contextPath }/resources/style.css" rel="stylesheet"> <!-- 사용자css -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- Jquery -->
   <script src="https://kit.fontawesome.com/d7766e5822.js" crossorigin="anonymous"></script> <!-- fontawesome  -->
+  <style>
+  	 @import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
+  </style>
 <title>진료기록</title>
 
 
@@ -26,8 +30,8 @@
 			<div class="p-2"><a href="#" class="title-a">진료기록</a></div>  
 		</div>
 		<div class="container-fluid info">
-      		<div class="row" style="height: 100%;">
-         		<div class="col-md-2 leftinfo">
+    		<div class="row" style="height: 100%;">
+        		<div class="col-md-2 leftinfo">
             		<p>
             		<h2 style="text-align: center"><b>진료내역</b></h2>
             		<form role="form">
@@ -118,23 +122,57 @@
 		            	</div>
 		            	<br>
 		            	<div style="border-top: 1px solid black" id="hLine">
-		            	<h3 style="padding: 5px">문서발급</h3>
+			            	<h3 style="padding: 5px">문서발급</h3>
+			            	<div class="form-control" style="width:90%; margin: 0 auto;">
+								<ul>
+									<li>진료확인서</li>
+									<li>진단서</li>
+									<li>처방전</li>
+									<li>영수증</li>
+								</ul>
+			            	</div>
 		            	</div>
 					</div>	
          		</div>
 
-         		<div class="col-md-2">
-         
-        		</div>
-         
-         
-         
-      		</div>
-  		</div>
+         		<div class="col-md-2 right">
+				    <div class="test">
+        				<table class="Calendar">
+            				<thead>
+	                			<tr>
+	                    			<td onClick="prevCalendar();" style="cursor:pointer;">&#60;</td>
+	                    			<td colspan="5">
+	                        			<span id="calYear"></span>년
+	                        			<span id="calMonth"></span>월
+	                    			</td>
+	                    			<td onClick="nextCalendar();" style="cursor:pointer;">&#62;</td>
+	                			</tr>
+	               				<tr>
+				               	    <td style="color:red;">일</td>
+				                    <td>월</td>
+				                    <td>화</td>
+				                    <td>수</td>
+				                    <td>목</td>
+				                    <td>금</td>
+				                    <td style="color:blue;">토</td>
+				                </tr>
+	            			</thead>
+
+            				<tbody></tbody>
+        				</table>
+    				</div>
+    				
+				</div>
+      			
+      			
+  			</div>
+		</div>
 	</div>
 </body>
 
 <script type="text/javascript">
+var temp;
+
 $(function() {
 	$('#patient_search').click(function(){
 			$.ajax({	
@@ -147,7 +185,7 @@ $(function() {
 		
 	});
 });
-var temp;
+
 function successFunc(data){
 	var str = "";
 	var obj = JSON.parse(data);
@@ -212,5 +250,93 @@ $(function(){
 		
 	});
 });
+window.onload = function () { buildCalendar(); }
+
+let nowMonth = new Date();  // 현재 달을 페이지를 로드한 날의 달로 초기화
+let today = new Date();     // 페이지를 로드한 날짜를 저장
+today.setHours(0, 0, 0, 0);    // 비교 편의를 위해 today의 시간을 초기화
+
+// 달력 생성 : 해당 달에 맞춰 테이블을 만들고, 날짜를 채워 넣는다.
+function buildCalendar() {
+
+    let firstDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth(), 1);     // 이번달 1일
+    let lastDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1, 0);  // 이번달 마지막날
+
+    let tbody_Calendar = document.querySelector(".Calendar > tbody");
+    document.getElementById("calYear").innerText = nowMonth.getFullYear();             // 연도 숫자 갱신
+    document.getElementById("calMonth").innerText = leftPad(nowMonth.getMonth() + 1);  // 월 숫자 갱신
+
+    while (tbody_Calendar.rows.length > 0) {                        // 이전 출력결과가 남아있는 경우 초기화
+        tbody_Calendar.deleteRow(tbody_Calendar.rows.length - 1);
+    }
+
+    let nowRow = tbody_Calendar.insertRow();        // 첫번째 행 추가           
+
+    for (let j = 0; j < firstDate.getDay(); j++) {  // 이번달 1일의 요일만큼
+        let nowColumn = nowRow.insertCell();        // 열 추가
+    }
+
+    for (let nowDay = firstDate; nowDay <= lastDate; nowDay.setDate(nowDay.getDate() + 1)) {   // day는 날짜를 저장하는 변수, 이번달 마지막날까지 증가시키며 반복  
+
+        let nowColumn = nowRow.insertCell();        // 새 열을 추가하고
+
+
+        let newDIV = document.createElement("p");
+        newDIV.innerHTML = leftPad(nowDay.getDate());        // 추가한 열에 날짜 입력
+        nowColumn.appendChild(newDIV);
+
+        if (nowDay.getDay() == 6) {                 // 토요일인 경우
+            nowRow = tbody_Calendar.insertRow();    // 새로운 행 추가
+        }
+
+        if (nowDay < today) {                       // 지난날인 경우
+            newDIV.className = "pastDay";
+            newDIV.onclick = function () { choiceDate(this); }
+        }
+        else if (nowDay.getFullYear() == today.getFullYear() && nowDay.getMonth() == today.getMonth() && nowDay.getDate() == today.getDate()) { // 오늘인 경우           
+            newDIV.className = "today";
+            newDIV.onclick = function () { choiceDate(this); }
+        }
+        else {                                      // 미래인 경우
+            newDIV.className = "futureDay";
+            newDIV.onclick = function () { choiceDate(this); }
+        }
+        
+    }
+}
+
+// 날짜 선택
+function choiceDate(newDIV) {
+    if (document.getElementsByClassName("choiceDay")[0]) {                              // 기존에 선택한 날짜가 있으면
+        document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");  // 해당 날짜의 "choiceDay" class 제거
+    }
+    newDIV.classList.add("choiceDay");           // 선택된 날짜에 "choiceDay" class 추가
+}
+
+// 이전달 버튼 클릭
+function prevCalendar() {
+    nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() - 1, nowMonth.getDate());   // 현재 달을 1 감소
+    buildCalendar();    // 달력 다시 생성
+}
+// 다음달 버튼 클릭
+function nextCalendar() {
+    nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1, nowMonth.getDate());   // 현재 달을 1 증가
+    buildCalendar();    // 달력 다시 생성
+}
+
+// input값이 한자리 숫자인 경우 앞에 '0' 붙혀주는 함수
+function leftPad(value) {
+    if (value < 10) {
+        value = "0" + value;
+        return value;
+    }
+    return value;
+}
+$(function(){
+	$(document).on("click", ".test p", function (e){
+		alert($('#calYear').text()+$('#calMonth').text()+$(this).text());
+	});
+});
+
 </script>
 </html>
