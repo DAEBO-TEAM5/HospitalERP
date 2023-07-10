@@ -51,8 +51,93 @@
 				</div>
 				
 				<input type="button" value="등록" id="button-right">
+				
+<!-- Button trigger modal -->
+
+<input type="button" value="등록" id="button-right" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1"  aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">대기 접수</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form role="form" id="patientForm">
+				<div class="form-group">
+					<label for="InputName">이름</label>
+					<input type="text" class="form-control" id="InputName" />
+				</div>
+				<div class="form-group">
+					<label for="InputBirth">생년월일</label>
+					<input type="text" class="form-control" id="InputBirth" />
+				</div>
+				<div class="form-group">
+					<label for="InputPhone">연락처</label>
+					<input type="text" class="form-control" id="InputPhone" />
+				</div>
+				<div class="form-group">
+					<label for="InputAddress">주소</label>
+					<input type="text" class="form-control" id="InputAddress" />
+				</div>
+				<div class="form-group">
+					<label >성별</label>
+					<input type="radio" name="gender" value="man">남
+					<input type="radio" name="gender" value="woman">여
+				</div>
+				<div class="form-group">
+					<label >키 / 몸무게</label>
+					<input type="text" class="form-control" id="InputHeight" />
+					<input type="text" class="form-control" id="InputWeight" />
+				</div>
+				<div class="form-group">
+					<label for="InputNote">특이사항</label>
+					<textarea class="form-control" id="InputNote"></textarea>
+				</div>
+				<div class="form-group">
+					<label for="InputSymptom">증상</label>
+					<textarea class="form-control" id="InputSymptom"></textarea>
+				</div>
+				
+				<button type="submit" class="btn btn-primary">
+					Submit
+				</button>
+			</form>
+        
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+				
+				
+				
 
 			</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 
 			<div class="col-md-4"  style="border-right: 1px solid black;">
 				<h3 id="patientName" class="loadInfo"></h3>
@@ -471,6 +556,46 @@ function insertRec() {
 function insertRecord(){
 	console.log("insert 성공");
 }
+
+
+
+
+$(document).ready(function(){
+	$('#patientForm').submit(function(event){
+		console.log("오니");
+		submitForm();
+		return false;
+	});
+});
+
+function submitForm(){
+	console.log("여기까지");
+	var name = document.getElementById('InputName').value;
+	var birth = document.getElementById('InputBirth').value;
+	var phone = document.getElementById('InputPhone').value;
+	var address = document.getElementById('InputAddress').value;
+	var gender = $('input[type=radio][name=gender]:checked').val();
+	var height = document.getElementById('InputHeight').value;
+	var weight = document.getElementById('InputWeight').value;
+	var note = $('#InputNote').val();
+	console.log("noteTttt============="+note);
+	var symptom = document.getElementById('InputSymptom').value;
+	console.log("증상:::::::"+symptom);
+	$.ajax({
+		type:'POST',
+		url: "./insertPatient.do",
+		data: {"name":name, "birth":birth, "phone":phone, "address":address, "gender":gender,
+				"height":height, "weight":weight, "note":note, "symptom": symptom},
+		success: function(response){
+			$("#exampleModal").modal('hide');
+			
+		},
+		error: function(msg, error) {
+			alert(error);
+		}
+	});
+}
+
 	
 </script>
 
