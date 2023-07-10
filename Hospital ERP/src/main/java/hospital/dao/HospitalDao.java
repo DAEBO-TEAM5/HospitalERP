@@ -12,17 +12,19 @@ import hospital.vo.patientRecordVO;
 
 public class HospitalDao {
 	
-	public List<patientRecordVO> searchOK(String search_str, boolean check) {
+	public List<patientRecordVO> searchOK(String search_str, boolean check, String find) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		try {
 			conn = ConnectionHelper.getConnection();
 			String sql = "";
-			if(check) {
+			if(check && find.equals("검색")) {
 				sql = "select * from p_test where phone LIKE ?";	
-			}else {
+			}else if(!check && find.equals("검색")) {
 				sql = "select * from p_test where name LIKE ?";	
+			}else {
+				sql = "select * from p_test where r_date LIKE ?";	
 			}
 			
 			pstmt = conn.prepareStatement(sql);
@@ -70,7 +72,8 @@ public class HospitalDao {
 
 		try {
 			conn = ConnectionHelper.getConnection();
-			String sql = "select * from p_test where name = ? and phone = ?";
+			String sql = "";
+			sql = "select * from p_test where name = ? and phone = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, name);
 			pstmt.setString(2, phone);

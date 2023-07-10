@@ -8,7 +8,6 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"> <!-- 부트스트랩 -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script> <!-- 부트스트랩 -->
  
-  <link href="${pageContext.request.contextPath }/resources/main.css" rel="stylesheet"> <!-- 사용자css -->
    <link href="${pageContext.request.contextPath }/resources/style.css" rel="stylesheet"> <!-- 사용자css -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- Jquery -->
   <script src="https://kit.fontawesome.com/d7766e5822.js" crossorigin="anonymous"></script> <!-- fontawesome  -->
@@ -21,29 +20,35 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<div class="d-flex" id="title">
+		
+		<div class="container-fluid info">
+		<div class="d-flex" id="hospital_title">
 			<div class="p-2 flex-grow-1">
 				<i class="fa-solid fa-circle-user fa-lg"></i>&nbsp;ㅇㅇ병원님 반갑습니다.
 			</div>
-		    <div class="p-2"><a href="main2.do" class="title-a">진료</a></div>
-			<div class="p-2"><a href="item.do" class="title-a">재고</a></div>
-			<div class="p-2"><a href="#" class="title-a">진료기록</a></div>  
+		    <div class="p-2"><a href="main2.do" class="title_nav">진료</a></div>
+			<div class="p-2"><a href="item.do" class="title_nav">재고</a></div>
+			<div class="p-2"><a href="#" class="title_nav">진료기록</a></div>  
 		</div>
-		<div class="container-fluid info">
-    		<div class="row" style="height: 100%;">
+    		<div class="row" style="height: calc(100vh - 70.43px);">
         		<div class="col-md-2 leftinfo">
             		<p>
             		<h2 style="text-align: center"><b>진료내역</b></h2>
             		<form role="form">
 	            		<div class="form-group">
-	            			<input type="text" id = "search" placeholder="이름/전화번호" class="form-control"  onKeypress="javascript:if(event.keyCode==13) {test()}">
+	            			<input type="text" id = "search" placeholder="이름 / 전화번호" class="form-control"  onKeypress="javascript:if(event.keyCode==13) {test()}">
 	            		</div>
 	            		<div class="form-group">
 	            			<button type="button" id="patient_search"class="btn btn-primary" style="width: 100%">검색</button>
 	            		</div>
             		</form>
-            		<div class="result" style="background-color: #00AAFF; overFlow-y : auto;" id="open">
+            		
+            		<div class="search_result">
+            			<div class="list-group">
+            			   <div class="list-group-item list-group-item-action list-group-item-info">A simple dark list group item<br>efefe</div>
+						</div>
             		</div>
+            		
          		</div> <!-- 진료내역 -->
          		<div class="col-md-4"  style="border-right: 1px solid black;">
          			<div style="height:60px;" id ="patientinfo"></div>
@@ -189,16 +194,18 @@ $(function() {
 function successFunc(data){
 	var str = "";
 	var obj = JSON.parse(data);
-	console.log(obj.list.length)
+	console.log(obj);
+	console.log(obj.list.length);
+	/* <div class="list-group-item list-group-item-action list-group-item-info result_set">A simple dark list group item<br>efefe</div> */
 	for(var i =0; i< obj.list.length; i++){
-		str += "<div class='result_set'>"
-		str += "<span class = 'name'>" + obj.list[i].name + "</span><br>";
+		str += "<div class='list-group-item list-group-item-action list-group-item-info result_set'>"
+		str += "<span class = 'name'><h4>" + obj.list[i].name + "</h4></span>";
 		str += obj.list[i].birth + "<br>";
 		str += "<span class = 'phone'>" + obj.list[i].phone + "</span><br>";
 		str += "</div>"
 	}
 	
-	$('#open').html(str);
+	$('.list-group').html(str);
 }
 function errFunc(e){
 	alert("검색결과가 없습니다.");
@@ -216,7 +223,6 @@ $(function(){
 				console.log('통신실패!!!')
 			}
 		});
-		$(this).css("background-color", "pink");
 	});
 });
 function infoFunc(data){
@@ -230,6 +236,7 @@ function infoFunc(data){
 	$('#jupsu').html(obj.info[0].note);
 	$('#symptom').html(obj.info[0].symptom);
 	$('#r_d_code').html(obj.info[0].r_d_code);
+	$('.pay').html(obj.info[0].p_amount)
 	var str = "";
 	for(var i =0; i < obj.info.length; i++){
 		str += "<button class='btn btn-primary' style='width:100%;'>" + obj.info[i].r_date + "</button>"
@@ -245,6 +252,7 @@ $(function(){
 				$('#jupsu').html(temp.info[i].note);
 				$('#symptom').html(temp.info[i].symptom);
 				$('#r_d_code').html(temp.info[i].r_d_code);
+				$('.pay').html(temp.info[i].p_amount)
 			}
 		}
 		
@@ -334,9 +342,17 @@ function leftPad(value) {
 }
 $(function(){
 	$(document).on("click", ".test p", function (e){
-		alert($('#calYear').text()+$('#calMonth').text()+$(this).text());
+		$.ajax({	
+			url: "./patientsearch.do",
+			type: "post",
+			data : { date: $('#calYear').text()+$('#calMonth').text()+$(this).text()
+			},
+			success: successFunc,
+			error: function(){
+				console.log('통신실패!!!')
+			}
+		});
 	});
 });
-
 </script>
 </html>
