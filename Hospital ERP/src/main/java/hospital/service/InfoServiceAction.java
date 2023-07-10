@@ -21,11 +21,11 @@ public class InfoServiceAction implements Action{
 		
 		String name = request.getParameter("name"); //환자 번호로 바꿔야함
 		String phone = request.getParameter("phone");
-		System.out.println("여기는 환자 상세정보 page " + name);
-		System.out.println("여기는 환자 상세정보 page " + phone);
+	
 		HospitalDao dao = new HospitalDao();
-		List<patientRecordVO> list = dao.infoSearch(name,phone);
-		
+		List<patientRecordVO> list = null;
+		list = dao.infoSearch(name,phone);
+
 		
 		JSONObject sendObject = new JSONObject();
 		JSONArray sendArray = new JSONArray();

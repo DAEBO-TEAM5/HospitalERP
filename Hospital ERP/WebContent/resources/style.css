@@ -1,51 +1,114 @@
 @charset "utf-8";
 
-#title{
-	/* background-color: #00AAFF; */
-	background-color: rgba(46, 91, 219);
-	line-height: 50px;
-}
-.title-a{
-	text-decoration: none;
-	font-size: 25px;
-	color: white;
-	font-weight: bold;
-}
 .container-fluid {
    height: 100vh;
    padding: 0px;
-}
-.col-md-3 {
-   height: 100%;
-   /* border: 1px solid red; */
-}
-.vr {   /*  지울거    */
-   currentColor: blue;
-   color: black;
-
-   width: 0.2px;
-   font-size: 10px;
-}
-.verticalLine {
-   width: 0.2px;
-   border: 1px solid black;
-   height: 100%;
 }
 
 .info {
 	background-color: #F0F0F0;
 }
 
+#hospital_title{
+	background-color: rgba(46, 91, 219);
+	line-height: 50px;
+}
+
+.title_nav{
+	text-decoration: none;
+	font-size: 25px;
+	color: white;
+	font-weight: bold;
+}
+
+.row{
+	margin-right: 0px;
+}
+
 .leftinfo {
-	height: 100%;
 	background-color: #BEBEBE;
 }
 
+#search::-webkit-input-placeholder { text-align: center; }
 
+.search_result{
+	margin-top: 23px;
+	max-height: 75vh;
+	overFlow-y : auto;
+}
+.search_result::-webkit-scrollbar {
+    width: 8px;  /* 스크롤바의 너비 */
+}
+
+.search_result::-webkit-scrollbar-thumb {
+    height: 30%; /* 스크롤바의 길이 */
+    background: #217af4; /* 스크롤바의 색상 */
+    
+    border-radius: 10px;
+}
+
+.search_result::-webkit-scrollbar-track {
+    background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
+}
+
+.name{
+	
+}
+.history, .history tr, .history th, .history td{
+	border: 1px solid black;
+}
+.history {
+	width: 100%;
+}
+
+.loadInfo {
+	display: inline-block;
+	height: 30px;
+}
+
+#patientMemo {
+	width: 90%;
+	
+	background-color: lightgrey;
+	text-align: center;
+	height: 150px;
+	padding: 5px 0px;
+}
 #button-right {
 	float: right;
 }
+#jupsu {
+	width: 95%;
+	height: 100px;
+	background-color: white;
+	display: inline-block;
 
+	align-items: center;
+	border-radius: 10px;
+	text-align: center;
+	vertical-align: center;
+}
+
+#hLine {
+	clear: both;
+}
+
+
+
+#result_med {
+	border: 1px solid black;
+	width: 100%;
+	
+}
+.col-md-2 .leftinfo{
+	padding-left: 24px;
+}
+h3{
+	height: 30px;
+}
+.pay{
+	text-align: right;
+}
 .flex-grow-1{
 	font-size: 25px;
 	color: white;
@@ -56,14 +119,8 @@
 .leftinfo{
 	padding-left: 24px;
 }
-#search{
-	width: 100%;
-}
-#search::after, ::before{
-	box-sizing: border-box;
-}
-#search::-webkit-input-placeholder { text-align: center; }
-.result{
+
+.search_result{
 	cursor:pointer; 
 }
 #text{
@@ -86,90 +143,88 @@
 }
 
 
-        .test {
-            height: auto;
-            background-color: white;
-            width: auto;
-            padding: 0px;
-           	
-            margin: 0 auto;
-            border-radius:5px;
-           	box-shadow:0px 5px 30px -20px rgba(0,0,0,0.3);
-        }
+    .test {
+        height: auto;
+        background-color: white;
+        width: auto;
+        padding: 0px;
+       	
+        margin: 0 auto;
+        border-radius:5px;
+       	box-shadow:0px 5px 30px -20px rgba(0,0,0,0.3);
+    }
 
-      .Calendar > td {
-            width: 100px;
-            height: 100px;
-        }
-		.Calendar > table, th, tr, td{
-			border: 0px;
-		}
+  .Calendar > td {
+        width: 100px;
+        height: 100px;
+    }
+	.Calendar > table, th, tr, td{
+		border: 0px;
+	}
 
-        .Calendar {
-            text-align: center;
-        }
+    .Calendar {
+        text-align: center;
+    }
 
-        .Calendar>thead>tr:first-child>td {
-            font-family: 'Questrial', sans-serif;
-            font-size: 1.2rem;
-            font-weight: bold;
-        }
+    .Calendar>thead>tr:first-child>td {
+        font-family: 'Questrial', sans-serif;
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
 
-        .Calendar>thead>tr:last-child>td {
-            font-family: 'Questrial', sans-serif;
-            font-size: 0.7rem;
-            font-weight: 600;     
-        }
+    .Calendar>thead>tr:last-child>td {
+        font-family: 'Questrial', sans-serif;
+        font-size: 0.7rem;
+        font-weight: 600;     
+    }
 
-        .Calendar>tbody>tr>td>p {
-            font-family: 'Questrial','Montserrat', sans-serif;
-            height: 30px;
-            width: 30px;
-            border-radius: 30px;
-            transition-duration: .2s;
-            line-height: 30px;
-            margin: 2.5px;
-            display: block;
-            text-align: center;
-        }
+    .Calendar>tbody>tr>td>p {
+        font-family: 'Questrial','Montserrat', sans-serif;
+        height: 30px;
+        width: 30px;
+        border-radius: 30px;
+        transition-duration: .2s;
+        line-height: 30px;
+        margin: 2.5px;
+        display: block;
+        text-align: center;
+    }
 
-        .pastDay {
-            color: lightgray;
-            cursor: pointer;
-        }
-        .pastDay:hover{
-            background: #eee;
-        }
+    .pastDay {
+        color: lightgray;
+        cursor: pointer;
+    }
+    .pastDay:hover{
+        background: #eee;
+    }
 
-        .today {
-            background-color: #F5D042;            
-            color: #fff;
-            font-weight: 600;
-            cursor: pointer;
-        }
+    .today {
+        background-color: #F5D042;            
+        color: #fff;
+        font-weight: 600;
+        cursor: pointe70r;
+    }
 
-        .futureDay {
-            background-color: #FFFFFF;
-            cursor: pointer;
-        }
-        .futureDay:hover{
-            background:#eee;
-        }
+    .futureDay {
+        background-color: #FFFFFF;
+        cursor: pointer;
+    }
+    .futureDay:hover{
+        background:#eee;
+    }
 
-        .futureDay.choiceDay,
-        .today.choiceDay {
-            background: #0A174E;
-            color: #fff;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        .pastDay.choiceDay {
-            background: darkgray;
-            color: #fff;
-            font-weight: 600;
-            cursor: pointer;
-        }
+    .futureDay.choiceDay,
+    .today.choiceDay {
+        background: #0A174E;
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+    }
+    .pastDay.choiceDay {
+        background: darkgray;
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+    }
         
-.row{
-	margin-right: 0px;
-}
+

@@ -21,10 +21,18 @@ public class SearchServiceAction implements Action{
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		String pattern = "^[0-9]*$";
 		String search_str = request.getParameter("name");
-		boolean check = Pattern.matches(pattern, search_str);
+		String date = request.getParameter("date");
+		boolean check = false;
+		if(search_str != null) {
+			check = Pattern.matches(pattern, search_str);
+		}
 		HospitalDao dao = new HospitalDao();
-		List<patientRecordVO> list = dao.searchOK(search_str, check);
-		
+		List<patientRecordVO> list = null;
+		if(date == null) {
+			list = dao.searchOK(search_str, check, "검색");
+		}else {
+			list = dao.searchOK(date, check, "날짜");
+		}
 		
 		JSONObject sendObject = new JSONObject();
 		JSONArray sendArray = new JSONArray();
