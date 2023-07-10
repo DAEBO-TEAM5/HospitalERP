@@ -50,11 +50,11 @@
 					</c:forEach>
 				</div>
 				
-				<input type="button" value="등록" id="button-right">
+				
 				
 <!-- Button trigger modal -->
 
-<input type="button" value="등록" id="button-right" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<input type="button" value="등록" class="button-right" id="modifyInfo" data-bs-toggle="modal" data-bs-target="#exampleModal">
 
 
 <!-- Modal -->
@@ -120,33 +120,86 @@
 </div>
 
 
-
-				
-				
-				
-
 			</div>
 			
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
 
 			<div class="col-md-4"  style="border-right: 1px solid black;">
 				<h3 id="patientName" class="loadInfo"></h3>
-				<div> 
+				<div id="patientInfo"> 
 					<!-- 환자 정보 load -->
 					<span id="patientinfo" class="loadInfo"></span>
 					<div id="patientMemo"> 접수 메모 <br>
 						<div class="form-control" id="jupsu" readonly="readonly"></div>
 					</div>
+					
+					<!-- Button trigger modal -->
+
+<input type="button" value="수정" class="button-right" data-bs-toggle="modal" data-bs-target="#patientModal">
+
+
+<!-- Modal -->
+<div class="modal fade" id="patientModal" tabindex="-1"  aria-labelledby="patientModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="patientModalLabel">환자 정보</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form role="form" id="patientInfoForm">
+        <div class="form-group">
+					<label for="LoadNum">고객번호</label>
+					<input type="text" class="form-control" id="LoadNum" disabled="disabled"/>
+				</div>
+				<div class="form-group">
+					<label for="LoadName">이름</label>
+					<input type="text" class="form-control" id="LoadName" />
+				</div>
+				<div class="form-group">
+					<label for="LoadBirth">생년월일</label>
+					<input type="text" class="form-control" id="LoadBirth" />
+				</div>
+				<div class="form-group">
+					<label for="LoadPhone">연락처</label>
+					<input type="text" class="form-control" id="LoadPhone" />
+				</div>
+				<div class="form-group">
+					<label for="LoadAddress">주소</label>
+					<input type="text" class="form-control" id="LoadAddress" />
+				</div>
+				<div class="form-group">
+					<label >성별</label>
+					<input type="radio" name="gender" value="man">남
+					<input type="radio" name="gender" value="woman">여
+				</div>
+				<div class="form-group">
+					<label >키 / 몸무게</label>
+					<input type="text" class="form-control" id="LoadHeight" />
+					<input type="text" class="form-control" id="LoadWeight" />
+				</div>
+				<div class="form-group">
+					<label for="LoadNote">특이사항</label>
+					<textarea class="form-control" id="LoadNote"></textarea>
+				</div>
+				
+				<button type="submit" class="btn btn-primary">
+					Submit
+				</button>
+			</form>
+        
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 				</div>
 				
 				
@@ -155,6 +208,7 @@
 				
 				<br><br><br>
 				<div style="border-top: 1px solid black" id="hLine">
+				
 				
 				<div class="container text-center">
       <div class="row">
@@ -251,18 +305,9 @@
           		
           		<div class="form-group" style="">
           			<label> < 진단 질병  > </label>
-          			
           			<select id="addD" class="form-control" ></select>
-          		
-          			<input class="btn btn-primary" type="button" value="+" onclick="diseaseList();">
-          			<input class="btn btn-primary" type="button" value="-" onclick="diseaseDelete();">
           		</div>
-          		<div> 
-          			<table id="result_D">
-          				<th>약품명</th>
-          				<th>처방량</th>
-          			</table>
-          		</div>
+
           		
           		
           		
@@ -281,8 +326,8 @@
           		
           		</div>
           		<br>
-				<input type="reset" id="button-right" value = "작성 취소" >
-          		<input type="submit" id="button-right" value = "작성 완료" onclick="insertRec();">
+				<input type="reset" class="button-right" value = "작성 취소" >
+          		<input type="submit" class="button-right" value = "작성 완료" onclick="insertRec();">
           		
           		<!-- </form> -->
           		
@@ -378,12 +423,6 @@ function selectListFunc(data){
 }
 
 
-
-
-
-
-
-
  $(document).on('click', '#listinfo', function(){	 
 	 var info = $(this).val();
 	 console.log(info);
@@ -418,7 +457,91 @@ function patientInfo(data){
 function errFunc(msg, error){
 	alert(error);
 }
+//-----------------------------------------------------------------------------
 
+ $('#patientModal').on('show.bs.modal', function(e){	 
+	var name =  $('#patientName').text();
+	console.log("namename=============="+name);
+	 //var info = $(this).val();
+	 //console.log(info);
+	 console.log('수정버튼--');
+	 var winfo = $('#patientinfo').text();
+	 var arr = winfo.split("/");
+	 
+	 birth = arr[1].trim();
+	 console.log(birth);
+	 
+ 	 $.ajax({
+		 type: 'get',
+		 url: "./loadPatientInfo.do",
+		 data : {"name": name, "birth": birth },
+		 success : ModifyInfo,
+		error : function(msg, error) {
+				alert(error);
+			}
+		 
+	 }); 
+});  
+
+function ModifyInfo(data){
+	
+	var obj = JSON.parse(data);
+	console.log(obj);
+	
+	$('#LoadNum').val(obj.num);
+	$('#LoadName').val(obj.name);
+	$('#LoadBirth').val(obj.birth);
+	$('#LoadPhone').val(obj.phone);
+	$('#LoadAddress').val(obj.address);
+	$('#LoadHeight').val(obj.height);
+	$('#LoadWeight').val(obj.weight);
+	$('#LoadNote').val(obj.note);
+	if(obj.sex == 'man' || obj.sex == '남' || obj.sex == '남자'){
+		$("input:radio[name='gender'][value='man']").prop('checked', true);	
+	}
+	else $("input:radio[name='gender'][value='woman']").prop('checked', true);
+	
+}
+
+$(document).ready(function(){
+	$('#patientInfoForm').submit(function(event){
+		console.log("정보수정");
+		ModifyForm();
+		return false;
+	});
+});
+
+function ModifyForm(){
+	console.log("ㅇㅇㅇㅇ");
+	var num = document.getElementById('LoadNum').value;
+	var name = document.getElementById('LoadName').value;
+	var birth = document.getElementById('LoadBirth').value;
+	var phone = document.getElementById('LoadPhone').value;
+	var address = document.getElementById('LoadAddress').value;
+	var gender = $('input[type=radio][name=gender]:checked').val();
+	var height = document.getElementById('LoadHeight').value;
+	var weight = document.getElementById('LoadWeight').value;
+	var note = $('#LoadNote').val();
+	$.ajax({
+		type:'POST',
+		url: "./insertPatient.do",
+		data: {"name":name, "birth":birth, "phone":phone, "address":address, "gender":gender,
+				"height":height, "weight":weight, "note":note, "num":num },
+		success: function(response){
+			$("#patientModal").modal('hide');
+			alert('변경이 완료되었습니다');
+			
+		},
+		error: function(msg, error) {
+			alert(error);
+		}
+	});
+}
+
+
+
+
+//--------------------------------------------------------------------------------
 
 /* function handleOnChange(e) {
 	  // 선택된 데이터의 텍스트값 가져오기
@@ -498,29 +621,13 @@ function insertRec() {
 		console.log(m_name);
 		console.log(yang);
 		
-		//medPres[m_name] = yang;
 		medPres[i-1] = {m_name,yang};
 		console.log("-------------------"+medPres[i-1]);
 		
 		
 	}
 	
-	//console.log("딕서너리 잘 들어갔나++++++++"+medPres);
 	console.log(medPres);
-	
-	//console.log(note);
-	//console.log(typeof note);
-	//console.log(typeof medPres);
-	//console.log(Array.isArray(medPres));
-	
-	/* for(var key in medPres){
-		console.log("key: "+key+ " value: "+medPres[key]);
-	} */
-
-	
-	/* var testtest = [{med: "약1", yang: 2},{med: "약2", yang: 1},{med: "약3", yang: 3},
-		]; */
-	//console.log(testtest);
 	
 	var tList = [];
 	var thTable = document.getElementById('result_Th');
@@ -578,9 +685,9 @@ function submitForm(){
 	var height = document.getElementById('InputHeight').value;
 	var weight = document.getElementById('InputWeight').value;
 	var note = $('#InputNote').val();
-	console.log("noteTttt============="+note);
+	//console.log("noteTttt============="+note);
 	var symptom = document.getElementById('InputSymptom').value;
-	console.log("증상:::::::"+symptom);
+	//console.log("증상:::::::"+symptom);
 	$.ajax({
 		type:'POST',
 		url: "./insertPatient.do",
