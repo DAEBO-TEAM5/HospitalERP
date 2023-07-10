@@ -1,7 +1,7 @@
 package hospital.vo;
 
 public class ItemVO {
-	private int i_code, i_num, i_stock, i_price;
+	private int i_code,  i_stock, i_price;
 	private String i_name, i_category, i_unit, i_expire, i_remark, i_memo; 
 	
 	public ItemVO ( ) { }
@@ -12,14 +12,6 @@ public class ItemVO {
 
 	public void setI_code(int i_code) {
 		this.i_code = i_code;
-	}
-
-	public int getI_num() {
-		return i_num;
-	}
-
-	public void setI_num(int i_num) {
-		this.i_num = i_num;
 	}
 
 	public int getI_stock() {
@@ -88,10 +80,10 @@ public class ItemVO {
 
 	@Override
 	public String toString() {
-		return "ItemVO [i_code=" + i_code + ", i_num=" + i_num + ", i_stock=" + i_stock + ", i_price=" + i_price
-				+ ", i_name=" + i_name + ", i_category=" + i_category + ", i_unit=" + i_unit + ", i_expire=" + i_expire
-				+ ", i_remark=" + i_remark + ", i_memo=" + i_memo + "]";
-	} ;
-	
+		return "ItemVO [i_code=" + i_code + ", i_stock=" + i_stock + ", i_price=" + i_price + ", i_name=" + i_name
+				+ ", i_category=" + i_category + ", i_unit=" + i_unit + ", i_expire=" + i_expire + ", i_remark="
+				+ i_remark + ", i_memo=" + i_memo + "]";
+	}
+
 	
 }

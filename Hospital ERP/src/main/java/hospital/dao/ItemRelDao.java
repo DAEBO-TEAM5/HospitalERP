@@ -10,15 +10,13 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import hospital.utils.ConnectionHelper;
 import hospital.vo.ItemRelVO;
 import hospital.vo.ItemVO;
 
 public class ItemRelDao {
-	DataSource ds = null;
-	public ItemRelDao() throws NamingException {
-		Context context = new InitialContext();
-		ds = (DataSource)context.lookup("java:comp/env/jdbc/HospitalDB");
-	}
+
+	
 public ArrayList<ItemRelVO> itemRelTable(){
 		
 		ArrayList<ItemRelVO> list = new ArrayList<>();
@@ -26,7 +24,7 @@ public ArrayList<ItemRelVO> itemRelTable(){
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
-			conn = ds.getConnection();
+			conn = ConnectionHelper.getConnection();
 			String sql =" SELECT r.rel_date, r.rel_time, i.i_name, r.rel_i_code, i.i_category, r.rel_amount, i.i_stock, r.rel_user, r.rel_remark "
 					+ " FROM release r "
 					+ " JOIN item i ON r.rel_i_code = i.i_code "
@@ -53,11 +51,12 @@ public ArrayList<ItemRelVO> itemRelTable(){
 				
 			}
 			
-			rs.close();
-			pstmt.close();
-			conn.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			ConnectionHelper.close(rs);
+			ConnectionHelper.close(pstmt);
+			ConnectionHelper.close(conn);
 		}
 		
 		return list;

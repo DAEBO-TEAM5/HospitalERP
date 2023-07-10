@@ -261,5 +261,90 @@ REFERENCES record (
 	r_num
 );
 
+-----------------------------------------------------------------------
+drop sequence m_code_seq;
+drop sequence d_code_seq;
+drop sequence t_code_seq;
+drop sequence e_code_seq;
+drop sequence num_seq;
+drop sequence w_num_seq;
+drop sequence r_num_seq;
+drop sequence pay_num_seq;
+drop sequence i_code_num_seq;
+drop sequence p_num_seq;
+drop sequence tr_num_seq;
+
+
+--약품          medicine 
+create sequence m_code_seq --약품 코드
+INCREMENT by 1
+start with 10001;
+
+--질병명       disease
+create sequence d_code_seq --질병 코드
+INCREMENT by 1
+start with 20001;
+
+--물리치료    therapy 
+create sequence t_code_seq --물리치료 코드 
+INCREMENT by 1
+start with 30001;
+
+--직원           employee
+create sequence e_code_seq --직원 코드
+INCREMENT by 1
+start with 40001;
+
+--환자 기본정보 patient
+create sequence num_seq --환자 번호
+INCREMENT by 1
+start with 50001;
+
+--접수/대기명단 wait 
+create sequence w_num_seq --접수 번호
+INCREMENT by 1
+start with 60001;
+
+--환자 진료기록 record
+create sequence r_num_seq --진료 기록번호
+INCREMENT by 1
+start with 70001;
+
+--요금 수납     payment 
+create sequence pay_num_seq  --수납 번호 
+INCREMENT by 1
+start with 80001;
+
+--물품재고        item 
+create sequence i_code_num_seq  --품목 코드
+INCREMENT by 1
+start with 90001;
+
+
+--처방전 번호(약품+진료기록 맵핑 번호) prescription --처방맵핑번호
+create sequence p_num_seq
+start with 1001;
+
+--물리치료+환자 맵핑 번호 tr_mapping --맵핑번호
+create sequence tr_num_seq
+start with 6001;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
