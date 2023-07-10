@@ -15,7 +15,7 @@
 		transition: visibility 0s, opacity 0.3s ease;
 	}
 	.popup-content {
-		width: 400px;
+		width: 340px;
 		padding: 20px;
 		background-color: #fff;
 		border-radius: 5px;
@@ -24,6 +24,7 @@
 	.popup-content h2 {
 		text-align: center;
 		margin-top: 0;
+		margin-bottom: 15px;
 	}
 	.popup-content form {
 		display: flex;
@@ -39,23 +40,35 @@
 	}
 	.popup-content input[type="password"]
 	{
+		width: 49%;
 		margin-bottom: 10px;
 		padding: 8px;
 		border-radius: 5px;
 		border: 1px solid #ccc;
-		width : 150px;
 	}
 	.popup-content input[type="submit"] {
+		width: 66%;
 		padding: 8px 12px;
 		border: none;
 		border-radius: 3px;
 		background-color: #3f51b5;
 		color: #fff;
 		cursor: pointer;
-		display: inline-block;
+		
 	}
 	.popup-content input[type="reset"] {
-		display: inline-block;
+		width: 32%;
+		padding: 8px 12px;
+		border: none;
+		border-radius: 3px;
+		background-color: lightgrey;
+		color: black;
+		cursor: pointer;
+	
+	}
+	.popup-content input[type="reset"]:hover {
+		color: black;
+		background-color: grey;
 	}
 	.popup-content input[type="submit"]:hover {
 		background-color: #303f9f;
@@ -66,3 +79,89 @@
 		right: 10px;
 		cursor: pointer;
 	}
+	
+	.formBtn{
+	    width: 33%;
+	    padding: 8px 12px;
+	    border: none;
+	    border-radius: 3px;
+	    background-color: #3f51b5;
+	    color: #fff;
+	    cursor: pointer;
+	    margin-bottom: 10px;
+	}
+	 #h_post,#h_id{
+	 	width: 64%;
+	 }
+	 
+#phone1 {
+    width: 16%;
+}
+
+#phone2 {
+    width: 35%;
+}
+
+#phone3 {
+    width: 35%;
+}
+
+.auth {
+    display: flex;
+    justify-content: space-between;
+}
+
+.timer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.auth div {
+    width: 30%;
+    text-align: center;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.auth button {
+    width: 70%;
+}
+
+.timer div {
+    width: 30%;
+    text-align: center;
+    font-weight: 700;
+    font-size: 15px;
+}
+
+.timer button {
+    width: 70%;
+}
+
+.area select {
+    width: 100%;
+    height: 40px;
+}
+
+.gender {
+    text-align: center;
+}
+
+.signUp button {
+    width: 100%;
+    cursor:pointer;
+}
+
+button{
+    cursor: pointer;
+    height: 30px;
+}
+
+.error{
+    font-size: 1px;
+    height: 20px;
+    color:red;
+    font-weight: 700;
+}
+	 
+	 

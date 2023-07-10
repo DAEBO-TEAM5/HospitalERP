@@ -55,29 +55,205 @@
 		<form id="joinForm" action="${pageContext.request.contextPath}/signup.do" method="POST">
 			<div>
 			<input type="text" name="h_id" id="h_id" placeholder="ID">
-			<input type="button" value="중복체크" name="h_idcheck" id="h_idcheck" onClick="idCheck()">  
+			<input class="formBtn" type="button" value="중복체크" name="h_idcheck" id="h_idcheck" onClick="idCheck()">  
 			</div>
-			<input type="text" name="h_name" id="h_name" placeholder="병원이름"> 
-			<input type="text" name="h_address" id="h_address" placeholder="병원주소">
-			<input type="text" name="h_phone" id="h_phone" placeholder="연락처">
 			<div>
 				<input type="password" name="h_pwd" id="h_pwd" placeholder="비밀번호" >
 				<input type="password" name="h_cwp" id="h_cwp" placeholder="비밀번호 확인" >
 			</div>
-			<input type="email" name="h_email" id="h_email" placeholder="이메일">
-			<input type="text" name="h_post" id="h_post" placeholder="병원우편번호">
+			<input type="text" name="h_name" id="h_name" placeholder="병원이름"> 
+			<div>
+			<input type="text" readonly name="h_post" id="h_post" placeholder="우편번호">
+			<button class="formBtn" onclick="postOpener(event)">검색</button>
+			</div>
+			<input type="text" readonly name="h_address" id="h_address" placeholder="주소">
 			<input type="text" name="h_e_code" id="h_e_code" placeholder="직원코드">
+			<input type="email" name="h_email" id="h_email" placeholder="이메일">
+			
+			  <div class="phone">
+            <input id="phone1" type="text" size="1" maxlength="3" oninput="changePhone1()"> -
+            <input id="phone2" type="text" size="3" maxlength="4" oninput="changePhone2()"> -
+            <input id="phone3" type="text" size="3" maxlength="4" oninput="changePhone3()">
+            <input id="h_phone" type="hidden" name="h_phone"> <!-- 속성 추가 -->
+       		 </div>
+        <div class="auth">
+            <div id="certificationNumber">000000</div>
+            <button disabled id="sendMessage" onclick="getToken()">인증번호 전송</button>
+        </div>
+
+        <div class="timer">
+            <div id="timeLimit">03:00</div>
+            <button disabled id="completion" onclick="checkCompletion()">인증확인</button>
+        </div>
+        
+			<!-- <input type="text" name="h_phone" id="h_phone" placeholder="연락처"> -->
 			
 			
-			<input type="submit" onclick="Validation(event);" value="가입">
+			<div>
+			<input type="submit" onclick="Validation(event);" value="가입" id="signUpButton">
+			<!-- <input type="submit" onclick="Validation(event);" value="가입"> -->
             <input type="reset" onclick="alert('초기화 했습니다.')" value="다시 입력">
-            
+            </div>
 		</form>
 	</div>
 </div>
 </body>
 </html>
+<script>
+//휴대폰 번호 입력 부분
+function changePhone1(){
+    const phone1 = document.getElementById("phone1").value // 010
+    if(phone1.length === 3){
+        document.getElementById("phone2").focus();
+    }
+}
+function changePhone2(){
+    const phone2 = document.getElementById("phone2").value // 010
+    if(phone2.length === 4){
+        document.getElementById("phone3").focus();
+    }
+}
+function changePhone3(){
+    const phone3 = document.getElementById("phone3").value // 010
+    if(phone3.length === 4){
+      document.getElementById("sendMessage").focus();
+      document.getElementById("sendMessage").setAttribute("style","background-color:yellow;")
+      document.getElementById("sendMessage").disabled = false;
+    }
+}
 
+// 문자인증+타이머 부분
+function initButton(){
+  document.getElementById("sendMessage").disabled = true;
+  document.getElementById("completion").disabled = true;
+  document.getElementById("certificationNumber").innerHTML = "000000";
+  document.getElementById("timeLimit").innerHTML = "03:00";
+  document.getElementById("sendMessage").setAttribute("style","background-color:none;")
+  document.getElementById("completion").setAttribute("style","background-color:none;")
+}
+
+let processID = -1;
+
+const getToken = () => {
+
+  // 인증확인 버튼 활성화
+  document.getElementById("completion").setAttribute("style","background-color:yellow;")
+  document.getElementById("completion").disabled = false;
+
+  if (processID != -1) clearInterval(processID);
+  const token = String(Math.floor(Math.random() * 1000000)).padStart(6, "0");
+  document.getElementById("certificationNumber").innerText = token;
+  let time = 180;
+  processID = setInterval(function () {
+    if (time < 0 || document.getElementById("sendMessage").disabled) {
+      clearInterval(processID);
+      initButton();
+      return;
+    }
+    let mm = String(Math.floor(time / 60)).padStart(2, "0");
+    let ss = String(time % 60).padStart(2, "0");
+    let result = mm + ":" + ss;
+    document.getElementById("timeLimit").innerText = result;
+    time--;
+  }, 50);
+};
+
+/* function checkCompletion() {
+	  // 인증번호 확인
+	  var enteredToken = document.getElementById("enteredToken").value;
+	  var certificationNumber = document.getElementById("certificationNumber").innerText;
+	  if (enteredToken !== certificationNumber) {
+	    alert("인증번호가 일치하지 않습니다.");
+	    return;
+	  }
+ */
+function checkCompletion(){
+  alert("문자 인증이 완료되었습니다.")
+  initButton();
+  document.getElementById("completion").innerHTML="인증완료"
+  document.getElementById("signUpButton2").disabled = false;
+  document.getElementById("signUpButton2").setAttribute("style","background-color:yellow;")
+}
+</script>
+ <script>
+        function openPopup() {
+            var popup = document.getElementById("popup");
+            popup.style.visibility = "visible";
+            popup.style.opacity = "1";
+        }
+
+        function closePopup() {
+            var popup = document.getElementById("popup");
+            popup.style.visibility = "hidden";
+            popup.style.opacity = "0";
+        }
+        </script>
+<!--         <script type="text/javascript">
+	$(function(){
+		$('#id').blur(function(){
+			$.ajax(
+					{
+						type: 'post',
+						url : 'MemberIdCheckAction.do' ,
+						data: { id : $('#id').val() } ,
+						dataType : 'xml' ,
+						success: function(data) {
+							console.log(data);
+							var x = $(data).find('id').text();
+							console.log(x);
+							
+							if( x == 'y' ) {
+								$('#help_text').html('사용가능 아이디');
+							} else {
+								$('#help_text').html('<b>사용불가능</b>');
+								$('#id').text();
+							}
+						}
+					}		
+			);
+		});
+	});
+</script> -->
+        <script>
+        function idCheck() {
+            var h_id = document.getElementById("h_id").value;
+            // 중복 체크를 위한 AJAX 요청
+            $.ajax({
+                url: "./checkid.do",
+                method: "POST",
+                data: { h_id: h_id },
+                dataType: "text",
+                success: function (response) {
+                    // 중복 체크 결과에 따라 처리
+                    if (response === "duplicate") {
+                        alert("이미 사용 중인 아이디입니다.");
+                    } else {
+                        alert("사용 가능한 아이디입니다.");
+                    }
+                },
+                error: function () {
+                    alert("중복 체크 과정에서 오류가 발생했습니다.");
+                }
+            });
+        }
+    </script> 
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+	function postOpener(e){
+		e.preventDefault();
+	    new daum.Postcode({
+	        oncomplete: function(data) {
+	            var h_post = document.getElementById("h_post");
+	            var h_address = document.getElementById("h_address")
+	            console.log(data);
+	            h_address.value = data.address;
+				h_post.value = data.zonecode;
+	        }
+	    }).open();
+	}
+
+</script>
 <script>
 	function openPopup() {
 		var popup = document.getElementById("popup");
@@ -92,6 +268,11 @@
 	}
 </script>
 <script>
+
+function validatePhoneNumber(phoneNumber) {
+	  const regex = /^\d{3}-\d{3,4}-\d{4}$/;
+	  return regex.test(phoneNumber);
+	}
 // 유효성 검사 메서드
 function Validation(event) {
 event.preventDefault();
@@ -100,7 +281,7 @@ event.preventDefault();
     var h_id = document.getElementById("h_id")
     var h_name = document.getElementById("h_name")
     var h_address = document.getElementById("h_address")
-    var h_phone = document.getElementById("h_phone")
+    /* var h_phone = document.getElementById("h_phone") */
     var h_pwd = document.getElementById("h_pwd")
     var h_cwp = document.getElementById("h_cwp")
     var h_email = document.getElementById("h_email")
@@ -129,47 +310,10 @@ event.preventDefault();
         alert("ID는 4~12자 영문 대소문자, 숫자만 입력하세요.");
         h_id.focus();
         return false;
-    }
-  
-    //이름 확인 = 한글과 영어만 가능하도록
-    if (h_name.value.trim() === "") {
-        alert("병원명을 입력하세요.");
-        h_name.focus();
-        return false;
-    }
-
-    else if (!regName.test(h_name.value.trim())) {
-        alert("병원명은 최소 2글자 이상, 한글과 영어만 입력하세요.");
-        h_name.focus();
-        return false;
-    }
-
-    //주소 확인 = 한글과 영어만 가능하도록
-    if (h_address.value.trim() === "") {
-        alert("주소를 입력하세요.");
-        h_address.focus();
-        return false;
-    }
-
-    else if (!regName.test(h_address.value.trim())) {
-        alert("병원 주소는 최소 2글자 이상, 한글과 영어만 입력하세요.");
-        h_address.focus();
-        return false;
-    }
-
-    //휴대폰 번호 확인
+    } 
     
-     if (h_phone.value.trim() === "") {
-        alert("전화번호를 입력하세요.");
-        h_phone.focus();
-        return false;
-    }
-     else if (!regExp.test(h_phone.value.trim())) {
-        alert("전화번호는 숫자만 입력 가능합니다. 다시 입력해주세요.");
-        h_phone.focus();
-        return false;
-    }
-
+    
+    
     //비밀번호 확인
     if (h_pwd.value.trim() === "") {
         alert("비밀번호를 입력하세요.");
@@ -197,7 +341,53 @@ event.preventDefault();
         h_cwp.focus();
         return false;
     }
+    
+    
+  
+    //병원이름 확인 = 한글과 영어만 가능하도록
+    if (h_name.value.trim() === "") {
+        alert("병원명을 입력하세요.");
+        h_name.focus();
+        return false;
+    }
 
+    else if (!regName.test(h_name.value.trim())) {
+        alert("병원명은 최소 2글자 이상, 한글과 영어만 입력하세요.");
+        h_name.focus();
+        return false;
+    }
+    
+    
+    //우편번호 확인
+    if (h_post.value.trim() === "") {
+        alert("검색을 눌러 우편번호 주소를 입력해주세요.");
+        h_post.focus();
+        return false;
+    }
+    /* else if (!regExp.test(h_post.value.trim())) {
+        alert("우편번호는 숫자만 입력 가능합니다. 다시 입력해주세요.");
+        h_post.focus();
+        return false;
+    } */
+
+    //주소 확인 = 한글과 영어만 가능하도록
+    if (h_address.value.trim() === "") {
+        alert("검색을 눌러 우편번호 주소를 입력해주세요.");
+        h_address.focus();
+        return false;
+    }
+    //의사코드 확인
+    if (h_e_code.value.trim() === "") {
+        alert("직원명 입력하세요.");
+        h_e_code.focus();
+        return false;
+    }
+    else if (!regExp.test(h_e_code.value.trim())) {
+        alert("직원명 숫자만 입력 가능합니다. 다시 입력해주세요.");
+        h_e_code.focus();
+        return false;
+    }
+    
     //메일주소 확인
     if (h_email.value.trim() === "") {
         alert("메일주소를 입력하세요.");
@@ -210,31 +400,46 @@ event.preventDefault();
         h_email.focus();
         return false;
     }
-
-    //우편번호 확인
-    if (h_post.value.trim() === "") {
-        alert("우편번호를 입력하세요.");
-        h_post.focus();
-        return false;
-    }
-    else if (!regExp.test(h_post.value.trim())) {
-        alert("우편번호는 숫자만 입력 가능합니다. 다시 입력해주세요.");
-        h_post.focus();
-        return false;
-    }
+   
     
-    //의사코드 확인
-    if (h_e_code.value.trim() === "") {
-        alert("메일주소를 입력하세요.");
-        h_e_code.focus();
-        return false;
-    }
-    else if (!regExp.test(h_e_code.value.trim())) {
-        alert("의사코드는 숫자만 입력 가능합니다. 다시 입력해주세요.");
-        h_e_code.focus();
-        return false;
-    }
 
+ /*    else if (!regName.test(h_address.value.trim())) {
+        alert("병원 주소는 최소 2글자 이상, 한글과 영어만 입력하세요.");
+        h_post.focus();
+        return false;
+    } */
+    
+    
+    
+    var phoneNumber =
+        h_phone1.value.trim() +
+        "-" +
+        h_phone2.value.trim() +
+        "-" +
+        h_phone3.value.trim();
+      if (phoneNumber === "--") {
+        alert("휴대폰 번호를 입력하세요.");
+        h_phone1.focus();
+        return false;
+      } else if (!validatePhoneNumber(phoneNumber)) {
+        alert("유효하지 않은 휴대폰 번호입니다.");
+        h_phone1.focus();
+        return false;
+      }
+
+    //휴대폰 번호 확인
+    /*  if (h_phone.value.trim() === "") {
+        alert("전화번호를 입력하세요.");
+        h_phone.focus();
+        return false;
+    }
+     else if (!regExp.test(h_phone.value.trim())) {
+        alert("전화번호는 숫자만 입력 가능합니다. 다시 입력해주세요.");
+        h_phone.focus();
+        return false;
+   */
+   
+   
     // 유효성 문제 없을 시 폼에 submit
     var joinForm = document.getElementById("joinForm");
     joinForm.submit();
