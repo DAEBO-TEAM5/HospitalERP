@@ -23,6 +23,7 @@ public class SignUpServiceAction implements Action {
 		int h_e_code = Integer.parseInt(request.getParameter("h_e_code"));
 		
 		SignUpDao dao = new SignUpDao();
+		System.out.println(h_phone);
 		
 		LoginVO vo = new LoginVO();
 		vo.setH_id(h_id);

@@ -50,7 +50,6 @@ public class FrontRegisterController extends HttpServlet {
     		forward.setPath("/WEB-INF/views/main/main.jsp");
 
     	}else if(urlcommand.equals("/login.do")) { 
-    		System.out.println("여기는옴");
     		forward = new ActionForward();
     		forward.setRedirect(false);
     		forward.setPath("/WEB-INF/views/login/login.jsp");
