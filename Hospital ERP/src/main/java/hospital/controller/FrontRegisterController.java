@@ -14,13 +14,16 @@ import hospital.action.ActionForward;
 import hospital.service.HospitalWaitingInfoService;
 import hospital.service.HospitalWaitingListService;
 import hospital.service.InfoServiceAction;
+import hospital.service.InsertPatientServiceAction;
 import hospital.service.InsertRecordServiceAction;
 import hospital.service.ItemRelServiceAction;
 import hospital.service.LoginOkServiceAction;
+import hospital.service.LoadPatientInfoServiceAction;
 import hospital.service.SelectListServiceAction;
 import hospital.service.SearchServiceAction;
 import hospital.service.ItemServiceAction;
 import hospital.service.SignUpServiceAction;
+import hospital.service.UpdatePatientInfoServiceAction;
 import hospital.service.MemberIdCheckAction;
 
 
@@ -117,8 +120,20 @@ public class FrontRegisterController extends HttpServlet {
     		forward = action.execute(request, response);
     	}
     	else if(urlcommand.equals("/insertRecord.do")) {
-    		System.out.println("insertRecord-----------");
+    		//System.out.println("insertRecord-----------");
     		action = new InsertRecordServiceAction();
+    		action.execute(request, response);
+    	}else if(urlcommand.equals("/insertPatient.do")) {
+    		//System.out.println("insertPatient-----------");
+    		action = new InsertPatientServiceAction();
+    		action.execute(request, response);
+    	}else if(urlcommand.equals("/loadPatientInfo.do")) {
+    		System.out.println("loadPatientInfo-----------");
+    		action = new LoadPatientInfoServiceAction();
+    		action.execute(request, response);
+    	}else if(urlcommand.equals("/updatePatientInfo.do")) {
+    		System.out.println("loadPatientInfo-----------");
+    		action = new UpdatePatientInfoServiceAction();
     		action.execute(request, response);
     	}
     	
