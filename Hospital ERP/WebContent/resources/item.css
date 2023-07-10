@@ -25,7 +25,7 @@
 }
 table {
 	border: 1px solid black;
-}
+} 
 tr, td {
 	border: 1px solid black; 
 }
@@ -54,43 +54,40 @@ th {
    border: 2px solid red;
 }
 .item_btn_click{
-	background-color: #00AAFF;
 	width: 250px;
 	margin: 30px 5px 15px 30px;
 }
 .item_btn_nonclick{
-	background-color: grey;
 	width: 250px;
 	margin: 30px 10px 15px 5px;
 }
-.input-search{
-position:relative;
-width:50px;
-height:50px;
-text-align:center;
-line-height: 55px;
-border-radius: 30px;
-}
-.item_manage_group{
+.input-itemsort{
 	margin: 10px;
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;
 }
-.item_manage_group > * {
+.input-itemsort > * {
 	width: 20%;
 	margin: 15px
+}
+.input-itemsearch{
+position:relative;
+text-align:center;
+line-height: 45px;
 }
 .item_checkbox{
 	text-align: right;
 	margin: 10px 40px 10px 10px;
 }
+
 .item_table_main{
 	border:2px solid yellow;
 	width: 1050px;
 /* 	height: 350px; */
 	margin: 15px 20px 15px 20px;
 	text-align: center;
+	
 }
 .item_table_main >tr{
 	text-align: right; 
@@ -99,7 +96,11 @@ border-radius: 30px;
 .item_table_main >tr>td{
 	text-align: left; 
 	background-color: green; 
-}
+} 
 .item_table_main >tr>td:nth-child(1){
 /* 	width:10px; */
 } 
+.table {
+}
+.table-hover{
+}

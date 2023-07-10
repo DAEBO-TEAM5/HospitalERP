@@ -3,7 +3,7 @@ package hospital.vo;
 //환자 정보 테이블
 public class PatientVO {
 	private int num, height, weight;
-	private String name, birth, phone, address, sex;
+	private String name, birth, phone, address, sex, note;
 	
 	public PatientVO(){ }
 
@@ -71,8 +71,13 @@ public class PatientVO {
 		this.sex = sex;
 	}
 	
+	public String getNote() {
+		return note;
+	}
 	
-	
+	public void setNote(String note) {
+		this.note = note;
+	}
 	
 
 }

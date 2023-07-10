@@ -14,13 +14,17 @@ import hospital.action.ActionForward;
 import hospital.service.HospitalWaitingInfoService;
 import hospital.service.HospitalWaitingListService;
 import hospital.service.InfoServiceAction;
+import hospital.service.InsertPatientServiceAction;
 import hospital.service.InsertRecordServiceAction;
 import hospital.service.ItemRelServiceAction;
 import hospital.service.LoginOkServiceAction;
+import hospital.service.LoadPatientInfoServiceAction;
 import hospital.service.SelectListServiceAction;
 import hospital.service.SearchServiceAction;
 import hospital.service.ItemServiceAction;
 import hospital.service.SignUpServiceAction;
+import hospital.service.UpdatePatientInfoServiceAction;
+import hospital.service.MemberIdCheckAction;
 
 
 
@@ -49,7 +53,6 @@ public class FrontRegisterController extends HttpServlet {
     		forward.setPath("/WEB-INF/views/main/main.jsp");
 
     	}else if(urlcommand.equals("/login.do")) { 
-    		System.out.println("여기는옴");
     		forward = new ActionForward();
     		forward.setRedirect(false);
     		forward.setPath("/WEB-INF/views/login/login.jsp");
@@ -63,6 +66,11 @@ public class FrontRegisterController extends HttpServlet {
     		System.out.println("오나요 사인?");
     		action = new SignUpServiceAction();
     		forward = action.execute(request, response);
+    		
+    	}else if(urlcommand.equals("/checkid.do")){
+    		System.out.println("체크입니다");
+        		action = new MemberIdCheckAction();
+        		action.execute(request, response);	
 
     	}else if(urlcommand.equals("/history.do")) {
     		forward = new ActionForward();
@@ -112,8 +120,20 @@ public class FrontRegisterController extends HttpServlet {
     		forward = action.execute(request, response);
     	}
     	else if(urlcommand.equals("/insertRecord.do")) {
-    		System.out.println("insertRecord-----------");
+    		//System.out.println("insertRecord-----------");
     		action = new InsertRecordServiceAction();
+    		action.execute(request, response);
+    	}else if(urlcommand.equals("/insertPatient.do")) {
+    		//System.out.println("insertPatient-----------");
+    		action = new InsertPatientServiceAction();
+    		action.execute(request, response);
+    	}else if(urlcommand.equals("/loadPatientInfo.do")) {
+    		System.out.println("loadPatientInfo-----------");
+    		action = new LoadPatientInfoServiceAction();
+    		action.execute(request, response);
+    	}else if(urlcommand.equals("/updatePatientInfo.do")) {
+    		System.out.println("loadPatientInfo-----------");
+    		action = new UpdatePatientInfoServiceAction();
     		action.execute(request, response);
     	}
     	

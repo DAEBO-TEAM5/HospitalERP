@@ -20,7 +20,7 @@ public class SelectListServiceAction implements Action {
 		ActionForward forward = null;
 		
 		try {
-			System.out.println("MedicineList 출력-----------");
+			//System.out.println("MedicineList 출력-----------");
 			RecordDao dao = new RecordDao();
 			
 			HashMap<String, Integer> list = new HashMap<>();
@@ -65,7 +65,7 @@ public class SelectListServiceAction implements Action {
 			
 			sendObject.put("final", hapArrap);
 			
-			System.out.println(sendObject);
+			//System.out.println(sendObject);
 			response.setContentType("application/text; charset=utf-8");
 			response.getWriter().print(sendObject);
 			
