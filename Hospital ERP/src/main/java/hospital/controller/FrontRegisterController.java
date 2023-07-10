@@ -21,6 +21,7 @@ import hospital.service.SelectListServiceAction;
 import hospital.service.SearchServiceAction;
 import hospital.service.ItemServiceAction;
 import hospital.service.SignUpServiceAction;
+import hospital.service.MemberIdCheckAction;
 
 
 
@@ -49,7 +50,6 @@ public class FrontRegisterController extends HttpServlet {
     		forward.setPath("/WEB-INF/views/main/main.jsp");
 
     	}else if(urlcommand.equals("/login.do")) { 
-    		System.out.println("여기는옴");
     		forward = new ActionForward();
     		forward.setRedirect(false);
     		forward.setPath("/WEB-INF/views/login/login.jsp");
@@ -63,6 +63,11 @@ public class FrontRegisterController extends HttpServlet {
     		System.out.println("오나요 사인?");
     		action = new SignUpServiceAction();
     		forward = action.execute(request, response);
+    		
+    	}else if(urlcommand.equals("/checkid.do")){
+    		System.out.println("체크입니다");
+        		action = new MemberIdCheckAction();
+        		action.execute(request, response);	
 
     	}else if(urlcommand.equals("/history.do")) {
     		forward = new ActionForward();
