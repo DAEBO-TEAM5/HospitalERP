@@ -10,7 +10,7 @@ import hospital.vo.LoginVO;
 
 public class SignUpDao{
 
-	public int signUp(LoginVO vo) {
+	public int signUp(LoginVO vo) throws SQLException {
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -35,7 +35,7 @@ public class SignUpDao{
 			resultrow = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			ConnectionHelper.close(pstmt);
 			ConnectionHelper.close(conn);

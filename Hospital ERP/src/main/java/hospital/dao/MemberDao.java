@@ -23,7 +23,7 @@ public class MemberDao {
             
             if (rs.next()) {
                 isDuplicate = true; // 해당 아이디가 이미 존재함
-            }
+            } 
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

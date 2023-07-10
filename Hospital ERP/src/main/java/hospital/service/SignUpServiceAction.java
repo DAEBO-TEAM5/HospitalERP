@@ -1,5 +1,7 @@
 package hospital.service;
 
+import java.sql.SQLException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -34,8 +36,18 @@ public class SignUpServiceAction implements Action {
 		vo.setH_email(h_email);
 		vo.setH_post(h_post);
 		vo.setH_e_code(h_e_code);
+		int result = 0;
 		
-		int result = dao.signUp(vo);
+		try {
+			result = dao.signUp(vo);
+		}
+		catch (SQLException e) {
+			ActionForward forward = new ActionForward();
+			forward.setRedirect(false); 
+			forward.setPath("/WEB-INF/views/main/signup.jsp");
+			request.setAttribute("script", "<script>alert('회원가입에 실패하였습니다. 다시 회원가입 해주세요'); window.location.href='login.do';</script>");
+			return forward;
+		}
 		 
 			String resultdata = "";
 			if (result > 0) {
