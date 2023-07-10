@@ -1,0 +1,39 @@
+.tablemodal{
+  font-size: 1rem;
+  margin: auto;
+}
+.tablemodal th{
+  text-align: left !important;
+  background-color: blue !important ;
+  width: 4px;
+}
+.tablemodal td{	
+  text-align: center important!; 
+  background-color: red ;
+  /*width: 4px;*/
+}
+.tablemodal input{
+	width: 150px;
+}
+
+.table[page="main_ins_modal"] td > .form-control {
+  /*width: 20%;*/
+  display: inline-block;
+}
+
+button.stockDelBtn {
+  padding: 3px 6px;
+}
+
+/* 
+.tablemodal {
+  font-size: 1.5rem;
+  width: 10px;
+}
+
+.tablemodal th,
+.tablemodal td {
+  text-align: center;
+  width: 4px;
+}
+ */

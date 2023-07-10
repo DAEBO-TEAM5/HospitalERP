@@ -24,7 +24,7 @@ public class ItemRelServiceAction implements Action {
 		 ItemRelDao dao = null;
 	     try {
 	         dao = new ItemRelDao();
-	     } catch (NamingException e) {
+	     } catch (Exception e) {
 	         e.printStackTrace();
 	     }
 	     ArrayList<ItemRelVO> list = new ArrayList<>();
