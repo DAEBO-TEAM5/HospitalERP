@@ -13,12 +13,28 @@
 	background-color: rgba(46, 91, 219);
 	line-height: 50px;
 }
-
+.p-2{
+	margin-right: 20px;
+}
 .title_nav{
 	text-decoration: none;
 	font-size: 25px;
 	color: white;
 	font-weight: bold;
+}
+
+.title_nav::after {
+	display:block;
+	content: "";
+	border-bottom: solid 3px white;
+	transform: scaleX(0);
+	transition: transform 250ms ease-in-out;
+}
+.title_nav:hover{
+	color: white;
+}
+.title_nav:hover::after {
+	transform: scaleX(1);
 }
 
 .row{
@@ -43,7 +59,6 @@
 .search_result::-webkit-scrollbar-thumb {
     height: 30%; /* 스크롤바의 길이 */
     background: #217af4; /* 스크롤바의 색상 */
-    
     border-radius: 10px;
 }
 
@@ -51,9 +66,75 @@
     background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
 }
 
-.name{
-	
+.semi_info{
+	font-size: 12px;
 }
+.col-md-4{
+	border-right: 0px;
+}
+.panel{
+	background-color: lightgray;
+	border-radius:7px;
+	margin-top: 12px;
+	padding: 12px;
+}
+.patient_name{
+	font-size: 28px;
+	font-weight: bold;
+}
+.record_number{
+	font-size: 14px;
+	margin-top: 14px;
+}
+.patient_info{
+	font-size: 15px;
+}
+
+#jupsu {
+	margin-top: 12;
+	width: 100%;
+	height: 15vh;
+	max-height: 15vh;
+	background-color: white;
+	display: inline-block;
+	align-items: center;
+	border-radius: 10px;
+	text-align: center;
+	vertical-align: center;
+}
+#jupsu::-webkit-scrollbar-track
+{
+  -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+  background-color: #F5F5F5;
+}
+
+#jupsu::-webkit-scrollbar
+{
+  width: 6px;
+  background-color: #F5F5F5;
+}
+
+#jupsu::-webkit-scrollbar-thumb
+{
+  background-color: dimgray;
+  border-radius: 10px;
+}
+
+.btn-outline-primary{
+	margin-top: 8px;
+	background-color: rgba(230, 230, 230, 1);
+	width: 100%;
+	height: auto;
+	text-align: left;
+	overflow: hidden;
+	padding: 3px 6px 3px 6px;
+}
+.record{
+	background-color: rgba(243, 243, 255, 1);
+	font-weight: bold;
+	padding: 6px 12px 6px 12px;
+}
+
 .history, .history tr, .history th, .history td{
 	border: 1px solid black;
 }
@@ -77,17 +158,7 @@
 #button-right {
 	float: right;
 }
-#jupsu {
-	width: 95%;
-	height: 100px;
-	background-color: white;
-	display: inline-block;
 
-	align-items: center;
-	border-radius: 10px;
-	text-align: center;
-	vertical-align: center;
-}
 
 #hLine {
 	clear: both;
@@ -148,7 +219,6 @@ h3{
         background-color: white;
         width: auto;
         padding: 0px;
-       	
         margin: 0 auto;
         border-radius:5px;
        	box-shadow:0px 5px 30px -20px rgba(0,0,0,0.3);
@@ -164,11 +234,12 @@ h3{
 
     .Calendar {
         text-align: center;
+        margin: auto;
     }
 
     .Calendar>thead>tr:first-child>td {
         font-family: 'Questrial', sans-serif;
-        font-size: 1.2rem;
+        font-size: 1.4rem;
         font-weight: bold;
     }
 
@@ -180,11 +251,11 @@ h3{
 
     .Calendar>tbody>tr>td>p {
         font-family: 'Questrial','Montserrat', sans-serif;
-        height: 30px;
-        width: 30px;
-        border-radius: 30px;
+        height: 33px;
+        width: 33px;
+        border-radius: 33px;
         transition-duration: .2s;
-        line-height: 30px;
+        line-height: 33px;
         margin: 2.5px;
         display: block;
         text-align: center;
@@ -202,7 +273,7 @@ h3{
         background-color: #F5D042;            
         color: #fff;
         font-weight: 600;
-        cursor: pointe70r;
+        cursor: pointer;
     }
 
     .futureDay {

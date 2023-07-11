@@ -20,80 +20,130 @@
 </head>
 <body>
 	<div class="container-fluid">
-		
 		<div class="container-fluid info">
-		<div class="d-flex" id="hospital_title">
-			<div class="p-2 flex-grow-1">
-				<i class="fa-solid fa-circle-user fa-lg"></i>&nbsp;ㅇㅇ병원님 반갑습니다.
+			<div class="d-flex" id="hospital_title">
+				<div class="p-2 flex-grow-1">
+					<i class="fa-solid fa-circle-user fa-lg"></i>&nbsp;ㅇㅇ병원님 반갑습니다.
+				</div>
+			    <div class="p-2"><a href="main2.do" class="title_nav">진료</a></div>
+				<div class="p-2"><a href="item.do" class="title_nav">재고</a></div>
+				<div class="p-2"><a href="#" class="title_nav">진료기록</a></div> 
 			</div>
-		    <div class="p-2"><a href="main2.do" class="title_nav">진료</a></div>
-			<div class="p-2"><a href="item.do" class="title_nav">재고</a></div>
-			<div class="p-2"><a href="#" class="title_nav">진료기록</a></div>  
-		</div>
-    		<div class="row" style="height: calc(100vh - 70.43px);">
-        		<div class="col-md-2 leftinfo">
-            		<p>
-            		<h2 style="text-align: center"><b>진료내역</b></h2>
-            		<form role="form">
-	            		<div class="form-group">
-	            			<input type="text" id = "search" placeholder="이름 / 전화번호" class="form-control"  onKeypress="javascript:if(event.keyCode==13) {test()}">
+	    		<div class="row" style="height: calc(100vh - 73.39px);">
+	        		<div class="col-md-2 leftinfo">
+	            		<p>
+	            		<h2 style="text-align: center"><b>진료내역</b></h2>
+	            		<form role="form">
+		            		<div class="form-group">
+		            			<input type="text" id = "search" placeholder="이름 / 전화번호" class="form-control"  onKeypress="javascript:if(event.keyCode==13) {test()}">
+		            		</div>
+		            		<div class="form-group">
+		            			<button type="button" id="patient_search"class="btn btn-primary" style="width: 100%">검색</button>
+		            		</div>
+	            		</form>
+	            		
+	            		<div class="search_result">
+	            			<div class="list-group">
+	            			   <div class="list-group-item list-group-item-action list-group-item-info">A simple dark list group item<br>efefe</div>
+							</div>
 	            		</div>
-	            		<div class="form-group">
-	            			<button type="button" id="patient_search"class="btn btn-primary" style="width: 100%">검색</button>
-	            		</div>
-            		</form>
-            		
-            		<div class="search_result">
-            			<div class="list-group">
-            			   <div class="list-group-item list-group-item-action list-group-item-info">A simple dark list group item<br>efefe</div>
+	            		
+	         		</div> <!-- 진료내역 -->
+	         		<div class="col-md-4"  style="border-right: 1px solid black;">
+	         			<div class="panel" style="height: 30%; display: flex;">
+	         				<div class="patient_name" style="width: 15%;"></div>
+				            	<div style="width: 85%;">
+					            	<div>
+					            		<div class="record_number"></div>
+					            		<div class="patient_info"></div>
+					            	</div>
+					            
+					        		<hr style="margin-bottom: 12px; margin-top: 12px">
+				           			<div>
+				           				<span style="font-size: 14px; font-weight: bold">접수메모(증상/내원목적)&nbsp;<i class="fa-solid fa-pen fa-2xs" style="color: black;"></i></span>
+					            		<div class="form-control" id="jupsu" style="overflow-y:auto;"></div>
+					           		</div>
+				            </div>
+				        </div>
+	         			<div class="panel" style="height: calc(70% - 24px); display:flex;">
+	         				<div style="width: 20%; margin-right: 12px;">
+	         					<div style="text-align:center; font-size: 14px; font-weight: bold">방문일자&nbsp;<i class="fa-solid fa-calendar-days fa-2xs" style="color: black;"></i></div>
+	         					<div class="date_button">
+	         					
+	         					</div>
+	         				</div>
+			            	<div style="width: 80%; background-color: white; border-radius: 4px;">
+				            	<div class="record" style="border-radius: 4px 4px 0 0"></div>
+				            		<div style="padding: 6px 12px 6px 12px;">
+		          								<label>증상</label>
+		          								<textarea class="form-control" id="symptom"></textarea>
+		          								<label>병명</label>
+		          								<textarea class="form-control" id="r_d_code"></textarea>
+		          								<label>처방</label>
+		       									<table class="history">
+									          		<th>품명</th>
+									          		<th>중량</th>
+									          		<th>수</th>
+									          		<tr>
+									          			<td>1</td>
+									          			<td></td>
+									          			<td></td>
+									          		</tr>
+									          		<tr>
+									          			<td>2</td>
+									          			<td></td>
+									          			<td></td>
+									          		</tr>
+									          	</table>
+		          							</div>
+				            	
+			            	</div>
+	         			</div>
+	         			
+	         			<!-- <div style="height:60px;" id ="patientinfo"></div>
+						<div> 
+							<div id="patientMemo"> 접수 메모 <br>
+								<div class="form-control" id="jupsu" style="overflow-y:auto;"></div>
+							</div>
 						</div>
-            		</div>
-            		
-         		</div> <!-- 진료내역 -->
-         		<div class="col-md-4"  style="border-right: 1px solid black;">
-         			<div style="height:60px;" id ="patientinfo"></div>
-					<div> 
-						<div id="patientMemo"> 접수 메모 <br>
-							<div class="form-control" id="jupsu" style="overflow-y:auto;"></div>
+						<br><br><br>
+						<div style="border-top: 1px solid black" id="hLine">
+							<div class="container text-center">
+	      						<div class="row">
+	        						<div class="col-sm-4  gap-2 col-6 mx-auto box1">
+	          							<input class="btn btn-primary" type="button" value="날짜1">
+	          							<button type="button" class="btn btn-secondary" data-bs-toggle="button" autocomplete="off">Secondary</button>
+	        						</div>
+	        						<div class="col-sm-8">
+	         							<label>지난 진료 기록</label>
+	          								<div>
+		          								<label>증상</label>
+		          								<textarea class="form-control" id="symptom"></textarea>
+		          								<label>병명</label>
+		          								<textarea class="form-control" id="r_d_code"></textarea>
+		          								<label>처방</label>
+		       									<table class="history">
+									          		<th>품명</th>
+									          		<th>중량</th>
+									          		<th>수</th>
+									          		<tr>
+									          			<td>1</td>
+									          			<td></td>
+									          			<td></td>
+									          		</tr>
+									          		<tr>
+									          			<td>2</td>
+									          			<td></td>
+									          			<td></td>
+									          		</tr>
+									          	</table>
+		          							</div>
+	        						</div>
+	      						</div>
+	      					</div>
 						</div>
-					</div>
-					<br><br><br>
-					<div style="border-top: 1px solid black" id="hLine">
-						<div class="container text-center">
-      						<div class="row">
-        						<div class="col-sm-4  gap-2 col-6 mx-auto box1">
-          							<input class="btn btn-primary" type="button" value="날짜1">
-          							<button type="button" class="btn btn-secondary" data-bs-toggle="button" autocomplete="off">Secondary</button>
-        						</div>
-        						<div class="col-sm-8">
-         							<label>지난 진료 기록</label>
-          								<div>
-	          								<label>증상</label>
-	          								<textarea class="form-control" id="symptom"></textarea>
-	          								<label>병명</label>
-	          								<textarea class="form-control" id="r_d_code"></textarea>
-	          								<label>처방</label>
-	       									<table class="history">
-								          		<th>품명</th>
-								          		<th>중량</th>
-								          		<th>수</th>
-								          		<tr>
-								          			<td>1</td>
-								          			<td></td>
-								          			<td></td>
-								          		</tr>
-								          		<tr>
-								          			<td>2</td>
-								          			<td></td>
-								          			<td></td>
-								          		</tr>
-								          	</table>
-	          							</div>
-        						</div>
-      						</div>
-      					</div>
-					</div>
-				</div>		
+					</div>		 -->
+	    			</div>
     			<div class="col-md-4" style="border-right: 1px solid black;">
 		            <div style="background-color: skyblue; width:100%; height:100%;">
 		            	<h3 style="padding: 5px">수납내역</h3>
@@ -194,14 +244,13 @@ $(function() {
 function successFunc(data){
 	var str = "";
 	var obj = JSON.parse(data);
-	console.log(obj);
-	console.log(obj.list.length);
+
 	/* <div class="list-group-item list-group-item-action list-group-item-info result_set">A simple dark list group item<br>efefe</div> */
 	for(var i =0; i< obj.list.length; i++){
 		str += "<div class='list-group-item list-group-item-action list-group-item-info result_set'>"
-		str += "<span class = 'name'><h4>" + obj.list[i].name + "</h4></span>";
-		str += obj.list[i].birth + "<br>";
-		str += "<span class = 'phone'>" + obj.list[i].phone + "</span><br>";
+		str += "<span class = 'name'><h4 style='margin-bottom: 0px;'>" + obj.list[i].name + "</h4></span>";
+		str += "<span class = 'semi_info'> rn." + obj.list[i].p_r_num + " | "+ obj.list[i].birth + " | "+ obj.list[i].sex + "</h4></span><br>";
+		str += "<span class = 'phone semi_info'>" + obj.list[i].phone + "</span><br>";
 		str += "</div>"
 	}
 	
@@ -229,19 +278,22 @@ function infoFunc(data){
 	var obj = JSON.parse(data);
 	temp = obj;
 	var info_str = "";
-	info_str += "<h3 style='height:30px'>" + obj.info[0].name +"</h3>"
-	info_str += obj.info[0].birth + "/" + obj.info[0].address + "/"+  obj.info[0].sex + "/" + obj.info[0].phone;
-	$('#patientName').html(obj.info[0].name);
-	$('#patientinfo').html(info_str);
+	info_str += obj.info[0].birth + " | " + obj.info[0].address + " | "+  obj.info[0].sex + " | " + obj.info[0].phone;
+	$('.patient_name').html(obj.info[0].name);
+	$('.record_number').html("rn. "+obj.info[0].p_r_num);
+	$('.patient_info').html(info_str);
 	$('#jupsu').html(obj.info[0].note);
-	$('#symptom').html(obj.info[0].symptom);
+	$('.record').html("진료기록 [" + obj.info[0].r_date + "]  |  담당의 : " + obj.info[0].name);
 	$('#r_d_code').html(obj.info[0].r_d_code);
 	$('.pay').html(obj.info[0].p_amount)
 	var str = "";
 	for(var i =0; i < obj.info.length; i++){
-		str += "<button class='btn btn-primary' style='width:100%;'>" + obj.info[i].r_date + "</button>"
+		var year = obj.info[i].r_date.slice(0,4);
+		var month = obj.info[i].r_date.slice(4,6);
+		var day = obj.info[i].r_date.slice(6,8);
+		str += "<button class='btn btn-outline-primary'>" + obj.info[i].r_date + "</button>"
 	}
-	$('.box1').html(str);
+	$('.date_button').html(str);
 }
 $(function(){
 	$(document).on("click", ".box1 > button", function (e){
