@@ -9,6 +9,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link href="./resources/Login.css" rel="stylesheet" type="text/css">
 <link href="./resources/SignUp.css" rel="stylesheet" type="text/css">
+<link href="./resources/findID.css" rel="stylesheet" type="text/css">
 <head>
 <link rel="icon" href="${pageContext.request.contextPath }/image/hp.png"/> <!-- //파비콘임 -->
 <meta charset="UTF-8">
@@ -39,7 +40,7 @@
                             </div>
                             <div id="register-link" class="text-right"><br>
                                 <a href="#" onclick="openPopup();return false;" class="text-info">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <a href="#" class="text-info">ID찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a  href="#" onclick="openPopup2();"class="text-info">ID찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <a href="#" class="text-info">PW찾기</a>
                             </div>
                         </form>
@@ -63,7 +64,7 @@
 				<input type="password" name="h_cwp" id="h_cwp" placeholder="비밀번호 확인" >
 			</div>
 			<input type="text" name="h_name" id="h_name" placeholder="병원이름"> 
-			<div>
+			<div class = "search">
 			<input type="text" readonly name="h_post" id="h_post" placeholder="우편번호">
 			<button class="formBtn" onclick="postOpener(event)">검색</button>
 			</div>
@@ -95,8 +96,151 @@
 		</form>
 	</div>
 </div>
+
+	<div id="popup2" class="popup-overlay2">
+		<div class="popup-content2">
+			<span class="close-btn" onclick="closePopup2()">&times;</span>
+			<h4>병원명,Email로 ID찾기</h4>
+			
+			<input type="text" name="h_name" id="h_name" placeholder="병원명"> 
+			<input type="email" name="h_email" id="h_email" placeholder="이메일">
+			<input class="formBtn" type="button" value="찾기" name="findID" id="h_findID" onClick="findID()">
+			  <input type="reset" onclick="resetBtnHandler2()" value="다시 입력">
+		</div>
+	</div>
+
+
+
+
+
+
+
 </body>
 </html>
+
+<!-------------------------------------- ID PW찾기 ------------------------------------------------->
+
+<script>
+ function gohome() {
+  var frm = document.idfindscreen;
+  frm.method = "post";
+  frm.action = "./home.jsp"; //넘어간화면
+  frm.submit(); //등록이 될수 있는 조건이면, 정보를 보내겠다.
+ }
+
+ function gojoin() {
+  var frm = document.idfindscreen;
+  frm.method = "post";
+  frm.action = "./join.jsp"; //넘어간화면
+  frm.submit(); //등록이 될수 있는 조건이면, 정보를 보내겠다.
+ }
+
+ function gologin() {
+  var frm = document.idfindscreen;
+  frm.method = "post";
+  frm.action = "./login.jsp";
+  frm.submit();
+ }
+
+ function goidfind() {
+  var frm = document.idfindscreen;
+  frm.method = "post";
+  frm.action = "./id_find.jsp";
+  frm.submit();
+ }
+
+ function gopwfind() {
+  var frm = document.idfindscreen;
+  frm.method = "post";
+  frm.action = "./pw_find.jsp";
+  frm.submit();
+ }
+ function logout() {
+  var frm = document.idfindscreen;
+  frm.method = "post";
+  frm.action = "./logoutCtl.jsp";
+  frm.submit();
+ }
+ function id_search1() { //이름,핸드폰으로 '찾기' 버튼
+
+  var frm = document.idfindscreen;
+
+  if (frm.name.value.length < 1) {
+   alert("이름을 입력해주세요");
+   return;
+  }
+
+  if (frm.phone1.value.length<2 || frm.phone1.value.length>4) {
+   alert("핸드폰번호를 정확하게 입력해주세요");
+   return;
+  }
+  if (frm.phone2.value.length<2 || frm.phone2.value.length>4) {
+   alert("핸드폰번호를 정확하게 입력해주세요");
+   return;
+  }
+
+  frm.method = "post";
+  frm.action = "./id_searchCtl.jsp"; //넘어간화면
+  frm.submit();  }
+
+​
+
+ function id_search2() { //이름,이메일로 '찾기' 버튼
+
+  var frm = document.idfindscreen;
+
+  if (frm.name2.value.length < 1) {
+   alert("이름을 입력해주세요");
+   return;
+  }
+  if (frm.email.value.length < 1 || frm.e_domain.value.length < 1) {
+   alert("이메일을 입력해주세요");
+   return;
+  }
+
+  frm.method = "post";
+  frm.action = "./id_searchCtl2.jsp"; //넘어간화면
+  frm.submit();  }
+
+​
+
+ //이메일 부분
+
+ function checkid() {
+
+  var frm = document.idfindscreen;
+
+  var regExp = '/^([/\w/g\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/';
+
+  if (!regExp.test(frm.email.value)) {
+
+   alert('올바른 email을 입력해주세요.');
+
+   frm.email.focus();
+
+  }
+
+ }
+
+ function domainCheck() {
+
+  var frm = document.idfindscreen;
+
+  if (frm.domain.value == 0) {
+   frm.e_domain.value = "";
+   frm.e_domain.disabled = false;
+
+  } else {
+   frm.e_domain.value = frm.domain.value;
+   frm.e_domain.disabled = true;
+
+  }
+
+ }
+</script>
+
+<!-------------------------------------- ID PW찾기 ------------------------------------------------->
+
 <script>
   let processID = -1;
 
@@ -177,6 +321,8 @@
     button.innerHTML = "인증완료";
     button.disabled = true;
   }
+  
+  
 </script>
 
  <script>
@@ -191,6 +337,19 @@
             popup.style.visibility = "hidden";
             popup.style.opacity = "0";
         }
+        
+        function openPopup2() {
+            var popup2 = document.getElementById("popup2");
+            popup2.style.visibility = "visible";
+            popup2.style.opacity = "2";
+        }
+        
+        function closePopup2() {
+            var popup2 = document.getElementById("popup2");
+            popup2.style.visibility = "hidden";
+            popup2.style.opacity = "3";
+        }
+
 </script>
 
  <script>
@@ -246,9 +405,14 @@
         }
         function resetBtnHandler() {
         	alert("초기화 했습니다.");
-        	document.querySelector("#h_id").disabled = false;
-        	document.querySelector("#h_email").disabled = false;
+        	document.querySelector("#h_id").readOnly = false;
+        	document.querySelector("#h_email").readOnly = false;
         }
+      /*    function resetBtnHandler2() {
+        	alert("초기화 했습니다.");
+        	document.querySelector("#h_name").readOnly = false;
+        	document.querySelector("#h_email").readOnly = false;
+        }  */
     </script>  
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
