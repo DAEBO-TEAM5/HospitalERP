@@ -23,15 +23,7 @@
 </head>
 <body>
 <div class="container-fluid">
-	<div class="d-flex" id="title">
-			<div class="p-2 flex-grow-1">
-				<i class="fa-solid fa-circle-user"></i>병원님 반갑습니다.
-			</div>
-		    <div class="p-2"><a href="#" class="title-a">진료</a></div>
-			<div class="p-2"><a href="#" class="title-a">재고</a></div>
-			<div class="p-2"><a href="#" class="title-a">진료기록</a></div>
-			  
-		</div>
+	<c:import url="../include/header.jsp"></c:import>
 	
 	
 	<div class="container-fluid info" >
@@ -335,7 +327,7 @@
 
 
 			<div class="col-md-2">
-			
+				<c:import url="../include/calendar.jsp"/>
 			</div>
 			
 			
