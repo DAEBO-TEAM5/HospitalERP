@@ -260,7 +260,7 @@
 
 			<div class="col-md-4" style="border-right: 1px solid black;">
 				<h3> 진료 기록 작성</h3>
-				<!-- <form role="form" method="post" > -->
+				<form role="form" method="post" id="recordForm"> 
 					<div class="form-group">
 				<label>의사 소견</label>
           		<textarea class="form-control" name="d_note" id="d_note"></textarea>
@@ -329,7 +329,7 @@
 				<input type="reset" class="button-right" value = "작성 취소" >
           		<input type="submit" class="button-right" value = "작성 완료" onclick="insertRec();">
           		
-          		<!-- </form> -->
+          		 </form> 
           		
 			</div>
 
@@ -380,7 +380,7 @@ function waitListFunc(data){
 		//console.log(name);
 		//var test = "<button id ='child' value='1234'>버튼</button>";
 		//$('#waitList').append(test);
-		var waitList = "<button class='list-group-item list-group-item-action' id='listinfo' value='" + num + "'>"+ name +" / "+ sex+" / "+ birth+ "</button>";
+		var waitList = "<button class='list-group-item list-group-item-action "+ num +"' id='listinfo' value='" + num + "'>"+ name +" / "+ sex+" / "+ birth+ "</button>";
 		$('#waitList').append(waitList);
 	}
 }
@@ -587,7 +587,7 @@ function prescriptionList() {
 } */
 
 function prescriptionListDelete() {
-	$("tr").remove("#prescriptionMedList");
+	$("tr").remove("#prescriptionMedList:last");
 }
 
 function therapyList() {
@@ -598,10 +598,10 @@ function therapyList() {
 	  $('#result_Th').append(med_table);
 }
 function therapyDelete() {
-	$("tr").remove("#prescriptionThList");
+	$("tr").remove("#prescriptionThList:last");
 }
 
-function diseaseList() {
+/* function diseaseList() {
 	  var d_name = document.getElementById("addD");
 	  var d_nameT = d_name.options[d_name.selectedIndex].text;
 	  
@@ -610,11 +610,11 @@ function diseaseList() {
 }
 function diseaseDelete() {
 	$("tr").remove("#prescriptionDList");
-}
+} */
 
 
 
-	
+//처방 레코드 추가
 function insertRec() {
 	var note = $('#d_note').val();
 	var medTable = document.getElementById('result_med');
@@ -631,8 +631,6 @@ function insertRec() {
 		
 		medPres[i-1] = {m_name,yang};
 		console.log("-------------------"+medPres[i-1]);
-		
-		
 	}
 	
 	console.log(medPres);
@@ -646,39 +644,52 @@ function insertRec() {
 		tList[i-1] = t_name;
 	}
 	
-	
 	  var d_name = document.getElementById("addD");
 	  var d_nameT = d_name.options[d_name.selectedIndex].text;
 	  
 	  var patientName = $('#patientName').text();
 	  
-	  //console.log("이름--------------------"+patientName);
-
 	$.ajax({
 		 type: 'post',
 		 url: "./insertRecord.do",
 		 data : {"note": note, "medPres": JSON.stringify(medPres), "tList": JSON.stringify(tList),
 			 	"dName": d_nameT, "p_name": patientName },
-		 success : insertRecord(),
+		 success : function(data){
+			 		var obj = JSON.parse(data);
+			 		console.log(data);
+			 		var pnum = obj.pnum;
+			 		pnum = "."+pnum;
+			 		console.log(pnum);
+			 		$("button").remove(pnum);
+			 		$('#recordForm').reset();
+			 		$("tr").remove("#prescriptionThList");
+			 		$("tr").remove("#prescriptionMedList");
+			 		//loadWaitList();
+		 		},
 		error : function(msg, error) {
 				alert(error);
 			}
-		 
 	 });  
+	//function insertRecord(data){
+		console.log("insert 성공");
+		//var obj = JSON.parse(data);
+		//console.log(obj);
+		//var pnum = obj.pnum;
+		//console.log(pnum);
+		//$('button').remove('.'pnum);
+	//}
 	
 }
 
-function insertRecord(){
-	console.log("insert 성공");
-}
 
 
 
-
+//대기 리스트 추가 + 환자 정보 추가  (submit 클릭이벤트)
 $(document).ready(function(){
 	$('#patientForm').submit(function(event){
 		console.log("오니");
 		submitForm();
+		
 		loadWaitList();
 		return false;
 	});

@@ -32,7 +32,7 @@ public class InsertRecordServiceAction implements Action {
 			int dcode = dao.getCode("d_code", "disease", "d_name", d);   //질병코드
 			
 			String p_name = request.getParameter("p_name");    //
-			System.out.println("환자이름----"+p_name);
+			//System.out.println("환자이름----"+p_name);
 			int p_code = dao.getCode("num", "patient", "name", p_name);    //환자코드
 			
 			//HttpSession session = request.getSession();
@@ -73,9 +73,17 @@ public class InsertRecordServiceAction implements Action {
 				int tcode = dao.getCode("t_code", "therapy", "t_name", s);
 				dao.insertTherapyMapping(tcode, recordNum);
 			}
+			
+			dao.deleteWaitList(p_code);
+			
 				
 				
 				
+			System.out.println(p_code);
+			JSONObject sendObject = new JSONObject();
+			sendObject.put("pnum", p_code);
+			response.setContentType("application/text; charset=utf-8");
+			response.getWriter().print(sendObject);
 			
 			
 		} catch (Exception e) {
