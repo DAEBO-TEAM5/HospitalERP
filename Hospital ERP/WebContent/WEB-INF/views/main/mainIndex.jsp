@@ -23,15 +23,7 @@
 </head>
 <body>
 <div class="container-fluid">
-	<div class="d-flex" id="title">
-			<div class="p-2 flex-grow-1">
-				<i class="fa-solid fa-circle-user"></i>병원님 반갑습니다.
-			</div>
-		    <div class="p-2"><a href="#" class="title-a">진료</a></div>
-			<div class="p-2"><a href="#" class="title-a">재고</a></div>
-			<div class="p-2"><a href="#" class="title-a">진료기록</a></div>
-			  
-		</div>
+	<c:import url="../include/header.jsp"></c:import>
 	
 	
 	<div class="container-fluid info" >
@@ -87,8 +79,8 @@
 				</div>
 				<div class="form-group">
 					<label >성별</label>
-					<input type="radio" name="gender" value="man">남
-					<input type="radio" name="gender" value="woman">여
+					<input type="radio" name="gender" value="남">남
+					<input type="radio" name="gender" value="여">여
 				</div>
 				<div class="form-group">
 					<label >키 / 몸무게</label>
@@ -173,8 +165,8 @@
 				</div>
 				<div class="form-group">
 					<label >성별</label>
-					<input type="radio" name="gender" value="man">남
-					<input type="radio" name="gender" value="woman">여
+					<input type="radio" name="genderUpdate" value="남">남
+					<input type="radio" name="genderUpdate" value="여">여
 				</div>
 				<div class="form-group">
 					<label >키 / 몸무게</label>
@@ -260,7 +252,7 @@
 
 			<div class="col-md-4" style="border-right: 1px solid black;">
 				<h3> 진료 기록 작성</h3>
-				<!-- <form role="form" method="post" > -->
+				<form role="form" method="post" id="recordForm"> 
 					<div class="form-group">
 				<label>의사 소견</label>
           		<textarea class="form-control" name="d_note" id="d_note"></textarea>
@@ -329,13 +321,13 @@
 				<input type="reset" class="button-right" value = "작성 취소" >
           		<input type="submit" class="button-right" value = "작성 완료" onclick="insertRec();">
           		
-          		<!-- </form> -->
+          		 </form> 
           		
 			</div>
 
 
 			<div class="col-md-2">
-			
+				<c:import url="../include/calendar.jsp"/>
 			</div>
 			
 			
@@ -349,12 +341,15 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
+	function loadWaitList(){
 	$.ajax({
 		type: 'get',
 		url: "./mainWaitList.do",
 		success : waitListFunc,
 		error: errFunc
 	});
+	}
+	loadWaitList();
 });
 
 /* $(function(){
@@ -369,7 +364,6 @@ $(document).ready(function(){
 function waitListFunc(data){
 	
 	var obj = JSON.parse(data);
-	
 	for(var k in obj.waitList){
 		var num = obj.waitList[k].num;
 		var name = obj.waitList[k].name;
@@ -378,7 +372,7 @@ function waitListFunc(data){
 		//console.log(name);
 		//var test = "<button id ='child' value='1234'>버튼</button>";
 		//$('#waitList').append(test);
-		var waitList = "<button class='list-group-item list-group-item-action' id='listinfo' value='" + num + "'>"+ name +" / "+ sex+" / "+ birth+ "</button>";
+		var waitList = "<button class='list-group-item list-group-item-action "+ num +"' id='listinfo' value='" + num + "'>"+ name +" / "+ sex+" / "+ birth+ "</button>";
 		$('#waitList').append(waitList);
 	}
 }
@@ -496,10 +490,12 @@ function ModifyInfo(data){
 	$('#LoadHeight').val(obj.height);
 	$('#LoadWeight').val(obj.weight);
 	$('#LoadNote').val(obj.note);
+	console.log(obj.sex);
+	console.log(obj.sex=='남자');
 	if(obj.sex == 'man' || obj.sex == '남' || obj.sex == '남자'){
-		$("input:radio[name='gender'][value='man']").prop('checked', true);	
+		$("input:radio[name='genderUpdate'][value='남']").prop('checked', true);	
 	}
-	else $("input:radio[name='gender'][value='woman']").prop('checked', true);
+	else $("input:radio[name='genderUpdate'][value='여']").prop('checked', true);
 	
 }
 
@@ -507,6 +503,7 @@ $(document).ready(function(){
 	$('#patientInfoForm').submit(function(event){
 		console.log("정보수정");
 		ModifyForm();
+		loadWaitList();
 		return false;
 	});
 });
@@ -518,13 +515,16 @@ function ModifyForm(){
 	var birth = document.getElementById('LoadBirth').value;
 	var phone = document.getElementById('LoadPhone').value;
 	var address = document.getElementById('LoadAddress').value;
-	var gender = $('input[type=radio][name=gender]:checked').val();
+	var gender = $('input[type=radio][name=genderUpdate]:checked').val();
 	var height = document.getElementById('LoadHeight').value;
 	var weight = document.getElementById('LoadWeight').value;
 	var note = $('#LoadNote').val();
+	
+	console.log(gender);
+	
 	$.ajax({
 		type:'POST',
-		url: "./insertPatient.do",
+		url: "./updatePatientInfo.do",
 		data: {"name":name, "birth":birth, "phone":phone, "address":address, "gender":gender,
 				"height":height, "weight":weight, "note":note, "num":num },
 		success: function(response){
@@ -579,7 +579,7 @@ function prescriptionList() {
 } */
 
 function prescriptionListDelete() {
-	$("tr").remove("#prescriptionMedList");
+	$("tr").remove("#prescriptionMedList:last");
 }
 
 function therapyList() {
@@ -590,10 +590,10 @@ function therapyList() {
 	  $('#result_Th').append(med_table);
 }
 function therapyDelete() {
-	$("tr").remove("#prescriptionThList");
+	$("tr").remove("#prescriptionThList:last");
 }
 
-function diseaseList() {
+/* function diseaseList() {
 	  var d_name = document.getElementById("addD");
 	  var d_nameT = d_name.options[d_name.selectedIndex].text;
 	  
@@ -602,11 +602,11 @@ function diseaseList() {
 }
 function diseaseDelete() {
 	$("tr").remove("#prescriptionDList");
-}
+} */
 
 
 
-	
+//처방 레코드 추가
 function insertRec() {
 	var note = $('#d_note').val();
 	var medTable = document.getElementById('result_med');
@@ -623,8 +623,6 @@ function insertRec() {
 		
 		medPres[i-1] = {m_name,yang};
 		console.log("-------------------"+medPres[i-1]);
-		
-		
 	}
 	
 	console.log(medPres);
@@ -638,39 +636,53 @@ function insertRec() {
 		tList[i-1] = t_name;
 	}
 	
-	
 	  var d_name = document.getElementById("addD");
 	  var d_nameT = d_name.options[d_name.selectedIndex].text;
 	  
 	  var patientName = $('#patientName').text();
 	  
-	  //console.log("이름--------------------"+patientName);
-
 	$.ajax({
 		 type: 'post',
 		 url: "./insertRecord.do",
 		 data : {"note": note, "medPres": JSON.stringify(medPres), "tList": JSON.stringify(tList),
 			 	"dName": d_nameT, "p_name": patientName },
-		 success : insertRecord(),
+		 success : function(data){
+			 		var obj = JSON.parse(data);
+			 		console.log(data);
+			 		var pnum = obj.pnum;
+			 		pnum = "."+pnum;
+			 		console.log(pnum);
+			 		$("button").remove(pnum);
+			 		$('#recordForm').reset();
+			 		$("tr").remove("#prescriptionThList");
+			 		$("tr").remove("#prescriptionMedList");
+			 		//loadWaitList();
+		 		},
 		error : function(msg, error) {
 				alert(error);
 			}
-		 
 	 });  
+	//function insertRecord(data){
+		console.log("insert 성공");
+		//var obj = JSON.parse(data);
+		//console.log(obj);
+		//var pnum = obj.pnum;
+		//console.log(pnum);
+		//$('button').remove('.'pnum);
+	//}
 	
 }
 
-function insertRecord(){
-	console.log("insert 성공");
-}
 
 
 
-
+//대기 리스트 추가 + 환자 정보 추가  (submit 클릭이벤트)
 $(document).ready(function(){
 	$('#patientForm').submit(function(event){
 		console.log("오니");
 		submitForm();
+		
+		loadWaitList();
 		return false;
 	});
 });
@@ -695,6 +707,7 @@ function submitForm(){
 				"height":height, "weight":weight, "note":note, "symptom": symptom},
 		success: function(response){
 			$("#exampleModal").modal('hide');
+			alert('추가가 완료되었습니다');
 			
 		},
 		error: function(msg, error) {

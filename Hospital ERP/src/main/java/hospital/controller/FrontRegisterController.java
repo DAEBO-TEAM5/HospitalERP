@@ -120,7 +120,7 @@ public class FrontRegisterController extends HttpServlet {
     		forward = action.execute(request, response);
     	}
     	else if(urlcommand.equals("/insertRecord.do")) {
-    		//System.out.println("insertRecord-----------");
+    		System.out.println("insertRecord-----------");
     		action = new InsertRecordServiceAction();
     		action.execute(request, response);
     	}else if(urlcommand.equals("/insertPatient.do")) {
