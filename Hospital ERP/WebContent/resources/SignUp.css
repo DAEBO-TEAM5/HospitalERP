@@ -20,6 +20,7 @@
 		background-color: #fff;
 		border-radius: 5px;
 		box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+		position: relative;
 	}
 	.popup-content h2 {
 		text-align: center;
@@ -31,12 +32,18 @@
 		flex-direction: column;
 	}
 	.popup-content input[type="text"],
-	.popup-content input[type="email"],
 	.popup-content select {
 		margin-bottom: 10px;
 		padding: 8px;
 		border-radius: 5px;
 		border: 1px solid #ccc;
+	}
+	.popup-content input[type="email"]
+	{margin-bottom: 10px;
+		padding: 8px;
+		border-radius: 5px;
+		border: 1px solid #ccc; 
+	width: 50%;
 	}
 	.popup-content input[type="password"]
 	{
@@ -75,9 +82,10 @@
 	}
 	.popup-content .close-btn {
 		position: absolute;
-		top: 10px;
+		top: 0px;
 		right: 10px;
 		cursor: pointer;
+		font-size: 30px;
 	}
 	
 	.formBtn{
@@ -91,7 +99,7 @@
 	    margin-bottom: 10px;
 	    
 	}
-	 #h_post,#h_id{
+	 #h_post,#h_id,#h_email{
 	 	width: 64%;
 	 }
 	 
@@ -127,6 +135,7 @@
 .auth button {
     width: 70%;
     margin-bottom: 3px;
+    
     
 }
 

@@ -38,8 +38,9 @@
                                 <input type="submit" name="submit" class="btn btn-info btn-md" onclick="javascript:form.action='./loginok.do';" value="로그인">
                             </div>
                             <div id="register-link" class="text-right"><br>
-                                <a href="#" onclick="openPopup();return false;" class="text-info">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <a href="#" class="text-info">ID/PW찾기</a>
+                                <a href="#" onclick="openPopup();return false;" class="text-info">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="#" class="text-info">ID찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a href="#" class="text-info">PW찾기</a>
                             </div>
                         </form>
                     </div>
@@ -68,8 +69,10 @@
 			</div>
 			<input type="text" readonly name="h_address" id="h_address" placeholder="주소">
 			<input type="text" name="h_e_code" id="h_e_code" placeholder="직원코드">
+			<div>
 			<input type="email" name="h_email" id="h_email" placeholder="이메일">
-			
+			<input class="formBtn" type="button" value="중복체크" name="h_emailcheck" id="h_emailcheck" onClick="emailCheck()"> 
+			</div>
 			  <div class="phone">
             <input id="phone1" type="text" size="1" maxlength="3" oninput="changePhone1()" value="010" readonly> -
             <input id="phone2" type="text" size="3" maxlength="4" oninput="changePhone2()"> -
@@ -83,15 +86,11 @@
 
         <div class="timer">
             <div id="timeLimit">03:00</div>
-            <button disabled id="completion" onclick="checkCompletion(this)">인증완료</button>
+            <button disabled id="completion" onclick="checkCompletion(this)">인증확인</button>
         </div>
-        
-			<!-- <input type="text" name="h_phone" id="h_phone" placeholder="연락처"> -->
-			
-			
 			<div>
 			<input type="submit" onclick="Validation(event);" value="가입" id="signbtn">
-            <input type="reset" onclick="alert('초기화 했습니다.')" value="다시 입력">
+            <input type="reset" onclick="resetBtnHandler()" value="다시 입력">
             </div>
 		</form>
 	</div>
@@ -120,7 +119,7 @@
     const phone3 = document.getElementById("phone3").value; // 010
     if (phone3.length === 4) {
       document.getElementById("sendMessage").focus();
-      document.getElementById("sendMessage").setAttribute("style", "background-color: yellow;");
+      document.getElementById("sendMessage").setAttribute("style", "background-color: rgb(209, 245, 254);");
       document.getElementById("sendMessage").disabled = false;
     }
   }
@@ -136,8 +135,17 @@
   }
 
   const getToken = () => {
+      var h_phone1 = document.getElementById("phone1");
+      var h_phone2 = document.getElementById("phone2");
+      var h_phone3 = document.getElementById("phone3");
+      const phonenumber = h_phone1.value + "-" +
+      h_phone2.value + "-" +
+      h_phone3.value;
+	  if(!validatePhoneNumber(phonenumber)) 
+		  return;
+
     // 인증확인 버튼 활성화
-    document.getElementById("completion").setAttribute("style", "background-color: yellow;");
+    document.getElementById("completion").setAttribute("style", "background-color: rgb(209, 245, 254);");
     document.getElementById("completion").disabled = false;
 
     // 이전의 간격 프로세스가 존재한다면 제거
@@ -170,6 +178,7 @@
     button.disabled = true;
   }
 </script>
+
  <script>
         function openPopup() {
             var popup = document.getElementById("popup");
@@ -184,7 +193,7 @@
         }
 </script>
 
-        <script>
+ <script>
         function idCheck() {
             var h_id = document.getElementById("h_id").value;
            
@@ -199,9 +208,9 @@
                     // 중복 체크 결과에 따라 처리
                     if (response === "duplicate") {
                         alert("이미 사용 중인 아이디입니다.");
-                    } else {
+                    } else  {
                         alert("사용 가능한 아이디입니다.");
-                        document.getElementById("signUpButton").disabled = false; // 가입 버튼 활성화
+                        document.getElementById("h_id").readOnly = true; 
                     }
                 },
                 error: function () {
@@ -210,8 +219,40 @@
             });
         }
     </script> 
+     <script>
+        function emailCheck() {
+            var h_email = document.getElementById("h_email").value;
+           
+            // 중복 체크를 위한 AJAX 요청
+            $.ajax({
+                url: "./emailcheck.do",
+                method: "POST",
+                data: { h_email: h_email },
+                dataType: "text",
+             
+                success: function (response) {
+                    // 중복 체크 결과에 따라 처리
+                    if (response === "duplicate") {
+                        alert("이미 사용 중인 이메일입니다.");
+                    } else  {
+                        alert("사용 가능한 이메일입니다.");
+                        document.getElementById("h_email").readOnly = true; 
+                    }
+                },
+                error: function () {
+                    alert("중복 체크 과정에서 오류가 발생했습니다.");
+                }
+            });
+        }
+        function resetBtnHandler() {
+        	alert("초기화 했습니다.");
+        	document.querySelector("#h_id").disabled = false;
+        	document.querySelector("#h_email").disabled = false;
+        }
+    </script>  
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 <script>
 	function postOpener(e){
 		e.preventDefault();
@@ -225,8 +266,8 @@
 	        }
 	    }).open();
 	}
-
 </script>
+
 <script>
 function validatePhoneNumber(phoneNumber) {
 	  const regex = /^\d{3}-\d{3,4}-\d{4}$/;
@@ -242,15 +283,14 @@ event.preventDefault();
     var h_name = document.getElementById("h_name");
     var h_address = document.getElementById("h_address");
     var phoneNumber = document.getElementById("h_phone");
-      var h_phone1 = document.getElementById("phone1");
-  var h_phone2 = document.getElementById("phone2");
-  var h_phone3 = document.getElementById("phone3");
+    var h_phone1 = document.getElementById("phone1");
+    var h_phone2 = document.getElementById("phone2");
+    var h_phone3 = document.getElementById("phone3");
     var h_pwd = document.getElementById("h_pwd");
     var h_cwp = document.getElementById("h_cwp");
     var h_email = document.getElementById("h_email");
     var h_post = document.getElementById("h_post");
     var h_e_code = document.getElementById("h_e_code");
-  
 
     // 정규식
     // id, pw
@@ -275,8 +315,6 @@ event.preventDefault();
         h_id.focus();
         return false;
     } 
-    
-    
     
     //비밀번호 확인
     if (h_pwd.value.trim() === "") {
@@ -305,8 +343,6 @@ event.preventDefault();
         h_cwp.focus();
         return false;
     }
-    
-    
   
     //병원이름 확인 = 한글과 영어만 가능하도록
     if (h_name.value.trim() === "") {
@@ -328,12 +364,7 @@ event.preventDefault();
         h_post.focus();
         return false;
     }
-    /* else if (!regExp.test(h_post.value.trim())) {
-        alert("우편번호는 숫자만 입력 가능합니다. 다시 입력해주세요.");
-        h_post.focus();
-        return false;
-    } */
-
+    
     //주소 확인 = 한글과 영어만 가능하도록
     if (h_address.value.trim() === "") {
         alert("검색을 눌러 우편번호 주소를 입력해주세요.");
@@ -347,7 +378,7 @@ event.preventDefault();
         return false;
     }
     else if (!regExp.test(h_e_code.value.trim())) {
-        alert("직원명 숫자만 입력 가능합니다. 다시 입력해주세요.");
+        alert("직원코드는 숫자만 입력 가능합니다. 다시 입력해주세요.");
         h_e_code.focus();
         return false;
     }
@@ -370,6 +401,7 @@ event.preventDefault();
         h_phone1.value + "-" +
         h_phone2.value + "-" +
         h_phone3.value;
+	
       if (phoneNumber === "--") {
         alert("휴대폰 번호를 입력하세요.");
         h_phone1.focus();
@@ -381,7 +413,9 @@ event.preventDefault();
       }
          
        h_phone.value = phoneNumber; 
-      var completionButton = document.getElementById("completion");
+       
+       var completionButton = document.getElementById("completion"); 
+      
       if (!completionButton.disabled || completionButton.innerHTML !== "인증완료") {
           alert("휴대폰 번호 인증이 완료되지 않았습니다.");
           return false;

@@ -31,9 +31,9 @@ public class MemberDao {
             ConnectionHelper.close(pstmt);
             ConnectionHelper.close(conn);
         }
-        
+
         return isDuplicate;
     }
 }
-
+        
 
