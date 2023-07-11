@@ -18,6 +18,7 @@ import hospital.service.HospitalWaitingListService;
 import hospital.service.InfoServiceAction;
 import hospital.service.InsertPatientServiceAction;
 import hospital.service.InsertRecordServiceAction;
+import hospital.service.ItemInsertServiceAction;
 import hospital.service.ItemRelServiceAction;
 import hospital.service.LoginOkServiceAction;
 import hospital.service.LoadPatientInfoServiceAction;
@@ -110,6 +111,10 @@ public class FrontRegisterController extends HttpServlet {
     		action = new ItemRelServiceAction();
     		action.execute(request, response);
     		
+    	}else if(urlcommand.equals("/itemInsert.do")){
+    		action = new ItemInsertServiceAction();
+    		action.execute(request, response);
+    	
     	}else if(urlcommand.equals("/main2.do")) {
     		//UI 제공 (서비스 객체가 필요없다)
     		forward = new ActionForward();

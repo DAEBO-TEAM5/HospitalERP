@@ -3,13 +3,12 @@
   margin: auto;
 }
 .tablemodal th{
-  text-align: left !important;
-  background-color: blue !important ;
+  text-align: center;
+  background-color: blue ;
   width: 4px;
 }
 .tablemodal td{	
-  text-align: center important!; 
-  background-color: red ;
+  text-align: center; 
   /*width: 4px;*/
 }
 .tablemodal input{
