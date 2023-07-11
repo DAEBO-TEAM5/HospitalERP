@@ -10,7 +10,7 @@ import hospital.vo.LoginVO;
 
 public class SignUpDao{
 
-	public int signUp(LoginVO vo) {
+	public int signUp(LoginVO vo) throws SQLException {
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -19,8 +19,8 @@ public class SignUpDao{
 			conn = ConnectionHelper.getConnection();
 			System.out.println("connection success");
 			
-		
-			String sql = "INSERT INTO hospital_id(h_id, h_name, h_address, h_phone, h_pwd, h_email, h_post,h_e_code ) VALUES(?,?,?,?,?,?,?,?)";
+			
+			String sql = "INSERT INTO hospital_id(h_id, h_name, h_address, h_phone, h_pwd, h_email, h_post, h_e_code ) VALUES(?,?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, vo.getH_id());
@@ -35,7 +35,7 @@ public class SignUpDao{
 			resultrow = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw e;
 		} finally {
 			ConnectionHelper.close(pstmt);
 			ConnectionHelper.close(conn);

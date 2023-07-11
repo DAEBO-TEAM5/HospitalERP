@@ -1,6 +1,6 @@
 @charset "EUC-KR";
 
-	.popup-overlay {
+	.popup-overlay2 {
 		position: fixed;
 		top: 0;
 		left: 0;
@@ -14,7 +14,7 @@
 		opacity: 0;
 		transition: visibility 0s, opacity 0.3s ease;
 	}
-	.popup-content {
+	.popup-content2 {
 		width: 340px;
 		padding: 20px;
 		background-color: #fff;
@@ -22,30 +22,30 @@
 		box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 		position: relative;
 	}
-	.popup-content h2 {
+	.popup-content2 h3 {
 		text-align: center;
 		margin-top: 0;
 		margin-bottom: 15px;
 	}
-	.popup-content form {
+	.popup-content2 form {
 		display: flex;
 		flex-direction: column;
 	}
-	.popup-content input[type="text"],
-	.popup-content select {
+	.popup-content2 input[type="text"],
+	.popup-content2 select {
 		margin-bottom: 10px;
 		padding: 8px;
 		border-radius: 5px;
 		border: 1px solid #ccc;
 	}
-	.popup-content input[type="email"]
+	.popup-content2 input[type="email"]
 	{margin-bottom: 10px;
 		padding: 8px;
 		border-radius: 5px;
 		border: 1px solid #ccc; 
 	width: 50%;
 	}
-	.popup-content input[type="password"]
+	.popup-content2 input[type="password"]
 	{
 		width: 49%;
 		margin-bottom: 10px;
@@ -53,7 +53,7 @@
 		border-radius: 5px;
 		border: 1px solid #ccc;
 	}
-	.popup-content input[type="submit"] {
+	.popup-content2 input[type="submit"] {
 		width: 66%;
 		padding: 8px 12px;
 		border: none;
@@ -63,7 +63,7 @@
 		cursor: pointer;
 		
 	}
-	.popup-content input[type="reset"] {
+	.popup-content2 input[type="reset"] {
 		width: 32%;
 		padding: 8px 12px;
 		border: none;
@@ -73,19 +73,14 @@
 		cursor: pointer;
 	
 	}
-	.popup-content input[type="reset"]:hover {
+	.popup-content2 input[type="reset"]:hover {
 		color: black;
 		background-color: grey;
 	}
-	.popup-content input[type="submit"]:hover,
-	.popup-content input[type="button"]:hover {
+	.popup-content2 input[type="submit"]:hover {
 		background-color: #303f9f;
 	}
-	
-	#search button:hover {
-  background-color: #303f9f;
-}
-	.popup-content .close-btn {
+	.popup-content2 .close-btn {
 		position: absolute;
 		top: 0px;
 		right: 10px;
@@ -93,7 +88,7 @@
 		font-size: 30px;
 	}
 	
-	.formBtn{
+	.formBtn2{
 	    width: 33%;
 	    padding: 8px 12px;
 	    border: none;
@@ -182,5 +177,5 @@
     color:red;
     font-weight: 700;
 }
-*/	 
+	*/
 	 

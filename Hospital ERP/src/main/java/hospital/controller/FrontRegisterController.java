@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import hospital.action.Action;
 import hospital.action.ActionForward;
+import hospital.service.EmailCheckAction;
+import hospital.service.FindIDAction;
 import hospital.service.HospitalWaitingInfoService;
 import hospital.service.HospitalWaitingListService;
 import hospital.service.InfoServiceAction;
@@ -68,9 +70,19 @@ public class FrontRegisterController extends HttpServlet {
     		forward = action.execute(request, response);
     		
     	}else if(urlcommand.equals("/checkid.do")){
-    		System.out.println("체크입니다");
+    		System.out.println("아이디체크입니다");
         		action = new MemberIdCheckAction();
-        		action.execute(request, response);	
+        		action.execute(request, response);
+        		
+    	}else if(urlcommand.equals("/emailcheck.do")){
+    		System.out.println("이메일체크입니다");
+        		action = new EmailCheckAction();
+        		action.execute(request, response);
+        		
+    	}else if(urlcommand.equals("/findid.do")){
+    		System.out.println("아이디찾기입니다.");
+        		action = new FindIDAction();
+        		action.execute(request, response);		
 
     	}else if(urlcommand.equals("/history.do")) {
     		forward = new ActionForward();

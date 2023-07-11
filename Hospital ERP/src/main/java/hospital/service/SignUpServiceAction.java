@@ -1,5 +1,7 @@
 package hospital.service;
 
+import java.sql.SQLException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -34,8 +36,21 @@ public class SignUpServiceAction implements Action {
 		vo.setH_email(h_email);
 		vo.setH_post(h_post);
 		vo.setH_e_code(h_e_code);
+		int result = 0;
+		System.out.println(h_id);
+		System.out.println(vo.getH_id());
 		
-		int result = dao.signUp(vo);
+		try {
+			result = dao.signUp(vo);
+		}
+		catch (SQLException e) {
+			e.printStackTrace();
+			ActionForward forward = new ActionForward();
+			forward.setRedirect(false); 
+			forward.setPath("/WEB-INF/views/main/signup.jsp");
+			request.setAttribute("script", "<script>alert('중복 ID 및 이메일이 있습니다. 다시 회원가입 해주세요'); window.location.href='login.do';</script>");
+			return forward;
+		}
 		 
 			String resultdata = "";
 			if (result > 0) {
