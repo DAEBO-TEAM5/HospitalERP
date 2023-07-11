@@ -87,8 +87,8 @@
 				</div>
 				<div class="form-group">
 					<label >성별</label>
-					<input type="radio" name="gender" value="man">남
-					<input type="radio" name="gender" value="woman">여
+					<input type="radio" name="gender" value="남">남
+					<input type="radio" name="gender" value="여">여
 				</div>
 				<div class="form-group">
 					<label >키 / 몸무게</label>
@@ -173,8 +173,8 @@
 				</div>
 				<div class="form-group">
 					<label >성별</label>
-					<input type="radio" name="gender" value="man">남
-					<input type="radio" name="gender" value="woman">여
+					<input type="radio" name="genderUpdate" value="남">남
+					<input type="radio" name="genderUpdate" value="여">여
 				</div>
 				<div class="form-group">
 					<label >키 / 몸무게</label>
@@ -349,12 +349,15 @@
 <script type="text/javascript">
 
 $(document).ready(function(){
+	function loadWaitList(){
 	$.ajax({
 		type: 'get',
 		url: "./mainWaitList.do",
 		success : waitListFunc,
 		error: errFunc
 	});
+	}
+	loadWaitList();
 });
 
 /* $(function(){
@@ -369,7 +372,6 @@ $(document).ready(function(){
 function waitListFunc(data){
 	
 	var obj = JSON.parse(data);
-	
 	for(var k in obj.waitList){
 		var num = obj.waitList[k].num;
 		var name = obj.waitList[k].name;
@@ -496,10 +498,12 @@ function ModifyInfo(data){
 	$('#LoadHeight').val(obj.height);
 	$('#LoadWeight').val(obj.weight);
 	$('#LoadNote').val(obj.note);
+	console.log(obj.sex);
+	console.log(obj.sex=='남자');
 	if(obj.sex == 'man' || obj.sex == '남' || obj.sex == '남자'){
-		$("input:radio[name='gender'][value='man']").prop('checked', true);	
+		$("input:radio[name='genderUpdate'][value='남']").prop('checked', true);	
 	}
-	else $("input:radio[name='gender'][value='woman']").prop('checked', true);
+	else $("input:radio[name='genderUpdate'][value='여']").prop('checked', true);
 	
 }
 
@@ -507,6 +511,7 @@ $(document).ready(function(){
 	$('#patientInfoForm').submit(function(event){
 		console.log("정보수정");
 		ModifyForm();
+		loadWaitList();
 		return false;
 	});
 });
@@ -518,13 +523,16 @@ function ModifyForm(){
 	var birth = document.getElementById('LoadBirth').value;
 	var phone = document.getElementById('LoadPhone').value;
 	var address = document.getElementById('LoadAddress').value;
-	var gender = $('input[type=radio][name=gender]:checked').val();
+	var gender = $('input[type=radio][name=genderUpdate]:checked').val();
 	var height = document.getElementById('LoadHeight').value;
 	var weight = document.getElementById('LoadWeight').value;
 	var note = $('#LoadNote').val();
+	
+	console.log(gender);
+	
 	$.ajax({
 		type:'POST',
-		url: "./insertPatient.do",
+		url: "./updatePatientInfo.do",
 		data: {"name":name, "birth":birth, "phone":phone, "address":address, "gender":gender,
 				"height":height, "weight":weight, "note":note, "num":num },
 		success: function(response){
@@ -671,6 +679,7 @@ $(document).ready(function(){
 	$('#patientForm').submit(function(event){
 		console.log("오니");
 		submitForm();
+		loadWaitList();
 		return false;
 	});
 });
@@ -695,6 +704,7 @@ function submitForm(){
 				"height":height, "weight":weight, "note":note, "symptom": symptom},
 		success: function(response){
 			$("#exampleModal").modal('hide');
+			alert('추가가 완료되었습니다');
 			
 		},
 		error: function(msg, error) {
