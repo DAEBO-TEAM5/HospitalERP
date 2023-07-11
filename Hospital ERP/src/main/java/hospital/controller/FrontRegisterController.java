@@ -11,11 +11,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import hospital.action.Action;
 import hospital.action.ActionForward;
+import hospital.service.EmailCheckAction;
+import hospital.service.FindIDAction;
 import hospital.service.HospitalWaitingInfoService;
 import hospital.service.HospitalWaitingListService;
 import hospital.service.InfoServiceAction;
 import hospital.service.InsertPatientServiceAction;
 import hospital.service.InsertRecordServiceAction;
+import hospital.service.ItemInsertServiceAction;
 import hospital.service.ItemRelServiceAction;
 import hospital.service.LoginOkServiceAction;
 import hospital.service.LoadPatientInfoServiceAction;
@@ -68,9 +71,19 @@ public class FrontRegisterController extends HttpServlet {
     		forward = action.execute(request, response);
     		
     	}else if(urlcommand.equals("/checkid.do")){
-    		System.out.println("체크입니다");
+    		System.out.println("아이디체크입니다");
         		action = new MemberIdCheckAction();
-        		action.execute(request, response);	
+        		action.execute(request, response);
+        		
+    	}else if(urlcommand.equals("/emailcheck.do")){
+    		System.out.println("이메일체크입니다");
+        		action = new EmailCheckAction();
+        		action.execute(request, response);
+        		
+    	}else if(urlcommand.equals("/findid.do")){
+    		System.out.println("아이디찾기입니다.");
+        		action = new FindIDAction();
+        		action.execute(request, response);		
 
     	}else if(urlcommand.equals("/history.do")) {
     		forward = new ActionForward();
@@ -98,6 +111,10 @@ public class FrontRegisterController extends HttpServlet {
     		action = new ItemRelServiceAction();
     		action.execute(request, response);
     		
+    	}else if(urlcommand.equals("/itemInsert.do")){
+    		action = new ItemInsertServiceAction();
+    		action.execute(request, response);
+    	
     	}else if(urlcommand.equals("/main2.do")) {
     		//UI 제공 (서비스 객체가 필요없다)
     		forward = new ActionForward();
@@ -120,7 +137,7 @@ public class FrontRegisterController extends HttpServlet {
     		forward = action.execute(request, response);
     	}
     	else if(urlcommand.equals("/insertRecord.do")) {
-    		//System.out.println("insertRecord-----------");
+    		System.out.println("insertRecord-----------");
     		action = new InsertRecordServiceAction();
     		action.execute(request, response);
     	}else if(urlcommand.equals("/insertPatient.do")) {

@@ -1,3 +1,4 @@
+User
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -96,11 +97,67 @@
 	        		</div>
 	        		
 	        		
-	        		<div>
-         				<button type="button" id ="" class="btn btn-primary item_btn_click" >추가</button>
-         				<button type="button" id ="" class="btn btn-secondary item_btn_nonclick" >삭제</button>
-         				<button type="button" id ="" class="btn btn-secondary item_btn_nonclick" >수정</button><br>
-         			</div>	
+	        	<div> 
+	        		<!-- 추가삭제수정 +모달 -->
+         				<!-- Button trigger modal -->
+					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+					  추우가아버어트은
+					</button>
+				
+				<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+					  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					      </div>
+					      <div class="modal-body">
+					            <table class="table tablemodal" page="main_ins_modal">
+									<tbody>
+										<div class="insert_div">
+											<tr class="nodelete">
+												<td>품명</td>
+												<td><input type="text" placeholder="품명" ></td>
+												<td>카테고리</td>
+												<td><input type="text" placeholder="카테고리"></td>
+												<td>단위</td>
+												<td><input type="text" placeholder="단위"></td>
+												<td>재고량</td>
+												<td><input type="text" placeholder="재고량" ></td>
+												
+											</tr>
+											<tr class="nodelete">
+												<td>유통기한</td>
+												<td><input type="text" placeholder="유통기한" ></td>
+												<td>물품단가</td>
+												<td><input type="text" placeholder="물품단가"></td>
+												<td>비고</td>
+												<td><input type="text" placeholder="비고" ></td>
+												<td colspan="2">
+													<button class="btn btn-danger itemDelBtn" onClick="itemDelBtnHandler(event)">
+											    	 X
+											   		</button>
+												</td>
+											</tr>
+										</div>
+									</tbody>
+							    </table>
+				
+							    <button type="button" class="btn btn-secondary" id="modal_addItem" onClick="tableAddBtnHandler()">
+							      항목추가
+							    </button>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+					        <button type="submit" class="btn btn-primary" id="insert_submit">등록</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+     				<button type="button" id ="" class="btn btn-secondary item_btn_nonclick" >삭제</button>
+     				<button type="button" id ="" class="btn btn-secondary item_btn_nonclick" >수정</button><br>
+         			</div>	<!-- 모달 버튼들 -->
+	        		
 	        		
 
 	
@@ -153,165 +210,263 @@ $(document).ready(function() {
 		});
 	
 	});
-
-$('#StockFiveCheck').change(function() {
-	  filterItems();
-	  filterTableBySearch();
-/* 	  if ($(this).is(':checked')) {
-		    $('.input-searchfilter').val(''); // 검색어 초기화
-		  }	 */
-	});
-function filterItems() {
-	  var checkbox = $('#StockFiveCheck');
-	  var main_table = $('#mainTable tr');
-	  var count = 1; // 번호 변수를 초기화합니다
-	  
-	  if (checkbox.is(':checked')) {
-	    main_table.each(function(index) {
-	      if (index > 0) {
-	        var stock = parseInt($(this).find('td[main-column="stock"]').text());
-	        if (stock > 5) {
-	          $(this).hide();
-	        } else {
-	          $(this).find('td[main-column="number"]').text(count++);
-	          $(this).show();
-	        }
-	      }
-	    });
-	  } else {
-	    main_table.each(function(index) {
-	      if (index > 0) {
-	        $(this).find('td[main-column="number"]').text(count++);
-	        $(this).show();
-	      }
-	    });
-	  }
-	}   
-
-/* 검색 기능: 품목, 출고 한번에 */
-$('.input-searchfilter').on('input', function() {
-	  search_input = $(this).val(); // 검색어 업데이트
-  	  filterTableBySearch();
-	});
-
-	function filterTableBySearch() {
-	  var search_input = $('.input-searchfilter').val();
-	  var main_search = $('#mainTable tr');
-	  var rel_search = $('#RelTable tr');
-	  var count = 1;
 	
-	  //품목 관리 검색
-	  main_search.each(function(index) { 
-		    if (index > 0) {
-		    var main_name = $(this).find('td[main-column="name"]').text()
-		    var main_code = $(this).find('td[main-column="code"]').text(); 	
-		    var main_number = $(this).find('td[main-column="number"]');
-		    
-		    if (main_name.includes(search_input) || main_code.includes(search_input)) {
-		    	main_number.text(count++);
-		    	$(this).show();
-		      } else {
-		        $(this).hide();
-		      }
-		    }
-		  });
-	  
-	  //출고 관리 검색
-	  rel_search.each(function(index) {
-	   	 if (index > 0) {
-	   		 var rel_name = $(this).find('td[rel-column="name"]').text()
-		   	 var rel_code = $(this).find('td[rel-column="code"]').text(); 
-		      if (rel_name.includes(search_input) || rel_code.includes(search_input)) {
-		    	$(this).show();
-		      } else {
-		        $(this).hide();
-		      }
-		    }
-		  });
-		}
+//5개이하 재고품목 확인 체크박스 실시간
+$('#StockFiveCheck').change(function() {
+    filterItems();
+});
 
-/* 여기서 부터 출고 관리 이하 기능들 */
+//품목관리, 출고관리별 검색필터 다르게
+$('.input-searchfilter').on('input', function() {
+    if ($('.main_page').is(':visible')) {
+        filterItems();
+    } else if ($('.rel_page').is(':visible')) {
+    	filterTableBySearch();;
+    }
+});
 
+//5개이하 재고품목 확인
+function filterItems() {
+    var checkbox = $('#StockFiveCheck');
+    var search_input = $('.input-searchfilter').val();
+    var main_table = $('#mainTable tr');
+    var count = 1;
+
+    main_table.each(function(index) {
+        if (index > 0) {
+            var stock = parseInt($(this).find('td[main-column="stock"]').text());
+            var name = $(this).find('td[main-column="name"]').text();
+            var code = $(this).find('td[main-column="code"]').text();
+            var main_number = $(this).find('td[main-column="number"]');
+
+            if ((checkbox.is(':checked') && stock <= 5) || (!checkbox.is(':checked'))) {
+                if (name.includes(search_input) || code.includes(search_input) || search_input === '') {
+                    main_number.text(count++);
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            } else {
+                $(this).hide();
+            }
+        }
+    });
+}
+
+function filterTableBySearch() {
+    var search_input = $('.input-searchfilter').val();
+    var main_search = $('#mainTable tr');
+    var rel_search = $('#RelTable tr');
+
+    // 품목 관리 검색
+    main_search.each(function(index) {
+        if (index > 0) {
+            var main_name = $(this).find('td[main-column="name"]').text();
+            var main_code = $(this).find('td[main-column="code"]').text();
+            var main_number = $(this).find('td[main-column="number"]');
+
+            if (main_name.includes(search_input) || main_code.includes(search_input) || search_input === '') {
+                main_number.text(index);
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        }
+    });
+
+    // 출고 관리 검색
+    rel_search.each(function(index) {
+        if (index > 0) {
+            var rel_name = $(this).find('td[rel-column="name"]').text();
+            var rel_code = $(this).find('td[rel-column="code"]').text();
+
+            if (rel_name.includes(search_input) || rel_code.includes(search_input) || search_input === '') {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        }
+    });
+}
+
+//출고 관리 load
 $(function () {
-	$('#item_release').click(function(){
-			
-		$('.main_page').hide();
-		$('.rel_page').show();
-		$('.input-searchfilter').val('');
-		filterTableBySearch();
-	    $('.use_Check').prop('checked', true);
-	    $('.dis_Check').prop('checked', true);
-	    filterRelrease();
-		var str = "";
-		$.ajax({	
-			url: "./itemRelTable.do",
-			type: "post",
-			success: function(data){
-				var obj = JSON.parse(data);
-				str += "<tr><th>사용 날짜</th><th>사용 시간</th><th>품명</th><th>품목코드</th><th>카테고리</th><th>사용량</th><th>잔여량</th><th>사용자</th><th>비고(폐기 여부)</th></tr>')"
-				for(var i =0; i < obj.item.length; i++){
-					str += "<tr>";
-					str += "<td>" +obj.item[i].rel_date + "</td>"
-					str += "<td>" +obj.item[i].rel_time + "</td>"
-					str += "<td rel-column='name'>" +obj.item[i].i_name + "</td>"
-					str += "<td rel-column='code'>" +obj.item[i].rel_i_code + "</td>"
-					str += "<td>" +obj.item[i].i_category + "</td>"
-					str += "<td>" +obj.item[i].rel_amount + "</td>"
-					str += "<td>" +obj.item[i].i_stock + "</td>"
-					str += "<td>" +obj.item[i].rel_user + "</td>"
-					str += "<td rel-column='remark'>" +obj.item[i].rel_remark + "</td>"
-					str += "</tr>";
-				}
- 				$('#RelTable').html(str); 
- 				filterRelrease(); 
-			},
-			error: function(){
-				alert('검색할 수 없습니다.')
-			}
-		});
+    $('#item_release').click(function() {
+        $('.main_page').hide();
+        $('.rel_page').show();
+        $('.input-searchfilter').val('');
+        filterTableBySearch();
+        $('.use_Check').prop('checked', true);
+        $('.dis_Check').prop('checked', true);
+        filterRelrease();
+        var str = "";
+        $.ajax({
+            url: "./itemRelTable.do",
+            type: "post",
+            success: function(data) {
+                var obj = JSON.parse(data);
+                str += "<tr><th>사용 날짜</th><th>사용 시간</th><th>품명</th><th>품목코드</th><th>카테고리</th><th>사용량</th><th>잔여량</th><th>사용자</th><th>비고(폐기 여부)</th></tr>')"
+                for (var i = 0; i < obj.item.length; i++) {
+                    str += "<tr>";
+                    str += "<td>" + obj.item[i].rel_date + "</td>"
+                    str += "<td>" + obj.item[i].rel_time + "</td>"
+                    str += "<td rel-column='name'>" + obj.item[i].i_name + "</td>"
+                    str += "<td rel-column='code'>" + obj.item[i].rel_i_code + "</td>"
+                    str += "<td>" + obj.item[i].i_category + "</td>"
+                    str += "<td>" + obj.item[i].rel_amount + "</td>"
+                    str += "<td>" + obj.item[i].i_stock + "</td>"
+                    str += "<td>" + obj.item[i].rel_user + "</td>"
+                    str += "<td rel-column='remark'>" + obj.item[i].rel_remark + "</td>"
+                    str += "</tr>";
+                }
+                $('#RelTable').html(str);
+                filterRelrease();
+            },
+            error: function() {
+                alert('검색할 수 없습니다.')
+            }
+        });
+    });
+});
 
-	});
-});	 
+function clearModalText() {
+	  $('table[page="main_ins_modal"] input[type="text"]').val('');
+	  $("table[page='main_ins_modal'] tbody > tr").not('.nodelete').remove();
+	  //$('table[page="main_ins_modal"]').not(':first').remove();
+	}
 
-$('.RelreaseCheck').change(function() {
-	filterRelrease();
+	// 모달 닫기 이벤트 처리
+	$('#staticBackdrop').on('hidden.bs.modal', function () {
+	  clearModalText(); // 모달 내의 텍스트 초기화
 	});
+
+	// 등록 버튼 클릭 시 모달 닫기
+	$('#insert_submit').click(function() {
+	  clearModalText(); // 모달 내의 텍스트 초기화
+	});
+
 function filterRelrease() {
-	  var useCheck= $('.use_Check');
-	  var disCheck= $('.dis_Check');
-	  var rel_table = $('#RelTable tr');
-	  var rel_table_header = $('#RelTable tr:first-child');	
-	  
-	  	  if (useCheck.is(':checked') && disCheck.is(':checked')) {
-		    rel_table.show();
-		  } else if (!useCheck.is(':checked') && disCheck.is(':checked')) {
-		    	rel_table.each(function(index) {
-		      	if (index === 0 || $(this).find('td[rel-column="remark"]').text().includes('폐기')) {
-		        	$(this).show();
-		      	} else {
-		        	$(this).hide();
-		      	}
-		   		 });
-		  } else if (useCheck.is(':checked') && !disCheck.is(':checked')) {
-			    rel_table.each(function(index) {
-			      if (index === 0 || !$(this).find('td[rel-column="remark"]').text().includes('폐기')) {
-			        $(this).show();
-			      } else {
-			        $(this).hide();
-			      }
-			    });
-		  } else {
-		    rel_table.hide();
-		    rel_table_header.show();
-		  }
-		}
+    var useCheck = $('.use_Check');
+    var disCheck = $('.dis_Check');
+    var rel_table = $('#RelTable tr');
+    var rel_table_header = $('#RelTable tr:first-child');
+
+    if (useCheck.is(':checked') && disCheck.is(':checked')) {
+        rel_table.show();
+    } else if (!useCheck.is(':checked') && disCheck.is(':checked')) {
+        rel_table.each(function(index) {
+            if (index === 0 || $(this).find('td[rel-column="remark"]').text().includes('폐기')) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    } else if (useCheck.is(':checked') && !disCheck.is(':checked')) {
+        rel_table.each(function(index) {
+            if (index === 0 || !$(this).find('td[rel-column="remark"]').text().includes('폐기')) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    } else {
+        rel_table.hide();
+        rel_table_header.show();
+    }
+}
 		
-/* 클릭시 삭제
+/* 
+ 
+클릭시 삭제
 $(document).on('click', '#mainTable tr:not(:first-child)', function() {
     $(this).remove();
 });
 */
 
+//item 추가 모달 내 "항목추가"된것 삭제
+function itemDelBtnHandler(event) {
+	  const select_row = $(event.target).closest('tr');
+	  const front_row = select_row.prev('tr');
+	  select_row.add(front_row).remove();
+	}
+
+function tableAddBtnHandler() {
+	const [tr1, tr2] = itemTableElement();
+ 	document.querySelector("table[page='main_ins_modal'] > tbody").appendChild(tr1);
+ 	document.querySelector("table[page='main_ins_modal'] > tbody").appendChild(tr2);
+
+}
+
+
+//insert 모달 항목추가
+function itemTableElement() {
+	const tr1 = document.createElement("tr");
+	tr1.innerHTML = `
+			<td>품명</td>
+			<td><input type="text" placeholder="품명"></td>
+			<td>카테고리</td>
+			<td><input type="text" placeholder="카테고리"></td>
+			<td>단위</td>
+			<td><input type="text" placeholder="단위"></td>
+			<td>재고량</td>
+			<td><input type="text" placeholder="재고량" ></td>
+	`;
+	const tr2 = document.createElement("tr");
+	tr2.innerHTML = `
+			<td>유통기한</td>
+			<td><input type="text" placeholder="유통기한" ></td>
+			<td>물품단가</td>
+			<td><input type="text" placeholder="물품단가"></td>
+			<td>비고</td>
+			<td><input type="text" placeholder="비고" ></td>
+			<td colspan="2">
+				<button class="btn btn-danger itemDelBtn" onClick="itemDelBtnHandler(event)">
+		    	 X
+		   		</button>
+			</td>
+	`;
+	return [tr1, tr2];
+	
+}
+//모달내의 등록제출시 sql insert
+$('#insert_submit').click(function() {
+  var items = []; // 항목들을 담을 배열
+
+  // 항목 추가된 부분들을 선택하여 반복
+  $('.insert_div').each(function() {
+
+    var item = {
+      "itemName" : $(this).find('input[placeholder="품명"]').val(),
+      "itemCategory" : $(this).find('input[placeholder="카테고리"]').val,
+      "itemUnit" : $(this).find('input[placeholder="단위"]').val(),
+      "itemStock" : $(this).find('input[placeholder="재고량"]').val(),
+      "itemExpire" : $(this).find('input[placeholder="유통기한"]').val(),
+      "itemPrice" : $(this).find('input[placeholder="물품단가"]').val(),
+      "itemRemark" : $(this).find('input[placeholder="비고"]').val()
+    };
+
+    items.push(item); // 항목을 배열에 추가
+  });
+
+  var data = { 
+    itemList: items // 리스트 형태로 데이터 전달
+  };
+
+  // 서버로 데이터 전송하는 Ajax 요청
+  $.ajax({
+    url: "./itemInsertAction.do",
+    type: "post",
+    data: JSON.stringify(items), // 데이터 전달
+    success: function(response) {
+      // 삽입 성공 후 처리할 코드 작성
+      alert("데이터베이스에 항목들이 삽입되었습니다.");
+      $('#staticBackdrop').modal('hide'); // 모달 닫기
+    },
+    error: function() {
+      alert("데이터베이스 삽입 중 오류가 발생했습니다.");
+    }
+  });
+});
 </script>
 </body>
-</html>
+</html> 	

@@ -181,7 +181,21 @@ public class RecordDao {
 	}
 	
 	
-	
+	public void deleteWaitList(int p_code) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = ConnectionHelper.getConnection();
+			String sql = "delete from wait where w_p_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, p_code);
+			int num = pstmt.executeUpdate();
+			//if(num>0) System.out.println(num+"개 행 업데이트 완료");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	
 	

@@ -55,7 +55,7 @@ public class PatientDao {
 		PreparedStatement pstmt = null;
 		try {
 			conn = ConnectionHelper.getConnection();
-			String sql = "select p.num, p.name, p.birth, p.sex from patient p join wait w on p.num = w.w_p_num";
+			String sql = "select p.num, p.name, p.birth, p.sex from patient p join wait w on p.num = w.w_p_num order by w.w_num";
 			pstmt = conn.prepareStatement(sql);
 			
 			ResultSet rs = pstmt.executeQuery();
@@ -196,7 +196,7 @@ public PatientVO UpdatePatient(PatientVO vo) {
 	PreparedStatement pstmt = null;
 	try {
 		conn = ConnectionHelper.getConnection();
-		String sql = "update patient set (name, birth, phone, address, sex, height, weight, note) = (?,?,?,?,?,?,?,?) where num=?";
+		String sql = "update patient set name=?, birth=?, phone=?, address=?, sex=?, height=?, weight=?, note=? where num=?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, vo.getName());
 		pstmt.setString(2, vo.getBirth());
@@ -206,6 +206,7 @@ public PatientVO UpdatePatient(PatientVO vo) {
 		pstmt.setInt(6, vo.getHeight());
 		pstmt.setInt(7, vo.getWeight());
 		pstmt.setString(8, vo.getNote());
+		pstmt.setInt(9, vo.getNum());
 		
 		pstmt.executeUpdate();
 		
