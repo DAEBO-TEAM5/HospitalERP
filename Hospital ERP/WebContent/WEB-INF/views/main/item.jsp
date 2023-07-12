@@ -1,6 +1,6 @@
-User
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,16 +17,7 @@ User
 </head>
 <body>
 	<div class="container-fluid">
-	
-		<div class="d-flex" id="title">
-			<div class="p-2 flex-grow-1">
-				<i class="fa-solid fa-circle-user"></i>병원님 반갑습니다.
-			</div>
-		    <div class="p-2"><a href="#" class="title-a">진료</a></div>
-			<div class="p-2"><a href="#" class="title-a">재고</a></div>
-			<div class="p-2"><a href="#" class="title-a">진료기록</a></div>
-			  
-		</div>
+	<c:import url="../include/header.jsp"></c:import>
 		<div class="container-fluid">
       		<div class="row" style="border: 1px solid orange; height: 100%;">
 
@@ -72,7 +63,7 @@ User
 							</div>
          			</div>
   
-         			<div class="main_page">
+         			<div class="main_page">  <!--품목관리-->
 	         			<div class="item_checkbox">
 		        			<input type="checkbox" id="StockFiveCheck" onchange="filterItems()"> 재고가 5개 이하인 품목만 표시
 	        			</div>
@@ -81,10 +72,73 @@ User
 			        		 	<tr><td>TD확인</td></tr>
 			        		</table>
 		        		</div>
-	        		</div>
+		        		
+		        		
+		        		
+	        		<div> 
+	         				<!-- Button trigger modal 모달,버튼 -->
+						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+						  추우가아버어트은
+						</button>
+					
+					<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+						  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+						        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						      </div>
+						      <div class="modal-body">
+						            <table class="table tablemodal" page="main_ins_modal">
+										<tbody>
+											<div class="insert_div">
+												<tr class="nodelete">
+													<td>품명</td>
+													<td><input type="text" placeholder="품명" ></td>
+													<td>카테고리</td>
+													<td><input type="text" placeholder="카테고리"></td>
+													<td>단위</td>
+													<td><input type="text" placeholder="단위"></td>
+													<td>재고량</td>
+													<td><input type="text" placeholder="재고량" ></td>
+													
+												</tr>
+												<tr class="nodelete">
+													<td>유통기한</td>
+													<td><input type="text" placeholder="유통기한" ></td>
+													<td>물품단가</td>
+													<td><input type="text" placeholder="물품단가"></td>
+													<td>비고</td>
+													<td><input type="text" placeholder="비고" ></td>
+													<td colspan="2">
+														<button class="btn btn-danger itemDelBtn" onClick="itemDelBtnHandler(event)">
+												    	 X
+												   		</button>
+													</td>
+												</tr>
+											</div>
+										</tbody>
+								    </table>
+					
+								    <button type="button" class="btn btn-secondary" id="modal_addItem" onClick="tableAddBtnHandler()">
+								      항목추가
+								    </button>
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+						        <button type="submit" class="btn btn-primary" id="insert_submit">등록</button>
+						      </div>
+						    </div>
+						  </div>
+						</div>
+	     				<button type="button" id ="" class="btn btn-secondary item_btn_nonclick" >삭제</button>
+	     				<button type="button" id ="" class="btn btn-secondary item_btn_nonclick" >수정</button><br>
+         			</div>	<!-- 모달 버튼들 -->
+	        		
+	        		</div> <!--품목관리end-->
 	        		
 	        		
-	        		<div class="rel_page" style="display: none;">
+	        		<div class="rel_page" style="display: none;"> <!-- 출고관리 -->
 	        			<div class="RelreaseCheck item_checkbox" >
 		        			<input type="checkbox" class="use_Check" checked> 사용 내역
 		        			<input type="checkbox" class="dis_Check" checked> 폐기 내역
@@ -94,70 +148,10 @@ User
 			        		 	<tr><td>TD확인</td></tr>
 			        		</table>
 		        		</div>
-	        		</div>
+	        		</div><!-- 출고관리 end -->
 	        		
-	        		
-	        	<div> 
-	        		<!-- 추가삭제수정 +모달 -->
-         				<!-- Button trigger modal -->
-					<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-					  추우가아버어트은
-					</button>
-				
-				<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-					  <div class="modal-dialog modal-xl modal-dialog-scrollable">
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-					        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-					      </div>
-					      <div class="modal-body">
-					            <table class="table tablemodal" page="main_ins_modal">
-									<tbody>
-										<div class="insert_div">
-											<tr class="nodelete">
-												<td>품명</td>
-												<td><input type="text" placeholder="품명" ></td>
-												<td>카테고리</td>
-												<td><input type="text" placeholder="카테고리"></td>
-												<td>단위</td>
-												<td><input type="text" placeholder="단위"></td>
-												<td>재고량</td>
-												<td><input type="text" placeholder="재고량" ></td>
-												
-											</tr>
-											<tr class="nodelete">
-												<td>유통기한</td>
-												<td><input type="text" placeholder="유통기한" ></td>
-												<td>물품단가</td>
-												<td><input type="text" placeholder="물품단가"></td>
-												<td>비고</td>
-												<td><input type="text" placeholder="비고" ></td>
-												<td colspan="2">
-													<button class="btn btn-danger itemDelBtn" onClick="itemDelBtnHandler(event)">
-											    	 X
-											   		</button>
-												</td>
-											</tr>
-										</div>
-									</tbody>
-							    </table>
-				
-							    <button type="button" class="btn btn-secondary" id="modal_addItem" onClick="tableAddBtnHandler()">
-							      항목추가
-							    </button>
-					      </div>
-					      <div class="modal-footer">
-					        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					        <button type="submit" class="btn btn-primary" id="insert_submit">등록</button>
-					      </div>
-					    </div>
-					  </div>
-					</div>
-     				<button type="button" id ="" class="btn btn-secondary item_btn_nonclick" >삭제</button>
-     				<button type="button" id ="" class="btn btn-secondary item_btn_nonclick" >수정</button><br>
-         			</div>	<!-- 모달 버튼들 -->
-	        		
+	         		
+	        	
 	        		
 
 	
@@ -328,23 +322,11 @@ $(function () {
         });
     });
 });
-
-function clearModalText() {
-	  $('table[page="main_ins_modal"] input[type="text"]').val('');
-	  $("table[page='main_ins_modal'] tbody > tr").not('.nodelete').remove();
-	  //$('table[page="main_ins_modal"]').not(':first').remove();
-	}
-
-	// 모달 닫기 이벤트 처리
-	$('#staticBackdrop').on('hidden.bs.modal', function () {
-	  clearModalText(); // 모달 내의 텍스트 초기화
+$('.RelreaseCheck').change(function() {
+	$('.input-searchfilter').val('');
+	filterRelrease();
 	});
-
-	// 등록 버튼 클릭 시 모달 닫기
-	$('#insert_submit').click(function() {
-	  clearModalText(); // 모달 내의 텍스트 초기화
-	});
-
+	
 function filterRelrease() {
     var useCheck = $('.use_Check');
     var disCheck = $('.dis_Check');
@@ -375,6 +357,17 @@ function filterRelrease() {
     }
 }
 		
+function clearModalText() {
+	  $('table[page="main_ins_modal"] input[type="text"]').val('');
+	  $("table[page='main_ins_modal'] tbody > tr").not('.nodelete').remove();
+	  //$('table[page="main_ins_modal"]').not(':first').remove();
+	}
+
+	// 모달 닫기 이벤트 처리
+	$('#staticBackdrop').on('hidden.bs.modal', function () {
+	  clearModalText(); // 모달 내의 텍스트 초기화
+	});
+
 /* 
  
 클릭시 삭제
@@ -431,42 +424,47 @@ function itemTableElement() {
 //모달내의 등록제출시 sql insert
 $('#insert_submit').click(function() {
   var items = []; // 항목들을 담을 배열
-
-  // 항목 추가된 부분들을 선택하여 반복
-  $('.insert_div').each(function() {
-
-    var item = {
-      "itemName" : $(this).find('input[placeholder="품명"]').val(),
-      "itemCategory" : $(this).find('input[placeholder="카테고리"]').val,
-      "itemUnit" : $(this).find('input[placeholder="단위"]').val(),
-      "itemStock" : $(this).find('input[placeholder="재고량"]').val(),
-      "itemExpire" : $(this).find('input[placeholder="유통기한"]').val(),
-      "itemPrice" : $(this).find('input[placeholder="물품단가"]').val(),
-      "itemRemark" : $(this).find('input[placeholder="비고"]').val()
-    };
-
-    items.push(item); // 항목을 배열에 추가
-  });
+  const trs = document.querySelectorAll("table[page='main_ins_modal'] tr");
+  console.log(trs);
+  for (let i=0; i<trs.length; i+=2) {
+	  let tr1 = trs[i];
+	  let tr2 = trs[i+1];
+	  let item = {
+			  "itemName" : tr1.querySelector('input[placeholder="품명"]').value,
+		      "itemCategory" : tr1.querySelector('input[placeholder="카테고리"]').value,
+		      "itemUnit" : tr1.querySelector('input[placeholder="단위"]').value,
+		      "itemStock" : tr1.querySelector('input[placeholder="재고량"]').value,
+		      "itemExpire" : tr2.querySelector('input[placeholder="유통기한"]').value,
+		      "itemPrice" : tr2.querySelector('input[placeholder="물품단가"]').value,
+		      "itemRemark" : tr2.querySelector('input[placeholder="비고"]').value	  
+	  }
+	  items.push(item);
+	  
+  }
 
   var data = { 
     itemList: items // 리스트 형태로 데이터 전달
   };
 
   // 서버로 데이터 전송하는 Ajax 요청
-  $.ajax({
-    url: "./itemInsertAction.do",
-    type: "post",
-    data: JSON.stringify(items), // 데이터 전달
-    success: function(response) {
-      // 삽입 성공 후 처리할 코드 작성
-      alert("데이터베이스에 항목들이 삽입되었습니다.");
-      $('#staticBackdrop').modal('hide'); // 모달 닫기
-    },
-    error: function() {
-      alert("데이터베이스 삽입 중 오류가 발생했습니다.");
-    }
-  });
+	$.ajax({
+	    url: "./itemInsert.do",
+	    type: "post",
+	    data: JSON.stringify(items), // 데이터 전달 (수정된 부분)
+	    contentType:"application/json", // 데이터 형식 지정
+	    success: function(response) {
+	      alert("데이터베이스에 항목들이 삽입되었습니다.");
+	      $('#staticBackdrop').modal('hide'); // 모달 닫기
+	      reload();
+	    },
+	    error: function() {
+	      alert("데이터베이스 삽입 중 오류가 발생했습니다. \n\n※사용하지 않는 칸은 제거해주세요. \n※재고량과 물품단가는 숫자로 입력해주세요.");
+	    }
+	  });
 });
+function reload() {  //페이지 새로고침
+    (location || window.location || document.location).reload();
+}
 </script>
 </body>
 </html> 	

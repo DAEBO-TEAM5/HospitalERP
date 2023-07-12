@@ -1,15 +1,15 @@
 @charset "UTF-8";
 
 #hospital_title{
-	background-color: rgba(46, 91, 219);
-	line-height: 50px;
+   background-color: rgba(46, 91, 219);
+   line-height: 50px;
 }
 
 .title_nav{
-	text-decoration: none;
-	font-size: 25px;
-	color: white;
-	font-weight: bold;
+   text-decoration: none;
+   font-size: 25px;
+   color: white;
+   font-weight: bold;
 }
 
 .title_nav::after {
@@ -23,7 +23,7 @@
 	color: white;
 }
 .title_nav:hover::after {
-	transform: scaleX(1);
+   transform: scaleX(1);
 }
 
     .test {
@@ -33,16 +33,16 @@
         padding: 0px;
         margin: 0 auto;
         border-radius:5px;
-       	box-shadow:0px 5px 30px -20px rgba(0,0,0,0.3);
+          box-shadow:0px 5px 30px -20px rgba(0,0,0,0.3);
     }
 
   .Calendar > td {
         width: 100px;
         height: 100px;
     }
-	.Calendar > table, th, tr, td{
-		border: 0px;
-	}
+   .Calendar > table, th, tr, td{
+      border: 0px;
+   }
 
     .Calendar {
         text-align: center;
