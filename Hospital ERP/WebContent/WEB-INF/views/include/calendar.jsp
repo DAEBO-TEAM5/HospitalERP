@@ -40,25 +40,6 @@
 </body>
 
 <script type="text/javascript">
-function successFunc(data){
-	var str = "";
-	var obj = JSON.parse(data);
-	console.log(obj);
-	console.log(obj.list.length);
-	/* <div class="list-group-item list-group-item-action list-group-item-info result_set">A simple dark list group item<br>efefe</div> */
-	for(var i =0; i< obj.list.length; i++){
-		str += "<div class='list-group-item list-group-item-action list-group-item-info result_set'>"
-		str += "<span class = 'name'><h4>" + obj.list[i].name + "</h4></span>";
-		str += obj.list[i].birth + "<br>";
-		str += "<span class = 'phone'>" + obj.list[i].phone + "</span><br>";
-		str += "</div>"
-	}
-	
-	$('.list-group').html(str);
-}
-function errFunc(e){
-	alert("검색결과가 없습니다.");
-}
 window.onload = function () { buildCalendar(); }
 
 let nowMonth = new Date();  // 현재 달을 페이지를 로드한 날의 달로 초기화
@@ -141,20 +122,6 @@ function leftPad(value) {
     }
     return value;
 }
-$(function(){
-	$(document).on("click", ".test p", function (e){
-		$.ajax({	
-			url: "./patientsearch.do",
-			type: "post",
-			data : { date: $('#calYear').text()+$('#calMonth').text()+$(this).text()
-			},
-			success: successFunc,
-			error: function(){
-				console.log('통신실패!!!')
-			}
-		});
-	});
-});
 
 </script>
 

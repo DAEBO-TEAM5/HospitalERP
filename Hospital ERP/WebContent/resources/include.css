@@ -1,7 +1,5 @@
 @charset "UTF-8";
 
-
-
 #hospital_title{
 	background-color: rgba(46, 91, 219);
 	line-height: 50px;
@@ -14,15 +12,25 @@
 	font-weight: bold;
 }
 
-
-
+.title_nav::after {
+	display:block;
+	content: "";
+	border-bottom: solid 3px white;
+	transform: scaleX(0);
+	transition: transform 250ms ease-in-out;
+}
+.title_nav:hover{
+	color: white;
+}
+.title_nav:hover::after {
+	transform: scaleX(1);
+}
 
     .test {
         height: auto;
         background-color: white;
         width: auto;
         padding: 0px;
-       	
         margin: 0 auto;
         border-radius:5px;
        	box-shadow:0px 5px 30px -20px rgba(0,0,0,0.3);
@@ -38,11 +46,12 @@
 
     .Calendar {
         text-align: center;
+        margin: auto;
     }
 
     .Calendar>thead>tr:first-child>td {
         font-family: 'Questrial', sans-serif;
-        font-size: 1.2rem;
+        font-size: 1.4rem;
         font-weight: bold;
     }
 
@@ -54,11 +63,11 @@
 
     .Calendar>tbody>tr>td>p {
         font-family: 'Questrial','Montserrat', sans-serif;
-        height: 30px;
-        width: 30px;
-        border-radius: 30px;
+        height: 33px;
+        width: 33px;
+        border-radius: 33px;
         transition-duration: .2s;
-        line-height: 30px;
+        line-height: 33px;
         margin: 2.5px;
         display: block;
         text-align: center;
@@ -76,7 +85,7 @@
         background-color: #F5D042;            
         color: #fff;
         font-weight: 600;
-        cursor: pointe70r;
+        cursor: pointer;
     }
 
     .futureDay {
@@ -100,8 +109,3 @@
         font-weight: 600;
         cursor: pointer;
     }
-        
-
-
-
-

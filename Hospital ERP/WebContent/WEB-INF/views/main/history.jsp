@@ -16,19 +16,20 @@
   </style>
 <title>진료기록</title>
 
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 </head>
 <body>
 	<div class="container-fluid">
 		<div class="container-fluid info">
-			<div class="d-flex" id="hospital_title">
+		<c:import url="../include/header.jsp"></c:import>
+			<!-- <div class="d-flex" id="hospital_title">
 				<div class="p-2 flex-grow-1">
 					<i class="fa-solid fa-circle-user fa-lg"></i>&nbsp;ㅇㅇ병원님 반갑습니다.
 				</div>
 			    <div class="p-2"><a href="main2.do" class="title_nav">진료</a></div>
 				<div class="p-2"><a href="item.do" class="title_nav">재고</a></div>
 				<div class="p-2"><a href="#" class="title_nav">진료기록</a></div> 
-			</div>
+			</div> -->
 	    		<div class="row" style="height: calc(100vh - 73.39px);">
 	        		<div class="col-md-2 leftinfo">
 	            		<p>
@@ -75,10 +76,10 @@
 			            	<div style="width: 80%; background-color: white; border-radius: 4px;">
 				            	<div class="record" style="border-radius: 4px 4px 0 0"></div>
 				            		<div style="padding: 6px 12px 6px 12px;">
-		          								<label>증상</label>
-		          								<textarea class="form-control" id="symptom"></textarea>
-		          								<label>병명</label>
-		          								<textarea class="form-control" id="r_d_code"></textarea>
+		          						<label>증상</label>
+          								<textarea class="form-control" id="symptom" style="margin-bottom: 12px;"></textarea>
+          								<label>병명</label>
+       									<textarea class="form-control" id="r_d_code" style="margin-bottom: 12px;"></textarea>
 		          								<label>처방</label>
 		       									<table class="history">
 									          		<th>품명</th>
@@ -95,57 +96,15 @@
 									          			<td></td>
 									          		</tr>
 									          	</table>
+									    <label style="margin-top: 12px;">특이사항</label>
+       									<textarea class="form-control" id="special_note" style="margin-bottom: 12px;">없음</textarea>
 		          							</div>
 				            	
 			            	</div>
 	         			</div>
-	         			
-	         			<!-- <div style="height:60px;" id ="patientinfo"></div>
-						<div> 
-							<div id="patientMemo"> 접수 메모 <br>
-								<div class="form-control" id="jupsu" style="overflow-y:auto;"></div>
-							</div>
-						</div>
-						<br><br><br>
-						<div style="border-top: 1px solid black" id="hLine">
-							<div class="container text-center">
-	      						<div class="row">
-	        						<div class="col-sm-4  gap-2 col-6 mx-auto box1">
-	          							<input class="btn btn-primary" type="button" value="날짜1">
-	          							<button type="button" class="btn btn-secondary" data-bs-toggle="button" autocomplete="off">Secondary</button>
-	        						</div>
-	        						<div class="col-sm-8">
-	         							<label>지난 진료 기록</label>
-	          								<div>
-		          								<label>증상</label>
-		          								<textarea class="form-control" id="symptom"></textarea>
-		          								<label>병명</label>
-		          								<textarea class="form-control" id="r_d_code"></textarea>
-		          								<label>처방</label>
-		       									<table class="history">
-									          		<th>품명</th>
-									          		<th>중량</th>
-									          		<th>수</th>
-									          		<tr>
-									          			<td>1</td>
-									          			<td></td>
-									          			<td></td>
-									          		</tr>
-									          		<tr>
-									          			<td>2</td>
-									          			<td></td>
-									          			<td></td>
-									          		</tr>
-									          	</table>
-		          							</div>
-	        						</div>
-	      						</div>
-	      					</div>
-						</div>
-					</div>		 -->
 	    			</div>
     			<div class="col-md-4" style="border-right: 1px solid black;">
-		            <div style="background-color: skyblue; width:100%; height:100%;">
+		            <div class ="panel" style="width:100%; height:calc(100% - 12px);">
 		            	<h3 style="padding: 5px">수납내역</h3>
 		            	<div style="display: flex;">
 			            	<div class="pay_title" style="width: 50%;">받을 금액</div>
@@ -191,32 +150,7 @@
          		</div>
 
          		<div class="col-md-2 right">
-				    <div class="test">
-        				<table class="Calendar">
-            				<thead>
-	                			<tr>
-	                    			<td onClick="prevCalendar();" style="cursor:pointer;">&#60;</td>
-	                    			<td colspan="5">
-	                        			<span id="calYear"></span>년
-	                        			<span id="calMonth"></span>월
-	                    			</td>
-	                    			<td onClick="nextCalendar();" style="cursor:pointer;">&#62;</td>
-	                			</tr>
-	               				<tr>
-				               	    <td style="color:red;">일</td>
-				                    <td>월</td>
-				                    <td>화</td>
-				                    <td>수</td>
-				                    <td>목</td>
-				                    <td>금</td>
-				                    <td style="color:blue;">토</td>
-				                </tr>
-	            			</thead>
-
-            				<tbody></tbody>
-        				</table>
-    				</div>
-    				
+         			<c:import url="../include/calendar.jsp"/>    				
 				</div>
       			
       			
@@ -284,6 +218,7 @@ function infoFunc(data){
 	$('.patient_info').html(info_str);
 	$('#jupsu').html(obj.info[0].note);
 	$('.record').html("진료기록 [" + obj.info[0].r_date + "]  |  담당의 : " + obj.info[0].name);
+	$('#symptom').html(obj.info[0].symptom);
 	$('#r_d_code').html(obj.info[0].r_d_code);
 	$('.pay').html(obj.info[0].p_amount)
 	var str = "";
@@ -296,7 +231,7 @@ function infoFunc(data){
 	$('.date_button').html(str);
 }
 $(function(){
-	$(document).on("click", ".box1 > button", function (e){
+	$(document).on("click", ".date_button > button", function (e){
 		var str = "";
 		console.log($(this).index())
 		for(var i =0; i < temp.info.length; i++){
@@ -305,93 +240,13 @@ $(function(){
 				$('#symptom').html(temp.info[i].symptom);
 				$('#r_d_code').html(temp.info[i].r_d_code);
 				$('.pay').html(temp.info[i].p_amount)
+				$('.record').html("진료기록 [" + temp.info[i].r_date + "]  |  담당의 : " + temp.info[i].name);
 			}
 		}
 		
 	});
 });
-window.onload = function () { buildCalendar(); }
 
-let nowMonth = new Date();  // 현재 달을 페이지를 로드한 날의 달로 초기화
-let today = new Date();     // 페이지를 로드한 날짜를 저장
-today.setHours(0, 0, 0, 0);    // 비교 편의를 위해 today의 시간을 초기화
-
-// 달력 생성 : 해당 달에 맞춰 테이블을 만들고, 날짜를 채워 넣는다.
-function buildCalendar() {
-
-    let firstDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth(), 1);     // 이번달 1일
-    let lastDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1, 0);  // 이번달 마지막날
-
-    let tbody_Calendar = document.querySelector(".Calendar > tbody");
-    document.getElementById("calYear").innerText = nowMonth.getFullYear();             // 연도 숫자 갱신
-    document.getElementById("calMonth").innerText = leftPad(nowMonth.getMonth() + 1);  // 월 숫자 갱신
-
-    while (tbody_Calendar.rows.length > 0) {                        // 이전 출력결과가 남아있는 경우 초기화
-        tbody_Calendar.deleteRow(tbody_Calendar.rows.length - 1);
-    }
-
-    let nowRow = tbody_Calendar.insertRow();        // 첫번째 행 추가           
-
-    for (let j = 0; j < firstDate.getDay(); j++) {  // 이번달 1일의 요일만큼
-        let nowColumn = nowRow.insertCell();        // 열 추가
-    }
-
-    for (let nowDay = firstDate; nowDay <= lastDate; nowDay.setDate(nowDay.getDate() + 1)) {   // day는 날짜를 저장하는 변수, 이번달 마지막날까지 증가시키며 반복  
-
-        let nowColumn = nowRow.insertCell();        // 새 열을 추가하고
-
-
-        let newDIV = document.createElement("p");
-        newDIV.innerHTML = leftPad(nowDay.getDate());        // 추가한 열에 날짜 입력
-        nowColumn.appendChild(newDIV);
-
-        if (nowDay.getDay() == 6) {                 // 토요일인 경우
-            nowRow = tbody_Calendar.insertRow();    // 새로운 행 추가
-        }
-
-        if (nowDay < today) {                       // 지난날인 경우
-            newDIV.className = "pastDay";
-            newDIV.onclick = function () { choiceDate(this); }
-        }
-        else if (nowDay.getFullYear() == today.getFullYear() && nowDay.getMonth() == today.getMonth() && nowDay.getDate() == today.getDate()) { // 오늘인 경우           
-            newDIV.className = "today";
-            newDIV.onclick = function () { choiceDate(this); }
-        }
-        else {                                      // 미래인 경우
-            newDIV.className = "futureDay";
-            newDIV.onclick = function () { choiceDate(this); }
-        }
-        
-    }
-}
-
-// 날짜 선택
-function choiceDate(newDIV) {
-    if (document.getElementsByClassName("choiceDay")[0]) {                              // 기존에 선택한 날짜가 있으면
-        document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");  // 해당 날짜의 "choiceDay" class 제거
-    }
-    newDIV.classList.add("choiceDay");           // 선택된 날짜에 "choiceDay" class 추가
-}
-
-// 이전달 버튼 클릭
-function prevCalendar() {
-    nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() - 1, nowMonth.getDate());   // 현재 달을 1 감소
-    buildCalendar();    // 달력 다시 생성
-}
-// 다음달 버튼 클릭
-function nextCalendar() {
-    nowMonth = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1, nowMonth.getDate());   // 현재 달을 1 증가
-    buildCalendar();    // 달력 다시 생성
-}
-
-// input값이 한자리 숫자인 경우 앞에 '0' 붙혀주는 함수
-function leftPad(value) {
-    if (value < 10) {
-        value = "0" + value;
-        return value;
-    }
-    return value;
-}
 $(function(){
 	$(document).on("click", ".test p", function (e){
 		$.ajax({	
