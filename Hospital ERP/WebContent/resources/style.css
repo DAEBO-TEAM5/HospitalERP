@@ -9,32 +9,8 @@
 	background-color: #F0F0F0;
 }
 
-#hospital_title{
-	background-color: rgba(46, 91, 219);
-	line-height: 50px;
-}
 .p-2{
 	margin-right: 20px;
-}
-.title_nav{
-	text-decoration: none;
-	font-size: 25px;
-	color: white;
-	font-weight: bold;
-}
-
-.title_nav::after {
-	display:block;
-	content: "";
-	border-bottom: solid 3px white;
-	transform: scaleX(0);
-	transition: transform 250ms ease-in-out;
-}
-.title_nav:hover{
-	color: white;
-}
-.title_nav:hover::after {
-	transform: scaleX(1);
 }
 
 .row{
@@ -134,6 +110,14 @@
 	font-weight: bold;
 	padding: 6px 12px 6px 12px;
 }
+label{
+	font-size: 14px;
+	font-weight: bold;
+}
+
+#symptom, #r_d_code, #special_note {
+	font-size: 14px;
+}
 
 .history, .history tr, .history th, .history td{
 	border: 1px solid black;
@@ -212,90 +196,3 @@ h3{
 .col-md-2.right{
 	padding: 12px;
 }
-
-
-    .test {
-        height: auto;
-        background-color: white;
-        width: auto;
-        padding: 0px;
-        margin: 0 auto;
-        border-radius:5px;
-       	box-shadow:0px 5px 30px -20px rgba(0,0,0,0.3);
-    }
-
-  .Calendar > td {
-        width: 100px;
-        height: 100px;
-    }
-	.Calendar > table, th, tr, td{
-		border: 0px;
-	}
-
-    .Calendar {
-        text-align: center;
-        margin: auto;
-    }
-
-    .Calendar>thead>tr:first-child>td {
-        font-family: 'Questrial', sans-serif;
-        font-size: 1.4rem;
-        font-weight: bold;
-    }
-
-    .Calendar>thead>tr:last-child>td {
-        font-family: 'Questrial', sans-serif;
-        font-size: 0.7rem;
-        font-weight: 600;     
-    }
-
-    .Calendar>tbody>tr>td>p {
-        font-family: 'Questrial','Montserrat', sans-serif;
-        height: 33px;
-        width: 33px;
-        border-radius: 33px;
-        transition-duration: .2s;
-        line-height: 33px;
-        margin: 2.5px;
-        display: block;
-        text-align: center;
-    }
-
-    .pastDay {
-        color: lightgray;
-        cursor: pointer;
-    }
-    .pastDay:hover{
-        background: #eee;
-    }
-
-    .today {
-        background-color: #F5D042;            
-        color: #fff;
-        font-weight: 600;
-        cursor: pointer;
-    }
-
-    .futureDay {
-        background-color: #FFFFFF;
-        cursor: pointer;
-    }
-    .futureDay:hover{
-        background:#eee;
-    }
-
-    .futureDay.choiceDay,
-    .today.choiceDay {
-        background: #0A174E;
-        color: #fff;
-        font-weight: 600;
-        cursor: pointer;
-    }
-    .pastDay.choiceDay {
-        background: darkgray;
-        color: #fff;
-        font-weight: 600;
-        cursor: pointer;
-    }
-        
-
