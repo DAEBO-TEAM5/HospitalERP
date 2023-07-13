@@ -9,16 +9,18 @@
 	background-color: #F0F0F0;
 }
 
-.p-2{
-	margin-right: 20px;
-}
-
-.row{
-	margin-right: 0px;
-}
 
 .leftinfo {
 	background-color: #BEBEBE;
+}
+.name{
+	font-size: 20px;
+	font-weight: 600;
+	margin-right: 5px;
+}
+.p_num{
+	font-size:12px;
+	font-weight: 600;
 }
 
 #search::-webkit-input-placeholder { text-align: center; }
@@ -245,7 +247,4 @@ h3{
     color: #fff;
     background-color: rgb(88, 101, 242);
     transition: background-color .17s ease,color .17s ease;
-    :hover {
-        background-color: rgb(71, 82, 196);
-    }
 }

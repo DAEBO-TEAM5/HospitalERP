@@ -17,10 +17,9 @@
 </head>
 <body>
 	<div class="container-fluid">
+	<div class="container-fluid info">
 	<c:import url="../include/header.jsp"></c:import>
-		<div class="container-fluid">
-      		<div class="row" style="border: 1px solid orange; height: 100%;">
-
+      		<div class="row">
          		<div class="col-md-2" style="border: 1px solid green; height: 100%; background-color: lightgrey;">
             		<h2 style="text-align: center">재고 관리</h2>
             		<div class="form-group">
@@ -157,7 +156,8 @@
         		
          
       		</div> <!-- row orange -->
-  		</div> <!-- 아래 섹션 -->
+
+  		</div>
 	</div> <!-- 전체 container-fluid -->
 	
 <script type="text/javascript">

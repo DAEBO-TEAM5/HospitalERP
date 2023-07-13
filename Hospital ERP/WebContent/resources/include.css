@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+.row{
+	margin-right: 0px;
+	height: calc(100vh - 73.39px);
+}
 #hospital_title{
    background-color: rgba(46, 91, 219);
    line-height: 50px;
