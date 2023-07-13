@@ -11,6 +11,7 @@
 <link href="./resources/Login.css" rel="stylesheet" type="text/css">
 <link href="./resources/SignUp.css" rel="stylesheet" type="text/css">
 <link href="./resources/findID.css" rel="stylesheet" type="text/css">
+<link href="./resources/findpw.css" rel="stylesheet" type="text/css">
 <head>
 <link rel="icon" href="${pageContext.request.contextPath }/image/hp.png"/> <!-- //파비콘임 -->
 <meta charset="UTF-8">
@@ -40,7 +41,7 @@
                             <div id="register-link" class="text-right"><br>
                                 <a href="#" onclick="openPopup();return false;" class="text-info">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <a  href="#" onclick="openPopup2();"class="text-info">ID찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <a href="#" class="text-info">PW찾기</a>
+                                <a  href="#" onclick="openPopup3();"class="text-info">PW찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
                             </div>
                         </form>
                     </div>
@@ -97,20 +98,54 @@
 	</div>
 </div>
 
+
 	<div id="popup2" class="popup-overlay2">
 		<div class="popup-content2">
 			<span class="close-btn" onclick="closePopup2()">&times;</span>
-			<h4>병원명,Email로 ID찾기</h4>
+			<h4>ID찾기</h4>
 			<form action="${pageContext.request.contextPath}/findid.do" method = "post">
 			<input type="text" name="h_name" id="h_name2" placeholder="병원명"> 
 			<input type="email" name="h_email" id="h_email2" placeholder="이메일">
 			<div>
-			<input class="formBtn2" type="submit" value="찾기" name="findID" id="h_findID" >
+			<input class="formBtn2" type="submit" value="ID찾기" name="findID" id="h_findID" >
 			  <input type="reset" onclick="resetBtnHandler2()" value="다시 입력">
 			  </div>
 			  </form>
 		</div>
 	</div>
+	
+<!--  	 <div id="popup3" class="popup-overlay3">
+		<div class="popup-content3">
+			<span class="close-btn" onclick="closePopup3()">&times;</span>
+			<h4>비밀번호 찾기</h4>
+			<form action="${pageContext.request.contextPath}/findpw.do" method = "post">
+			<input type="text" name="h_id" id="h_id3" placeholder="ID"> 
+			<input type="text" name="h_name" id="h_name3" placeholder="병원명"> 
+			<input type="email" name="h_email" id="h_email3" placeholder="이메일">
+			<div>
+			<input class="formBtn2" type="submit" value="비밀번호찾기" name="findpw" id="h_findpw" >
+			  <input type="reset" onclick="resetBtnHandler2()" value="다시 입력">
+			  </div>
+			  </form>
+		  </div>
+	  </div> 
+	  <section>
+	<input type="hidden" id="hiddenEmail" name="email" value="<%=(String) request.getAttribute("userEmail")%>">
+	<div class="findPwdClass1">
+		<input type="text" id="findPwdAuth" placeholder="인증번호 입력"
+			autocomplete="off">
+		<button type="button" id="findPwdAuthButton">인증</button>
+	</div>
+	<span id="findPwdAuthId"></span>
+
+	<div class="findPwdClass2">
+		<input type="text" id="newPassword" name="pass" placeholder="새로운 패스워드를 입력하세요"
+			autocomplete="off"> <input type="text"
+			id="newPasswordCheck" placeholder="새로운 패스워드를 다시 입력하세요"
+			autocomplete="off">
+	</div>
+	<button id="newPasswordButton">변경</button>
+</section>-->
 </body>
 ${script}
 <script> 
@@ -165,13 +200,13 @@ ${script}
     document.getElementById("completion").disabled = false;
     
     // 이전의 간격 프로세스가 존재한다면 제거
-    if (processID != -1) clearInterval(processID);
+     if (processID != -1) clearInterval(processID);
     
     // 무작위 토큰 생성
     const token = String(Math.floor(Math.random() * 1000000)).padStart(6, "0");
     document.getElementById("certificationNumber").innerText = token;
     
-    // 타이머 기능
+    // 타이머 기능 
     let time = 180;
     processID = setInterval(function () {
       if (time < 0 || document.getElementById("sendMessage").disabled) {
@@ -227,6 +262,17 @@ ${script}
             var popup2 = document.getElementById("popup2");
             popup2.style.visibility = "hidden";
             popup2.style.opacity = "3";
+            
+        }  function openPopup3() {
+            var popup3 = document.getElementById("popup3");
+            popup3.style.visibility = "visible";
+            popup3.style.opacity = "4";
+        }
+        
+        function closePopup3() {
+            var popup3 = document.getElementById("popup3");
+            popup3.style.visibility = "hidden";
+            popup3.style.opacity = "5";
         }
 
         function idCheck() {
