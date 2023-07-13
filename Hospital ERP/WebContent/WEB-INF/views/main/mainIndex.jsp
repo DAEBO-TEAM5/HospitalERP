@@ -87,16 +87,18 @@
 										<textarea class="form-control" id="InputSymptom"></textarea>
 									</div>
 
-									<button type="submit" class="btn btn-primary">Submit
-									</button>
-								</form>
+									<br>
 
-
-							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-								<button type="button" class="btn btn-primary">Save changes</button>
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+								<button type="submit" class="btn btn-primary">접수</button>
 							</div>
+							
+							</form>
+
+
+							</div>
+							
 						</div>
 					</div>
 				</div>
@@ -167,16 +169,15 @@
 										<div class="form-group">
 											<label for="LoadNote">특이사항</label>
 											<textarea class="form-control" id="LoadNote"></textarea>
-										</div>
+										</div> <br>
 
-										<button type="submit" class="btn btn-primary">Submit</button>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+									<button type="submit" class="btn btn-primary">수정</button>
+								</div>
 									</form>
 
 
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-									<button type="button" class="btn btn-primary">Save changes</button>
 								</div>
 							</div>
 						</div>
@@ -315,11 +316,11 @@
 
 
 	<script type="text/javascript">
-
+//대기 리스트 가져오고 화면에 출력
 $(document).ready(function(){
 	function loadWaitList(){
 	$.ajax({
-		type: 'get',
+		type: 'post',
 		url: "./mainWaitList.do",
 		success : waitListFunc,
 		error: errFunc
@@ -327,18 +328,7 @@ $(document).ready(function(){
 	}
 	loadWaitList();
 });
-
-/* $(function(){
-	$.ajax({
-		type: 'get',
-		url: "./mainWaitList.do",
-		success : waitListFunc,
-		error: errFunc
-	});
-}); */
-
 function waitListFunc(data){
-	
 	var obj = JSON.parse(data);
 	for(var k in obj.waitList){
 		var num = obj.waitList[k].num;
@@ -348,7 +338,9 @@ function waitListFunc(data){
 		//console.log(name);
 		//var test = "<button id ='child' value='1234'>버튼</button>";
 		//$('#waitList').append(test);
-		var waitList = "<button class='waitButton' id='listinfo' value='" + num + "'>"+ name +" / "+ sex+" / "+ birth+ "</button>";
+		var waitList = "<button class='waitButton' id='listinfo' value='" + num + "'>";
+		waitList += "<h4>"+ name +"</h4> "+ birth+" | "+ sex;
+		waitList += "</button>";
 		$('#waitList').append(waitList);
 	}
 }
@@ -356,21 +348,19 @@ function waitListFunc(data){
 //처방전_select리스트 불러오기
 $(function(){
 	$.ajax({
-		type: 'get',
+		type: 'post',
 		url: "./mainSelectList.do",
 		success : selectListFunc,
 		error: errFunc
 	});
 });
-
 function selectListFunc(data){
 	var obj = JSON.parse(data);
-	
-	console.log("obj---"+obj);
-	console.log("medlist---"+obj.final[0]);
-	console.log("therapylist---"+obj.final[1]);
-	console.log("diseaselist---"+obj.final[2]);
-	console.log(Array.isArray(obj.final[1]));
+	//console.log("obj---"+obj);
+	//console.log("medlist---"+obj.final[0]);
+	//console.log("therapylist---"+obj.final[1]);
+	//console.log("diseaselist---"+obj.final[2]);
+	//console.log(Array.isArray(obj.final[1]));
 	
 	for(var k in obj.final[0]){
 		var m_name = obj.final[0][k].m_name;
@@ -378,13 +368,11 @@ function selectListFunc(data){
 		var selectOption = "<option  value='" + m_code + "'>" + m_name + "</option>";
 		$('#addMed').append(selectOption);
 	}
-	
 	for(var k in obj.final[1]){
 		var therapy = obj.final[1][k];
 		var selectOption = "<option  value='" + therapy + "'>" + therapy + "</option>";
 		$('#addTh').append(selectOption);
 	}
-	
 	for(var k in obj.final[2]){
 		var disease = obj.final[2][k];
 		var selectOption = "<option  value='" + disease + "'>" + disease + "</option>";
@@ -392,26 +380,27 @@ function selectListFunc(data){
 	}
 }
 
-
+//대기환자 클릭하면 접수정보 띄워줌
  $(document).on('click', '#listinfo', function(){	 
 	 var info = $(this).val();
 	 console.log(info);
 	 console.log('clicked');
+	 //var button = document.querySelectorAll('.waitButton');
+	 
+	 $(".waitingList .active").removeClass('active');
+	 $(this).addClass('active');
 	 
 	 $.ajax({
-		 type: 'get',
+		 type: 'post',
 		 url: "./waitinginfo.do",
 		 data : {num: info },
 		 success : patientInfo,
 		error : function(msg, error) {
 				alert(error);
 			}
-		 
 	 });
 }); 
- 
 function patientInfo(data){
-				
 	var obj = JSON.parse(data);
 	var str = "";
 	str += obj.name+" / ";
@@ -428,7 +417,7 @@ function errFunc(msg, error){
 	alert(error);
 }
 //-----------------------------------------------------------------------------
-
+//접수모달
  $('#patientModal').on('show.bs.modal', function(e){	 
 	var name =  $('#patientName').text();
 	console.log("namename=============="+name);
@@ -442,7 +431,7 @@ function errFunc(msg, error){
 	 console.log(birth);
 	 
  	 $.ajax({
-		 type: 'get',
+		 type: 'post',
 		 url: "./loadPatientInfo.do",
 		 data : {"name": name, "birth": birth },
 		 success : ModifyInfo,
@@ -452,12 +441,9 @@ function errFunc(msg, error){
 		 
 	 }); 
 });  
-
 function ModifyInfo(data){
-	
 	var obj = JSON.parse(data);
-	console.log(obj);
-	
+	//console.log(obj);
 	$('#LoadNum').val(obj.num);
 	$('#LoadName').val(obj.name);
 	$('#LoadBirth').val(obj.birth);
@@ -467,8 +453,7 @@ function ModifyInfo(data){
 	$('#LoadWeight').val(obj.weight);
 	$('#LoadNote').val(obj.note);
 	console.log(obj.sex);
-	console.log(obj.sex=='남자');
-	if(obj.sex == 'man' || obj.sex == '남' || obj.sex == '남자'){
+	if(obj.sex == 'man' || obj.sex == '남' || obj.sex == '남자'){            /////////////////////////이거 radio value 뭐로 할지 정하고 고쳐야함
 		$("input:radio[name='genderUpdate'][value='남']").prop('checked', true);	
 	}
 	else $("input:radio[name='genderUpdate'][value='여']").prop('checked', true);
@@ -692,9 +677,13 @@ function submitForm(){
 	});
 }
 
+
+
+
+
+
 	
 </script>
-
 
 </body>
 </html>

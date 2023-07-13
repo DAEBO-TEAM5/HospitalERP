@@ -9,6 +9,11 @@
    /* border: 1px solid red; */
 }
 
+.flex-grow-1{
+	font-size: 25px;
+	color: white;
+}
+
 .info {
 	background-color: #F0F0F0;
 }
@@ -17,22 +22,36 @@
 	height: 100%;
 	background-color: #BEBEBE;
 	padding: 10px;
-	padding-left: 10px;
-}
+	padding-left: 24px;
+} 
+
 
 #waitList {
 	width: 100%;
 }
 
-#listinfo {
+.waitButton {
 	display: inline-block;
 	width: 100%;
-	height: 50px;
-	border: 1px solid #badeea;
+	height: 80px;
+	border: none;
 	background-color: aliceblue;
+	text-align: left;
+	padding: 1px 10px;
 }
-#lisfinfo:hover {
+
+.waitingList .active {
 	background-color: blue;
+	color: white;
+}
+
+#listinfo:hover {
+	background-color: blue;
+	color:white;
+}
+
+#modifyInfo {
+	margin-top: 10px;
 }
 
 .history, .history tr, .history th, .history td{
