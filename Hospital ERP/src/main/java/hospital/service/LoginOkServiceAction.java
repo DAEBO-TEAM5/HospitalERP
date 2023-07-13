@@ -34,19 +34,8 @@ public class LoginOkServiceAction implements Action {
 	      }
 	      else {
 	    	  response.setContentType("text/html; charset=UTF-8");
-	    	  PrintWriter out;
-			try {
-				
-				out = response.getWriter();
-				out.println("<script language='javascript'>");
-				out.println("alert('ID 비밀번호 확인해주세요')");
-				out.println("location.href='login.do';");
-				out.println("</script>");
-				out.flush();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
+	    	  request.setAttribute("script", "<script>alert('ID 비밀번호 확인해주세요')</script>");
+	        ret.setPath("login.do");
 	      }
 	      ret.setRedirect(false);
 	      return ret;

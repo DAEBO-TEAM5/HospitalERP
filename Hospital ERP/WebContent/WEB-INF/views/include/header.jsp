@@ -13,6 +13,7 @@
 		<div class="p-2 flex-grow-1">
 			<a href="main2.do"><img src="${pageContext.request.contextPath }/image/logo.png" height="50px"/></a>ㅇㅇ병원 ㅇㅇㅇ님 반갑습니다.
 		</div>
+		<button onclick="location.href='${pageContext.request.contextPath }/logout.do'">로그아웃</button>
 	    <div class="p-2"><a href="main2.do" class="title_nav">진료</a></div>
 		<div class="p-2"><a href="item.do" class="title_nav">재고</a></div>
 		<div class="p-2"><a href="history.do" class="title_nav">진료기록</a></div>  
