@@ -23,6 +23,7 @@ select * from therapy;
 --직원 (의사, 간호사) //코드 40001~
 insert into employee values(e_code_seq.nextval, '양승윤');
 insert into employee values(e_code_seq.nextval, '윤성호');
+insert into employee values(1010, '신지애');
 select e_code"직원 코드", e_name"직원 이름" from employee;
 select * from employee;
 
@@ -74,6 +75,13 @@ insert into item_code values( i_code_num_seq.nextval, '이쑤시개', '소모품
 insert into item_code values( i_code_num_seq.nextval, '면봉', '소모품');
 select i_code"품목코드",i_name"물품이름", i_category"카테고리" from item_code;
 select * from item_code;
+
+
+--달력 메모 테이블 // 메모번호 5001~
+insert into memo values(m_num_seq.nextval, '메모', '2023-07-20', 40001);
+insert into memo values(m_num_seq.nextval, '메모2', '2023-07-25', 40002);
+select * from memo;
+select m_num"메모번호", m_memo"내용", m_date"날짜", m_e_code"직원코드" from memo;
 
 
 -- 물리치료 환자 맵핑 //물리치료맵핑 6001~

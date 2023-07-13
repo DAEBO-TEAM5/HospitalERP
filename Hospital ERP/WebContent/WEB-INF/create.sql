@@ -12,6 +12,7 @@ DROP TABLE therapy; -- 물리 치료
 DROP TABLE prescription; -- 처방전
 DROP TABLE medicine; -- 약품 
 DROP TABLE record; -- 환자 진료 기록
+DROP TABLE memo;
 DROP TABLE employee; -- 직원(의사/간호사)
 DROP TABLE patient; -- 환자 기본정보
 DROP TABLE disease; -- 질병명
@@ -128,12 +129,19 @@ CREATE TABLE discard ( -- 폐기 관리
     dis_i_code	number(10)		NOT NULL -- 품목 코드
 );
 
-
 CREATE TABLE tr_mapping (
 	tr_num	number(10)		NOT NULL, --TR맵핑 번호
 	tr_t_code	number(10)		NOT NULL, --물리치료 코드
 	tr_r_num	number(10)		NOT NULL  -- 진료기록 번호
 );
+
+CREATE TABLE memo (
+	m_num	number(10)		NOT NULL,
+	m_memo	varchar2(20)		NULL,
+	m_date	date		NULL,
+	m_e_code	number(10)		NOT NULL
+);
+
 
 
 ALTER TABLE patient ADD CONSTRAINT "PK_PATIENT" PRIMARY KEY (
@@ -194,6 +202,10 @@ ALTER TABLE item ADD CONSTRAINT "PK_ITEM" PRIMARY KEY (
 
 ALTER TABLE item_code ADD CONSTRAINT "PK_ITEM_CODE" PRIMARY KEY (
 	i_code
+);
+
+ALTER TABLE memo ADD CONSTRAINT "PK_MEMO" PRIMARY KEY (
+	m_num
 );
 
 ALTER TABLE record ADD CONSTRAINT "FK_patient_TO_record_1" FOREIGN KEY (
@@ -287,6 +299,14 @@ REFERENCES item_code (
 	i_code
 );
 
+ALTER TABLE memo ADD CONSTRAINT "FK_employee_TO_memo_1" FOREIGN KEY (
+	m_e_code
+)
+REFERENCES employee (
+	e_code
+);
+
+
 -----------------------------------------------------------------------
 drop sequence m_code_seq;
 drop sequence d_code_seq;
@@ -302,6 +322,8 @@ drop sequence tr_num_seq;
 drop sequence rel_num_seq;
 drop sequence dis_num_seq;
 drop sequence i_num_seq;
+drop sequence m_num_seq;
+
 
 --약품          medicine 
 create sequence m_code_seq --약품 코드
@@ -352,6 +374,10 @@ start with 90001;
 --처방전 번호(약품+진료기록 맵핑 번호) prescription --처방맵핑번호
 create sequence p_num_seq
 start with 1001;
+
+-- 달력 메모 테이블 m_num --메모번호
+create sequence m_num_seq
+start with 5001;
 
 --물리치료+환자 맵핑 번호 tr_mapping --맵핑번호
 create sequence tr_num_seq

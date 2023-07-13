@@ -158,6 +158,9 @@ public class RecordDao {
 			//if(num>0) System.out.println(num+"개 행 업데이트 완료");
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			ConnectionHelper.close(pstmt);
+			ConnectionHelper.close(conn);
 		}
 		
 	}
@@ -176,6 +179,9 @@ public class RecordDao {
 			//if(num>0) System.out.println(num+"개 행 업데이트 완료");
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			ConnectionHelper.close(pstmt);
+			ConnectionHelper.close(conn);
 		}
 		
 	}
@@ -194,6 +200,9 @@ public class RecordDao {
 			//if(num>0) System.out.println(num+"개 행 업데이트 완료");
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			ConnectionHelper.close(pstmt);
+			ConnectionHelper.close(conn);
 		}
 	}
 	

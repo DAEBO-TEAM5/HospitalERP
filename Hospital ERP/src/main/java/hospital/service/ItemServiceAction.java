@@ -20,7 +20,6 @@ public class ItemServiceAction implements Action {
    @Override
    public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
       ActionForward forward = null;
-      System.out.println("여기는 item service action");
       ItemDao dao = null;
       try {
          dao = new ItemDao();

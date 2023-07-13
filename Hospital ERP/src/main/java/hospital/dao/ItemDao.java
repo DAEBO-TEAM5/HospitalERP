@@ -55,7 +55,7 @@ public class ItemDao {
 	} //itemTable() 
 
 	
-	//품목 테이블 추가 
+	//품목 테이블에 추가 
 	public ArrayList<ItemVO> itemInsert(List<ItemVO> itemList) {
 		
 		ArrayList<ItemVO> list = new ArrayList<>();
@@ -79,6 +79,38 @@ public class ItemDao {
 		            pstmt.setString(4, vo.getI_expire());
 		            pstmt.setInt(5, vo.getI_price());
 		            pstmt.setString(6, vo.getI_remark());
+		            
+		            pstmt.addBatch();
+			}
+			pstmt.executeBatch();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionHelper.close(pstmt);
+			ConnectionHelper.close(conn);
+		}
+		return  list;
+	}
+	
+	public ArrayList<ItemVO> itemDelete(List<ItemVO> itemList) {
+		
+		ArrayList<ItemVO> list = new ArrayList<>();
+		System.out.println("여기는 itemdao!");
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		//int resultrow = 0;
+		try {
+			conn = ConnectionHelper.getConnection();
+			System.out.println("여기는 itemDao-itemInsert");
+		
+			StringBuffer sql = new StringBuffer(" DELETE ITEM WHERE I_NUM = ? ");
+			pstmt = conn.prepareStatement(sql.toString());
+
+			pstmt.clearBatch();
+			
+			for(ItemVO vo : itemList) {
+				  	pstmt.setInt(1, vo.getI_num());
 		            
 		            pstmt.addBatch();
 			}
