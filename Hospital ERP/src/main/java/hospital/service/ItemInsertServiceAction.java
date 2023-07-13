@@ -59,61 +59,6 @@ public class ItemInsertServiceAction implements Action {
 	            }
 	        }
 	        
-	        
-	        /*String jsonStr = sb.toString();
-	        JSONParser parser = new JSONParser();
-	        try {
-		        JSONArray array = (JSONArray)parser.parse(jsonStr);
-		        for (int i=0; i<array.size(); i++) {
-		        	JSONObject item = (JSONObject)array.get(i);
-		        	System.out.println(item.get("itemName"));
-		        	System.out.println(item.get("itemCategory"));
-		        	System.out.println(item.get("itemUnit"));
-		        	System.out.println(item.get("itemStock"));
-		        	System.out.println(item.get("itemExpire"));
-		        	System.out.println(item.get("itemPrice"));
-		        	System.out.println(item.get("itemRemark"));
-		        }
-	        } catch (ParseException e) {
-	        	e.printStackTrace();
-	        }
-
-		   ActionForward forward = null;
-	      ItemDao dao = null;
-	      try {
-	         dao = new ItemDao();
-	      } catch (Exception e) {
-	         e.printStackTrace();
-	      }
-	      List<ItemVO> itemList = null;  // 클라이언트에서 전달받은 itemList;
-	      ArrayList<ItemVO> list = dao.itemInsert(itemList);   
-  
-	      JSONObject sendObject = new JSONObject();
-	      JSONArray sendArray = new JSONArray();
-	      JSONObject jobj = null;
-	      for(int i =0; i < list.size(); i++) {
-	         jobj = new JSONObject();
-	         jobj.put("i_name", list.get(i).getI_name());
-	         jobj.put("i_category", list.get(i).getI_category());
-	         jobj.put("i_unit", list.get(i).getI_unit());
-	         jobj.put("i_stock", list.get(i).getI_stock());
-	         jobj.put("i_expire", list.get(i).getI_expire());
-	         jobj.put("i_price", list.get(i).getI_price());
-	         jobj.put("i_remark", list.get(i).getI_remark());
-	         
-	         sendArray.add(jobj);
-	      }
-	      sendObject.put("item", sendArray);
-	      try {
-	         response.setContentType("application/text; charset=utf-8");
-	         response.getWriter().print(sendObject);
-	      } catch (IOException e) {
-	         // TODO Auto-generated catch block
-	         e.printStackTrace();
-	      }
-	      
-	   return null;
-	   }*/
 	        String jsonStr = sb.toString();
 	        JSONParser parser = new JSONParser();
 	        try {
@@ -122,8 +67,7 @@ public class ItemInsertServiceAction implements Action {
 	            for (int i = 0; i < array.size(); i++) {
 	                JSONObject item = (JSONObject) array.get(i);
 	                ItemVO itemVO = new ItemVO();
-	                itemVO.setI_name( (String) item.get("itemName"));
-	                itemVO.setI_category((String) item.get("itemCategory"));
+	                itemVO.setI_i_code(Integer.parseInt((String) item.get("itemCode")));
 	                itemVO.setI_unit((String) item.get("itemUnit"));
 	                itemVO.setI_stock(Integer.parseInt((String) item.get("itemStock")));
 	                itemVO.setI_expire((String) item.get("itemExpire"));

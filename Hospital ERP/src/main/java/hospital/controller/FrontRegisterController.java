@@ -146,9 +146,13 @@ public class FrontRegisterController extends HttpServlet {
     	}else if(urlcommand.equals("/itemInsert.do")){
     		action = new ItemInsertServiceAction();
     		action.execute(request, response);
-    	
-		} else if (urlcommand.equals("/main2.do")) {
-			//UI 제공 (서비스 객체가 필요없다)
+
+    	}else if(urlcommand.equals("/itemDelete.do")){
+    		action = new ItemInsertServiceAction();
+    		action.execute(request, response);
+    		
+    	}else if(urlcommand.equals("/main2.do")) {
+    		//UI 제공 (서비스 객체가 필요없다)
     		forward = new ActionForward();
     		forward.setRedirect(false);
     		forward.setPath("/WEB-INF/views/main/mainIndex.jsp");

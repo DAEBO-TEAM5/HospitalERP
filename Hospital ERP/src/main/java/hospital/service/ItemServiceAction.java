@@ -20,7 +20,7 @@ public class ItemServiceAction implements Action {
    @Override
    public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
       ActionForward forward = null;
-      
+      System.out.println("여기는 item service action");
       ItemDao dao = null;
       try {
          dao = new ItemDao();
@@ -34,6 +34,7 @@ public class ItemServiceAction implements Action {
       JSONObject jobj = null;
       for(int i =0; i < list.size(); i++) {
          jobj = new JSONObject();
+         jobj.put("i_num", list.get(i).getI_num());
          jobj.put("i_name", list.get(i).getI_name());
          jobj.put("i_code", list.get(i).getI_code());
          jobj.put("i_category", list.get(i).getI_category());
