@@ -25,6 +25,7 @@ import hospital.service.LoadPatientInfoServiceAction;
 import hospital.service.SelectListServiceAction;
 import hospital.service.SearchServiceAction;
 import hospital.service.ItemServiceAction;
+import hospital.service.LoadCalendarMemoServiceAction;
 import hospital.service.SignUpServiceAction;
 import hospital.service.UpdatePatientInfoServiceAction;
 import hospital.service.MemberIdCheckAction;
@@ -183,7 +184,7 @@ public class FrontRegisterController extends HttpServlet {
     		forward = action.execute(request, response);
     	}
     	else if(urlcommand.equals("/insertRecord.do")) {
-    		System.out.println("insertRecord-----------");
+    		//System.out.println("insertRecord-----------");
     		action = new InsertRecordServiceAction();
     		action.execute(request, response);
     	}else if(urlcommand.equals("/insertPatient.do")) {
@@ -191,12 +192,16 @@ public class FrontRegisterController extends HttpServlet {
     		action = new InsertPatientServiceAction();
     		action.execute(request, response);
     	}else if(urlcommand.equals("/loadPatientInfo.do")) {
-    		System.out.println("loadPatientInfo-----------");
+    		//System.out.println("loadPatientInfo-----------");
     		action = new LoadPatientInfoServiceAction();
     		action.execute(request, response);
     	}else if(urlcommand.equals("/updatePatientInfo.do")) {
-    		System.out.println("loadPatientInfo-----------");
+    		//System.out.println("loadPatientInfo-----------");
     		action = new UpdatePatientInfoServiceAction();
+    		action.execute(request, response);
+    	}else if(urlcommand.equals("/loadCalendarMemo.do")) {
+    		System.out.println("loadMemo-----------");
+    		action = new LoadCalendarMemoServiceAction();
     		action.execute(request, response);
     	}
     	

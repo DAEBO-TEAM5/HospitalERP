@@ -38,7 +38,7 @@
 
 
 				<!-- Button trigger modal -->
-				<input type="button" value="등록" class="button-right" id="modifyInfo" data-bs-toggle="modal" data-bs-target="#exampleModal">
+				<input type="button" value="등록" class="button-right modalBtn" id="modifyInfo" data-bs-toggle="modal" data-bs-target="#exampleModal">
 
 				<!-- Modal -->
 				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -121,7 +121,7 @@
 
 					<!-- Button trigger modal -->
 
-					<input type="button" value="수정" class="button-right" data-bs-toggle="modal" data-bs-target="#patientModal">
+					<input type="button" value="수정" class="button-right modalBtn" data-bs-toggle="modal" data-bs-target="#patientModal">
 
 
 					<!-- Modal -->
@@ -305,6 +305,12 @@
 
 			<div class="col-md-2">
 				<c:import url="../include/calendar.jsp" />
+				<div class="memoForm">
+					<textarea class="form-control" name="calendar_memo" id="calendar_memo"></textarea>
+					<input type="reset" class="button-right" value="작성 취소">
+					<input type="button" class="button-right" value="작성 완료" onclick="insertRec();">
+					<input type="button" class="button-right" value="수정" onclick="insertRec();">
+				</div>
 			</div>
 
 
@@ -677,7 +683,28 @@ function submitForm(){
 	});
 }
 
-
+//메모  ----캘린더
+$(function(){
+	$(document).on("click", ".test p", function (e){
+		$.ajax({	
+			url: "./loadCalendarMemo.do",
+			type: "POST",
+			data : { date: $('#calYear').text() +"-"+ $('#calMonth').text() +"-"+ $(this).text() },
+			success: getMemo,
+			error: function(msg, error) {
+				alert(error);
+			}
+		});
+	});
+});
+function getMemo(data){
+	console.log("memo불러오기");
+	var obj = JSON.parse(data);
+	console.log(obj.memo);
+	$('#calendar_memo').val(obj.memo);
+	//var str = "<input type='button' class='button-right' value='수정' onclick=''>";
+	//$('.memoForm').append(str);
+}
 
 
 

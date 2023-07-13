@@ -54,6 +54,12 @@
 	margin-top: 10px;
 }
 
+.modalBtn {
+	width: 100px;
+}
+
+
+
 .history, .history tr, .history th, .history td{
 	border: 1px solid black;
 }
@@ -161,4 +167,11 @@ h3{
 }
 .form-group {
 	padding: 10px 0;
+}
+
+#calendar_memo {
+	margin-top: 50px;
+	margin-bottom: 10px;
+	height: 300px;
+	background-color: lightgoldenrodyellow;
 }
