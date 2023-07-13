@@ -10,7 +10,7 @@
  
    <link href="${pageContext.request.contextPath }/resources/style.css" rel="stylesheet"> <!-- 사용자css -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> <!-- Jquery -->
-  <script src="https://kit.fontawesome.com/d7766e5822.js" crossorigin="anonymous"></script> <!-- fontawesome  -->
+  <!-- <script src="https://kit.fontawesome.com/d7766e5822.js" crossorigin="anonymous"></script> fontawesome  -->
   <style>
   	 @import url('https://fonts.googleapis.com/css?family=Questrial&display=swap');
   </style>
@@ -22,14 +22,6 @@
 	<div class="container-fluid">
 		<div class="container-fluid info">
 		<c:import url="../include/header.jsp"></c:import>
-			<!-- <div class="d-flex" id="hospital_title">
-				<div class="p-2 flex-grow-1">
-					<i class="fa-solid fa-circle-user fa-lg"></i>&nbsp;ㅇㅇ병원님 반갑습니다.
-				</div>
-			    <div class="p-2"><a href="main2.do" class="title_nav">진료</a></div>
-				<div class="p-2"><a href="item.do" class="title_nav">재고</a></div>
-				<div class="p-2"><a href="#" class="title_nav">진료기록</a></div> 
-			</div> -->
 	    		<div class="row" style="height: calc(100vh - 73.39px);">
 	        		<div class="col-md-2 leftinfo">
 	            		<p>
@@ -74,7 +66,7 @@
 	         					</div>
 	         				</div>
 			            	<div style="width: 80%; background-color: white; border-radius: 4px;">
-				            	<div class="record" style="border-radius: 4px 4px 0 0"></div>
+				            	<div class="record"></div>
 				            		<div style="padding: 6px 12px 6px 12px;">
 		          						<label>증상</label>
           								<textarea class="form-control" id="symptom" style="margin-bottom: 12px;"></textarea>
@@ -105,52 +97,75 @@
 	    			</div>
     			<div class="col-md-4" style="border-right: 1px solid black;">
 		            <div class ="panel" style="width:100%; height:calc(100% - 12px);">
-		            	<h3 style="padding: 5px">수납내역</h3>
-		            	<div style="display: flex;">
-			            	<div class="pay_title" style="width: 50%;">받을 금액</div>
-			            	<div class="pay" style="width: 50%;">원</div>
+		           		<div style="width: 100%; height:100%; background-color: white; border-radius: 4px;">
+		           		<div>
+		            		<div class="recipt" style="font-size: 14px">수납내역 <i class="fa-solid fa-receipt" style="color: black; size: 14px"></i></div>
+		            			<div style=" margin:12px; border: 1px solid black; padding: 12px;">
+				            		<div class="display-flex">
+				            			<div class="left_text font_13">받을 금액</div>
+				            			<div class="font_13">20,000원</div>
+				            		</div>
+		            				<hr style="margin-top: 8px; margin-bottom: 8px">
+		            				<div class="display-flex">
+				            			<div class="left_text font_11" data-bs-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa-solid fa-caret-right"></i> 총 진료비</div>
+				            			<div class="font_11">20,000원</div>
+				            		</div>
+				            		<div class="collapse font_gray" id="collapseExample" style="padding: 6px 12px 0 12px;">
+										<div class="display-flex">
+				            				<div class="left_text font_11">주사</div>
+				            				<div class="font_11">10,000원</div>
+				            			</div>
+				            			<div class="display-flex">
+				            				<div class="left_text font_11">수액</div>
+				            				<div class="font_11">10,000원</div>
+				            			</div>
+				            			<div class="display-flex">
+				            				<div class="left_text font_11">물리치료</div>
+				            				<div class="font_11">10,000원</div>
+				            			</div>
+				            			<div class="display-flex">
+				            				<div class="left_text font_11">진료비</div>
+				            				<div class="font_11">10,000원</div>
+				            			</div>
+									</div>
+		            			</div>
+		            			
+		            			
+		            			<div style=" margin:12px; border: 1px solid black; padding: 12px;">
+				            		<div class="display-flex">
+				            			<div class="left_text font_13">수납 금액</div>
+				            			<div class="font_13">0원</div>
+				            		</div>
+		            				<hr style="margin-top: 8px; margin-bottom: 8px">
+		            				<div class="font_deepskyblue font_13 event" style="margin-left: 8px;"><i class="fa-solid fa-plus" style="color: deepskyblue"></i> 수납 추가</div>
+		            	
+		            			</div>
+		            			
+		            			<div style=" margin:12px; border: 1px solid black; padding: 12px;">
+				            		<div class="display-flex">
+				            			<div class="left_text font_13">남은 금액</div>
+				            			<div class="font_13 font_deepskyblue">20,000원</div>
+				            		</div>
+				            	</div>
+		       			</div>
+		       			<div>
+		            	<div class="recipt" style="font-size: 14px">문서발급 <i class="fa-solid fa-receipt" style="color: black; size: 14px"></i></div>
+		            		<div style=" margin:12px; border: 1px solid black; padding: 12px;">
+				            	<div class="left_text font_13 margin_bottom"><i class="fa-solid fa-file-lines"></i> 진료확인서</div>
+				            	<div class="left_text font_13 margin_bottom"><i class="fa-solid fa-file-lines"></i> 진단서</div>
+		            			<div class="left_text font_13 margin_bottom"><i class="fa-solid fa-file-lines"></i> 처방전</div>
+		            			<div class="left_text font_13 margin_bottom"><i class="fa-solid fa-file-lines"></i> 영수증</div>
+		            			<button class="ttt">꺄아아아악</button>
+		            		</div>
 		            	</div>
-		            	<div class="form-control" style="width:90%; margin: 0 auto;">
-							<ul>
-								<li>총액</li>
-								<ul>
-									<li>50000원</li>
-								</ul>
-								<li>항목별 금액</li>
-								<ul>
-									<li>주사 3000원</li>
-									<li>수액 5000원</li>
-									<li>진료비 30000원</li>
-									<li>팁 12000원</li>
-								</ul>
-							</ul>
-		            	</div>
-		            	<div style="display: flex;">
-			            	<div class="pay_title" style="width: 50%;">수납 금액</div>
-			            	<div class="pay" style="width: 50%;">원</div>
-		            	</div>
-		            	<br>
-		            	<div style="display: flex;">
-			            	<div class="pay_title" style="width: 50%;">남은 금액</div>
-			            	<div class="pay" style="width: 50%;">원</div>
-		            	</div>
-		            	<br>
-		            	<div style="border-top: 1px solid black" id="hLine">
-			            	<h3 style="padding: 5px">문서발급</h3>
-			            	<div class="form-control" style="width:90%; margin: 0 auto;">
-								<ul>
-									<li>진료확인서</li>
-									<li>진단서</li>
-									<li>처방전</li>
-									<li>영수증</li>
-								</ul>
-			            	</div>
-		            	</div>
+		       		</div>
+		            	
+		            	
 					</div>	
          		</div>
 
          		<div class="col-md-2 right">
-         			<c:import url="../include/calendar.jsp"/>    				
+         			<c:import url="../include/calendar.jsp"/>
 				</div>
       			
       			

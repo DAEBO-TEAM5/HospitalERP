@@ -63,11 +63,11 @@
 
     .Calendar>tbody>tr>td>p {
         font-family: 'Questrial','Montserrat', sans-serif;
-        height: 33px;
-        width: 33px;
-        border-radius: 33px;
+        height: 30px;
+        width: 30px;
+        border-radius: 30px;
         transition-duration: .2s;
-        line-height: 33px;
+        line-height: 30px;
         margin: 2.5px;
         display: block;
         text-align: center;
