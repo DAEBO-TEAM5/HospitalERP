@@ -19,7 +19,7 @@
 	<div class="container-fluid">
 	<c:import url="../include/header.jsp"></c:import>
 		<div class="container-fluid">
-      		<div class="row" style="border: 1px solid orange; height: 100%;">
+      		<div class="row">
 
          		<div class="col-md-2" style="border: 1px solid green; height: 100%; background-color: lightgrey;">
             		<h2 style="text-align: center">재고 관리</h2>
@@ -129,8 +129,8 @@
 						    </div>
 						  </div>
 						</div>
-	     				<button type="button" id ="" class="btn btn-secondary item_btn_nonclick" >삭제</button>
-	     				<button type="button" id ="" class="btn btn-secondary item_btn_nonclick" >수정</button><br>
+	     				<button type="button" id ="item_DeleteButton" class="btn btn-secondary item_btn_nonclick" >삭2제</button>
+	     				<button type="button" id ="" class="btn btn-secondary item_btn_nonclick" >수2정</button><br>
          			</div>	<!-- 모달 버튼들 -->
 	        		
 	        		</div> <!--품목관리end-->
@@ -468,32 +468,40 @@ $('.item_table_main').on('click', 'tr:not(:first-child)', function() {
 });
 
 $('#item_DeleteButton').click(function() {
-    const active_row = $('.item_table_main tr.click_active');  /* var? */
-    var itemDel = []
+    var itemDels = [];
+    var active_rows = $('.item_table_main tr.click_active');  /* var? */
     
-    if (active_row.length === 0) {
-        alert('삭제할 항목을 선택후 눌러주세요.');
+    if (active_rows.length === 0) {
+        alert('삭제할 항목을 선택한 후 눌러주세요.');
         return;
-    
-    }else{
-    	for (var i = 0; i < active_row.length; i++) {
-			var array_element = array[i];
-			
-		}
+    } else {
+        active_rows.each(function() {
+            var active_row = $(this);
+            var itemId = active_row.find('td[main-column="inum"]').text();
+            
+            var itemDel = {
+                "iNum": itemId
+            };
+            
+            itemDels.push(itemDel);
+        });
     }
     
-    var itemId = active_row.find('td[main-column="inum]').text(); // 
+    var data = { 
+        itemDelList: itemDels // 리스트 형태로 데이터 전달
+    };
     
     // 서버로 삭제 요청 보내기
     $.ajax({
-	    url: "./itemDelete.do",
-	    type: "post",
-        data: { id: itemId }, // 삭제할 데이터의 ID를 서버에 전달
+        url: "./itemDelete.do",
+        type: "post",
+        data: JSON.stringify(data), // 데이터 전달 (수정된 부분)
+        contentType: "application/json", // 데이터 형식 지정
         success: function(response) {
             // 삭제 작업 성공 시 클라이언트에서 UI 갱신 또는 메시지 표시 등의 작업 수행
-            active_row.remove(); // 클라이언트에서 선택한 행 삭제
+            active_rows.remove(); // 클라이언트에서 선택한 행 삭제
             alert('항목이 성공적으로 삭제되었습니다.');
-            //reload()
+            // reload()
         },
         error: function(error) {
             alert('항목 삭제 중 오류가 발생했습니다.');
