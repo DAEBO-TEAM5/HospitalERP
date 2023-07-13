@@ -18,17 +18,18 @@ import hospital.service.HospitalWaitingListService;
 import hospital.service.InfoServiceAction;
 import hospital.service.InsertPatientServiceAction;
 import hospital.service.InsertRecordServiceAction;
+import hospital.service.ItemDelServiceAction;
 import hospital.service.ItemInsertServiceAction;
 import hospital.service.ItemRelServiceAction;
-import hospital.service.LoginOkServiceAction;
-import hospital.service.LoadPatientInfoServiceAction;
-import hospital.service.SelectListServiceAction;
-import hospital.service.SearchServiceAction;
 import hospital.service.ItemServiceAction;
 import hospital.service.LoadCalendarMemoServiceAction;
+import hospital.service.LoadPatientInfoServiceAction;
+import hospital.service.LoginOkServiceAction;
+import hospital.service.MemberIdCheckAction;
+import hospital.service.SearchServiceAction;
+import hospital.service.SelectListServiceAction;
 import hospital.service.SignUpServiceAction;
 import hospital.service.UpdatePatientInfoServiceAction;
-import hospital.service.MemberIdCheckAction;
 
 
 
@@ -149,7 +150,7 @@ public class FrontRegisterController extends HttpServlet {
     		action.execute(request, response);
 
     	}else if(urlcommand.equals("/itemDelete.do")){
-    		action = new ItemInsertServiceAction();
+    		action = new ItemDelServiceAction();
     		action.execute(request, response);
     		
     	}else if(urlcommand.equals("/main2.do")) {
