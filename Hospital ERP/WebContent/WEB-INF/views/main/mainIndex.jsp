@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>진료</title>
 
 
  <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,321 +24,297 @@
 <body>
 <div class="container-fluid">
 	<c:import url="../include/header.jsp"></c:import>
-	
-	
-	<div class="container-fluid info" >
-		<div class="row" style=" height: 100%;">
 
-			<div class="col-md-2 leftinfo" >
-			<p>
-				<h2 style="text-align: center"><b>접수 / 대기</b></h2>
-				<div class="form-group"></div>
-				
-				
-				
-				<div class="list-group" id="waitList">
-					<c:forEach var="waitlist" items="${ list }">
-						<button type="button" class="list-group-item list-group-item-action" id="listinfo" value="${ waitlist.num }"> ${waitlist.name} / ${waitlist.sex} / ${waitlist.birth}</button>
-					</c:forEach>
-				</div>
-				
-				
-				
-<!-- Button trigger modal -->
+	<div class="container-fluid info">
+		<div class="row" style="height: 100%;">
 
-<input type="button" value="등록" class="button-right" id="modifyInfo" data-bs-toggle="modal" data-bs-target="#exampleModal">
+			<div class="col-md-2 leftinfo">
+				<p>
+				<h2 style="text-align: center">
+					<b>접수 / 대기</b>
+				</h2>
+				<div class="waitingList" id="waitList"></div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1"  aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" >
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">대기 접수</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form role="form" id="patientForm">
-				<div class="form-group">
-					<label for="InputName">이름</label>
-					<input type="text" class="form-control" id="InputName" />
+
+				<!-- Button trigger modal -->
+				<input type="button" value="등록" class="button-right" id="modifyInfo" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+				<!-- Modal -->
+				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLabel">대기 접수</h5>
+								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form role="form" id="patientForm">
+									<div class="form-group">
+										<label for="InputName">이름</label> 
+										<input type="text" class="form-control" id="InputName" />
+									</div>
+									<div class="form-group">
+										<label for="InputBirth">생년월일</label> 
+										<input type="text" class="form-control" id="InputBirth" />
+									</div>
+									<div class="form-group">
+										<label for="InputPhone">연락처</label> 
+										<input type="text" class="form-control" id="InputPhone" />
+									</div>
+									<div class="form-group">
+										<label for="InputAddress">주소</label> 
+										<input type="text" class="form-control" id="InputAddress" />
+									</div>
+									<div class="form-group">
+										<label>성별</label> 
+										<input type="radio" name="gender" value="남">남 
+										<input type="radio" name="gender" value="여">여
+									</div>
+									<div class="form-group">
+										<label>키 / 몸무게</label> 
+										<input type="text" class="form-control" id="InputHeight" /> 
+										<input type="text" class="form-control" id="InputWeight" />
+									</div>
+									<div class="form-group">
+										<label for="InputNote">특이사항</label>
+										<textarea class="form-control" id="InputNote"></textarea>
+									</div>
+									<div class="form-group">
+										<label for="InputSymptom">증상</label>
+										<textarea class="form-control" id="InputSymptom"></textarea>
+									</div>
+
+									<button type="submit" class="btn btn-primary">Submit
+									</button>
+								</form>
+
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+								<button type="button" class="btn btn-primary">Save changes</button>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="form-group">
-					<label for="InputBirth">생년월일</label>
-					<input type="text" class="form-control" id="InputBirth" />
-				</div>
-				<div class="form-group">
-					<label for="InputPhone">연락처</label>
-					<input type="text" class="form-control" id="InputPhone" />
-				</div>
-				<div class="form-group">
-					<label for="InputAddress">주소</label>
-					<input type="text" class="form-control" id="InputAddress" />
-				</div>
-				<div class="form-group">
-					<label >성별</label>
-					<input type="radio" name="gender" value="남">남
-					<input type="radio" name="gender" value="여">여
-				</div>
-				<div class="form-group">
-					<label >키 / 몸무게</label>
-					<input type="text" class="form-control" id="InputHeight" />
-					<input type="text" class="form-control" id="InputWeight" />
-				</div>
-				<div class="form-group">
-					<label for="InputNote">특이사항</label>
-					<textarea class="form-control" id="InputNote"></textarea>
-				</div>
-				<div class="form-group">
-					<label for="InputSymptom">증상</label>
-					<textarea class="form-control" id="InputSymptom"></textarea>
-				</div>
-				
-				<button type="submit" class="btn btn-primary">
-					Submit
-				</button>
-			</form>
-        
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 
 			</div>
-			
-			
 
 
-			<div class="col-md-4"  style="border-right: 1px solid black;">
+
+
+			<div class="col-md-4" style="border-right: 1px solid black;">
 				<h3 id="patientName" class="loadInfo"></h3>
-				<div id="patientInfo"> 
+				<div id="patientInfo">
 					<!-- 환자 정보 load -->
 					<span id="patientinfo" class="loadInfo"></span>
-					<div id="patientMemo"> 접수 메모 <br>
+					<div id="patientMemo">
+						접수 메모 <br>
 						<div class="form-control" id="jupsu" readonly="readonly"></div>
 					</div>
-					
+
 					<!-- Button trigger modal -->
 
-<input type="button" value="수정" class="button-right" data-bs-toggle="modal" data-bs-target="#patientModal">
+					<input type="button" value="수정" class="button-right" data-bs-toggle="modal" data-bs-target="#patientModal">
 
 
-<!-- Modal -->
-<div class="modal fade" id="patientModal" tabindex="-1"  aria-labelledby="patientModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" >
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="patientModalLabel">환자 정보</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form role="form" id="patientInfoForm">
-        <div class="form-group">
-					<label for="LoadNum">고객번호</label>
-					<input type="text" class="form-control" id="LoadNum" disabled="disabled"/>
+					<!-- Modal -->
+					<div class="modal fade" id="patientModal" tabindex="-1" aria-labelledby="patientModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="patientModalLabel">환자 정보</h5>
+									<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<form role="form" id="patientInfoForm">
+										<div class="form-group">
+											<label for="LoadNum">고객번호</label> 
+											<input type="text" class="form-control" id="LoadNum" disabled="disabled" />
+										</div>
+										<div class="form-group">
+											<label for="LoadName">이름</label> 
+											<input type="text" class="form-control" id="LoadName" />
+										</div>
+										<div class="form-group">
+											<label for="LoadBirth">생년월일</label> 
+											<input type="text" class="form-control" id="LoadBirth" />
+										</div>
+										<div class="form-group">
+											<label for="LoadPhone">연락처</label> 
+											<input type="text" class="form-control" id="LoadPhone" />
+										</div>
+										<div class="form-group">
+											<label for="LoadAddress">주소</label> 
+											<input type="text" class="form-control" id="LoadAddress" />
+										</div>
+										<div class="form-group">
+											<label>성별</label> 
+											<input type="radio" name="genderUpdate" value="남">남 
+											<input type="radio" name="genderUpdate" value="여">여
+										</div>
+										<div class="form-group">
+											<label>키 / 몸무게</label> 
+											<input type="text" class="form-control" id="LoadHeight" /> 
+											<input type="text" class="form-control" id="LoadWeight" />
+										</div>
+										<div class="form-group">
+											<label for="LoadNote">특이사항</label>
+											<textarea class="form-control" id="LoadNote"></textarea>
+										</div>
+
+										<button type="submit" class="btn btn-primary">Submit</button>
+									</form>
+
+
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+									<button type="button" class="btn btn-primary">Save changes</button>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="form-group">
-					<label for="LoadName">이름</label>
-					<input type="text" class="form-control" id="LoadName" />
-				</div>
-				<div class="form-group">
-					<label for="LoadBirth">생년월일</label>
-					<input type="text" class="form-control" id="LoadBirth" />
-				</div>
-				<div class="form-group">
-					<label for="LoadPhone">연락처</label>
-					<input type="text" class="form-control" id="LoadPhone" />
-				</div>
-				<div class="form-group">
-					<label for="LoadAddress">주소</label>
-					<input type="text" class="form-control" id="LoadAddress" />
-				</div>
-				<div class="form-group">
-					<label >성별</label>
-					<input type="radio" name="genderUpdate" value="남">남
-					<input type="radio" name="genderUpdate" value="여">여
-				</div>
-				<div class="form-group">
-					<label >키 / 몸무게</label>
-					<input type="text" class="form-control" id="LoadHeight" />
-					<input type="text" class="form-control" id="LoadWeight" />
-				</div>
-				<div class="form-group">
-					<label for="LoadNote">특이사항</label>
-					<textarea class="form-control" id="LoadNote"></textarea>
-				</div>
-				
-				<button type="submit" class="btn btn-primary">
-					Submit
-				</button>
-			</form>
-        
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-				</div>
-				
-				
-				
-				
-				
-				<br><br><br>
+
+
+
+
+
+				<br>
+				<br>
+				<br>
 				<div style="border-top: 1px solid black" id="hLine">
-				
-				
-				<div class="container text-center">
-      <div class="row">
-        <div class="col-sm-4  gap-2 col-6 mx-auto">
-          <input class="btn btn-primary" type="button" value="날짜1">
-          <button type="button" class="btn btn-secondary" data-bs-toggle="button" autocomplete="off">Secondary</button>
-        </div>
-        
-        <div class="col-sm-8">
-          <label>지난 진료 기록</label>
-          <div>
-          	<label>증상</label>
-          	<textarea class="form-control"></textarea>
-          	<div class="form-control"></div>
-          	
-          	<label>병명</label>
-          	<textarea class="form-control"></textarea>
-          	
-          	<label>처방</label>
-          	<table class="history">
-          		<th>품명</th>
-          		<th>중량</th>
-          		<th>수</th>
-          		<tr>
-          			<td>1</td>
-          			<td></td>
-          			<td></td>
-          		</tr>
-          		<tr>
-          			<td>2</td>
-          			<td></td>
-          			<td></td>
-          		</tr>
-          		
-          	</table>
-          	
-          
-          </div>
-        </div>
 
-      </div>
-    </div>
-				
+
+					<div class="container text-center">
+						<div class="row">
+							<div class="col-sm-4  gap-2 col-6 mx-auto">
+								<input class="btn btn-primary" type="button" value="날짜1">
+								<button type="button" class="btn btn-secondary" data-bs-toggle="button" autocomplete="off">Secondary</button>
+							</div>
+
+							<div class="col-sm-8">
+								<label>지난 진료 기록</label>
+								<div>
+									<label>증상</label>
+									<textarea class="form-control"></textarea>
+									<div class="form-control"></div>
+
+									<label>병명</label>
+									<textarea class="form-control"></textarea>
+
+									<label>처방</label>
+									<table class="history">
+										<th>품명</th>
+										<th>중량</th>
+										<th>수</th>
+										<tr>
+											<td>1</td>
+											<td></td>
+											<td></td>
+										</tr>
+										<tr>
+											<td>2</td>
+											<td></td>
+											<td></td>
+										</tr>
+
+									</table>
+
+
+								</div>
+							</div>
+
+						</div>
+					</div>
+
 				</div>
 
-				
+
 			</div>
 
 
 			<div class="col-md-4" style="border-right: 1px solid black;">
-				<h3> 진료 기록 작성</h3>
-				<form role="form" method="post" id="recordForm"> 
+				<br><h2><b>진료 기록 작성</b></h2>
+				<form role="form" method="post" id="recordForm">
 					<div class="form-group">
-				<label>의사 소견</label>
-          		<textarea class="form-control" name="d_note" id="d_note"></textarea>
-          		
-          		<div class="form-group" style="">
-          			<label> < 처방약  > </label>
-          			<select id="addMed" class="form-control" ></select>
-          			<select id="medUsage">
-          				<option value=1>1</option>
-          				<option value=2>2</option>
-          				<option value=3>3</option>
-          				<option value=4>4</option>
-          				<option value=5>5</option>
-          				<option value=6>6</option>
-          				<option value=7>7</option>
-          			</select>
-          			<input class="btn btn-primary" type="button" value="+" onclick="prescriptionList();">
-          			<input class="btn btn-primary" type="button" value="-" onclick="prescriptionListDelete();">
-          		</div>
-          		<div> 
-          			<table id="result_med">
-          				<th>약품명</th>
-          				<th>처방량</th>
-          			</table>
-          		</div>
-          		
-          		
-          		
-          		<div class="form-group" style="">
-          			<label> < 물리치료  > </label>
-          			
-          			<select id="addTh" class="form-control" ></select>
-          			
-          			<input class="btn btn-primary" type="button" value="+" onclick="therapyList();">
-          			<input class="btn btn-primary" type="button" value="-" onclick="therapyDelete();">
-          		</div>
-          		<div> 
-          			<table id="result_Th"> <th>물리치료 목록</th> </table>
-          		</div>
-          		
-          		
-          		
-          		<div class="form-group" style="">
-          			<label> < 진단 질병  > </label>
-          			<select id="addD" class="form-control" ></select>
-          		</div>
+						<label><b>의사 소견</b></label>
+						<textarea class="form-control" name="d_note" id="d_note"></textarea>
+						
+						<div class="form-group" style="">
+							<label> <b> < 처방약 > </b></label> <br>
+							<select id="addMed" class="form-control medlist"></select> 
+							<select id="medUsage" class="form-control medyang">
+								<option value=1>1</option>
+								<option value=2>2</option>
+								<option value=3>3</option>
+								<option value=4>4</option>
+								<option value=5>5</option>
+								<option value=6>6</option>
+								<option value=7>7</option>
+							</select> 
+							<input class="btn btn-primary" type="button" value="+" onclick="prescriptionList();"> 
+							<input class="btn btn-primary" type="button" value="-" onclick="prescriptionListDelete();">
+						</div>
+						<div class="result_table">
+							<table id="result_med">
+								<th class="medName">약품명</th>
+								<th class="medYang">처방량</th>
+							</table>
+						</div>
 
-          		
-          		
-          		
-          		
-          		
-          		
-          		
-          		
-          		
-          		
-          		
-          		
-          		
-          		
-          		
-          		
-          		</div>
-          		<br>
-				<input type="reset" class="button-right" value = "작성 취소" >
-          		<input type="submit" class="button-right" value = "작성 완료" onclick="insertRec();">
-          		
-          		 </form> 
-          		
+
+						
+						<div class="form-group" style="">
+							<label> <b> < 물리치료 > </b> </label>  <br>
+							<select id="addTh" class="form-control phlist"></select> 
+							<input class="btn btn-primary" type="button" value="+" onclick="therapyList();"> 
+							<input class="btn btn-primary" type="button" value="-" onclick="therapyDelete();">
+						</div>
+						<div class="result_table">
+							<table id="result_Th">
+								<th>물리치료 목록</th>
+							</table>
+						</div>
+
+
+						
+						<div class="form-group" style="">
+							<label> <b> < 진단 질병 > </b></label> 
+							<select id="addD" class="form-control"></select>
+						</div>
+
+
+					</div>
+					
+					<input type="reset" class="button-right" value="작성 취소">
+					<input type="submit" class="button-right" value="작성 완료" onclick="insertRec();">
+
+				</form>
+
 			</div>
 
 
 			<div class="col-md-2">
-				<c:import url="../include/calendar.jsp"/>
+				<c:import url="../include/calendar.jsp" />
 			</div>
-			
-			
-			
+
+
+
 		</div>
 	</div>
 
 </div>
 
 
-<script type="text/javascript">
+	<script type="text/javascript">
 
 $(document).ready(function(){
 	function loadWaitList(){
@@ -372,7 +348,7 @@ function waitListFunc(data){
 		//console.log(name);
 		//var test = "<button id ='child' value='1234'>버튼</button>";
 		//$('#waitList').append(test);
-		var waitList = "<button class='list-group-item list-group-item-action "+ num +"' id='listinfo' value='" + num + "'>"+ name +" / "+ sex+" / "+ birth+ "</button>";
+		var waitList = "<button class='waitButton' id='listinfo' value='" + num + "'>"+ name +" / "+ sex+" / "+ birth+ "</button>";
 		$('#waitList').append(waitList);
 	}
 }

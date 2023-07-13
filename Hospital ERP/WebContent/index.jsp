@@ -17,7 +17,6 @@
 
 <%
 	try{
-
 		
 		Connection conn = ConnectionHelper.getConnection();
 		

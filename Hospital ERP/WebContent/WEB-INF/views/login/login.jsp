@@ -7,6 +7,7 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <link href="./resources/Login.css" rel="stylesheet" type="text/css">
 <link href="./resources/SignUp.css" rel="stylesheet" type="text/css">
 <link href="./resources/findID.css" rel="stylesheet" type="text/css">
@@ -17,8 +18,6 @@
 <title>ㅇㅇ Hospital</title>
 </head>
 <body>
-
-
  <div id="login">
         <h3 class="text-center text-white pt-5">5조 프로젝트</h3>
         <div class="container">
@@ -66,7 +65,8 @@
 			<input type="text" name="h_name" id="h_name" placeholder="병원이름"> 
 			<div class = "search">
 			<input type="text" readonly name="h_post" id="h_post" placeholder="우편번호">
-			<button class="formBtn" onclick="postOpener(event)">검색</button>
+			<input class="formBtn" type="button" value="검색"  onclick="postOpener(event)">
+			<!-- <button class="formBtn" onclick="postOpener(event)">검색</button> -->
 			</div>
 			<input type="text" readonly name="h_address" id="h_address" placeholder="주소">
 			<input type="text" name="h_e_code" id="h_e_code" placeholder="직원코드">
@@ -101,147 +101,19 @@
 		<div class="popup-content2">
 			<span class="close-btn" onclick="closePopup2()">&times;</span>
 			<h4>병원명,Email로 ID찾기</h4>
-			
-			<input type="text" name="h_name" id="h_name" placeholder="병원명"> 
-			<input type="email" name="h_email" id="h_email" placeholder="이메일">
-			<input class="formBtn" type="button" value="찾기" name="findID" id="h_findID" onClick="findID()">
+			<form action="${pageContext.request.contextPath}/findid.do" method = "post">
+			<input type="text" name="h_name" id="h_name2" placeholder="병원명"> 
+			<input type="email" name="h_email" id="h_email2" placeholder="이메일">
+			<div>
+			<input class="formBtn2" type="submit" value="찾기" name="findID" id="h_findID" >
 			  <input type="reset" onclick="resetBtnHandler2()" value="다시 입력">
+			  </div>
+			  </form>
 		</div>
 	</div>
-
-
-
-
-
-
-
 </body>
-</html>
-
-<!-------------------------------------- ID PW찾기 ------------------------------------------------->
-
-<script>
- function gohome() {
-  var frm = document.idfindscreen;
-  frm.method = "post";
-  frm.action = "./home.jsp"; //넘어간화면
-  frm.submit(); //등록이 될수 있는 조건이면, 정보를 보내겠다.
- }
-
- function gojoin() {
-  var frm = document.idfindscreen;
-  frm.method = "post";
-  frm.action = "./join.jsp"; //넘어간화면
-  frm.submit(); //등록이 될수 있는 조건이면, 정보를 보내겠다.
- }
-
- function gologin() {
-  var frm = document.idfindscreen;
-  frm.method = "post";
-  frm.action = "./login.jsp";
-  frm.submit();
- }
-
- function goidfind() {
-  var frm = document.idfindscreen;
-  frm.method = "post";
-  frm.action = "./id_find.jsp";
-  frm.submit();
- }
-
- function gopwfind() {
-  var frm = document.idfindscreen;
-  frm.method = "post";
-  frm.action = "./pw_find.jsp";
-  frm.submit();
- }
- function logout() {
-  var frm = document.idfindscreen;
-  frm.method = "post";
-  frm.action = "./logoutCtl.jsp";
-  frm.submit();
- }
- function id_search1() { //이름,핸드폰으로 '찾기' 버튼
-
-  var frm = document.idfindscreen;
-
-  if (frm.name.value.length < 1) {
-   alert("이름을 입력해주세요");
-   return;
-  }
-
-  if (frm.phone1.value.length<2 || frm.phone1.value.length>4) {
-   alert("핸드폰번호를 정확하게 입력해주세요");
-   return;
-  }
-  if (frm.phone2.value.length<2 || frm.phone2.value.length>4) {
-   alert("핸드폰번호를 정확하게 입력해주세요");
-   return;
-  }
-
-  frm.method = "post";
-  frm.action = "./id_searchCtl.jsp"; //넘어간화면
-  frm.submit();  }
-
-​
-
- function id_search2() { //이름,이메일로 '찾기' 버튼
-
-  var frm = document.idfindscreen;
-
-  if (frm.name2.value.length < 1) {
-   alert("이름을 입력해주세요");
-   return;
-  }
-  if (frm.email.value.length < 1 || frm.e_domain.value.length < 1) {
-   alert("이메일을 입력해주세요");
-   return;
-  }
-
-  frm.method = "post";
-  frm.action = "./id_searchCtl2.jsp"; //넘어간화면
-  frm.submit();  }
-
-​
-
- //이메일 부분
-
- function checkid() {
-
-  var frm = document.idfindscreen;
-
-  var regExp = '/^([/\w/g\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/';
-
-  if (!regExp.test(frm.email.value)) {
-
-   alert('올바른 email을 입력해주세요.');
-
-   frm.email.focus();
-
-  }
-
- }
-
- function domainCheck() {
-
-  var frm = document.idfindscreen;
-
-  if (frm.domain.value == 0) {
-   frm.e_domain.value = "";
-   frm.e_domain.disabled = false;
-
-  } else {
-   frm.e_domain.value = frm.domain.value;
-   frm.e_domain.disabled = true;
-
-  }
-
- }
-</script>
-
-<!-------------------------------------- ID PW찾기 ------------------------------------------------->
-
-<script>
+${script}
+<script> 
   let processID = -1;
 
   // 휴대전화 번호 입력 부분
@@ -285,20 +157,20 @@
       const phonenumber = h_phone1.value + "-" +
       h_phone2.value + "-" +
       h_phone3.value;
-	  if(!validatePhoneNumber(phonenumber)) 
+	  if(!validatePhoneNumber(phonenumber)) 	 
 		  return;
-
+	  
     // 인증확인 버튼 활성화
     document.getElementById("completion").setAttribute("style", "background-color: rgb(209, 245, 254);");
     document.getElementById("completion").disabled = false;
-
+    
     // 이전의 간격 프로세스가 존재한다면 제거
     if (processID != -1) clearInterval(processID);
-
+    
     // 무작위 토큰 생성
     const token = String(Math.floor(Math.random() * 1000000)).padStart(6, "0");
     document.getElementById("certificationNumber").innerText = token;
-
+    
     // 타이머 기능
     let time = 180;
     processID = setInterval(function () {
@@ -312,20 +184,27 @@
       let result = mm + ":" + ss;
       document.getElementById("timeLimit").innerText = result;
       time--;
-    }, 50);
+    }, 100);
   };
-
+	
   function checkCompletion(button) {
-    alert("문자 인증이 완료되었습니다.");
-    initButton();
-    button.innerHTML = "인증완료";
-    button.disabled = true;
-  }
-  
-  
-</script>
-
- <script>
+	  
+	// 인증번호 입력
+	  const enteredToken = prompt("인증번호를 입력하세요.");
+	
+	  // 인증번호 확인
+	  const certificationNumber = document.getElementById("certificationNumber").innerText;
+	  if (enteredToken !== certificationNumber) {
+	    alert("인증번호가 일치하지 않습니다.");
+	    return;
+	  }
+	  
+	  alert("문자 인증이 완료되었습니다.");
+	  initButton();
+	  button.innerHTML = "인증완료";
+	  button.disabled = true;
+	} 
+   
         function openPopup() {
             var popup = document.getElementById("popup");
             popup.style.visibility = "visible";
@@ -350,9 +229,6 @@
             popup2.style.opacity = "3";
         }
 
-</script>
-
- <script>
         function idCheck() {
             var h_id = document.getElementById("h_id").value;
            
@@ -377,8 +253,7 @@
                 }
             });
         }
-    </script> 
-     <script>
+   
         function emailCheck() {
             var h_email = document.getElementById("h_email").value;
            
@@ -408,16 +283,6 @@
         	document.querySelector("#h_id").readOnly = false;
         	document.querySelector("#h_email").readOnly = false;
         }
-      /*    function resetBtnHandler2() {
-        	alert("초기화 했습니다.");
-        	document.querySelector("#h_name").readOnly = false;
-        	document.querySelector("#h_email").readOnly = false;
-        }  */
-    </script>  
-
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
-<script>
 	function postOpener(e){
 		e.preventDefault();
 	    new daum.Postcode({
@@ -430,9 +295,7 @@
 	        }
 	    }).open();
 	}
-</script>
 
-<script>
 function validatePhoneNumber(phoneNumber) {
 	  const regex = /^\d{3}-\d{3,4}-\d{4}$/;
 	  return regex.test(phoneNumber);
@@ -521,7 +384,6 @@ event.preventDefault();
         return false;
     }
     
-    
     //우편번호 확인
     if (h_post.value.trim() === "") {
         alert("검색을 눌러 우편번호 주소를 입력해주세요.");
@@ -535,9 +397,9 @@ event.preventDefault();
         h_address.focus();
         return false;
     }
-    //의사코드 확인
+    //직원코드 확인
     if (h_e_code.value.trim() === "") {
-        alert("직원명 입력하세요.");
+        alert("직원코드 입력하세요.");
         h_e_code.focus();
         return false;
     }
@@ -585,10 +447,10 @@ event.preventDefault();
           return false;
       }
    
-   
     // 유효성 문제 없을 시 폼에 submit
     var joinForm = document.getElementById("joinForm");
     joinForm.submit();
    
 }
 </script>
+</html>
