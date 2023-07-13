@@ -22,7 +22,7 @@
 	<div class="container-fluid">
 		<div class="container-fluid info">
 		<c:import url="../include/header.jsp"></c:import>
-	    		<div class="row" style="height: calc(100vh - 73.39px);">
+	    		<div class="row">
 	        		<div class="col-md-2 leftinfo">
 	            		<p>
 	            		<h2 style="text-align: center"><b>진료내역</b></h2>
@@ -31,13 +31,13 @@
 		            			<input type="text" id = "search" placeholder="이름 / 전화번호" class="form-control"  onKeypress="javascript:if(event.keyCode==13) {test()}">
 		            		</div>
 		            		<div class="form-group">
-		            			<button type="button" id="patient_search"class="btn btn-primary" style="width: 100%">검색</button>
+		            			<button type="button" id="patient_search"class="btn btn-primary" style="width: 100%;" onclick="patientSearch()">검색</button>
 		            		</div>
 	            		</form>
 	            		
 	            		<div class="search_result">
 	            			<div class="list-group">
-	            			   <div class="list-group-item list-group-item-action list-group-item-info">A simple dark list group item<br>efefe</div>
+	            			   <div class="list-group-item list-group-item-action list-group-item-info">검색 결과가 없습니다.</div>
 							</div>
 	            		</div>
 	            		
@@ -149,7 +149,7 @@
 				            	</div>
 		       			</div>
 		       			<div>
-		            	<div class="recipt" style="font-size: 14px">문서발급 <i class="fa-solid fa-receipt" style="color: black; size: 14px"></i></div>
+		            	<div class="recipt" style="font-size: 14px">문서발급 <i class="fa-solid fa-file-lines" style="size: 14px;"></i></div>
 		            		<div style=" margin:12px; border: 1px solid black; padding: 12px;">
 				            	<div class="left_text font_13 margin_bottom"><i class="fa-solid fa-file-lines"></i> 진료확인서</div>
 				            	<div class="left_text font_13 margin_bottom"><i class="fa-solid fa-file-lines"></i> 진단서</div>
@@ -177,45 +177,51 @@
 <script type="text/javascript">
 var temp;
 
-$(function() {
-	$('#patient_search').click(function(){
-			$.ajax({	
-				url: "./patientsearch.do",
-				type: "post",
-				data : { name: $('#search').val()},
-				success: successFunc,
-				error: errFunc
-			});
-		
+function patientSearch(){
+	$(function() {
+		$.ajax({	
+			url: "./patientsearch.do",
+			type: "post",
+			data : { name: $('#search').val()},
+			success: successFunc,
+			error: errFunc
+		});
 	});
-});
+}
 
 function successFunc(data){
 	var str = "";
 	var obj = JSON.parse(data);
-
-	/* <div class="list-group-item list-group-item-action list-group-item-info result_set">A simple dark list group item<br>efefe</div> */
-	for(var i =0; i< obj.list.length; i++){
+	if(obj.list.length === 0){
 		str += "<div class='list-group-item list-group-item-action list-group-item-info result_set'>"
-		str += "<span class = 'name'><h4 style='margin-bottom: 0px;'>" + obj.list[i].name + "</h4></span>";
-		str += "<span class = 'semi_info'> rn." + obj.list[i].p_r_num + " | "+ obj.list[i].birth + " | "+ obj.list[i].sex + "</h4></span><br>";
-		str += "<span class = 'phone semi_info'>" + obj.list[i].phone + "</span><br>";
+		str += "검색 결과가 없습니다."
 		str += "</div>"
 	}
-	
+	else{
+		for(var i =0; i< obj.list.length; i++){
+			str += "<div class='list-group-item list-group-item-action list-group-item-info result_set'>"
+			str += "<span class = 'name'>" + obj.list[i].name + "</span>";
+			str += "<span class = 'p_num'> pn." + obj.list[i].num + "</span><br>";
+			str += "<span class = 'semi_info'>"+ obj.list[i].birth + " | "+ obj.list[i].sex + " | </h4></span>";
+			str += "<span class = 'phone semi_info'>" + obj.list[i].phone + "</span><br>";
+			str += "<span class = 'semi_info'>" + obj.list[i].note + "</span><br>";
+			str += "</div>"
+		}
+	}
 	$('.list-group').html(str);
 }
 function errFunc(e){
 	alert("검색결과가 없습니다.");
 }
+
 $(function(){
 	$(document).on("click", ".result_set", function (e){
+		console.log($(this).find(".p_num").text().slice(4));
 		$.ajax({	
 			url: "./patientinfo.do",
 			type: "post",
-			data : { name: $(this).find(".name").text(),
-				phone: 	$(this).find(".phone").text()
-			},
+			data : { p_num: $(this).find(".p_num").text().slice(4)
+				   },
 			success: infoFunc,
 			error: function(){
 				console.log('통신실패!!!')

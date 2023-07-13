@@ -19,12 +19,11 @@ public class InfoServiceAction implements Action{
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		
-		String name = request.getParameter("name"); //환자 번호로 바꿔야함
-		String phone = request.getParameter("phone");
-	
+		String p_num = request.getParameter("p_num"); //환자 번호로 바꿔야함
+		
 		HospitalDao dao = new HospitalDao();
 		List<patientRecordVO> list = null;
-		list = dao.infoSearch(name,phone);
+		list = dao.infoSearch(p_num);
 
 		
 		JSONObject sendObject = new JSONObject();

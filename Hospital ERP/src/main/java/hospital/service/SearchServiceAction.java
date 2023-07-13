@@ -47,17 +47,13 @@ public class SearchServiceAction implements Action{
 			jobj.put("sex", list.get(i).getSex());
 			jobj.put("note", list.get(i).getNote());
 			jobj.put("r_date", list.get(i).getR_date());
-			jobj.put("r_ban", list.get(i).getR_ban());
-			jobj.put("r_d_code", list.get(i).getR_d_code());
-			jobj.put("symptom", list.get(i).getSymptom());
-			jobj.put("p_amount", list.get(i).getP_amount());
-			jobj.put("p_pay", list.get(i).getP_pay());
-			jobj.put("p_r_num", list.get(i).getP_r_num());
-			
+			jobj.put("r_num", list.get(i).getR_num());
+
 			sendArray.add(jobj);
 		}
 		
 		sendObject.put("list", sendArray);
+		System.out.println(sendObject);
 		try {
 			response.setContentType("application/text; charset=utf-8");
 			response.getWriter().print(sendObject);
