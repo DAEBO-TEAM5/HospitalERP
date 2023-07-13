@@ -63,7 +63,7 @@ CREATE TABLE hospital_id ( -- 병원
 	h_address	varchar2(200)		NULL, -- 주소
 	h_phone	varchar2(20)		NULL, -- 전화번호
 	h_pwd	varchar2(30)		NOT NULL, -- 비밀번호
-	h_email	varchar2(30)		NULL, -- 이메일
+	h_email	varchar2(30)		NOT NULL, -- 이메일
 	h_post	varchar2(10)		NULL, -- 우편번호
 	h_e_code	number(10)		NOT NULL -- 직원코드
 );
