@@ -21,12 +21,16 @@ public class ItemDao {
 		ResultSet rs = null;
 		try {
 			conn = ConnectionHelper.getConnection();
-			String sql ="SELECT I_NAME, I_CODE, I_CATEGORY, I_UNIT, I_STOCK, I_EXPIRE, I_PRICE, I_REMARK FROM ITEM ";
+			//String sql ="SELECT I_NAME, I_CODE, I_CATEGORY, I_UNIT, I_STOCK, I_EXPIRE, I_PRICE, I_REMARK FROM ITEM ";
+			String sql = "SELECT IC.I_CODE, I.I_NUM, IC.I_NAME, IC.I_CATEGORY, I.I_UNIT, I.I_STOCK, I.I_EXPIRE, I.I_PRICE,"
+					   + "  I.I_REMARK FROM ITEM I JOIN ITEM_CODE IC ON IC.I_CODE=I.I_I_CODE "
+					   + " ORDER BY TO_DATE(I_EXPIRE, 'YYYY-MM-DD') ";
+			
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery(sql);
-			
 			while(rs.next()) {
 				ItemVO dao = new ItemVO();
+				dao.setI_num(rs.getInt("i_num"));
 				dao.setI_name(rs.getString("i_name"));
 				dao.setI_code(rs.getInt("i_code"));
 				dao.setI_category(rs.getString("i_category"));
@@ -63,19 +67,18 @@ public class ItemDao {
 			conn = ConnectionHelper.getConnection();
 			System.out.println("여기는 itemDao-itemInsert");
 		
-			StringBuffer sql = new StringBuffer(" INSERT INTO ITEM (I_CODE, I_NAME, I_CATEGORY, I_UNIT, I_STOCK, I_EXPIRE, I_PRICE, I_REMARK) VALUES(I_CODE_NUM_SEQ.NEXTVAL,?,?,?,?,?,?,?) ");
+			StringBuffer sql = new StringBuffer(" INSERT INTO ITEM (I_NUM, I_I_CODE, I_UNIT, I_STOCK, I_EXPIRE, I_PRICE, I_REMARK) VALUES(I_NUM_SEQ.NEXTVAL,?,?,?,?,?,?) ");
 			pstmt = conn.prepareStatement(sql.toString());
 
 			pstmt.clearBatch();
 			
 			for(ItemVO vo : itemList) {
-				  	pstmt.setString(1, vo.getI_name());
-		            pstmt.setString(2, vo.getI_category());
-		            pstmt.setString(3, vo.getI_unit());
-		            pstmt.setInt(4, vo.getI_stock());
-		            pstmt.setString(5, vo.getI_expire());
-		            pstmt.setInt(6, vo.getI_price());
-		            pstmt.setString(7, vo.getI_remark());
+				  	pstmt.setInt(1, vo.getI_i_code());
+		            pstmt.setString(2, vo.getI_unit());
+		            pstmt.setInt(3, vo.getI_stock());
+		            pstmt.setString(4, vo.getI_expire());
+		            pstmt.setInt(5, vo.getI_price());
+		            pstmt.setString(6, vo.getI_remark());
 		            
 		            pstmt.addBatch();
 			}

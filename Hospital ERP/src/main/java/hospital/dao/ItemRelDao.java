@@ -25,20 +25,21 @@ public ArrayList<ItemRelVO> itemRelTable(){
 		ResultSet rs = null;
 		try {
 			conn = ConnectionHelper.getConnection();
-			String sql ="SELECT TO_CHAR(rel_date, 'YYYY-MM-DD') AS rel_date, rel_time, i_name, rel_i_code, i_category, rel_amount, i_stock, rel_user, rel_remark " +
-                    "FROM (" +
-                    "  SELECT r.rel_date, r.rel_time, i.i_name, r.rel_i_code, i.i_category, r.rel_amount, i.i_stock, r.rel_user, r.rel_remark" +
-                    "  FROM release r" +
-                    "  JOIN item i ON r.rel_i_code = i.i_code" +
-                    "  UNION ALL" +
-                    "  SELECT d.dis_date, d.dis_time, i.i_name, d.dis_i_code, i.i_category, d.dis_amount, i.i_stock, d.dis_user, d.dis_remark" +
-                    "  FROM discard d" +
-                    "  JOIN item i ON d.dis_i_code = i.i_code" +
-                    ")" +
-                    "ORDER BY TO_DATE(rel_date, 'YYYY-MM-DD'), TO_DATE(rel_time, 'HH24:MI') ASC ";
+			String sql = " SELECT TO_CHAR(rel_date, 'YYYY-MM-DD') AS rel_date, rel_time, i_name, rel_i_code, i_category, rel_amount, i_stock, rel_user, rel_remark "
+		            + " FROM ( "
+		            + "    SELECT r.rel_date, r.rel_time, ic.i_name, r.rel_i_code, ic.i_category, r.rel_amount, r.rel_user, r.rel_remark "
+		            + "    FROM release r "
+		            + "    JOIN item_code ic ON r.rel_i_code = ic.i_code "
+		            + "    UNION ALL "
+		            + "    SELECT d.dis_date, d.dis_time, ic.i_name, d.dis_i_code, ic.i_category, d.dis_amount, d.dis_user, d.dis_remark "
+		            + "    FROM discard d "
+		            + "    JOIN item_code ic ON d.dis_i_code = ic.i_code "
+		            + " ) rd "
+		            + " JOIN item i ON rd.rel_i_code = i.i_i_code "
+		            + " ORDER BY TO_DATE(rel_date, 'YYYY-MM-DD') ASC, TO_DATE(rel_time, 'HH24:MI') ASC ";
+
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery(sql);
-			
 			while(rs.next()) {
 				ItemRelVO dao = new ItemRelVO();
 				dao.setRel_date(rs.getString("rel_date"));

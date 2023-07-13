@@ -93,10 +93,8 @@
 										<tbody>
 											<div class="insert_div">
 												<tr class="nodelete">
-													<td>품명</td>
-													<td><input type="text" placeholder="품명" ></td>
-													<td>카테고리</td>
-													<td><input type="text" placeholder="카테고리"></td>
+													<td>품목코드</td>
+													<td><input type="text" placeholder="품목코드" ></td>
 													<td>단위</td>
 													<td><input type="text" placeholder="단위"></td>
 													<td>재고량</td>
@@ -111,7 +109,7 @@
 													<td>비고</td>
 													<td><input type="text" placeholder="비고" ></td>
 													<td colspan="2">
-														<button class="btn btn-danger itemDelBtn" onClick="itemDelBtnHandler(event)">
+														<button class="btn btn-danger " onClick="item_modalDelBtnHandler(event)">
 												    	 X
 												   		</button>
 													</td>
@@ -165,26 +163,27 @@
 <script type="text/javascript">
 
 $(document).ready(function() {
+	
 	$('#item_maintable').click(function(){
-		  	
 			$('.main_page').show();
 			$('.rel_page').hide();
 			$('.input-searchfilter').val('');
 			filterTableBySearch();
 			$('#StockFiveCheck').prop('checked', false);
 			filterItems();
+			$('.item_table_main tr:not(:first-child)').removeClass('click_active');	
 	});
-
 		var str = "";
 		$.ajax({	
 			url: "./itemMainTable.do",
 			type: "post",
 			success: function(data){
 				var obj = JSON.parse(data);
-				str += "<tr><th>번호</th><th>품명</th><th>품목코드</th><th>카테고리</th><th>단위</th><th>재고량</th><th>유통기한</th><th>물품단가</th><th>비고</th></tr>"
+				str += "<tr><th>index</th><th>입고번호</th><th>품명</th><th>품목코드</th><th>카테고리</th><th>단위</th><th>재고량</th><th>유통기한</th><th>물품단가</th><th>비고</th></tr>"
 				for(var i =0; i < obj.item.length; i++){
 					str += "<tr>";
 					str += "<td main-column='number'>" + (i + 1) + "</td>";
+					str += "<td main-column='inum'>" +obj.item[i].i_num + "</td>"
 					str += "<td main-column='name'>" +obj.item[i].i_name + "</td>"
 					str += "<td main-column='code'>" +obj.item[i].i_code + "</td>"
 					str += "<td>" +obj.item[i].i_category + "</td>"
@@ -293,6 +292,8 @@ $(function () {
         $('.use_Check').prop('checked', true);
         $('.dis_Check').prop('checked', true);
         filterRelrease();
+        $('.item_table_main tr:not(:first-child)').removeClass('click_active');
+        
         var str = "";
         $.ajax({
             url: "./itemRelTable.do",
@@ -377,7 +378,7 @@ $(document).on('click', '#mainTable tr:not(:first-child)', function() {
 */
 
 //item 추가 모달 내 "항목추가"된것 삭제
-function itemDelBtnHandler(event) {
+function item_modalDelBtnHandler(event) {
 	  const select_row = $(event.target).closest('tr');
 	  const front_row = select_row.prev('tr');
 	  select_row.add(front_row).remove();
@@ -395,10 +396,8 @@ function tableAddBtnHandler() {
 function itemTableElement() {
 	const tr1 = document.createElement("tr");
 	tr1.innerHTML = `
-			<td>품명</td>
-			<td><input type="text" placeholder="품명"></td>
-			<td>카테고리</td>
-			<td><input type="text" placeholder="카테고리"></td>
+			<td>품목코드</td>
+			<td><input type="text" placeholder="품목코드"></td>
 			<td>단위</td>
 			<td><input type="text" placeholder="단위"></td>
 			<td>재고량</td>
@@ -413,7 +412,7 @@ function itemTableElement() {
 			<td>비고</td>
 			<td><input type="text" placeholder="비고" ></td>
 			<td colspan="2">
-				<button class="btn btn-danger itemDelBtn" onClick="itemDelBtnHandler(event)">
+				<button class="btn btn-danger" onClick="item_modalDelBtnHandler(event)">
 		    	 X
 		   		</button>
 			</td>
@@ -425,13 +424,11 @@ function itemTableElement() {
 $('#insert_submit').click(function() {
   var items = []; // 항목들을 담을 배열
   const trs = document.querySelectorAll("table[page='main_ins_modal'] tr");
-  console.log(trs);
   for (let i=0; i<trs.length; i+=2) {
 	  let tr1 = trs[i];
 	  let tr2 = trs[i+1];
 	  let item = {
-			  "itemName" : tr1.querySelector('input[placeholder="품명"]').value,
-		      "itemCategory" : tr1.querySelector('input[placeholder="카테고리"]').value,
+			  "itemCode" : tr1.querySelector('input[placeholder="품목코드"]').value,
 		      "itemUnit" : tr1.querySelector('input[placeholder="단위"]').value,
 		      "itemStock" : tr1.querySelector('input[placeholder="재고량"]').value,
 		      "itemExpire" : tr2.querySelector('input[placeholder="유통기한"]').value,
@@ -465,6 +462,46 @@ $('#insert_submit').click(function() {
 function reload() {  //페이지 새로고침
     (location || window.location || document.location).reload();
 }
+
+$('.item_table_main').on('click', 'tr:not(:first-child)', function() {
+    $(this).toggleClass('click_active');
+});
+
+$('#item_DeleteButton').click(function() {
+    const active_row = $('.item_table_main tr.click_active');  /* var? */
+    var itemDel = []
+    
+    if (active_row.length === 0) {
+        alert('삭제할 항목을 선택후 눌러주세요.');
+        return;
+    
+    }else{
+    	for (var i = 0; i < active_row.length; i++) {
+			var array_element = array[i];
+			
+		}
+    }
+    
+    var itemId = active_row.find('td[main-column="inum]').text(); // 
+    
+    // 서버로 삭제 요청 보내기
+    $.ajax({
+	    url: "./itemDelete.do",
+	    type: "post",
+        data: { id: itemId }, // 삭제할 데이터의 ID를 서버에 전달
+        success: function(response) {
+            // 삭제 작업 성공 시 클라이언트에서 UI 갱신 또는 메시지 표시 등의 작업 수행
+            active_row.remove(); // 클라이언트에서 선택한 행 삭제
+            alert('항목이 성공적으로 삭제되었습니다.');
+            //reload()
+        },
+        error: function(error) {
+            alert('항목 삭제 중 오류가 발생했습니다.');
+        }
+    });
+});
+
+
 </script>
 </body>
 </html> 	
