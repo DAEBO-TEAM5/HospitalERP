@@ -82,23 +82,31 @@ line-height: 45px;
 
 .item_table_main >tr{
 	border:2px solid pink;
-	text-align: right; 
+	text-align: center; 
 	background-color: skyblue; 
 	
 }
 .item_table_main >tr:not(:first-child){
 	text-align: right; 
-	background-color: green; 
+	/* background-color: green;  */
 	
 }
-.item_table_main tr:not(:first-child):hover {
-  background: silver;
-  
-}
 .item_table_main >tr>td{
-	text-align: left; 
+	text-align: center; 
+	border: 1px solid black;
 /*  	background-color: green;   */
 } 
 .item_table_main >tr>td:nth-child(1){
 /* 	width:10px; */
 } 
+.item_table_main tr:not(:first-child):hover{
+	background-color: silver;
+}
+.item_table_main tr:not(:first-child):active{
+	background-color: blue;
+}
+
+.item_table_main tr.click_active {
+  background-color: blue; 
+  /* 행의 배경색을 변경하려면 이 값을 원하는 색상 값으로 변경하세요. */
+}

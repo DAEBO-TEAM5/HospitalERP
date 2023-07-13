@@ -3,6 +3,7 @@
 DROP TABLE discard; -- 폐기
 DROP TABLE release; -- 출고(사용)
 DROP TABLE item; -- 물품재고
+DROP TABLE item_code; --물품종류,코드
 DROP TABLE wait; -- 접수/대기 명단
 DROP TABLE hospital_id; -- 병원ID
 DROP TABLE payment; -- 요금수납
@@ -44,17 +45,21 @@ CREATE TABLE wait ( -- 접수/대기 명단
 	w_p_num	number(10)		NOT NULL -- 환자 번호
 );
 
-CREATE TABLE item ( -- 물품 재고 테이블
-	i_code	number(10)		NOT NULL, -- 품목 코드
-	i_num	number(10)		NULL, -- 물품 번호
-	i_name	varchar2(50)		NOT NULL, -- 물품 이름
-	i_category	varchar2(50)		NULL, -- 카테고리
+CREATE TABLE item (  -- 물품 재고,입고 테이블
+	i_num	number(10)		NOT NULL, -- 물품 번호
 	i_unit	varchar2(20)		NULL, -- 단위
 	i_stock	number(10)		NULL, -- 재고량
 	i_expire	varchar2(20)		NULL, -- 유통기한
 	i_price	number(10)		NULL, -- 물품 단가
 	i_remark	varchar2(300)		NULL, -- 비고
-	i_memo	varchar2(300)		NULL -- 메모
+	i_memo	varchar2(300)		NULL, -- 메모
+	i_i_code	number(10)		NOT NULL  --품목 코드
+);
+
+CREATE TABLE item_code ( --물품종류,코드
+	i_code	number(10)		NOT NULL, --물품코드
+	i_name	varchar2(50)		NULL, --물품이름
+	I_category	varchar2(50)		NULL --물품 카테고리
 );
 
 CREATE TABLE hospital_id ( -- 병원
@@ -104,21 +109,23 @@ CREATE TABLE prescription ( -- 처방전
 );
 
 CREATE TABLE release ( -- 출고 관리
-	rel_i_code	number(10)		NOT NULL, -- 품목 코드
+	rel_num	number(10)  NOT NULL, --출고 기록 번호       
 	rel_date	date		NULL, -- 사용 날짜
     rel_time	varchar(20)		NULL, -- 사용 시간
 	rel_user	varchar(20)		NULL, -- 사용자
 	rel_amount	number(10)		NULL, -- 사용량
-    rel_remark	varchar(100)		NULL -- 비고
+    rel_remark	varchar(100)		NULL, -- 비고
+    rel_i_code	number(10)		NOT NULL -- 품목 코드
 );
 
 CREATE TABLE discard ( -- 폐기 관리
-	dis_i_code	number(10)		NOT NULL, -- 품목 코드
+    dis_num	number(10)  NOT NULL, --출고 기록 번호    
 	dis_date	date		NULL, -- 폐기 날짜
     dis_time	varchar(20)		NULL, -- 폐기 시간
 	dis_user	varchar(20)		NULL, -- 폐기 담당자
 	dis_amount	number(10)		NULL, -- 폐기량
-    dis_remark	varchar(100)		NULL -- 비고
+    dis_remark	varchar(100)		NULL, -- 비고
+    dis_i_code	number(10)		NOT NULL -- 품목 코드
 );
 
 
@@ -138,18 +145,12 @@ ALTER TABLE record ADD CONSTRAINT "PK_RECORD" PRIMARY KEY (
 );
 
 ALTER TABLE wait ADD CONSTRAINT "PK_WAIT" PRIMARY KEY (
-	w_num
-);
-
-ALTER TABLE item ADD CONSTRAINT "PK_ITEM" PRIMARY KEY (
-	i_code
+    w_num
 );
 
 ALTER TABLE hospital_id ADD CONSTRAINT "PK_HOSPITAL_ID" PRIMARY KEY (
 	h_id
 );
-
-ALTER TABLE HOSPITAL_ID ADD CONSTRAINT H_EMAIL_UNIQUE UNIQUE(H_EMAIL);
 
 ALTER TABLE disease ADD CONSTRAINT "PK_DISEASE" PRIMARY KEY (
 	d_code
@@ -175,8 +176,24 @@ ALTER TABLE prescription ADD CONSTRAINT "PK_PRESCRIPTION" PRIMARY KEY (
 	p_num
 );
 
+ALTER TABLE release ADD CONSTRAINT "PK_RELEASE" PRIMARY KEY (
+	rel_num
+);
+
 ALTER TABLE tr_mapping ADD CONSTRAINT "PK_TR_MAPPING" PRIMARY KEY (
 	tr_num
+);
+
+ALTER TABLE discard ADD CONSTRAINT "PK_DISCARD" PRIMARY KEY (
+	dis_num
+);
+
+ALTER TABLE item ADD CONSTRAINT "PK_ITEM" PRIMARY KEY (
+	i_num
+);
+
+ALTER TABLE item_code ADD CONSTRAINT "PK_ITEM_CODE" PRIMARY KEY (
+	i_code
 );
 
 ALTER TABLE record ADD CONSTRAINT "FK_patient_TO_record_1" FOREIGN KEY (
@@ -235,17 +252,10 @@ REFERENCES record (
 	r_num
 );
 
-ALTER TABLE release ADD CONSTRAINT "FK_item_TO_release_1" FOREIGN KEY (
+ALTER TABLE release ADD CONSTRAINT "FK_item_code_TO_release_1" FOREIGN KEY (
 	rel_i_code
 )
-REFERENCES item (
-	i_code
-);
-
-ALTER TABLE discard ADD CONSTRAINT "FK_item_TO_discard_1" FOREIGN KEY (
-	dis_i_code
-)
-REFERENCES item (
+REFERENCES item_code (
 	i_code
 );
 
@@ -263,6 +273,20 @@ REFERENCES record (
 	r_num
 );
 
+ALTER TABLE discard ADD CONSTRAINT "FK_item_code_TO_discard_1" FOREIGN KEY (
+	dis_i_code
+)
+REFERENCES item_code (
+	i_code
+);
+
+ALTER TABLE item ADD CONSTRAINT "FK_item_code_TO_item_1" FOREIGN KEY (
+	i_i_code
+)
+REFERENCES item_code (
+	i_code
+);
+
 -----------------------------------------------------------------------
 drop sequence m_code_seq;
 drop sequence d_code_seq;
@@ -275,7 +299,9 @@ drop sequence pay_num_seq;
 drop sequence i_code_num_seq;
 drop sequence p_num_seq;
 drop sequence tr_num_seq;
-
+drop sequence rel_num_seq;
+drop sequence dis_num_seq;
+drop sequence i_num_seq;
 
 --약품          medicine 
 create sequence m_code_seq --약품 코드
@@ -317,7 +343,7 @@ create sequence pay_num_seq  --수납 번호
 INCREMENT by 1
 start with 80001;
 
---물품재고        item 
+--물품종류 코드        item_code 
 create sequence i_code_num_seq  --품목 코드
 INCREMENT by 1
 start with 90001;
@@ -331,22 +357,15 @@ start with 1001;
 create sequence tr_num_seq
 start with 6001;
 
+--물품 재고, 입고 번호
+create sequence i_num_seq
+start with 7001;
 
+--출고 기록 번호
+create sequence rel_num_seq
+start with 8001;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+--폐기 기록 번호
+create sequence dis_num_seq
+start with 9001;
 
