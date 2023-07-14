@@ -59,16 +59,16 @@ select w_num"접수번호", w_symptom"증상내용", w_p_num "환자 번호" fro
 select * from wait;
 
 
---진료기록 번호/ 진료날짜/ 의사소견/ 환자번호/ 질병코드/ 직원 코드   //진료기록 코드 70001~
-insert into RECORD values(r_num_seq.nextval, '2023-07-02', '의사소견1', 50001, 20001, 40001);
-insert into record values(r_num_seq.nextval, '2023-07-04', '의사소견2', 50002, 20002, 40002);
-insert into record values(r_num_seq.nextval, '2023-07-07', '의사소견3', 50003, 20001, 40001);
-insert into record values(r_num_seq.nextval, '2023-07-13', '의사소견4', 50001, 20001, 40002);
-insert into record values(r_num_seq.nextval, '2023-07-13', '의사소견5', 50002, 20001, 40002);
-insert into record values(r_num_seq.nextval, '2023-07-13', '의사소견6', 50003, 20001, 40001);
-insert into record values(r_num_seq.nextval, '2023-07-13', '의사소견7', 50003, 20001, 40001);
+--진료기록 번호/ 진료날짜/ 의사소견/증상내용(복사)/ 환자번호/ 질병코드/ 직원 코드   //진료기록 코드 70001~
+insert into RECORD values(r_num_seq.nextval, '2023-07-02', '의사소견1', '증상내용(복사)1', 50001, 20001, 40001);
+insert into record values(r_num_seq.nextval, '2023-07-04', '의사소견2', '증상내용(복사)2', 50002, 20002, 40002);
+insert into record values(r_num_seq.nextval, '2023-07-07', '의사소견3', '증상내용(복사)3', 50003, 20001, 40001);
+insert into record values(r_num_seq.nextval, '2023-07-13', '의사소견4', '증상내용(복사)4', 50001, 20001, 40002);
+insert into record values(r_num_seq.nextval, '2023-07-13', '의사소견5', '증상내용(복사)5', 50002, 20001, 40002);
+insert into record values(r_num_seq.nextval, '2023-07-13', '의사소견6', '증상내용(복사)6', 50003, 20001, 40001);
+insert into record values(r_num_seq.nextval, '2023-07-13', '의사소견7', '증상내용(복사)7', 50003, 20001, 40001);
 
-select r_num"진료기록 번호", r_date"진료날짜", r_opinion"의사소견(진단결과)", r_p_num"환자번호", r_d_code"질병코드", r_e_code"직원코드" from record; 
+select r_num"진료기록 번호", r_date"진료날짜", r_opinion"의사소견(진단결과)",r_symptom"증상내용", r_p_num"환자번호", r_d_code"질병코드", r_e_code"직원코드" from record; 
 select * from record;
 
 

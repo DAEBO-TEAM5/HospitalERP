@@ -17,7 +17,7 @@ import hospital.vo.ItemVO;
 public class ItemRelDao {
 
 	
-public ArrayList<ItemRelVO> itemRelTable(){
+	public ArrayList<ItemRelVO> itemRelTable(){
 		
 		ArrayList<ItemRelVO> list = new ArrayList<>();
 		Connection conn = null;
@@ -68,6 +68,30 @@ public ArrayList<ItemRelVO> itemRelTable(){
 		
 	}
 	
-	
+	public ItemRelVO itemRel_Insert(ItemRelVO vo) {
+
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	System.out.println("여기는 item reldao- relisnert");
+	try {
+		conn = ConnectionHelper.getConnection();
+		String sql = "INSERT INTO RELEASE VALUES(REL_NUM_SEQ.NEXTVAL, ?,?,?,?,?,?) ";
+		pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, vo.getRel_date());
+		pstmt.setString(2, vo.getRel_time());
+		pstmt.setString(3, vo.getRel_user());
+		pstmt.setInt(4, vo.getRel_amount());
+		pstmt.setString(5, vo.getRel_remark());
+		pstmt.setInt(6, vo.getRel_i_code());
+		pstmt.executeUpdate();
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+	} finally {
+		ConnectionHelper.close(pstmt);
+		ConnectionHelper.close(conn);
+	}
+	return null;
+}
 	
 }
