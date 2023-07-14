@@ -24,24 +24,23 @@ import hospital.vo.PatientVO;
 import hospital.vo.RecordVO;
 import hospital.vo.patientRecordVO;
 
-public class InfoServiceAction implements Action{
+public class InfoServiceAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
-		
-		int p_num = Integer.parseInt(request.getParameter("p_num")); //환자 번호로 바꿔야함
+
+		int p_num = Integer.parseInt(request.getParameter("p_num")); // 환자 번호로 바꿔야함
 		HospitalDao dao = new HospitalDao();
-		
-		//PatientDao dao = new PatientDao();
-		PatientVO patientvo = dao.patientInfo(p_num);  //환자 정보 얻어옴
-		
+
+		// PatientDao dao = new PatientDao();
+		PatientVO patientvo = dao.patientInfo(p_num); // 환자 정보 얻어옴
+
 		JSONObject sendObject = new JSONObject();
 		JSONArray sendArray = new JSONArray();
 		JSONObject jobj = new JSONObject();
 		JSONArray objArr = new JSONArray();
 		JSONObject obj = new JSONObject();
-		
-		
+
 		jobj.put("num", patientvo.getNum());
 		jobj.put("name", patientvo.getName());
 		jobj.put("birth", patientvo.getBirth());
@@ -49,56 +48,51 @@ public class InfoServiceAction implements Action{
 		jobj.put("address", patientvo.getAddress());
 		jobj.put("sex", patientvo.getSex());
 		jobj.put("note", patientvo.getNote());
-		
-		sendArray.add(jobj);    //환자정보
-		
-		ArrayList<RecordVO> recordVo = dao.GetRecordNum(p_num);   //레코드 번호 모음
+
+		sendArray.add(jobj); // 환자정보
+
+		ArrayList<RecordVO> recordVo = dao.GetRecordNum(p_num); // 레코드 번호 모음
 		HashMap<String, Integer> medlist = new HashMap<>();
 		HashMap<String, Integer> thlist = new HashMap<>();
-		
-		for(RecordVO v: recordVo) {   //진료번호대로(날짜순)
+
+		for (RecordVO v : recordVo) { // 진료번호대로(날짜순)
 			jobj = new JSONObject();
 			Date d = v.getR_date();
 			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 			String date = format.format(d);
-			jobj.put("date", date);  //진료 날짜
-			
-			String d_name = dao.DiesaseName(v.getR_d_code());    //질병명
-			jobj.put("disease", d_name);   //질병명
-			
-			System.out.println("진료번호-----------"+v.getR_num());
-			medlist = dao.MedName(v.getR_num());  //약품명, 사용량
-			thlist = dao.ThName(v.getR_num());  //물리치료명, 가격
-			
+			jobj.put("date", date); // 진료 날짜
+
+			String d_name = dao.DiesaseName(v.getR_d_code()); // 질병명
+			jobj.put("disease", d_name); // 질병명
+
+			System.out.println("진료번호-----------" + v.getR_num());
+			medlist = dao.MedName(v.getR_num()); // 약품명, 사용량
+			thlist = dao.ThName(v.getR_num()); // 물리치료명, 가격
+
 			objArr = new JSONArray();
 
-			for(String key: medlist.keySet()) {
+			for (String key : medlist.keySet()) {
 				obj = new JSONObject();
 				obj.put("medName", key);
 				obj.put("use", medlist.get(key));
 				objArr.add(obj);
 			}
 			jobj.put("med", objArr);
-			
-			
-			
+
 			objArr = new JSONArray();
-			for(String key: thlist.keySet()) {
+			for (String key : thlist.keySet()) {
 				obj = new JSONObject();
 				obj.put("thName", key);
 				obj.put("price", thlist.get(key));
 				objArr.add(obj);
 			}
 			jobj.put("therapy", objArr);
-			
-			
-			sendArray.add(jobj);   //진료 날짜 순
+
+			sendArray.add(jobj); // 진료 날짜 순
 		}
-		
-		
-	
+
 		sendObject.put("info", sendArray);
-		
+
 		try {
 			response.setContentType("application/text; charset=utf-8");
 			response.getWriter().print(sendObject);

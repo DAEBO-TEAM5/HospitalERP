@@ -1,5 +1,22 @@
 @charset "UTF-8";
 
+.container-fluid {
+   height: 100vh;
+   padding: 0px;
+}
+.flex-grow-1{
+	font-size: 25px;
+	color: white;
+}
+.info {
+	background-color: #F0F0F0;
+}
+
+.leftinfo {
+	background-color: #BEBEBE;
+	padding-left: 24px;
+}
+
 .row{
 	margin-right: 0px;
 	height: calc(100vh - 73.39px);

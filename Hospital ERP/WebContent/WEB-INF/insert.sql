@@ -2,6 +2,7 @@
 --약품 //코드 10001~
 insert into medicine values(m_code_seq.nextval, '타이레놀');
 insert into medicine values(m_code_seq.nextval, '아스피린');
+insert into medicine values(m_code_seq.nextval, '에스녹틸정 ');
 select m_code"약품 코드", m_name"약품 이름" from medicine; 
 select * from medicine;
 
@@ -9,21 +10,23 @@ select * from medicine;
 --질병 //코드 20001~
 insert into disease values(d_code_seq.nextval, '코로나');
 insert into disease values(d_code_seq.nextval, 'A형간염');
+insert into disease values(d_code_seq.nextval, '장염');
 select d_code"질병 코드", d_name"질병 이름" from disease;
 select * from disease;
 
 
 --물리치료 //코드 30001~
+insert into therapy values (t_code_seq.nextval, '없음', '0');
 insert into therapy values (t_code_seq.nextval, '도수치료', '100000');
 insert into therapy values (t_code_seq.nextval, '물리치료', '5000');
+
 select t_code"물리치료 코드", t_name"물리치료 이름", t_price"물리치료 가격" from therapy;
 select * from therapy;
 
 
 --직원 (의사, 간호사) //코드 40001~
-insert into employee values(e_code_seq.nextval, '양승윤');
-insert into employee values(e_code_seq.nextval, '윤성호');
-insert into employee values(1010, '신지애');
+insert into employee values(e_code_seq.nextval, '신지애');
+insert into employee values(e_code_seq.nextval, '정준열');
 select e_code"직원 코드", e_name"직원 이름" from employee;
 select * from employee;
 
@@ -38,6 +41,7 @@ select * from hospital_id;
 --환자 기본정보 //코드 50001~
 insert into patient values(num_seq.nextval, '홍길동', '1999-09-09', '010-1234-5678', '서울 턱별시', '남자', 190, 90, '동에번쩍 서에번쩍');
 insert into patient values(num_seq.nextval, '양승윤', '1995-12-31', '010-0000-9999', '신림동', '남자', 205, 45, '신림동 메이플왕');
+insert into patient values(num_seq.nextval, '윤성호', '1994-08-21', '010-5344-2342', '의정부', '남자', 187, 77, '의정부 자바머신');
 select num"환자번호", name"환자이름", birth"생년월일", phone"연락처", address"주소", sex"성별", height"키", weight"몸무게", note"특이사항" from patient;
 select * from patient;
 
@@ -45,6 +49,12 @@ select * from patient;
 --접수/대기 명단 //코드 60001~
 insert into wait values(w_num_seq.nextval, '머리가 아파요', 50001);
 insert into wait values(w_num_seq.nextval, '눈이 퍽퍽해요', 50002);
+insert into wait values(w_num_seq.nextval, '배가 아파요', 50003);
+insert into wait values(w_num_seq.nextval, '다리가 아파요', 50001);
+insert into wait values(w_num_seq.nextval, '허리가 아파요', 50002);
+insert into wait values(w_num_seq.nextval, '손가락이 아파요', 50003);
+insert into wait values(w_num_seq.nextval, '손가락이 또 아파요', 50003);
+
 select w_num"접수번호", w_symptom"증상내용", w_p_num "환자 번호" from wait; 
 select * from wait;
 
@@ -52,6 +62,12 @@ select * from wait;
 --진료기록 번호/ 진료날짜/ 의사소견/ 환자번호/ 질병코드/ 직원 코드   //진료기록 코드 70001~
 insert into RECORD values(r_num_seq.nextval, '2023-07-02', '의사소견1', 50001, 20001, 40001);
 insert into record values(r_num_seq.nextval, '2023-07-04', '의사소견2', 50002, 20002, 40002);
+insert into record values(r_num_seq.nextval, '2023-07-07', '의사소견3', 50003, 20001, 40001);
+insert into record values(r_num_seq.nextval, '2023-07-13', '의사소견4', 50001, 20001, 40002);
+insert into record values(r_num_seq.nextval, '2023-07-13', '의사소견5', 50002, 20001, 40002);
+insert into record values(r_num_seq.nextval, '2023-07-13', '의사소견6', 50003, 20001, 40001);
+insert into record values(r_num_seq.nextval, '2023-07-13', '의사소견7', 50003, 20001, 40001);
+
 select r_num"진료기록 번호", r_date"진료날짜", r_opinion"의사소견(진단결과)", r_p_num"환자번호", r_d_code"질병코드", r_e_code"직원코드" from record; 
 select * from record;
 
@@ -59,6 +75,12 @@ select * from record;
 --처방  //처방맵핑 코드 1001~
 insert into prescription values(p_num_seq.nextval, 10001, 3, 70001);
 insert into prescription values(p_num_seq.nextval, 10002, 99, 70002);
+insert into prescription values(p_num_seq.nextval, 10003, 88, 70003);
+insert into prescription values(p_num_seq.nextval, 10001, 77, 70004);
+insert into prescription values(p_num_seq.nextval, 10002, 56, 70005);
+insert into prescription values(p_num_seq.nextval, 10003, 55, 70006);
+insert into prescription values(p_num_seq.nextval, 10003, 44, 70007);
+
 select p_num"맵핑 번호", p_m_code"약품 코드", p_use"약품 사용량", p_r_num"진료 기록 번호" from prescription;
 select *from prescription;
 
@@ -66,6 +88,11 @@ select *from prescription;
 --요금 수납  //코드 80001~
 insert into payment values(pay_num_seq.nextval, 50000, 0, 70001); 
 insert into payment values(pay_num_seq.nextval, 20000, 0, 70002); 
+insert into payment values(pay_num_seq.nextval, 40000, 0, 70003); 
+insert into payment values(pay_num_seq.nextval, 50000, 0, 70004); 
+insert into payment values(pay_num_seq.nextval, 60000, 0, 70005); 
+insert into payment values(pay_num_seq.nextval, 70000, 0, 70006); 
+insert into payment values(pay_num_seq.nextval, 20000, 0, 70007); 
 select pay_num"수납 번호", pay_amount"처방금액", pay_pay"수납한 금액", pay_r_num"진료기록 번호" from payment;
 select * from payment;
 
@@ -87,6 +114,11 @@ select m_num"메모번호", m_memo"내용", m_date"날짜", m_e_code"직원코�
 -- 물리치료 환자 맵핑 //물리치료맵핑 6001~
 insert into tr_mapping values(tr_num_seq.nextval, 30001, 70001);
 insert into tr_mapping values(tr_num_seq.nextval, 30002, 70002);
+insert into tr_mapping values(tr_num_seq.nextval, 30001, 70003);
+insert into tr_mapping values(tr_num_seq.nextval, 30002, 70004);
+insert into tr_mapping values(tr_num_seq.nextval, 30003, 70005);
+insert into tr_mapping values(tr_num_seq.nextval, 30003, 70006);
+insert into tr_mapping values(tr_num_seq.nextval, 30002, 70007);
 select tr_num"물리치료 맵핑번호", tr_t_code"물리치료 코드", tr_r_num"진료 기록 번호" from tr_mapping;
 select * from tr_mapping;
 

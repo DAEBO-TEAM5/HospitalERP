@@ -22,9 +22,7 @@ public class HospitalWaitingInfoService implements Action{
 			//System.out.println("hospitalWaitingInfoService-----------");
 			PatientDao dao = new PatientDao();
 			String num = request.getParameter("num");
-			
-			//System.out.println(num);
-			
+
 			ArrayList<String> list = new ArrayList<>();
 			list = dao.getWaitingInfo(Integer.parseInt(num));   
 			
@@ -32,9 +30,11 @@ public class HospitalWaitingInfoService implements Action{
 			
 			sendObject.put("num", list.get(0));
 			sendObject.put("name", list.get(1));
-			sendObject.put("birth", list.get(2));
-			sendObject.put("sex", list.get(3));
-			sendObject.put("symptom", list.get(4));
+			sendObject.put("address", list.get(2));
+			sendObject.put("phone", list.get(3));
+			sendObject.put("birth", list.get(4));
+			sendObject.put("sex", list.get(5));
+			sendObject.put("w_symptom", list.get(6));
 			//System.out.println("birth: "+list.get(2));
 			
 			response.setContentType("application/text; charset=utf-8");

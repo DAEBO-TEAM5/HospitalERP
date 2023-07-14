@@ -13,6 +13,7 @@ import javax.sql.DataSource;
 
 import hospital.utils.ConnectionHelper;
 import hospital.vo.PatientVO;
+import hospital.vo.WaitVO;
 
 public class PatientDao {
 	
@@ -24,7 +25,7 @@ public class PatientDao {
 		ResultSet rs = null;
 		try {
 			conn = ConnectionHelper.getConnection();
-			String sql = "select p.num, p.name, p.birth, p.sex, w.w_symptom from patient p join wait w on p.num = w.w_p_num where p.num = ?";
+			String sql = "select p.num, p.name, p.address, p.phone, p.birth, p.sex, w.w_symptom from patient p join wait w on p.num = w.w_p_num where p.num = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			
@@ -33,6 +34,8 @@ public class PatientDao {
 			//System.out.println("rs info ::::"+ rs.getString("name"));
 			list.add(Integer.toString( rs.getInt("num")));
 			list.add(rs.getString("name"));
+			list.add(rs.getString("address"));
+			list.add(rs.getString("phone"));
 			list.add(rs.getString("birth"));
 			list.add(rs.getString("sex"));
 			list.add(rs.getString("w_symptom"));
@@ -48,27 +51,30 @@ public class PatientDao {
 	}
 
 	
-	public ArrayList<PatientVO> getWaitingList() {
+	public ArrayList<WaitVO> getWaitingList() {
 		
-		ArrayList<PatientVO> list = new ArrayList<>();
+		ArrayList<WaitVO> list = new ArrayList<>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
 			conn = ConnectionHelper.getConnection();
-			String sql = "select p.num, p.name, p.birth, p.sex from patient p join wait w on p.num = w.w_p_num order by w.w_num";
+			String sql = "select p.num, p.name, p.birth, p.sex, w.w_symptom, w.w_num from patient p join wait w on p.num = w.w_p_num order by w.w_num";
 			pstmt = conn.prepareStatement(sql);
 			
 			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				PatientVO vo = new PatientVO();
+				WaitVO vo = new WaitVO();
 				//System.out.println("Rsrsrs: "+rs.getString(1));
 				vo.setNum(rs.getInt("num"));
 				vo.setName(rs.getString("name"));
 				vo.setBirth(rs.getString("birth"));
 				vo.setSex(rs.getString("sex"));
+				vo.setW_symptom(rs.getString("w_symptom"));
+				vo.setW_num(rs.getInt("w_num"));
 				
 				list.add(vo);
+				
 				//System.out.println("VO List: "+vo.getName());
 			}
 			
