@@ -231,7 +231,9 @@ $(function(){
 });
 function infoFunc(data){
 	var obj = JSON.parse(data);
-	temp = obj;
+	console.log("진료리스트ㅡㅡㅡ"+obj);     //////////////////////////////
+	console.log(obj);
+/* 	temp = obj;
 	var info_str = "";
 	info_str += obj.info[0].birth + " | " + obj.info[0].address + " | "+  obj.info[0].sex + " | " + obj.info[0].phone;
 	$('.patient_name').html(obj.info[0].name);
@@ -249,7 +251,7 @@ function infoFunc(data){
 		var day = obj.info[i].r_date.slice(6,8);
 		str += "<button class='btn btn-outline-primary'>" + obj.info[i].r_date + "</button>"
 	}
-	$('.date_button').html(str);
+	$('.date_button').html(str); */
 }
 $(function(){
 	$(document).on("click", ".date_button > button", function (e){
