@@ -15,24 +15,20 @@ import hospital.action.ActionForward;
 import hospital.dao.HospitalDao;
 import hospital.vo.patientRecordVO;
 
-public class SearchServiceAction implements Action{
+public class SearchServiceInfoAction implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		String pattern = "^[0-9]*$";
 		String search_str = request.getParameter("name");
-		String date = request.getParameter("date");
+
 		boolean check = false;
 		if(search_str != null) {
 			check = Pattern.matches(pattern, search_str);
 		}
 		HospitalDao dao = new HospitalDao();
 		List<patientRecordVO> list = null;
-		if(date == null) {
-			list = dao.searchOK(search_str, check, "검색");
-		}else {
-			list = dao.searchOK(date, check, "날짜");
-		}
+		list = dao.searchInfo(search_str, check);
 		
 		JSONObject sendObject = new JSONObject();
 		JSONArray sendArray = new JSONArray();
@@ -46,9 +42,7 @@ public class SearchServiceAction implements Action{
 			jobj.put("address", list.get(i).getAddress());
 			jobj.put("sex", list.get(i).getSex());
 			jobj.put("note", list.get(i).getNote());
-			jobj.put("r_date", list.get(i).getR_date());
-			jobj.put("r_num", list.get(i).getR_num());
-
+			
 			sendArray.add(jobj);
 		}
 		

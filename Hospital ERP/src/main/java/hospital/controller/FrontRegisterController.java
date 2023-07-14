@@ -23,6 +23,7 @@ import hospital.service.InsertRecordServiceAction;
 import hospital.service.ItemDelServiceAction;
 import hospital.service.ItemInsertServiceAction;
 import hospital.service.ItemRelServiceAction;
+import hospital.service.ItemRel_InsServiceAction;
 import hospital.service.ItemServiceAction;
 import hospital.service.ItemUpdateServiceAction;
 import hospital.service.LoadCalendarMemoServiceAction;
@@ -30,7 +31,8 @@ import hospital.service.LoadPatientInfoServiceAction;
 import hospital.service.LoginOkServiceAction;
 import hospital.service.MemberChangePwAction;
 import hospital.service.MemberIdCheckAction;
-import hospital.service.SearchServiceAction;
+import hospital.service.SearchServiceDateAction;
+import hospital.service.SearchServiceInfoAction;
 import hospital.service.SelectListServiceAction;
 import hospital.service.SignUpServiceAction;
 import hospital.service.UpdateCalendarMemoServiceAction;
@@ -122,17 +124,19 @@ public class FrontRegisterController extends HttpServlet {
 			  String h_id = (String) request.getSession().getAttribute("h_id");
 			forward = new ActionForward();
 			if (h_id != null) {
-				forward.setRedirect(false);
+				forward.setRedirect(false);ote, p.num, p.name, p.birth,
 				forward.setPath("/WEB-INF/views/main/history.jsp");
 			} else {
 				forward.setRedirect(true);
 				forward.setPath("login.do");
 			}
 		*/
-    	}else if(urlcommand.equals("/patientsearch.do")) {
-    		action = new SearchServiceAction();
+    	}else if(urlcommand.equals("/patientsearchinfo.do")) {
+    		action = new SearchServiceInfoAction();
     		action.execute(request, response);
-    		
+    	}else if(urlcommand.equals("/patientsearchdate.do")) {
+    		action = new SearchServiceDateAction();
+    		action.execute(request, response);
     	}else if(urlcommand.equals("/patientinfo.do")) {
     		action = new InfoServiceAction();
     		action.execute(request, response);
@@ -172,6 +176,10 @@ public class FrontRegisterController extends HttpServlet {
     		action = new ItemUpdateServiceAction();
     		action.execute(request, response);	
     	
+    	}else if(urlcommand.equals("/itemRelInsert.do")){
+    		action = new ItemRel_InsServiceAction();
+    		action.execute(request, response);	
+    		
     	}else if(urlcommand.equals("/main2.do")) {
     		//UI 제공 (서비스 객체가 필요없다)
     		forward = new ActionForward();

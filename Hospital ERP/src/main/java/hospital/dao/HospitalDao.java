@@ -16,23 +16,64 @@ import hospital.vo.patientRecordVO;
 
 public class HospitalDao {
 	
-	public List<patientRecordVO> searchOK(String search_str, boolean check, String find) {
+	public List<patientRecordVO> searchInfo(String search_str, boolean check) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		System.out.println(search_str);
 		try {
 			conn = ConnectionHelper.getConnection();
 			String sql = "";
-			if(check && find.equals("검색")) {
-				sql = "select p.address, p.note, p.num, p.name, p.birth, p.sex, p.phone, r.r_num, r.r_date from patient p join record r on p.num = r.r_p_num where phone LIKE ?";
-			}else if(!check && find.equals("검색")) {
-				sql = "select p.address, p.note, p.num, p.name, p.birth, p.sex, p.phone, r.r_num, r.r_date from patient p join record r on p.num = r.r_p_num where name LIKE ?";
+			if(check) {
+				sql = "select p.address, p.note, p.num, p.name, p.birth, p.sex, p.phone from patient p where phone LIKE ? order by num";
+				
 			}else {
-				sql = "select p.address, p.note, p.num, p.name, p.birth, p.sex, p.phone, r.r_num, r.r_date from patient p join record r on p.num = r.r_p_num where r_date LIKE ?";
+				sql = "select p.address, p.note, p.num, p.name, p.birth, p.sex, p.phone from patient p where name LIKE ? order by num";
 			}
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,"%"+search_str+"%");
+
+			ResultSet rs = pstmt.executeQuery();
+			
+			patientRecordVO vo = null;
+			List<patientRecordVO> list = new ArrayList<>();
+			while(rs.next()) {
+				vo = new patientRecordVO();
+				vo.setNote(rs.getString("note"));
+				vo.setNum(rs.getInt("num"));
+				vo.setName(rs.getString("name"));
+				vo.setBirth(rs.getString("birth"));
+				vo.setSex(rs.getString("sex"));
+				vo.setPhone(rs.getString("phone"));
+				vo.setAddress(rs.getString("address"));
+				
+				list.add(vo);
+				System.out.println(vo);
+			}
+			
+			ConnectionHelper.close(rs);
+			ConnectionHelper.close(pstmt);
+			ConnectionHelper.close(conn);
+			return list;
+				
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public List<patientRecordVO> searchDate(String date) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		System.out.println(date);
+		try {
+			conn = ConnectionHelper.getConnection();
+			String sql = "";
+			sql = "select p.address, p.note, p.num, p.name, p.birth, p.sex, p.phone, r.r_num, r.r_date from patient p join record r on p.num = r.r_p_num where r_date = ? order by r_num desc";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, date);
 
 			ResultSet rs = pstmt.executeQuery();
 			
