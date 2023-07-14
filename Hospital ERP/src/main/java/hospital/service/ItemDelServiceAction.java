@@ -55,7 +55,6 @@ public class ItemDelServiceAction implements Action {
 	                }
 	            }
 	        }
-	        System.out.println("여기는 delserviceaction");
 	        String jsonStr = sb.toString();
 	        JSONParser parser = new JSONParser();
 	        try {
@@ -67,7 +66,7 @@ public class ItemDelServiceAction implements Action {
 	                itemVO.setI_num(Integer.parseInt((String) item.get("iNum")));
 	                itemList.add(itemVO);
 	            }
-	            
+	            System.out.println(itemList);
 	            ItemDao dao;
 	            try {
 	                dao = new ItemDao();
@@ -77,7 +76,6 @@ public class ItemDelServiceAction implements Action {
 	                JSONArray sendArray = new JSONArray();
 	                JSONObject jobj = null;
 	                for (int i = 0; i < list.size(); i++) {
-	                	System.out.println("여기는 delserviceaction1");
 	                    jobj = new JSONObject();
 	                    jobj.put("i_num", list.get(i).getI_num());
 	                    sendArray.add(jobj);
