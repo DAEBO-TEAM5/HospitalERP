@@ -93,6 +93,7 @@ public class ItemDao {
 		return  list;
 	}
 	
+	//품목 테이블 내용 제거
 	public ArrayList<ItemVO> itemDelete(List<ItemVO> itemList) {
 		
 		ArrayList<ItemVO> list = new ArrayList<>();
@@ -125,4 +126,31 @@ public class ItemDao {
 		return  list;
 	}
 	
+	
+	//품목 테이블 내용 수정
+	public ItemVO itemUpdate(ItemVO vo) {
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		System.out.println("여기는 item dao- update");
+		try {
+			conn = ConnectionHelper.getConnection();
+			String sql = "UPDATE ITEM SET I_UNIT=?, I_STOCK=?, I_EXPIRE=?, I_PRICE=?, I_REMARK=? WHERE I_NUM=? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getI_unit());
+			pstmt.setInt(2, vo.getI_stock());
+			pstmt.setString(3, vo.getI_expire());
+			pstmt.setInt(4, vo.getI_price());
+			pstmt.setString(5, vo.getI_remark());
+			pstmt.setInt(6, vo.getI_num());
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionHelper.close(pstmt);
+			ConnectionHelper.close(conn);
+		}
+		return null;
+	}
 }

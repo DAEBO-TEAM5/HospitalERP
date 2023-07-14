@@ -23,6 +23,7 @@ import hospital.service.ItemDelServiceAction;
 import hospital.service.ItemInsertServiceAction;
 import hospital.service.ItemRelServiceAction;
 import hospital.service.ItemServiceAction;
+import hospital.service.ItemUpdateServiceAction;
 import hospital.service.LoadCalendarMemoServiceAction;
 import hospital.service.LoadPatientInfoServiceAction;
 import hospital.service.LoginOkServiceAction;
@@ -160,11 +161,15 @@ public class FrontRegisterController extends HttpServlet {
     	}else if(urlcommand.equals("/itemInsert.do")){
     		action = new ItemInsertServiceAction();
     		action.execute(request, response);
-
+    								
     	}else if(urlcommand.equals("/itemDelete.do")){
     		action = new ItemDelServiceAction();
     		action.execute(request, response);
     		
+    	}else if(urlcommand.equals("/itemUpdate.do")){
+    		action = new ItemUpdateServiceAction();
+    		action.execute(request, response);	
+    	
     	}else if(urlcommand.equals("/main2.do")) {
     		//UI 제공 (서비스 객체가 필요없다)
     		forward = new ActionForward();
