@@ -29,7 +29,8 @@ import hospital.service.LoadPatientInfoServiceAction;
 import hospital.service.LoginOkServiceAction;
 import hospital.service.MemberChangePwAction;
 import hospital.service.MemberIdCheckAction;
-import hospital.service.SearchServiceAction;
+import hospital.service.SearchServiceDateAction;
+import hospital.service.SearchServiceInfoAction;
 import hospital.service.SelectListServiceAction;
 import hospital.service.SignUpServiceAction;
 import hospital.service.UpdatePatientInfoServiceAction;
@@ -120,17 +121,19 @@ public class FrontRegisterController extends HttpServlet {
 			  String h_id = (String) request.getSession().getAttribute("h_id");
 			forward = new ActionForward();
 			if (h_id != null) {
-				forward.setRedirect(false);
+				forward.setRedirect(false);ote, p.num, p.name, p.birth,
 				forward.setPath("/WEB-INF/views/main/history.jsp");
 			} else {
 				forward.setRedirect(true);
 				forward.setPath("login.do");
 			}
 		*/
-    	}else if(urlcommand.equals("/patientsearch.do")) {
-    		action = new SearchServiceAction();
+    	}else if(urlcommand.equals("/patientsearchinfo.do")) {
+    		action = new SearchServiceInfoAction();
     		action.execute(request, response);
-    		
+    	}else if(urlcommand.equals("/patientsearchdate.do")) {
+    		action = new SearchServiceDateAction();
+    		action.execute(request, response);
     	}else if(urlcommand.equals("/patientinfo.do")) {
     		action = new InfoServiceAction();
     		action.execute(request, response);
