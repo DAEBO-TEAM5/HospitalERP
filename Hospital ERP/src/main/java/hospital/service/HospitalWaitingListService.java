@@ -26,13 +26,7 @@ public class HospitalWaitingListService implements Action{
 			ArrayList<WaitVO> list = new ArrayList<>();
 			list = dao.getWaitingList();   
 			
-			//System.out.println("WaitingList : "+list); ////////////////////////////////////
-			
 			request.setAttribute("list", list);
-			
-			//forward = new ActionForward();
-			//forward.setRedirect(false); // forward
-			//forward.setPath("/WEB-INF/views/main/mainIndex.jsp");
 			
 			JSONObject waitinglist = new JSONObject();
 			JSONArray listarray = new JSONArray();
@@ -47,16 +41,11 @@ public class HospitalWaitingListService implements Action{
 				waitinglist.put("w_symptom", list.get(i).getW_symptom());
 				waitinglist.put("w_num", list.get(i).getW_num());
 				
-				//System.out.println(waitinglist);  ////////////////////////////////////////
-				//System.out.println("add전 listarray================="+listarray);
 				listarray.add(waitinglist);
-				//System.out.println("listarray::::::::"+listarray);
 				
 			}
 			sendObject.put("waitList", listarray);
 			System.out.println(listarray);
-			//System.out.println(listarray);  ////////////////////////////////////
-			//System.out.println(sendObject);  ////////////////////////////////////////
 			
 			response.setContentType("application/text; charset=utf-8");
 			response.getWriter().print(sendObject);

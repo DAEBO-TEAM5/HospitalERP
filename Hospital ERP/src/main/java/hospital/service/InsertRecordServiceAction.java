@@ -32,7 +32,7 @@ public class InsertRecordServiceAction implements Action {
 			int dcode = dao.getCode("d_code", "disease", "d_name", d);   //질병코드
 			
 			String p_name = request.getParameter("p_name");    //
-			//System.out.println("환자이름----"+p_name);
+			System.out.println("환자이름----"+p_name);
 			int p_code = dao.getCode("num", "patient", "name", p_name);    //환자코드
 			
 			//HttpSession session = request.getSession();

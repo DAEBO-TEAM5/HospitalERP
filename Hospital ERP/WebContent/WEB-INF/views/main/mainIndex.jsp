@@ -146,7 +146,7 @@
 								<div class="modal-body">
 									<form role="form" id="patientInfoForm">
 										<div class="form-group">
-											<label for="LoadNum">고객번호</label> 
+											<label for="LoadNum">환자번호</label> 
 											<input type="text" class="form-control" id="LoadNum" disabled="disabled" />
 										</div>
 										<div class="form-group">
@@ -425,7 +425,7 @@ function patientInfo(data){
 	var obj = JSON.parse(data);
 	var str = "";
 	str = obj.birth + " | " + obj.address + " | "+  obj.sex + " | " + obj.phone;
-	console.log(str);
+	console.log(obj.w_symptom);
 	
 	$('.patient_name').html(obj.name);
 	$('.patient_info').html(str);
@@ -443,10 +443,10 @@ function errFunc(msg, error){
 	 //var info = $(this).val();
 	 //console.log(info);
 	 console.log('수정버튼--');
-	 var winfo = $('#patientinfo').text();
-	 var arr = winfo.split("/");
+	 var winfo = $('.patient_info').text();
+	 var arr = winfo.split("|");
 	 
-	 birth = arr[1].trim();
+	 birth = arr[0].trim();
 	 console.log(birth);
 	 
  	 $.ajax({
@@ -619,7 +619,8 @@ function insertRec() {
 	  var d_name = document.getElementById("addD");
 	  var d_nameT = d_name.options[d_name.selectedIndex].text;
 	  
-	  var patientName = $('#patientName').text();
+	  var patientName = $('.patient_name').text();
+	  console.log(patientName);
 	  
 	$.ajax({
 		 type: 'post',

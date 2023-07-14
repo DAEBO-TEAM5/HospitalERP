@@ -19,7 +19,6 @@ public class HospitalWaitingInfoService implements Action{
 		ActionForward forward = null;
 		
 		try {
-			//System.out.println("hospitalWaitingInfoService-----------");
 			PatientDao dao = new PatientDao();
 			String num = request.getParameter("num");
 
@@ -35,12 +34,9 @@ public class HospitalWaitingInfoService implements Action{
 			sendObject.put("birth", list.get(4));
 			sendObject.put("sex", list.get(5));
 			sendObject.put("w_symptom", list.get(6));
-			//System.out.println("birth: "+list.get(2));
 			
 			response.setContentType("application/text; charset=utf-8");
 			response.getWriter().print(sendObject);
-			
-			//System.out.println("Waitinginfo : "+list); ////////////////////////////////////
 			
 		} catch (Exception e) {
 			e.printStackTrace();
