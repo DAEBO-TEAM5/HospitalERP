@@ -15,7 +15,7 @@ public class MemberChangePwAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest req,
 			HttpServletResponse resp) {
-		
+		System.out.println("여기까진오나욤?");
 		ActionForward forward = null;
 		
 		/* 브라우저에서 건너온 세션 확인 
@@ -23,6 +23,7 @@ public class MemberChangePwAction implements Action {
 		HttpSession session = req.getSession(false);
 		if(session != null) {
 			// 세션이 생성되어 있는 경우
+			System.out.println((String)session.getAttribute("isLogin"));
 			if((String)session.getAttribute("isLogin") != null) {
 				// 로그인된 상태
 				session.invalidate();
@@ -33,7 +34,7 @@ public class MemberChangePwAction implements Action {
 					out = resp.getWriter();
 					out.println("<script>");
 					out.println("alert('접근 권한이 없습니다.');");
-					out.println("location.href='/login.jsp';");
+					out.println("closePopup4();");
 					out.println("</script>");
 				} catch (IOException e) {
 					e.printStackTrace();

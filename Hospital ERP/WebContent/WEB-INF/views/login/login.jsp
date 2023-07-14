@@ -42,6 +42,7 @@
                                 <a href="#" onclick="openPopup();return false;" class="text-info">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <a  href="#" onclick="openPopup2();"class="text-info">ID찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <a  href="#" onclick="openPopup3();"class="text-info">PW찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <a  href="#" onclick="openPopup4();"class="text-info">aaa찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
                             </div>
                         </form>
                     </div>
@@ -118,9 +119,9 @@
 		<div class="popup-content3">
 			<span class="close-btn" onclick="closePopup3()">&times;</span>
 			<h4>비밀번호 찾기</h4>
-			<form action="${pageContext.request.contextPath}/memberForgotPwPro.do" method = "post">
-			<input type="text" name="h_id" id="h_id3" placeholder="ID"> 
-			<input type="email" name="h_email" id="h_email3" placeholder="이메일">
+			<form class="changepwdform" method = "post">
+			<input type="text" name="h_id" id="h_id3" placeholder="ID" class="findpwdid"> 
+			<input type="email" name="h_email" id="h_email3" placeholder="이메일" class="findpwdemail">
 			<div>
 			<input class="formBtn2" type="submit" value="비밀번호찾기" name="findpw" id="h_findpw" >
 			  <input type="reset" onclick="resetBtnHandler2()" value="다시 입력">
@@ -129,13 +130,14 @@
 		  </div>
 	  </div> 
 	  
-	  <div id="popup3" class="popup-overlay3">
+	  <div id="popup4" class="popup-overlay3">
 		<div class="popup-content3">
-			<span class="close-btn" onclick="closePopup3()">&times;</span>
+			<span class="close-btn" onclick="closePopup4()">&times;</span>
 			<h4>비밀번호 변경하기</h4>
-			<form action="${pageContext.request.contextPath}/memberChangePw.do" method = "post"	>
-			 <div class="col-md-12 form-group">
-			 <input type="password" class="form-control" id="authenCode" name="authenCode" placeholder="인증번호를 입력하세요"
+			 <form action="${pageContext.request.contextPath}/memberChangePw.do"  method = "post" >
+			 
+		  <div class="col-md-12 form-group">
+			 <input type="text" class="form-control" id="authenCode" name="authenCode" placeholder="인증번호를 입력하세요"
                         onfocus="this.placeholder = ''" onblur="this.placeholder = '인증번호를 입력하세요'">
            </div>
             <div class="col-md-12 form-group">
@@ -145,10 +147,10 @@
             <div class="col-md-12 form-group">
                 <input type="password" class="form-control" id="checkPw" name="checkPw" placeholder="새 비밀번호를 한번 더 입력하세요"
                          onfocus="this.placeholder = ''" onblur="this.placeholder = '새 비밀번호를 한번 더 입력하세요'">
-            </div> 
+            </div>  
 			
 			<div>
-			<input class="formBtn2" type="submit" value="변경하기" name="findpw" id="h_findpw" >
+			<input class="formBtn3" type="submit" value="변경하기" name="findpw2" id="h_findpw2" >
 			  <input type="reset" onclick="resetBtnHandler2()" value="다시 입력">
 			  </div>
 			  </form>
@@ -301,7 +303,18 @@ function checkForm() {
             var popup3 = document.getElementById("popup3");
             popup3.style.visibility = "hidden";
             popup3.style.opacity = "5";
+            
+        } function openPopup4() {
+            var popup4 = document.getElementById("popup4");
+            popup4.style.visibility = "visible";
+            popup4.style.opacity = "1";
         }
+        
+        function closePopup4() {
+            var popup4 = document.getElementById("popup4");
+            popup4.style.visibility = "hidden";
+            popup4.style.opacity = "0";
+        } 
 
         function idCheck() {
             var h_id = document.getElementById("h_id").value;
@@ -524,7 +537,39 @@ event.preventDefault();
     // 유효성 문제 없을 시 폼에 submit
     var joinForm = document.getElementById("joinForm");
     joinForm.submit();
-   
+    
 }
+    
+    
+    $(document).ready(function(){
+    	$('.changepwdform').submit(function(){
+    		console.log("오니");
+//    		console.log(h_id);
+ //   		console.log(h_id);
+findpassword();
+ 
+    		
+    		
+    		return false;
+    	});
+    });
+    
+    function findpassword(){
+    		var h_id = document.getElementById('h_id3').value;
+    		var h_email = document.getElementById('h_email3').value;
+    		$.ajax({
+    			type:'POST',
+    			url: "./memberForgotPwPro.do",
+    			data: {"h_id":h_id ,"h_email":h_email},
+    			success: function(response){
+    				openPopup4();
+    				closePopup3();
+    				
+    			},
+    			error: function(msg, error) {
+    				alert(error);
+    			}
+    		});
+    }
 </script>
 </html>
