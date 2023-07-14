@@ -27,7 +27,7 @@
 		margin-top: 0;
 		margin-bottom: 15px;
 	}
-	.popup-content2 form {
+	.popup-content3 form {
 		display: flex;
 		flex-direction: column;
 	}
@@ -102,58 +102,6 @@
 	    margin-bottom: 10px;
 	    
 	}
-	 #h_post,#h_id,#h_email{
-	 	width: 64%;
-	 }
-	 
-#phone1 {
-    width: 23%;
-}
-
-#phone2 {
-    width: 33%;
-}
-
-#phone3 {
-    width: 33%;
-}
-
-.auth {
-    display: flex;
-    justify-content: space-between;
-}
-
-.timer {
-    display: flex;
-    justify-content: space-between;
-}
-
-.auth div {
-    width: 30%;
-    text-align: center;
-    font-weight: 700;
-    font-size: 15px;
-}
-
-.auth button {
-    width: 70%;
-    margin-bottom: 3px;
-    
-    
-}
-
-.timer div {
-    width: 30%;
-    text-align: center;
-    font-weight: 700;
-    font-size: 15px;
-    
-}
-
-.timer button {
-    width: 70%;
-    margin-bottom: 10px;
-}
 
 
 	 

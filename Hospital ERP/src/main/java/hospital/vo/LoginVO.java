@@ -1,5 +1,7 @@
 package hospital.vo;
 
+import java.sql.Connection;
+
 //로그인 정보
 public class LoginVO {
 
@@ -71,5 +73,7 @@ public class LoginVO {
 	public void setH_e_code(int h_e_code) {
 		this.h_e_code = h_e_code;
 	}
+
+
 	
 }

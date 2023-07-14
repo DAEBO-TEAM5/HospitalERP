@@ -114,13 +114,12 @@
 		</div>
 	</div>
 	
-<!--  	 <div id="popup3" class="popup-overlay3">
+	 <div id="popup3" class="popup-overlay3">
 		<div class="popup-content3">
 			<span class="close-btn" onclick="closePopup3()">&times;</span>
 			<h4>비밀번호 찾기</h4>
-			<form action="${pageContext.request.contextPath}/findpw.do" method = "post">
+			<form action="${pageContext.request.contextPath}/memberForgotPwPro.do" method = "post">
 			<input type="text" name="h_id" id="h_id3" placeholder="ID"> 
-			<input type="text" name="h_name" id="h_name3" placeholder="병원명"> 
 			<input type="email" name="h_email" id="h_email3" placeholder="이메일">
 			<div>
 			<input class="formBtn2" type="submit" value="비밀번호찾기" name="findpw" id="h_findpw" >
@@ -129,26 +128,55 @@
 			  </form>
 		  </div>
 	  </div> 
-	  <section>
-	<input type="hidden" id="hiddenEmail" name="email" value="<%=(String) request.getAttribute("userEmail")%>">
-	<div class="findPwdClass1">
-		<input type="text" id="findPwdAuth" placeholder="인증번호 입력"
-			autocomplete="off">
-		<button type="button" id="findPwdAuthButton">인증</button>
-	</div>
-	<span id="findPwdAuthId"></span>
-
-	<div class="findPwdClass2">
-		<input type="text" id="newPassword" name="pass" placeholder="새로운 패스워드를 입력하세요"
-			autocomplete="off"> <input type="text"
-			id="newPasswordCheck" placeholder="새로운 패스워드를 다시 입력하세요"
-			autocomplete="off">
-	</div>
-	<button id="newPasswordButton">변경</button>
-</section>-->
+	  
+	  <div id="popup3" class="popup-overlay3">
+		<div class="popup-content3">
+			<span class="close-btn" onclick="closePopup3()">&times;</span>
+			<h4>비밀번호 변경하기</h4>
+			<form action="${pageContext.request.contextPath}/memberChangePw.do" method = "post"	>
+			 <div class="col-md-12 form-group">
+			 <input type="password" class="form-control" id="authenCode" name="authenCode" placeholder="인증번호를 입력하세요"
+                        onfocus="this.placeholder = ''" onblur="this.placeholder = '인증번호를 입력하세요'">
+           </div>
+            <div class="col-md-12 form-group">
+                <input type="password" class="form-control" id="newPw" name="newPw" placeholder="새 비밀번호를 입력하세요"
+                         onfocus="this.placeholder = ''" onblur="this.placeholder = '새 비밀번호를 입력하세요'">
+            </div>
+            <div class="col-md-12 form-group">
+                <input type="password" class="form-control" id="checkPw" name="checkPw" placeholder="새 비밀번호를 한번 더 입력하세요"
+                         onfocus="this.placeholder = ''" onblur="this.placeholder = '새 비밀번호를 한번 더 입력하세요'">
+            </div> 
+			
+			<div>
+			<input class="formBtn2" type="submit" value="변경하기" name="findpw" id="h_findpw" >
+			  <input type="reset" onclick="resetBtnHandler2()" value="다시 입력">
+			  </div>
+			  </form>
+		  </div>
+	  </div> 
 </body>
 ${script}
 <script> 
+
+function checkForm() {
+
+    var authenCode = $('#authenCode').val();
+    var newPw = $('#newPw').val();
+    var checkPw = $('#checkPw').val();
+
+    if(authenCode == null || authenCode === "" || newPw == null || 
+    		newPw === "" || checkPw == null || checkPw === "") {
+        alert('모든 입력란을 작성하세요.');
+        return false;
+    }
+
+    if(newPw !== checkPw) {
+        alert('비밀번호가 일치하지 않습니다.!');
+        return false;
+    }
+
+    $('form[name="changePwForm"]').submit();
+}
   let processID = -1;
 
   // 휴대전화 번호 입력 부분

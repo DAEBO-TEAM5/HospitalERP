@@ -13,6 +13,7 @@ import hospital.action.Action;
 import hospital.action.ActionForward;
 import hospital.service.EmailCheckAction;
 import hospital.service.FindIDAction;
+import hospital.service.MemberForgotPwProAction;
 import hospital.service.HospitalWaitingInfoService;
 import hospital.service.HospitalWaitingListService;
 import hospital.service.InfoServiceAction;
@@ -25,6 +26,7 @@ import hospital.service.ItemServiceAction;
 import hospital.service.LoadCalendarMemoServiceAction;
 import hospital.service.LoadPatientInfoServiceAction;
 import hospital.service.LoginOkServiceAction;
+import hospital.service.MemberChangePwAction;
 import hospital.service.MemberIdCheckAction;
 import hospital.service.SearchServiceAction;
 import hospital.service.SelectListServiceAction;
@@ -38,7 +40,7 @@ public class FrontRegisterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     
-    public FrontRegisterController() {}
+    
     
     private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
@@ -97,8 +99,18 @@ public class FrontRegisterController extends HttpServlet {
     	}else if(urlcommand.equals("/findid.do")){
     		System.out.println("아이디찾기입니다.");
         		action = new FindIDAction();
-        		action.execute(request, response);		
-
+        		action.execute(request, response);
+        		
+    	}else if(urlcommand.equals("/memberForgotPwPro.do")){
+    		System.out.println("비밀번호찾기입니다.");
+    		action = new MemberForgotPwProAction();
+    		forward = action.execute(request, response);
+    		
+    	}else if(urlcommand.equals("/memberChangePw.do")){
+    		System.out.println("비밀번호변경입니다.");
+    		action = new MemberChangePwAction();
+    		forward = action.execute(request, response);
+    		
     	}else if(urlcommand.equals("/history.do")) {
     		forward = new ActionForward();
     		forward.setRedirect(false);
