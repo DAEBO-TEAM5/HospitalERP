@@ -59,4 +59,24 @@ public class Member2Dao {
 		}
 		return vo;
 	}
+	public int updatePw(String h_id, String newPw) {
+
+	    int updateCount = 0;
+	    String sql = "update hospital_id "
+	               + "set h_pw=? "
+	               + "where h_id=?";
+
+	    try {
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, newPw);
+	        pstmt.setString(2, h_id);
+	        updateCount = pstmt.executeUpdate();
+	    } catch (Exception e) {
+	        System.out.println(" updatePw(h_id, oldPw, newPw) ERROR : "+e);
+	    } finally {
+	        ConnectionHelper.close(pstmt);
+	    }
+
+	    return updateCount;
+	}
 }

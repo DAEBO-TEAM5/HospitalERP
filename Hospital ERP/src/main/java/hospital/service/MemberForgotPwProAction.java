@@ -26,45 +26,45 @@ public class MemberForgotPwProAction implements Action {
 			session.invalidate();
 
 			resp.setContentType("text/html;charset=utf-8");
-			PrintWriter out = null;
+			
+			PrintWriter out ;
 			try {
-				out = resp.getWriter();
+				out=resp.getWriter();
 				out.println("<script>");
 				out.println("alert('접근 권한이 없습니다.');");
 				out.println("location.href='/login.jsp';");
 				out.println("</script>");
+				out.flush();
+				System.out.println("여기는요????");
 			} catch (IOException e) {
 				e.printStackTrace();
-			} finally {
-				if (out != null) {
-					out.close();
-				}
-			}
+			} 
 		}
 
 		/* DB 처리 */
 		String h_email = req.getParameter("h_email");
 		String h_id = req.getParameter("h_id");
+		System.out.println(h_email+","+h_id);
 
 		MemberForgotPwProService service = new MemberForgotPwProService();
 		LoginVO vo = (LoginVO) service.getMember(h_id, h_email);
+		//System.out.println(vo.getH_email());
 		if (vo == null || !vo.getH_email().equals(h_email)) {
 			// 회원 정보가 일치하지 않은 경우
 			resp.setContentType("text/html;charset=utf-8");
-			PrintWriter out = null;
+			PrintWriter out;
 			try {
-				out = resp.getWriter();
+				 out= resp.getWriter();
 				out.println("<script>");
 				out.println("alert('회원 정보가 존재하지 않습니다.');");
-				out.println("history.back(-1);");
+				out.println("history.back();");
 				out.println("</script>");
+				 out.flush();
+				System.out.println("디비처리는되나요?");
 			} catch (IOException e) {
 				e.printStackTrace();
-			} finally {
-				if (out != null) {
-					out.close();
-				}
-			}
+			} 
+			
 		} else {
 			/* 메일 전송 */
 			NaverMailSend mailSend = new NaverMailSend();
@@ -76,9 +76,10 @@ public class MemberForgotPwProAction implements Action {
 				session.setAttribute("h_id", h_id);
 				System.out.println("아이디왔나요?");
 				
-				forward = new ActionForward();
-				forward.setPath("/memberChangePw.do");
-				forward.setRedirect(true);
+				//forward = new ActionForward();
+				//forward.setPath("/memberChangePw.do");
+				System.out.println("체인지포스풔드");
+				//forward.setRedirect(true);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
