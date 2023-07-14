@@ -211,7 +211,7 @@ function successFunc(data){
 	$('.list-group').html(str);
 }
 function errFunc(e){
-	alert("검색결과가 없습니다.");
+	alert("오류 발생");
 }
 
 $(function(){
@@ -223,9 +223,7 @@ $(function(){
 			data : { p_num: $(this).find(".p_num").text().slice(4)
 				   },
 			success: infoFunc,
-			error: function(){
-				console.log('통신실패!!!')
-			}
+			error: errFunc
 		});
 	});
 });

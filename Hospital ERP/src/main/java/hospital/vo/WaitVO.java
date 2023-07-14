@@ -1,6 +1,6 @@
 package hospital.vo;
 
-public class WaitVO {
+public class WaitVO extends PatientVO {
 	private int w_num, w_p_num;
 	private String w_symptom;
 	public int getW_num() {
@@ -21,8 +21,7 @@ public class WaitVO {
 	public void setW_symptom(String w_symptom) {
 		this.w_symptom = w_symptom;
 	}
+
 	
-	
-	
-	
+
 }

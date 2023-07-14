@@ -23,23 +23,24 @@
 </head>
 <body>
 <div class="container-fluid">
-	<c:import url="../include/header.jsp"></c:import>
-
 	<div class="container-fluid info">
-		<div class="row" style="height: 100%;">
-
+	<c:import url="../include/header.jsp"></c:import>
+		<div class="row">
 			<div class="col-md-2 leftinfo">
 				<p>
 				<h2 style="text-align: center">
 					<b>접수 / 대기</b>
 				</h2>
-				<div class="waitingList" id="waitList"></div>
-
-
+				<div class="waitingList" id="waitList">
+					<div class="list-group" style="margin-top: 12px;">
+	            		<div class="list-group-item list-group-item-action list-group-item-info">접수 인원이 없습니다.</div>
+					</div>
+				</div>
 
 				<!-- Button trigger modal -->
-				<input type="button" value="등록" class="button-right modalBtn" id="modifyInfo" data-bs-toggle="modal" data-bs-target="#exampleModal">
-
+				<div style="text-align: right;">
+					<input type="button" value="등록" class="btn btn-primary modalBtn" id="modifyInfo" data-bs-toggle="modal" data-bs-target="#exampleModal">
+				</div>
 				<!-- Modal -->
 				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 					<div class="modal-dialog modal-dialog-centered">
@@ -103,26 +104,34 @@
 					</div>
 				</div>
 
-
 			</div>
 
 
-
-
 			<div class="col-md-4" style="border-right: 1px solid black;">
-				<h3 id="patientName" class="loadInfo"></h3>
+				<div class="panel" style="height: 30%; display: flex;">
+	         				<div class="patient_name" style="width: 15%;"></div>
+				            	<div style="width: 85%;">
+					            	<div>
+					            		<div class="record_number"></div>
+					            		<div class="patient_info"></div>
+					            	</div>
+					            
+					        		<hr style="margin-bottom: 12px; margin-top: 12px">
+				           			<div>
+				           				<span style="font-size: 14px; font-weight: bold">접수메모(증상/내원목적)&nbsp;<i class="fa-solid fa-pen fa-2xs" style="color: black;"></i></span>
+					            		<div class="form-control" id="jupsu" style="overflow-y:auto;"></div>
+					           		</div>
+					           		<!-- Button trigger modal -->
+					           		<div style="text-align: right">
+					           		 <input type="button" value="수정" class="btn btn-info" style="width: 25%" data-bs-toggle="modal" data-bs-target="#patientModal">
+					           		 </div>
+				           	 </div>
+				           	
+				</div>
+				        
 				<div id="patientInfo">
-					<!-- 환자 정보 load -->
-					<span id="patientinfo" class="loadInfo"></span>
-					<div id="patientMemo">
-						접수 메모 <br>
-						<div class="form-control" id="jupsu" readonly="readonly"></div>
-					</div>
-
-					<!-- Button trigger modal -->
-
-					<input type="button" value="수정" class="button-right modalBtn" data-bs-toggle="modal" data-bs-target="#patientModal">
-
+					
+					
 
 					<!-- Modal -->
 					<div class="modal fade" id="patientModal" tabindex="-1" aria-labelledby="patientModalLabel" aria-hidden="true">
@@ -195,7 +204,7 @@
 
 
 					<div class="container text-center">
-						<div class="row">
+						<div class="row3">
 							<div class="col-sm-4  gap-2 col-6 mx-auto">
 								<input class="btn btn-primary" type="button" value="날짜1">
 								<button type="button" class="btn btn-secondary" data-bs-toggle="button" autocomplete="off">Secondary</button>
@@ -321,34 +330,40 @@
 </div>
 
 
-	<script type="text/javascript">
+<script type="text/javascript">
 //대기 리스트 가져오고 화면에 출력
 $(document).ready(function(){
 	function loadWaitList(){
-	$.ajax({
-		type: 'post',
-		url: "./mainWaitList.do",
-		success : waitListFunc,
-		error: errFunc
-	});
+		$.ajax({
+			type: 'post',
+			url: "./mainWaitList.do",
+			success : waitListFunc,
+			error: errFunc
+		});
 	}
 	loadWaitList();
 });
 function waitListFunc(data){
+	var str = "";
 	var obj = JSON.parse(data);
+	console.log(data);
 	for(var k in obj.waitList){
 		var num = obj.waitList[k].num;
 		var name = obj.waitList[k].name;
 		var birth = obj.waitList[k].birth;
 		var sex = obj.waitList[k].sex;
-		//console.log(name);
-		//var test = "<button id ='child' value='1234'>버튼</button>";
-		//$('#waitList').append(test);
-		var waitList = "<button class='waitButton' id='listinfo' value='" + num + "'>";
-		waitList += "<h4>"+ name +"</h4> "+ birth+" | "+ sex;
-		waitList += "</button>";
-		$('#waitList').append(waitList);
+		var w_num = obj.waitList[k].w_num;
+		var w_symptom = obj.waitList[k].w_symptom;
+		
+		str += "<div class='list-group-item list-group-item-action list-group-item-info waitButton' id='listinfo'>"
+			str += "<span class = 'name'>" + name + "</span>";
+			str += "<span class = 'p_num'> wn." + w_num + "</span><br>";
+			str += "<span class = 'semi_info r_num'> rn."+ num + "</span>";
+			str += "<span class = 'semi_info'>" + " | " + birth + " | "+ sex + "</span><br>";
+			str += "<span class = 'semi_info'>"+ w_symptom + "</span>";
+			str += "</div>"
 	}
+	$('.list-group').html(str);
 }
 
 //처방전_select리스트 불러오기
@@ -388,19 +403,19 @@ function selectListFunc(data){
 
 //대기환자 클릭하면 접수정보 띄워줌
  $(document).on('click', '#listinfo', function(){	 
-	 var info = $(this).val();
+	 var info = $(this).find(".r_num").text().slice(4);
 	 console.log(info);
 	 console.log('clicked');
 	 //var button = document.querySelectorAll('.waitButton');
 	 
-	 $(".waitingList .active").removeClass('active');
-	 $(this).addClass('active');
+ 	 $(".waitingList .select").removeClass('select');
+	 $(this).addClass('select');
 	 
 	 $.ajax({
-		 type: 'post',
-		 url: "./waitinginfo.do",
-		 data : {num: info },
-		 success : patientInfo,
+		type: 'post',
+		url: "./waitinginfo.do",
+		data : {num: info },
+		success : patientInfo,
 		error : function(msg, error) {
 				alert(error);
 			}
@@ -409,14 +424,12 @@ function selectListFunc(data){
 function patientInfo(data){
 	var obj = JSON.parse(data);
 	var str = "";
-	str += obj.name+" / ";
-	str += obj.birth+" / ";
-	str += obj.sex;
+	str = obj.birth + " | " + obj.address + " | "+  obj.sex + " | " + obj.phone;
 	console.log(str);
 	
-	$('#patientName').html(obj.name);
-	$('#patientinfo').html(str);
-	$('#jupsu').html(obj.symptom);
+	$('.patient_name').html(obj.name);
+	$('.patient_info').html(str);
+	$('#jupsu').html(obj.w_symptom);
 }
 
 function errFunc(msg, error){
@@ -425,7 +438,7 @@ function errFunc(msg, error){
 //-----------------------------------------------------------------------------
 //접수모달
  $('#patientModal').on('show.bs.modal', function(e){	 
-	var name =  $('#patientName').text();
+	var name =  $('.patient_name').text();
 	console.log("namename=============="+name);
 	 //var info = $(this).val();
 	 //console.log(info);

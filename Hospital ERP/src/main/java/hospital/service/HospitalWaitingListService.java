@@ -13,6 +13,7 @@ import hospital.action.ActionForward;
 import hospital.dao.PatientDao;
 import hospital.utils.ConnectionHelper;
 import hospital.vo.PatientVO;
+import hospital.vo.WaitVO;
 
 public class HospitalWaitingListService implements Action{
 
@@ -22,7 +23,7 @@ public class HospitalWaitingListService implements Action{
 		
 		try {
 			PatientDao dao = new PatientDao();
-			ArrayList<PatientVO> list = new ArrayList<>();
+			ArrayList<WaitVO> list = new ArrayList<>();
 			list = dao.getWaitingList();   
 			
 			//System.out.println("WaitingList : "+list); ////////////////////////////////////
@@ -43,6 +44,8 @@ public class HospitalWaitingListService implements Action{
 				waitinglist.put("name", list.get(i).getName());
 				waitinglist.put("birth", list.get(i).getBirth());
 				waitinglist.put("sex", list.get(i).getSex());
+				waitinglist.put("w_symptom", list.get(i).getW_symptom());
+				waitinglist.put("w_num", list.get(i).getW_num());
 				
 				//System.out.println(waitinglist);  ////////////////////////////////////////
 				//System.out.println("add전 listarray================="+listarray);
@@ -51,7 +54,7 @@ public class HospitalWaitingListService implements Action{
 				
 			}
 			sendObject.put("waitList", listarray);
-			
+			System.out.println(listarray);
 			//System.out.println(listarray);  ////////////////////////////////////
 			//System.out.println(sendObject);  ////////////////////////////////////////
 			
