@@ -28,10 +28,10 @@
 	            		<h2 style="text-align: center"><b>진료내역</b></h2>
 	            		<form role="form">
 		            		<div class="form-group">
-		            			<input type="text" id = "search" placeholder="이름 / 전화번호" class="form-control"  onKeypress="javascript:if(event.keyCode==13) {test()}">
+		            			<input type="text" id = "search" placeholder="이름 / 전화번호" class="form-control"  onKeypress="javascript:if(event.keyCode==13) {patientSearchInfo()}">
 		            		</div>
 		            		<div class="form-group">
-		            			<button type="button" id="patient_search"class="btn btn-primary" style="width: 100%;" onclick="patientSearch()">검색</button>
+		            			<button type="button" id="patient_search"class="btn btn-primary" style="width: 100%;" onclick="patientSearchInfo()">검색</button>
 		            		</div>
 	            		</form>
 	            		
@@ -175,23 +175,41 @@
 </body>
 
 <script type="text/javascript">
+window.addEventListener('load', function() {
+	patientSearchDate("230713");
+	});
 var temp;
 
-function patientSearch(){
-	$(function() {
-		$.ajax({	
-			url: "./patientsearch.do",
-			type: "post",
-			data : { name: $('#search').val()},
-			success: successFunc,
-			error: errFunc
-		});
+function patientSearchInfo(){
+	$.ajax({	
+		url: "./patientsearchinfo.do",
+		type: "post",
+		data : { name: $('#search').val()},
+		success: successSearch,
+		error: errFunc
 	});
 }
 
-function successFunc(data){
+function patientSearchDate(day){
+	$.ajax({	
+		url: "./patientsearchdate.do",
+		type: "post",
+		data : { date: day},
+		success: successSearch,
+		error: errFunc
+	});
+}
+
+$(document).on("click", ".test p", function (e){
+	var day = $('#calYear').text()+$('#calMonth').text()+$(this).text();
+	patientSearchDate(day);
+});
+
+
+function successSearch(data){
 	var str = "";
 	var obj = JSON.parse(data);
+
 	if(obj.list.length === 0){
 		str += "<div class='list-group-item list-group-item-action list-group-item-info result_set'>"
 		str += "검색 결과가 없습니다."
@@ -202,6 +220,9 @@ function successFunc(data){
 			str += "<div class='list-group-item list-group-item-action list-group-item-info result_set'>"
 			str += "<span class = 'name'>" + obj.list[i].name + "</span>";
 			str += "<span class = 'p_num'> pn." + obj.list[i].num + "</span><br>";
+			if(obj.list[i].r_num != null){
+			str += "<span class = 'r_num semi_info'> rn." + obj.list[i].r_num + "</span><br>";
+			}
 			str += "<span class = 'semi_info'>"+ obj.list[i].birth + " | "+ obj.list[i].sex + " | </h4></span>";
 			str += "<span class = 'phone semi_info'>" + obj.list[i].phone + "</span><br>";
 			str += "<span class = 'semi_info'>" + obj.list[i].note + "</span><br>";
@@ -216,7 +237,6 @@ function errFunc(e){
 
 $(function(){
 	$(document).on("click", ".result_set", function (e){
-		console.log($(this).find(".p_num").text().slice(4));
 		$.ajax({	
 			url: "./patientinfo.do",
 			type: "post",
@@ -231,11 +251,13 @@ function infoFunc(data){
 	var obj = JSON.parse(data);
 	console.log("진료리스트ㅡㅡㅡ"+obj);     //////////////////////////////
 	console.log(obj);
-/* 	temp = obj;
+	console.log(obj.info[0]);
+	
 	var info_str = "";
+	
 	info_str += obj.info[0].birth + " | " + obj.info[0].address + " | "+  obj.info[0].sex + " | " + obj.info[0].phone;
 	$('.patient_name').html(obj.info[0].name);
-	$('.record_number').html("rn. "+obj.info[0].p_r_num);
+	$('.record_number').html("pn."+obj.info[0].num);
 	$('.patient_info').html(info_str);
 	$('#jupsu').html(obj.info[0].note);
 	$('.record').html("진료기록 [" + obj.info[0].r_date + "]  |  담당의 : " + obj.info[0].name);
@@ -243,13 +265,13 @@ function infoFunc(data){
 	$('#r_d_code').html(obj.info[0].r_d_code);
 	$('.pay').html(obj.info[0].p_amount)
 	var str = "";
-	for(var i =0; i < obj.info.length; i++){
+/* 	for(var i =0; i < obj.info.length; i++){
 		var year = obj.info[i].r_date.slice(0,4);
 		var month = obj.info[i].r_date.slice(4,6);
 		var day = obj.info[i].r_date.slice(6,8);
 		str += "<button class='btn btn-outline-primary'>" + obj.info[i].r_date + "</button>"
-	}
-	$('.date_button').html(str); */
+	} */
+	$('.date_button').html(str);
 }
 $(function(){
 	$(document).on("click", ".date_button > button", function (e){
@@ -268,19 +290,5 @@ $(function(){
 	});
 });
 
-$(function(){
-	$(document).on("click", ".test p", function (e){
-		$.ajax({	
-			url: "./patientsearch.do",
-			type: "post",
-			data : { date: $('#calYear').text()+$('#calMonth').text()+$(this).text()
-			},
-			success: successFunc,
-			error: function(){
-				console.log('통신실패!!!')
-			}
-		});
-	});
-});
 </script>
 </html>
