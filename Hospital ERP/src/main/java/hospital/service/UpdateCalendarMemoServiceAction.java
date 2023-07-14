@@ -14,7 +14,6 @@ public class UpdateCalendarMemoServiceAction implements Action {
 		
 		String memo = request.getParameter("memo");
 		String date = request.getParameter("date");
-		//System.out.println("memo, date:  "+memo+" "+date);
 		
 		MemoDao dao = new MemoDao();
 		dao.updateMemo(memo, date);

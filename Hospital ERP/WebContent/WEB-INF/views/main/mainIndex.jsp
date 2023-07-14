@@ -317,7 +317,7 @@
 				<div class="memoForm">
 					<textarea class="form-control" name="calendar_memo" id="calendar_memo"></textarea>
 
-					<input type="button" class="button-right memoButton" >
+					<input type="button" class="button-right memoButton btn btn-primary modalBtn" >
 				</div>
 			</div>
 

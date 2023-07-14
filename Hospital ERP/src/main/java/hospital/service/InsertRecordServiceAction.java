@@ -32,7 +32,7 @@ public class InsertRecordServiceAction implements Action {
 			int dcode = dao.getCode("d_code", "disease", "d_name", d);   //질병코드
 			
 			String p_name = request.getParameter("p_name");    //
-			System.out.println("환자이름----"+p_name);
+			//System.out.println("환자이름----"+p_name);
 			int p_code = dao.getCode("num", "patient", "name", p_name);    //환자코드
 			
 			//HttpSession session = request.getSession();
@@ -40,13 +40,13 @@ public class InsertRecordServiceAction implements Action {
 			
 			int recordNum = dao.insertRecord(d_note, p_code,  dcode);    //직원코드까지 넣어야함
 			
-			System.out.println("***************recordNum****************"+recordNum);
+			//System.out.println("***************recordNum****************"+recordNum);
 			
 			
 			
 			
 			String medPres = request.getParameter("medPres");   //처방약 목록
-			System.out.println("-----=----------==---------"+medPres);
+			//System.out.println("-----=----------==---------"+medPres);
 			medPres = medPres.substring(1, medPres.length()-1);
 			String[] medlist = medPres.split(",");
 			for(int i=0; i<medlist.length; i+=2) {
@@ -79,7 +79,7 @@ public class InsertRecordServiceAction implements Action {
 				
 				
 				
-			System.out.println(p_code);
+			//System.out.println(p_code);
 			JSONObject sendObject = new JSONObject();
 			sendObject.put("pnum", p_code);
 			response.setContentType("application/text; charset=utf-8");
