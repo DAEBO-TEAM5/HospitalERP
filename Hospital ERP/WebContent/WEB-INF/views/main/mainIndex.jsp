@@ -316,9 +316,8 @@
 				<c:import url="../include/calendar.jsp" />
 				<div class="memoForm">
 					<textarea class="form-control" name="calendar_memo" id="calendar_memo"></textarea>
-					<input type="reset" class="button-right" value="작성 취소">
-					<input type="button" class="button-right" value="작성 완료" onclick="insertRec();">
-					<input type="button" class="button-right" value="수정" onclick="insertRec();">
+
+					<input type="button" class="button-right memoButton" >
 				</div>
 			</div>
 
@@ -716,12 +715,55 @@ function getMemo(data){
 	var obj = JSON.parse(data);
 	console.log(obj.memo);
 	$('#calendar_memo').val(obj.memo);
+	if(obj.memo != ""){
+		//$('.memo_submit').remove();
+		//var str = "<input type='button' class='button-right updateMemo' value='수정' onclick=''>";
+		//$('.memoForm').append(str);
+		$('.memoButton').attr("value", "수정").removeAttr("onclick").attr("onclick", "updateMemo();");
+		
+	}
+	else {
+		$('.memoButton').attr("value", "저장").removeAttr("onclick").attr("onclick", "insertMemo();");
+		//$('.updateMemo').remove();
+		//var str2 = "<input type='button' class='button-right memo_submit' value='작성 완료' onclick='insertMemo();'>";
+		//$('.memoForm').append(str);
+	}
 	//var str = "<input type='button' class='button-right' value='수정' onclick=''>";
 	//$('.memoForm').append(str);
 }
 
-
-
+//메모 저장
+function insertMemo(){
+	var memo = $('#calendar_memo').val();
+	//console.log(memo);
+	
+	$.ajax({
+		type: 'post',
+		url : "./insertCalendarMemo.do",
+		data : { date: $('#calYear').text() +"-"+ $('#calMonth').text() +"-"+ $('.choiceDay').text(), memo: memo },
+		success : function(data){
+			document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
+			alert('저장이 완료되었습니다.');
+		} ,
+		error: errFunc
+	})
+}
+//메모 수정
+function updateMemo(){
+	var memo = $('#calendar_memo').val();
+	//console.log(memo);
+	
+	$.ajax({
+		type: 'post',
+		url : "./updateCalendarMemo.do",
+		data : { date: $('#calYear').text() +"-"+ $('#calMonth').text() +"-"+ $('.choiceDay').text(), memo: memo },
+		success : function(data){
+			document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
+			alert('저장이 완료되었습니다.');
+		} ,
+		error: errFunc
+	})
+}
 
 	
 </script>

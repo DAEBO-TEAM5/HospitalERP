@@ -17,6 +17,7 @@ import hospital.service.MemberForgotPwProAction;
 import hospital.service.HospitalWaitingInfoService;
 import hospital.service.HospitalWaitingListService;
 import hospital.service.InfoServiceAction;
+import hospital.service.InsertCalanderMemoServiceAction;
 import hospital.service.InsertPatientServiceAction;
 import hospital.service.InsertRecordServiceAction;
 import hospital.service.ItemDelServiceAction;
@@ -32,6 +33,7 @@ import hospital.service.MemberIdCheckAction;
 import hospital.service.SearchServiceAction;
 import hospital.service.SelectListServiceAction;
 import hospital.service.SignUpServiceAction;
+import hospital.service.UpdateCalendarMemoServiceAction;
 import hospital.service.UpdatePatientInfoServiceAction;
 
 
@@ -220,6 +222,14 @@ public class FrontRegisterController extends HttpServlet {
     	}else if(urlcommand.equals("/loadCalendarMemo.do")) {
     		System.out.println("loadMemo-----------");
     		action = new LoadCalendarMemoServiceAction();
+    		action.execute(request, response);
+    	}else if(urlcommand.equals("/insertCalendarMemo.do")) {
+    		System.out.println("insert Memo-----------");
+    		action = new InsertCalanderMemoServiceAction();
+    		action.execute(request, response);
+    	}else if(urlcommand.equals("/updateCalendarMemo.do")) {
+    		System.out.println("insert Memo-----------");
+    		action = new UpdateCalendarMemoServiceAction();
     		action.execute(request, response);
     	}
     	
