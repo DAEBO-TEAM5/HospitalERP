@@ -35,6 +35,7 @@ CREATE TABLE record ( -- 환자 진료 기록
 	r_num	number(10)		NOT NULL,  -- 진료 기록 번호
 	r_date	date		NOT NULL, -- 진료 날짜
 	r_opinion	varchar2(300)		NULL, -- 의사소견 (진단결과)
+	r_symptom	varchar2(300)		NULL, -- 의사소견 (진단결과)
 	r_p_num	number(10)		NULL,  -- 환자 번호 //환자 테이블
 	r_d_code	number(10)		NULL, -- 질병 코드
 	r_e_code 	number(10)		NOT NULL -- 직원 코드

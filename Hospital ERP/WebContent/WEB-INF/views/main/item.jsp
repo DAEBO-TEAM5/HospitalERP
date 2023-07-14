@@ -90,7 +90,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 
                     <div class="main_page">
                     	
-                        <!--품목관리-->
+                        <!--품목관리  PAGE  시작-->
                         <div class="item_checkbox">
                             <input type="checkbox" id="StockFiveCheck" onchange="filterItems()" /> 재고가 5개 이하인
                             품목만 표시
@@ -104,72 +104,72 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                         </div>
 
                             
-                            <!-- 모달 (아이템 입고 추가) 시작  -->
-                            <div  class="modal fade"  id="staticBackdrop"  data-bs-backdrop="static"  data-bs-keyboard="false"  tabindex="-1"  aria-labelledby="staticBackdropLabel"
-                                aria-hidden="true"  >
-                                <div class="modal-dialog modal-xl modal-dialog-scrollable">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
-                                            <button
-                                                type="button"
-                                                class="btn-close"
-                                                data-bs-dismiss="modal"
-                                                aria-label="Close"
-                                            ></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <table class="table tablemodal" page="main_ins_modal">
-                                                <tbody>
-                                                    <div class="insert_div">
-                                                        <tr class="nodelete">
-                                                            <td>품목코드</td>
-                                                            <td><input type="text" placeholder="품목코드" /></td>
-                                                            <td>단위</td>
-                                                            <td><input type="text" placeholder="단위" /></td>
-                                                            <td>재고량</td>
-                                                            <td><input type="text" placeholder="재고량" /></td>
-                                                        </tr>
-                                                        <tr class="nodelete">
-                                                            <td>유통기한</td>
-                                                            <td><input type="text" placeholder="유통기한" /></td>
-                                                            <td>물품단가</td>
-                                                            <td><input type="text" placeholder="물품단가" /></td>
-                                                            <td>비고</td>
-                                                            <td><input type="text" placeholder="비고" /></td>
-                                                            <td colspan="2">
-                                                                <button
-                                                                    class="btn btn-danger"
-                                                                    onClick="item_modalDelBtnHandler(event)"
-                                                                >
-                                                                    X
-                                                                </button>
-                                                            </td>
-                                                        </tr>
-                                                    </div>
-                                                </tbody>
-                                            </table>
+                        <!-- 모달 (아이템 입고 추가) 시작  -->
+                        <div  class="modal fade"  id="staticBackdrop"  data-bs-backdrop="static"  data-bs-keyboard="false"  tabindex="-1"  aria-labelledby="staticBackdropLabel"
+                            aria-hidden="true"  >
+                            <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+                                        <button
+                                            type="button"
+                                            class="btn-close"
+                                            data-bs-dismiss="modal"
+                                            aria-label="Close"
+                                        ></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <table class="table " page="main_ins_modal">
+                                            <tbody>
+                                                <div class="insert_div">
+                                                    <tr class="nodelete">
+                                                        <td>품목코드</td>
+                                                        <td><input type="text" placeholder="품목코드" /></td>
+                                                        <td>단위</td>
+                                                        <td><input type="text" placeholder="단위" /></td>
+                                                        <td>재고량</td>
+                                                        <td><input type="text" placeholder="재고량" /></td>
+                                                    </tr>
+                                                    <tr class="nodelete">
+                                                        <td>유통기한(YYYY-MM-DD)</td>
+                                                        <td><input type="text" placeholder="유통기한" /></td>
+                                                        <td>물품단가</td>
+                                                        <td><input type="text" placeholder="물품단가" /></td>
+                                                        <td>비고</td>
+                                                        <td><input type="text" placeholder="비고" /></td>
+                                                        <td colspan="2">
+                                                            <button
+                                                                class="btn btn-danger"
+                                                                onClick="item_modalDelBtnHandler(event)"
+                                                            >
+                                                                X
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </div>
+                                            </tbody>
+                                        </table>
 
-                                            <button
-                                                type="button"
-                                                class="btn btn-secondary"
-                                                id="modal_addItem"
-                                                onClick="tableAddBtnHandler()"
-                                            >
-                                                항목추가
-                                            </button>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                Close
-                                            </button>
-                                            <button type="submit" class="btn btn-primary" id="insert_submit">
-                                                등록
-                                            </button>
-                                        </div>
+                                        <button
+                                            type="button"
+                                            class="btn btn-secondary"
+                                            id="modal_addItem"
+                                            onClick="tableAddBtnHandler()"
+                                        >
+                                            항목추가
+                                        </button>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                            Close
+                                        </button>
+                                        <button type="submit" class="btn btn-primary" id="insert_submit">
+                                            등록
+                                        </button>
                                     </div>
                                 </div>
-                            </div> <!-- 모달 (아이템 입고 추가) 끝  -->
+                            </div>
+                        </div> <!-- 모달 (아이템 입고 추가) 끝  -->
                             
                             
                             
@@ -184,9 +184,9 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 								</button>
 							</div>
 							<div class="modal-body">
-								<form role="form" id="itemModifyForm">
+								<form role="form" id="">
 									
-									<table class =table tablemodal">
+									<table class ="table ">
 										<tr>
 											<td>
 												<label for="InputNum">입고번호</label>
@@ -194,7 +194,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 											</td>
 											<td>							
 												<label for="InputName">품명</label> 
-												<input type="text" class="form-control" id="InputtName" disabled="disabled" />
+												<input type="text" class="form-control" id="InputName" disabled="disabled" />
 											</td>
 										</tr>
 										<tr>
@@ -219,7 +219,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 										</tr>
 										<tr>
 											<td>
-												<label for="InputExpire">유통기한</label>
+												<label for="InputExpire">유통기한 (YYYY-MM-DD)</label>
 												<input type="text" class="form-control" id="InputExpire">
 											</td>
 											<td>
@@ -249,7 +249,6 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 					</div>
 				</div><!-- 모달(아이템 입고 수정)끝 -->
                             
-                            
                       <div>
                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                 추우가아버어트은
@@ -266,10 +265,14 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                             <br/>
                        </div>
                        
-    			   </div> <!--품목관리 (메인)end-->
+    			   </div> <!--품목관리  PAGE  (메인)end--> <!-- ----------------------------------------------------------------------------------------------- -->
 
+
+
+
+
+                    	 <!-- 출고관리  PAGE  start--> <!-- -------------------------------------------------------------------------------------------------- -->
                     <div class="rel_page" style="display: none">
-                        <!-- 출고관리 -->
                         <div class="RelreaseCheck item_checkbox">
                             <input type="checkbox" class="use_Check" checked /> 사용 내역
                             <input type="checkbox" class="dis_Check" checked /> 폐기 내역
@@ -281,7 +284,78 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                                 </tr>
                             </table>
                         </div>
-                    </div> <!-- 출고관리 end -->
+                
+                     <!-- 모달(출고 관리 - 사용 내역 추가)시작 -->
+	                 <div class="modal fade" id="itemRelModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="itemRelModalLabel" aria-hidden="true">
+						<div class="modal-dialog  modal-lg  modal-dialog-centered  modal-dialog-scrollable"> 
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="itemRelModalLabel">사용 내역 추가</h5>
+									<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<form role="form" id="">
+										
+										<table class = "table">
+										<tr>
+											<td>
+												<label for="InputCode">품목코드</label> 
+												<input type="text" class="form-control" id="InputCode" />
+											</td>
+											<td>										
+												<label for="InputDate">사용날짜</label>
+												<input type="text" class="form-control" id="InputDate">
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label for="InputTime">사용시간</label>
+												<input type="text" class="form-control" id="InputTime">
+											</td>
+											<td>
+												<label for="InputAmount">사용량</label>
+												<input type="text" class="form-control" id="InputAmount" >
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label for="InputUser">사용자</label>
+												<input type="text" class="form-control" id="InputUser">
+											</td>
+											<td>
+												<label for="InputRemark">비고</label>
+												<input type="text" class="form-control" id="InputRemark">
+											</td>
+										</tr>
+									</table>
+									<br/><br/>
+
+	
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+									<button type="submit" id="item_RelSubmit" class="btn btn-primary">등록</button>
+								</div>
+								
+								</form>
+	
+								</div>
+								
+							</div>
+						</div>
+					</div><!-- 모달(아이템 입고 수정)끝 -->
+                        
+                        
+                        <div>
+                        	 <button type="button" id="" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#itemRelModal">
+                            	사용 내역 추가 
+                            </button>
+                        	 <button type="button" id="dis_InsertButton" class="btn btn-secondary" >
+                            	폐기 내역 추가 
+                            </button>
+                        </div>
+                    </div> <!-- 출고관리  PAGE  end -->
                     
                     
                     
@@ -293,6 +367,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 <script type="text/javascript">
+/////////////////////////////////////////////////////////////////////////////////////////////자바 스크립트
 
 $(document).ready(function () {
     $("#item_maintable").click(function () {
@@ -544,7 +619,43 @@ function itemTableElement() {
 `	;
                const tr2 = document.createElement("tr");
                tr2.innerHTML = `
-		<td>유통기한</td>
+		<td>유통기한(YYYY-MM-DD
+				$(document).on('click', '#item_ModifyButton', function() {
+				    var select_rows = $(".item_table_main tr.click_active");
+				    if (select_rows.length === 0) {
+				        removeClickActive();
+				        alert("수정할 항목을 선택한 후 눌러주세요.");
+				        return;
+				    } else if (select_rows.length === 1) {
+				        var select_row = select_rows.first();
+				        var inum = select_row.find('td[main-column="inum"]').text();
+				        var name = select_row.find('td[main-column="name"]').text();
+				        var code = select_row.find('td[main-column="code"]').text();
+				        var category = select_row.find('td[main-column="category"]').text();
+				        var unit = select_row.find('td[main-column="unit"]').text();
+				        var stock = select_row.find('td[main-column="stock"]').text();
+				        var expire = select_row.find('td[main-column="expire"]').text();
+				        var price = select_row.find('td[main-column="price"]').text();
+				        var remark = select_row.find('td[main-column="remark"]').text();
+
+				        $('#itemModifyModal').modal('show');
+				        
+				        $('#InputNum').val(inum);
+				        $('#InputName').val(name);
+				        $('#InputCode').val(code);
+				        $('#InputCategory').val(category);
+				        $('#InputUnit').val(unit);
+				        $('#InputStock').val(stock);
+				        $('#InputExpire').val(expire);
+				        $('#InputPrice').val(price);
+				        $('#InputRemark').val(remark);
+
+				    } else {
+				        removeClickActive();
+				        alert("수정은 한 항목만 가능합니다.");
+				        return;
+				    }
+				});)</td>
 		<td><input type="text" placeholder="유통기한" ></td>
 		<td>물품단가</td>
 		<td><input type="text" placeholder="물품단가"></td>
@@ -621,9 +732,7 @@ $("#select_cancel").on("click", function () {
 });
 
 
-
-
-
+// 아이템 삭제버튼
 $("#item_DeleteButton").click(function () {
     var itemDels = [];
     var active_rows = $(".item_table_main tr.click_active"); /* var? */
@@ -662,72 +771,8 @@ $("#item_DeleteButton").click(function () {
     });
 });
 
- /* 
-$(document).on('click', '#item_ModifyButton', function() {
-	var select_rows = $(".item_table_main tr.click_active");
-    if (select_rows.length === 0) {
-    	removeClickActive();
-        alert("수정할 항목을 선택한 후 눌러주세요.");
-        return;
-    } else if (select_rows.length === 1) {
-        var select_row = select_rows.first();
-        var inum = select_row.find('td[main-column="inum"]').text();
-        var name = select_row.find('td[main-column="name"]').text();
-        var code = select_row.find('td[main-column="code"]').text();
-        var category = select_row.find('td[main-column="category"]').text();
-        var unit = select_row.find('td[main-column="unit"]').text();
-        var stock = select_row.find('td[main-column="stock"]').text();
-        var expire = select_row.find('td[main-column="expire"]').text();
-        var price = select_row.find('td[main-column="price"]').text();
-        var remark = select_row.find('td[main-column="remark"]').text();
 
-        $('#InputNum').val(inum);
-        $('#InputtName').val(name);
-        $('#InputCode').val(code);
-        $('#InputCategory').val(category);
-        $('#InputUnit').val(unit);
-        $('#InputStock').val(stock);
-        $('#InputExpire').val(expire);
-        $('#InputPrice').val(price);
-        $('#InputRemark').val(remark);
-
-        $('#itemModifyModal').modal('show');
-        
-    }else{
-    	removeClickActive();
-        alert("수정은 한 항목만 가능합니다.");
-        return;
-    }
-    
-});
-
-$("#item_UpdateSubmit").click(function () {
-	var inum = document.getElementById('InputNum').value;
-	var name = document.getElementById('InputName').value;
-	var code = document.getElementById('InputCode').value;
-	var category = document.getElementById('InputCategory').value;
-	var unit = document.getElementById('InputUnit').value;
-	var stock = document.getElementById('InputStock').value;
-	var expire = document.getElementById('InputExpire').value;
-	var price = document.getElementById('InputPrice').value;
-	var remark = document.getElementById('InputRemark').value;
-	
-	
-	$.ajax({
-		type:'POST',
-		url: "./itemUpdate.do",
-		data: {"inum":inum, "name":name, "code":code, "category":category, "unit":unit, "stock":stock,
-				"expire":expire, "price":price, "remark":remark },
-		success: function(response){
-			alert('변경이 완료되었습니다');
-			$("#itemModifyModal").modal('hide');
-		},
-		error: function(msg, error) {
-			alert(error);
-		}
-	});
-}) */
-
+// 아이템 수정-> 모달 불러오기
 $(document).on('click', '#item_ModifyButton', function() {
     var select_rows = $(".item_table_main tr.click_active");
     if (select_rows.length === 0) {
@@ -749,7 +794,7 @@ $(document).on('click', '#item_ModifyButton', function() {
         $('#itemModifyModal').modal('show');
         
         $('#InputNum').val(inum);
-        $('#InputtName').val(name);
+        $('#InputName').val(name);
         $('#InputCode').val(code);
         $('#InputCategory').val(category);
         $('#InputUnit').val(unit);
@@ -765,9 +810,11 @@ $(document).on('click', '#item_ModifyButton', function() {
     }
 });
 
+
+// 아이템 수정-> 모달내 작성 후 전송 버튼
 $("#item_UpdateSubmit").click(function () {
     var inum = document.getElementById('InputNum').value;
-    var name = document.getElementById('InputtName').value;
+    var name = document.getElementById('InputName').value;
     var code = document.getElementById('InputCode').value;
     var category = document.getElementById('InputCategory').value;
     var unit = document.getElementById('InputUnit').value;
@@ -780,15 +827,8 @@ $("#item_UpdateSubmit").click(function () {
         type:'POST',
         url: "./itemUpdate.do",
         data: {
-            "inum": inum,
-            "name": name,
-            "code": code,
-            "category": category,
-            "unit": unit,
-            "stock": stock,
-            "expire": expire,
-            "price": price,
-            "remark": remark
+            "inum": inum, "name": name, "code": code, "category": category,
+            "unit": unit, "stock": stock, "expire": expire, "price": price, "remark": remark
         },
         success: function(response){
             alert('변경이 완료되었습니다');
@@ -799,6 +839,39 @@ $("#item_UpdateSubmit").click(function () {
         }
     });
 });
+
+
+// 사용 내역 추가 -> 모달 내 작성후 전송 버튼
+$("#item_RelSubmit").click(function () {
+	var code = document.getElementById('InputCode').value;
+    var date = document.getElementById('InputDate').value;
+    var time = document.getElementById('InputTime').value;
+    var amount = document.getElementById('InputAmount').value;
+    var user = document.getElementById('InputUser').value;
+    var remark = document.getElementById('InputRemark').value;
+
+console.log(code);
+console.log(date);
+console.log(time);
+console.log(amount);
+console.log(user);
+console.log(remark);
+    $.ajax({
+        type:'POST',
+        url: "./itemRelInsert.do",
+        data: {
+            "code": code, "date": date, "time": time, "amount": amount, "user": user, "remark": remark
+        },
+        success: function(response){
+            alert('rel인서트 버튼입니다 되었습니다');
+            $("#itemRelModal").modal('hide');
+        },
+        error: function(msg, error) {
+            alert('에러입니다');
+        }
+    });
+});
+
 
 
 
