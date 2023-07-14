@@ -14,10 +14,12 @@ public class MemoDao {
 		PreparedStatement pstmt = null;
 		try {
 			conn = ConnectionHelper.getConnection();
+			
 			String sql = "insert into memo values(m_num_seq.nextval, ?, ?, 1010)";  //직원번호 변경해야함
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memo);
-			pstmt.setString(2, date);   //date / string 타입 다시 확인
+			pstmt.setString(2, date);  
+			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -36,7 +38,7 @@ public class MemoDao {
 			conn = ConnectionHelper.getConnection();
 			String sql = "select m_memo from memo where m_date=? and m_e_code=1010";  //직원번호 변경해야함
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, date);                //여기도 확인
+			pstmt.setString(1, date);             
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				memo = rs.getString(1);
@@ -49,6 +51,27 @@ public class MemoDao {
 			ConnectionHelper.close(conn);
 		}
 		return memo;
+	}
+	
+	
+	public void updateMemo(String memo, String date) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = ConnectionHelper.getConnection();
+			
+			String sql = "update memo set m_memo=? where m_date=?";  
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memo);
+			pstmt.setString(2, date);  
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionHelper.close(pstmt);
+			ConnectionHelper.close(conn);
+		}
+		
 	}
 
 

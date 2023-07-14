@@ -146,7 +146,7 @@
 								<div class="modal-body">
 									<form role="form" id="patientInfoForm">
 										<div class="form-group">
-											<label for="LoadNum">고객번호</label> 
+											<label for="LoadNum">환자번호</label> 
 											<input type="text" class="form-control" id="LoadNum" disabled="disabled" />
 										</div>
 										<div class="form-group">
@@ -316,9 +316,8 @@
 				<c:import url="../include/calendar.jsp" />
 				<div class="memoForm">
 					<textarea class="form-control" name="calendar_memo" id="calendar_memo"></textarea>
-					<input type="reset" class="button-right" value="작성 취소">
-					<input type="button" class="button-right" value="작성 완료" onclick="insertRec();">
-					<input type="button" class="button-right" value="수정" onclick="insertRec();">
+
+					<input type="button" class="button-right memoButton btn btn-primary modalBtn" >
 				</div>
 			</div>
 
@@ -425,7 +424,7 @@ function patientInfo(data){
 	var obj = JSON.parse(data);
 	var str = "";
 	str = obj.birth + " | " + obj.address + " | "+  obj.sex + " | " + obj.phone;
-	console.log(str);
+	console.log(obj.w_symptom);
 	
 	$('.patient_name').html(obj.name);
 	$('.patient_info').html(str);
@@ -443,10 +442,10 @@ function errFunc(msg, error){
 	 //var info = $(this).val();
 	 //console.log(info);
 	 console.log('수정버튼--');
-	 var winfo = $('#patientinfo').text();
-	 var arr = winfo.split("/");
+	 var winfo = $('.patient_info').text();
+	 var arr = winfo.split("|");
 	 
-	 birth = arr[1].trim();
+	 birth = arr[0].trim();
 	 console.log(birth);
 	 
  	 $.ajax({
@@ -619,7 +618,8 @@ function insertRec() {
 	  var d_name = document.getElementById("addD");
 	  var d_nameT = d_name.options[d_name.selectedIndex].text;
 	  
-	  var patientName = $('#patientName').text();
+	  var patientName = $('.patient_name').text();
+	  console.log(patientName);
 	  
 	$.ajax({
 		 type: 'post',
@@ -715,12 +715,55 @@ function getMemo(data){
 	var obj = JSON.parse(data);
 	console.log(obj.memo);
 	$('#calendar_memo').val(obj.memo);
+	if(obj.memo != ""){
+		//$('.memo_submit').remove();
+		//var str = "<input type='button' class='button-right updateMemo' value='수정' onclick=''>";
+		//$('.memoForm').append(str);
+		$('.memoButton').attr("value", "수정").removeAttr("onclick").attr("onclick", "updateMemo();");
+		
+	}
+	else {
+		$('.memoButton').attr("value", "저장").removeAttr("onclick").attr("onclick", "insertMemo();");
+		//$('.updateMemo').remove();
+		//var str2 = "<input type='button' class='button-right memo_submit' value='작성 완료' onclick='insertMemo();'>";
+		//$('.memoForm').append(str);
+	}
 	//var str = "<input type='button' class='button-right' value='수정' onclick=''>";
 	//$('.memoForm').append(str);
 }
 
-
-
+//메모 저장
+function insertMemo(){
+	var memo = $('#calendar_memo').val();
+	//console.log(memo);
+	
+	$.ajax({
+		type: 'post',
+		url : "./insertCalendarMemo.do",
+		data : { date: $('#calYear').text() +"-"+ $('#calMonth').text() +"-"+ $('.choiceDay').text(), memo: memo },
+		success : function(data){
+			document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
+			alert('저장이 완료되었습니다.');
+		} ,
+		error: errFunc
+	})
+}
+//메모 수정
+function updateMemo(){
+	var memo = $('#calendar_memo').val();
+	//console.log(memo);
+	
+	$.ajax({
+		type: 'post',
+		url : "./updateCalendarMemo.do",
+		data : { date: $('#calYear').text() +"-"+ $('#calMonth').text() +"-"+ $('.choiceDay').text(), memo: memo },
+		success : function(data){
+			document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
+			alert('저장이 완료되었습니다.');
+		} ,
+		error: errFunc
+	})
+}
 
 	
 </script>

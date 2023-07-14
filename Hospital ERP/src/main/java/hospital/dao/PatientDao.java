@@ -31,7 +31,7 @@ public class PatientDao {
 			
 			rs = pstmt.executeQuery();
 			rs.next();
-			//System.out.println("rs info ::::"+ rs.getString("name"));
+			
 			list.add(Integer.toString( rs.getInt("num")));
 			list.add(rs.getString("name"));
 			list.add(rs.getString("address"));
@@ -65,7 +65,7 @@ public class PatientDao {
 			
 			while(rs.next()) {
 				WaitVO vo = new WaitVO();
-				//System.out.println("Rsrsrs: "+rs.getString(1));
+				
 				vo.setNum(rs.getInt("num"));
 				vo.setName(rs.getString("name"));
 				vo.setBirth(rs.getString("birth"));
@@ -75,7 +75,6 @@ public class PatientDao {
 				
 				list.add(vo);
 				
-				//System.out.println("VO List: "+vo.getName());
 			}
 			
 		} catch (Exception e) {
@@ -89,7 +88,6 @@ public class PatientDao {
 	
 public PatientVO getPatientInfo(String name, String birth) {
 		
-		//ArrayList<PatientVO> list = new ArrayList<>();
 		PatientVO vo = new PatientVO();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -103,8 +101,6 @@ public PatientVO getPatientInfo(String name, String birth) {
 			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				//PatientVO dao = new PatientVO();
-				//System.out.println("Rsrsrs: "+rs.getString(1));
 				vo.setNum(rs.getInt("num"));
 				vo.setName(rs.getString("name"));
 				vo.setBirth(rs.getString("birth"));
@@ -115,7 +111,6 @@ public PatientVO getPatientInfo(String name, String birth) {
 				vo.setWeight(rs.getInt("weight"));
 				vo.setNote(rs.getString("note"));
 				
-				System.out.println("vo List: "+vo.getName());
 			}
 			
 		} catch (Exception e) {
@@ -131,8 +126,6 @@ public PatientVO getPatientInfo(String name, String birth) {
 
 public int InsertPatient(PatientVO vo) {
 	
-	//ArrayList<PatientVO> list = new ArrayList<>();
-	//PatientVO vo = new PatientVO();
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	int num = 0;

@@ -37,12 +37,9 @@ public class LoadPatientInfoServiceAction implements Action {
 			sendObject.put("height", vo.getHeight());
 			sendObject.put("weight", vo.getWeight());
 			
-			//System.out.println("birth: "+list.get(2));
-			
 			response.setContentType("application/text; charset=utf-8");
 			response.getWriter().print(sendObject);
 			
-			//System.out.println("Waitinginfo : "+list); ////////////////////////////////////
 			
 		} catch (Exception e) {
 			e.printStackTrace();
