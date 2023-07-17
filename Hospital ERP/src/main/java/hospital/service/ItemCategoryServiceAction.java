@@ -3,7 +3,6 @@ package hospital.service;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,37 +11,28 @@ import org.json.simple.JSONObject;
 
 import hospital.action.Action;
 import hospital.action.ActionForward;
-import hospital.dao.ItemRelDao;
-import hospital.vo.ItemRelVO;
+import hospital.dao.ItemDao;
+import hospital.vo.ItemVO;
 
-public class ItemRelServiceAction implements Action {
+public class ItemCategoryServiceAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = null;
-		
-		 ItemRelDao dao = null;
-	     try {
-	         dao = new ItemRelDao();
-	     } catch (Exception e) {
+	      ItemDao dao = null;
+	      try { 
+	         dao = new ItemDao();
+	      } catch (Exception e) {
 	         e.printStackTrace();
-	     }
-	     ArrayList<ItemRelVO> list = new ArrayList<>();
-	      list = dao.itemRelTable();   
+	      }
+	      ArrayList<ItemVO> list = new ArrayList<>();
+	      list = dao.itemCategory();   
 	      JSONObject sendObject = new JSONObject();
 	      JSONArray sendArray = new JSONArray();
 	      JSONObject jobj = null;
 	      for(int i =0; i < list.size(); i++) {
 	         jobj = new JSONObject();
-	         jobj.put("rel_date", list.get(i).getRel_date());
-	         jobj.put("rel_time", list.get(i).getRel_time());
-	         jobj.put("i_name", list.get(i).getI_name());
-	         jobj.put("rel_i_code", list.get(i).getRel_i_code());
 	         jobj.put("i_category", list.get(i).getI_category());
-	         jobj.put("rel_amount", list.get(i).getRel_amount());
-	         jobj.put("rel_after", list.get(i).getRel_after());
-	         jobj.put("rel_user", list.get(i).getRel_user());
-	         jobj.put("rel_remark", list.get(i).getRel_remark());
 	         
 	         sendArray.add(jobj);
 	      }
@@ -52,11 +42,11 @@ public class ItemRelServiceAction implements Action {
 	         response.getWriter().print(sendObject);
 	      } catch (IOException e) {
 	         // TODO Auto-generated catch block
-	         e.printStackTrace();
+	         e.printStackTrace();//
 	         response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500 Internal Server Error
 	      }
-		
-		return null;
-	}
 
-}
+	        return forward;
+	   }
+
+	}

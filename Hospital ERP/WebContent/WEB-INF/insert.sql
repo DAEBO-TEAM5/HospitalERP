@@ -98,8 +98,11 @@ select * from payment;
 
 
 --물품종류코드   //코드 90001~
-insert into item_code values( i_code_num_seq.nextval, '이쑤시개', '소모품');
+insert into item_code values( i_code_num_seq.nextval, '이쑤시개', '소모품' );
 insert into item_code values( i_code_num_seq.nextval, '면봉', '소모품');
+insert into item_code values( i_code_num_seq.nextval, '거즈', '카테고리1');
+insert into item_code values( i_code_num_seq.nextval, '붕대', '카테고리2');
+insert into item_code values( i_code_num_seq.nextval, '목발', '카테고리3');
 select i_code"품목코드",i_name"물품이름", i_category"카테고리" from item_code;
 select * from item_code;
 
@@ -126,22 +129,27 @@ select * from tr_mapping;
 --입고 관리 // 물품 재고, 입고 번호 7001 ~
 insert into item values ( i_num_seq.nextval, '다스', 2, '2023-09-03', 30000, '비고', '메모', 90001);
 insert into item values ( i_num_seq.nextval, '되', 11, '2023-07-03', 50000, '비고', '메모', 90002);
-select i_num"물품 번호", i_unit"단위", i_stock"재고량", i_expire"유통기한", i_price"물품단가", i_remark"비고", i_memo"메모", i_i_code"품목코드" from item;
+insert into item values ( i_num_seq.nextval, '개', 100, '2025-04-30', 700, '비고', '메모', 90003);
+insert into item values ( i_num_seq.nextval, '묶음', 50, '2025-06-20', 9999, '비고', '메모', 90004);
+insert into item values ( i_num_seq.nextval, '개', 3, '2099-12-31', 200000, '비고', '메모', 90005);
+
+select i_num"물품 번호", i_unit"단위", i_stock"입고량", i_expire"유통기한", i_price"물품단가", i_remark"비고", i_memo"메모", i_i_code"품목코드" from item;
 select * from item;
+select * from item_code;
+
 
 
 --출고(사용) 관리 // 출고 기록 번호 8001~
-insert into release values( rel_num_seq.nextval, '2023-07-05','15:24', '사용자', 20, '나는 비고입니다', 90001);
-insert into release values( rel_num_seq.nextval, '2023-07-03','15:24', '사용자', 20, '나는 비고입니다', 90002);
-select rel_num"출고기록 번호", rel_date"사용날짜", rel_time"사용시간", rel_user"사용자", rel_amount"사용량", rel_remark"비고", rel_i_code"품목코드" from release;
+insert into release values( rel_num_seq.nextval, '2023-07-05','15:24', '사용자', 20, 5, '나는 비고입니다', 90001);
+insert into release values( rel_num_seq.nextval, '2023-07-03','15:24', '사용자', 20, 5, '나는 비고입니다', 90002);
+select rel_num"출고기록 번호", rel_date"사용날짜", rel_time"사용시간", rel_user"사용자", rel_amount"사용량", rel_after"잔여량", rel_remark"비고", rel_i_code"품목코드" from release;
 select * from release;
 
 
 --폐기 관리 // 폐기 기록 번호 9001~
-insert into discard values( dis_num_seq.nextval, '2023-07-05','16:49', '폐기담당자', 30, '나는 폐기 비고입니다', 90001);
-insert into discard values( dis_num_seq.nextval, '2023-07-03','13:49', '폐기담당자', 30, '나는 폐기 비고입니다', 90002);
-select dis_num"폐기기록 번호", dis_date"폐기날짜", dis_time"폐기시간", dis_user"폐기담당자", dis_amount"폐기량", dis_remark"비고", dis_i_code"품목코드" from discard;
+insert into discard values( dis_num_seq.nextval, '2023-07-05','16:49', '폐기담당자', 30, 10, '나는 폐기 비고입니다', 90001);
+insert into discard values( dis_num_seq.nextval, '2023-07-03','13:49', '폐기담당자', 30, 10, '나는 폐기 비고입니다', 90002);
+select dis_num"폐기기록 번호", dis_date"폐기날짜", dis_time"폐기시간", dis_user"폐기담당자", dis_amount"폐기량", dis_after"잔여량", dis_remark"비고", dis_i_code"품목코드" from discard;
 select * from discard;
-
 
 commit;

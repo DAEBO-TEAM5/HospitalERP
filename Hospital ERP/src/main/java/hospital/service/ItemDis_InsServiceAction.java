@@ -8,7 +8,7 @@ import hospital.action.ActionForward;
 import hospital.dao.ItemRelDao;
 import hospital.vo.ItemRelVO;
 
-public class ItemRel_InsServiceAction implements Action {
+public class ItemDis_InsServiceAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
@@ -16,14 +16,14 @@ public class ItemRel_InsServiceAction implements Action {
 			ItemRelDao dao = new ItemRelDao();
 			ItemRelVO vo = new ItemRelVO();
 			
-			vo.setRel_i_code(Integer.parseInt(request.getParameter("rel_codenum")));
-			vo.setRel_date(request.getParameter("rel_date"));
-			vo.setRel_time(request.getParameter("rel_time"));
-			vo.setRel_amount(Integer.parseInt(request.getParameter("rel_amount")));
-			vo.setRel_user(request.getParameter("rel_user"));
-			vo.setRel_remark(request.getParameter("rel_remark"));
+			vo.setDis_i_code(Integer.parseInt(request.getParameter("dis_codenum")));
+			vo.setDis_date(request.getParameter("dis_date"));
+			vo.setDis_time(request.getParameter("dis_time"));
+			vo.setDis_amount(Integer.parseInt(request.getParameter("dis_amount")));
+			vo.setDis_user(request.getParameter("dis_user"));
+			vo.setDis_remark(request.getParameter("dis_remark"));
 	
-			int result = dao.itemRel_Insert(vo);   
+			int result = dao.itemDis_Insert(vo);   
 			
 			if (result < 2) {
 				response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);// 500 Internal Server Error
