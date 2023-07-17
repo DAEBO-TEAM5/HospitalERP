@@ -13,11 +13,14 @@ public class MemberForgotPwProService {
 	
 		/* DB 작업 */
 		Connection conn = ConnectionHelper.getConnection();
-		
-		Member2Dao dao = Member2Dao.getInstance();
-		dao.setConnection(conn);
+		Member2Dao dao = new Member2Dao();
 		LoginVO vo = dao.selectMember(h_id, h_email);
-
+		
+		ConnectionHelper.close(conn);
 		return vo;
 	}
 }
+
+    
+  
+  

@@ -19,7 +19,6 @@ public class EmailCheckAction implements Action {
 		ActionForward forward = new ActionForward();
         
         String h_email = request.getParameter("h_email");
-        System.out.println("이메일들어와요?");
         
         EmailDao dao = new EmailDao();
         boolean result = dao.EmailCheck(h_email);

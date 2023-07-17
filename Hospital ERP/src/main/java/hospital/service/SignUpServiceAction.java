@@ -25,7 +25,6 @@ public class SignUpServiceAction implements Action {
 		int h_e_code = Integer.parseInt(request.getParameter("h_e_code"));
 		
 		SignUpDao dao = new SignUpDao();
-		System.out.println(h_phone);
 		
 		LoginVO vo = new LoginVO();
 		vo.setH_id(h_id);
@@ -37,8 +36,6 @@ public class SignUpServiceAction implements Action {
 		vo.setH_post(h_post);
 		vo.setH_e_code(h_e_code);
 		int result = 0;
-		System.out.println(h_id);
-		System.out.println(vo.getH_id());
 		
 		try {
 			result = dao.signUp(vo);

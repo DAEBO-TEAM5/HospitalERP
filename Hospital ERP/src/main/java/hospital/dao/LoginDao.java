@@ -25,7 +25,6 @@ public class LoginDao {
 			rs.next();
 
 			ret = rs.getInt(1);
-			System.out.println(ret);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
