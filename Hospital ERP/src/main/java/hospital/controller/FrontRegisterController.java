@@ -19,8 +19,12 @@ import hospital.service.InfoServiceAction;
 import hospital.service.InsertCalanderMemoServiceAction;
 import hospital.service.InsertPatientServiceAction;
 import hospital.service.InsertRecordServiceAction;
+import hospital.service.ItemCategoryServiceAction;
 import hospital.service.ItemDelServiceAction;
+import hospital.service.ItemDis_InsServiceAction;
 import hospital.service.ItemInsertServiceAction;
+import hospital.service.ItemMemoCallServiceAction;
+import hospital.service.ItemMemoUpdateServiceAction;
 import hospital.service.ItemRelServiceAction;
 import hospital.service.ItemRel_InsServiceAction;
 import hospital.service.ItemServiceAction;
@@ -173,7 +177,23 @@ public class FrontRegisterController extends HttpServlet {
     	}else if(urlcommand.equals("/itemRelInsert.do")){
     		action = new ItemRel_InsServiceAction();
     		action.execute(request, response);	
+    
+    	}else if(urlcommand.equals("/itemDisInsert.do")){
+    		action = new ItemDis_InsServiceAction();
+    		action.execute(request, response);	
     		
+    	}else if(urlcommand.equals("/itemCategorySearch.do")){
+    		action = new ItemCategoryServiceAction();
+    		action.execute(request, response);	
+    		
+    	}else if(urlcommand.equals("/itemMemoCall.do")){
+    		action = new ItemMemoCallServiceAction();
+    		action.execute(request, response);		
+    	
+    	}else if(urlcommand.equals("/itemMemoUpdate.do")){
+    		action = new ItemMemoUpdateServiceAction();
+    		action.execute(request, response);		
+    	
     	}else if(urlcommand.equals("/main2.do")) {
     		//UI 제공 (서비스 객체가 필요없다)
     		forward = new ActionForward();

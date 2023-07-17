@@ -88,9 +88,11 @@ public class ItemDelServiceAction implements Action {
 	                
 	            } catch (Exception e) {
 	                e.printStackTrace();
+	                response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500 Internal Server Error
 	            }
 	        } catch (ParseException e) {
 	            e.printStackTrace();
+	            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500 Internal Server Error
 	        }
 
 	       return null;

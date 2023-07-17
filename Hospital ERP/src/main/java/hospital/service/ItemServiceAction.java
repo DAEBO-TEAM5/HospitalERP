@@ -3,7 +3,6 @@ package hospital.service;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -52,6 +51,7 @@ public class ItemServiceAction implements Action {
       } catch (IOException e) {
          // TODO Auto-generated catch block
          e.printStackTrace();
+         response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500 Internal Server Error
       }
       
    return null;
