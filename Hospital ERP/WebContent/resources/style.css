@@ -87,12 +87,12 @@
 
 .btn-outline-primary{
 	margin-top: 8px;
-	background-color: rgba(230, 230, 230, 1);
+	background-color: white;
 	width: 100%;
 	height: auto;
 	text-align: left;
 	overflow: hidden;
-	padding: 3px 6px 3px 6px;
+	padding: 3px 3px 3px 6px;
 }
 .record, .recipt{
 	background-color: rgba(243, 243, 255, 1);
@@ -218,4 +218,38 @@ h3{
     color: #fff;
     background-color: rgb(88, 101, 242);
     transition: background-color .17s ease,color .17s ease;
+}
+
+.patient_target{
+	background-color: rgb(186, 220, 227);
+}
+.button_target{
+	color: white;
+    background-color: rgb(88, 101, 242);
+}
+.target_arrow{
+	display: none;
+}
+.pay_select{
+	width: 20%;
+	height: 50px; 
+	border: 1px solid black; 
+	padding: 0px 6px 6px 6px; 
+	box-shadow : 1px 1px 1px 0px rgb(220,220,220); 
+	border-color: lightgray; 
+	border-radius: 4px;
+	margin-right: 16px;
+	
+}
+.pay_select:hover {
+    background-color: rgb(88, 101, 242);
+    color: white;
+}
+.pay_select{
+	color: lightgray;
+}
+.pay_select_target{
+	background-color: rgb(88, 101, 242);
+	color: white;
+	
 }
