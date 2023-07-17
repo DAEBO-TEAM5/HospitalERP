@@ -29,7 +29,7 @@ public class InfoServiceAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 
-		int p_num = Integer.parseInt(request.getParameter("p_num")); // 환자 번호로 바꿔야함
+		int p_num = Integer.parseInt(request.getParameter("p_num"));
 		HospitalDao dao = new HospitalDao();
 
 		// PatientDao dao = new PatientDao();
@@ -54,7 +54,7 @@ public class InfoServiceAction implements Action {
 		ArrayList<RecordVO> recordVo = dao.GetRecordNum(p_num); // 레코드 번호 모음
 		HashMap<String, Integer> medlist = new HashMap<>();
 		HashMap<String, Integer> thlist = new HashMap<>();
-
+		
 		for (RecordVO v : recordVo) { // 진료번호대로(날짜순)
 			jobj = new JSONObject();
 			Date d = v.getR_date();
@@ -64,11 +64,14 @@ public class InfoServiceAction implements Action {
 
 			String d_name = dao.DiesaseName(v.getR_d_code()); // 질병명
 			jobj.put("disease", d_name); // 질병명
+			
+			jobj.put("opinion", v.getR_opinion()); // 증상
 
 			System.out.println("진료번호-----------" + v.getR_num());
 			medlist = dao.MedName(v.getR_num()); // 약품명, 사용량
 			thlist = dao.ThName(v.getR_num()); // 물리치료명, 가격
-
+			String e_name = dao.EmployeeName(v.getR_e_code()); // 직원명, (의사)
+			jobj.put("e_name", e_name);
 			objArr = new JSONArray();
 
 			for (String key : medlist.keySet()) {
