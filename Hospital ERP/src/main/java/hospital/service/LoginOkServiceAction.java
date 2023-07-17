@@ -1,8 +1,5 @@
 package hospital.service;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,7 +18,6 @@ public class LoginOkServiceAction implements Action {
 
 	      String h_id = request.getParameter("username");
 	      String h_pwd = request.getParameter("password");
-	      System.out.println("됨?"+ h_id+h_pwd);
 
 	      LoginDao dao = new LoginDao();
 	      boolean isLogin = dao.loginCheck(h_id, h_pwd) > 0;
@@ -29,7 +25,6 @@ public class LoginOkServiceAction implements Action {
 	      if (isLogin) {
 	         HttpSession session = request.getSession();
 	         session.setAttribute("h_id", h_id);
-	         System.out.println(h_id);
 	         ret.setPath("main2.do");
 	      }
 	      else {

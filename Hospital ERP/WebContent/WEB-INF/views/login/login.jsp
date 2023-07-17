@@ -16,11 +16,11 @@
 <link rel="icon" href="${pageContext.request.contextPath }/image/hp.png"/> <!-- //파비콘임 -->
 <meta charset="UTF-8">
 
-<title>ㅇㅇ Hospital</title>
+<title>5Ing Hospital</title>
 </head>
 <body>
  <div id="login">
-        <h3 class="text-center text-white pt-5">5조 프로젝트</h3>
+        <h1 class="text-center text-white pt-5" >5Ing Hospital</h1>
         <div class="container">
             <div id="login-row" class="row justify-content-center align-items-center">
                 <div id="login-column" class="col-md-6">
@@ -42,7 +42,6 @@
                                 <a href="#" onclick="openPopup();return false;" class="text-info">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <a  href="#" onclick="openPopup2();"class="text-info">ID찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <a  href="#" onclick="openPopup3();"class="text-info">PW찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <a  href="#" onclick="openPopup4();"class="text-info">aaa찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
                             </div>
                         </form>
                     </div>
@@ -64,11 +63,10 @@
 				<input type="password" name="h_pwd" id="h_pwd" placeholder="비밀번호" >
 				<input type="password" name="h_cwp" id="h_cwp" placeholder="비밀번호 확인" >
 			</div>
-			<input type="text" name="h_name" id="h_name" placeholder="병원이름"> 
+			<input type="text" name="h_name" id="h_name" placeholder="병원명"> 
 			<div class = "search">
 			<input type="text" readonly name="h_post" id="h_post" placeholder="우편번호">
 			<input class="formBtn" type="button" value="검색"  onclick="postOpener(event)">
-			<!-- <button class="formBtn" onclick="postOpener(event)">검색</button> -->
 			</div>
 			<input type="text" readonly name="h_address" id="h_address" placeholder="주소">
 			<input type="text" name="h_e_code" id="h_e_code" placeholder="직원코드">
@@ -109,7 +107,7 @@
 			<input type="email" name="h_email" id="h_email2" placeholder="이메일">
 			<div>
 			<input class="formBtn2" type="submit" value="ID찾기" name="findID" id="h_findID" >
-			  <input type="reset" onclick="resetBtnHandler2()" value="다시 입력">
+			  <input type="reset" onclick="resetBtnHandler()" value="다시 입력">
 			  </div>
 			  </form>
 		</div>
@@ -123,8 +121,23 @@
 			<input type="text" name="h_id" id="h_id3" placeholder="ID" class="findpwdid"> 
 			<input type="email" name="h_email" id="h_email3" placeholder="이메일" class="findpwdemail">
 			<div>
+			<input class="formBtn2" onclick ="mailsend()" type="submit" value="인증코드 메일전송" name="findpw" id="h_findpw" >
+			  <input type="reset" onclick="resetBtnHandler()" value="다시 입력">
+			  </div>
+			  </form>
+		  </div>
+	  </div> 
+	  
+	  <div id="popup3" class="popup-overlay3">
+		<div class="popup-content3">
+			<span class="close-btn" onclick="closePopup3()">&times;</span>
+			<h4>비밀번호 찾기</h4>
+			<form class="changepwdform" method = "post">
+			<input type="text" name="h_id" id="h_id3" placeholder="ID" class="findpwdid"> 
+			<input type="email" name="h_email" id="h_email3" placeholder="이메일" class="findpwdemail">
+			<div>
 			<input class="formBtn2" type="submit" value="비밀번호찾기" name="findpw" id="h_findpw" >
-			  <input type="reset" onclick="resetBtnHandler2()" value="다시 입력">
+			  <input type="reset" onclick="resetBtnHandler()" value="다시 입력">
 			  </div>
 			  </form>
 		  </div>
@@ -134,24 +147,16 @@
 		<div class="popup-content3">
 			<span class="close-btn" onclick="closePopup4()">&times;</span>
 			<h4>비밀번호 변경하기</h4>
-			 <form action="${pageContext.request.contextPath}/memberChangePw.do"  method = "post" >
-			 
-		  <div class="col-md-12 form-group">
-			 <input type="text" class="form-control" id="authenCode" name="authenCode" placeholder="인증번호를 입력하세요"
-                        onfocus="this.placeholder = ''" onblur="this.placeholder = '인증번호를 입력하세요'">
-           </div>
-            <div class="col-md-12 form-group">
-                <input type="password" class="form-control" id="newPw" name="newPw" placeholder="새 비밀번호를 입력하세요"
-                         onfocus="this.placeholder = ''" onblur="this.placeholder = '새 비밀번호를 입력하세요'">
-            </div>
-            <div class="col-md-12 form-group">
-                <input type="password" class="form-control" id="checkPw" name="checkPw" placeholder="새 비밀번호를 한번 더 입력하세요"
-                         onfocus="this.placeholder = ''" onblur="this.placeholder = '새 비밀번호를 한번 더 입력하세요'">
-            </div>  
-			
+			<form action="${pageContext.request.contextPath}/memberChangePw.do" method="post" onsubmit="return checkForm()">
+		 
+			    <input type="text"id="authenCode" name="authenCode" placeholder="인증번호를 입력하세요">
+			    <div>
+                <input type="password"  id="newPw" name="newPw" placeholder="새로운 비밀번호">
+                <input type="password"  id="checkPw" name="checkPw" placeholder="비밀번호 확인">
+                </div>
 			<div>
-			<input class="formBtn3" type="submit" value="변경하기" name="findpw2" id="h_findpw2" >
-			  <input type="reset" onclick="resetBtnHandler2()" value="다시 입력">
+			<input  type="submit" value="변경하기" >
+			  <input type="reset" onclick="resetBtnHandler()" value="다시 입력">
 			  </div>
 			  </form>
 		  </div>
@@ -160,7 +165,11 @@
 ${script}
 <script> 
 
-function checkForm() {
+function mailsend() {
+	alert("인증코드 메일로 전송했습니다.");
+}
+
+ function checkForm() {
 
     var authenCode = $('#authenCode').val();
     var newPw = $('#newPw').val();
@@ -176,9 +185,31 @@ function checkForm() {
         alert('비밀번호가 일치하지 않습니다.!');
         return false;
     }
+    if(newPw == checkPw && authenCode ){
+    	
+    }
+    
+	    $.ajax({
+        type: 'POST',
+        url: '${pageContext.request.contextPath}/memberChangePw.do',
+        data: $('form').serialize(),
+        success: function(response) {
+            alert('비밀번호가 변경되었습니다.');
+            closePopup4(); 
+        },
+        error: function() {
+      
+            alert('비밀번호 변경에 실패했습니다. 다시 시도해주세요.');
+        }
+    });
 
-    $('form[name="changePwForm"]').submit();
+    return false;
 }
+ 
+function closePopup4() {
+    $('#popup4').hide(); 
+}  
+
   let processID = -1;
 
   // 휴대전화 번호 입력 부분
@@ -560,16 +591,14 @@ findpassword();
     		$.ajax({
     			type:'POST',
     			url: "./memberForgotPwPro.do",
-    			data: {"h_id":h_id ,"h_email":h_email},
+    			data: {"h_id":h_id,"h_email":h_email},
     			success: function(response){
     				openPopup4();
     				closePopup3();
     				
     			},
-    			error: function(msg, error) {
-    				alert(error);
-    			}
-    		});
+
+    		}).fail(() => {alert("Id Email 확인해주세요.")});
     }
 </script>
 </html>

@@ -50,18 +50,16 @@ public final class NaverMailSend {
 		    message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
 		    // 메일제목 설정
-		    message.setSubject("임시 비밀번호 메일입니다.");
+		    message.setSubject("비밀번호 변경 인증코드 메일입니다.");
 
 		    // 메일 내용 설정
-		    message.setText("비밀번호 변경 인증번호는 [ "+authenCode+ " ] 입니다.");
+		    message.setText("비밀번호 변경 인증코드는 [ "+authenCode+ " ] 입니다.");
 		    // Send the message
 		    Transport.send(message);
-		    System.out.println(" NaverMailSend : Email sent successfully.");
 		} catch (MessagingException e) {
 		    e.printStackTrace();
 		}
 		
-		System.out.println(" NaverMailSend : sendEmail() 종료");
 		return authenCode;
 	}
 	
