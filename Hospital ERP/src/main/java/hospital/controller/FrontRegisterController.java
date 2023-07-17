@@ -29,7 +29,6 @@ import hospital.service.LoadCalendarMemoServiceAction;
 import hospital.service.LoadPatientInfoServiceAction;
 import hospital.service.LoginOkServiceAction;
 import hospital.service.MemberChangePwAction;
-import hospital.service.MemberChangePwProAction;
 import hospital.service.MemberForgotPwProAction;
 import hospital.service.MemberIdCheckAction;
 import hospital.service.SearchServiceDateAction;
@@ -83,37 +82,31 @@ public class FrontRegisterController extends HttpServlet {
         		forward.setPath("./login.do");
     		
     	}else if(urlcommand.equals("/loginok.do")) { 
-    		System.out.println("여기는?");
     		action = new LoginOkServiceAction();
     		forward = action.execute(request, response);
     		
     	}else if(urlcommand.equals("/signup.do")) {
-    		System.out.println("오나요 사인?");
     		action = new SignUpServiceAction();
     		forward = action.execute(request, response);
     		
     	}else if(urlcommand.equals("/checkid.do")){
-    		System.out.println("아이디체크입니다");
         		action = new MemberIdCheckAction();
         		action.execute(request, response);
         		
     	}else if(urlcommand.equals("/emailcheck.do")){
-    		System.out.println("이메일체크입니다");
         		action = new EmailCheckAction();
         		action.execute(request, response);
         		
     	}else if(urlcommand.equals("/findid.do")){
-    		System.out.println("아이디찾기입니다.");
         		action = new FindIDAction();
         		action.execute(request, response);
         		
     	}else if(urlcommand.equals("/memberForgotPwPro.do")){
-    		System.out.println("비밀번호찾기입니다.");
     		action = new MemberForgotPwProAction();
     		forward = action.execute(request, response);
+    		return;
     		
     	}else if(urlcommand.equals("/memberChangePw.do")){
-    		System.out.println("비밀번호변경입니다.");
     		action = new MemberChangePwAction();
     		forward = action.execute(request, response);
     		

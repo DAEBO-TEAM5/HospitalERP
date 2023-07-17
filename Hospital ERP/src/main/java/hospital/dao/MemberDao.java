@@ -13,7 +13,6 @@ public class MemberDao {
         boolean isDuplicate = false;
 
         try {
-            // 쿼리
             String query = "SELECT H_ID FROM HOSPITAL_ID WHERE H_ID=?";
             
             conn = ConnectionHelper.getConnection();

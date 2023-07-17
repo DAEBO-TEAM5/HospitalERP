@@ -17,8 +17,6 @@ public class SignUpDao{
 		int resultrow = 0;
 		try {
 			conn = ConnectionHelper.getConnection();
-			System.out.println("connection success");
-			
 			
 			String sql = "INSERT INTO hospital_id(h_id, h_name, h_address, h_phone, h_pwd, h_email, h_post, h_e_code ) VALUES(?,?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);

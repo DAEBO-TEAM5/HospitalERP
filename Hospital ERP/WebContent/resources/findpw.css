@@ -56,6 +56,15 @@
 		border-radius: 5px;
 		border: 1px solid #ccc;
 	}
+	/* .popup-content input[type="password"]
+	{
+		width: 88%;
+		margin-bottom: 10px;
+		padding: 8px;
+		border-radius: 5px;
+		border: 1px solid #ccc;
+	} */
+	
 	.popup-content3 input[type="submit"] {
 		width: 66%;
 		padding: 8px 12px;
@@ -66,6 +75,7 @@
 		cursor: pointer;
 		
 	}
+	
 	.popup-content3 input[type="reset"] {
 		width: 32%;
 		padding: 8px 12px;

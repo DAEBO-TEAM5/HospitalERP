@@ -18,19 +18,8 @@ public class Member2Dao {
 	ResultSet rs;
 	DataSource ds;
 	
-	private Member2Dao() {
+	public Member2Dao() {
 		
-	}
-	
-	public static Member2Dao getInstance() {
-		if(instance == null) {
-			instance = new Member2Dao();
-		}
-		return instance;
-	}
-	
-	public void setConnection(Connection conn) {
-		this.conn = conn;
 	}
 	
 	/** 아이디, 이메일로 회원을 가져오는 메서드 */
@@ -40,6 +29,7 @@ public class Member2Dao {
 		LoginVO vo = null;
 		
 		try {
+			conn = ConnectionHelper.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, h_id);
 			pstmt.setString(2, h_email);
@@ -50,8 +40,9 @@ public class Member2Dao {
 				vo.setH_id(h_id);
 				vo.setH_email(h_email);
 			}
+		
 		} catch (Exception e) {
-			System.out.println(" LoginVO : selectMember(h_id, h_email) ERROR : "+e);
+			e.printStackTrace();
 		} finally {
 				ConnectionHelper.close(rs);
 	            ConnectionHelper.close(pstmt);
@@ -63,16 +54,17 @@ public class Member2Dao {
 
 	    int updateCount = 0;
 	    String sql = "update hospital_id "
-	               + "set h_pw=? "
+	               + "set h_pwd=? "
 	               + "where h_id=?";
 
 	    try {
+			conn = ConnectionHelper.getConnection();
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, newPw);
 	        pstmt.setString(2, h_id);
 	        updateCount = pstmt.executeUpdate();
 	    } catch (Exception e) {
-	        System.out.println(" updatePw(h_id, oldPw, newPw) ERROR : "+e);
+	        e.printStackTrace();
 	    } finally {
 	        ConnectionHelper.close(pstmt);
 	    }
