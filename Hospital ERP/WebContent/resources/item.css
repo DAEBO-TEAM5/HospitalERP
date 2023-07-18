@@ -4,7 +4,9 @@
    height: 100vh;
    padding: 0px;
 }
-
+.leftinfo{
+	padding-left: 24px;
+}
 .flex-grow-1{
 	font-size: 25px;
 	color: white;
@@ -14,88 +16,145 @@
 }
 .col-md-2{
 	padding-left: 24px;
-}
-.item_manage_memobox{
-   border: 1px solid gray;
-   background-color: white;
-   border-radius: 5px;
-   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
-   margin: 0px; 
-   margin-top: 40px;
-   padding: 0px;
-   height: 500px;
-   width: 100%;
-}
+} 
 .item_manage_memobox_table{
-   border: 2px solid purple;
-   background-color: white;
+   background-color: #cff4fc;
+   color: #055160;
    text-align:center;
    width:100%;
-   height:100%; 	
+   height:650px;
+	border-collapse: collapse;
+	border-radius: 8px;
+	border-style: hidden;
 }
-.item_manage_memobox_table > * {
-   border: 2px solid purple;
+.item_manage_memobox_table tr,
+.item_manage_memobox_table th,
+.item_manage_memobox_table td {
+   border: 1px solid  rgba(46, 91, 219);
+   text-align:center;
+   width: 123px;
 }
-.item_btn_click{
-	width: 250px;
-	margin: 30px 5px 15px 30px;
+.item_manage_memobox_button{
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px; 
+	border: none;
 }
-.item_btn_nonclick{
-	width: 250px;
-	margin: 30px 10px 15px 5px;
+ .item_manage_memobox_memotext{
+	width: 90%;
+	height: 85%;
 }
+.item_page_btn *{
+	width: 300px;
+	height: 50px;
+	margin: 50px 5px 15px 79px;
+} 
 .input-itemsort{
-	margin: 10px;
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;
+	margin-top: 25px;
 }
-.input-itemsort > * {
-	width: 20%;
-	margin: 15px
+.input-itemsort * {
+	width: 230px;
+	margin-right: 30px;
+	text-align:center;
+	
+}
+#CategorySearch{
+	width: 100%;
+	padding-top: 10px;	
 }
 .input-itemsearch{
-position:relative;
-text-align:center;
-line-height: 45px;
+	position:relative;
+	text-align:center;
+	margin-right:60px;
+}
+.input-itemsearch input {
+  width: 100%;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  font-size: 14px;
+  height: 41px;
+}
+.input-itemsearch img {
+  position : absolute;
+  width: 14px;
+  height: 20px;
+  top: 10px;
+  left: 9px;
+  margin: 0;
 }
 .item_checkbox{
 	text-align: right;
-	margin: 10px 40px 10px 10px;
+	margin: 35px 60px 0px 10px;
 }
-
-
-.item_table_main{
-	border:2px solid yellow;
-	width: 1050px;
-	margin: 15px 20px 15px 20px;
+ 
+.item_table{
+	border: 4px solid white;
+	width: 90%;
+	margin: 35px 30px 50px 80px;
 	text-align: center;
+	background-color: #DBDDDE;
+}
+.item_table >tr>th{
+	/* border: 1px solid rgba(46, 91, 219); */
+	border: 2px solid white;
+	height: 65px;
+	background-color: #A9ADAF;
+}
+.item_table >tr>td{
+	text-align: center; 
+	/* border: 1px solid rgba(46, 91, 219)	; */
+	border: 2px solid white;
+	height: 43px;
+} 
+.item_table tr:not(:first-child):hover{
+	background-color: #A6C5D5;
+}
+.item_table tr:not(:first-child):active{
+	background-color: #cff4fc;
+}
+.item_table tr.click_active {
+	background-color: #cff4fc;
 }
 
-.item_table_main >tr{
-	border:2px solid pink;
-	text-align: center; 
-	background-color: skyblue; 
+
+.item_page_tableesize > tr > th:nth-child(1) {
+	width: 60px;	
+}
+.item_page_tableesize > tr > th:nth-child(6), th:nth-child(7) {
+	width: 95px;		
+} 
+.item_page_tableesize > tr > th:nth-child(2), th:nth-child(4), th:nth-child(9) {
+	width: 125px;		
+}
+.item_page_tableesize > tr > th:nth-child(3), th:nth-child(5), th:nth-child(8), th:nth-child(10) {
+	width: 148px;		
+}  
+
+
+.rel_page_tableesize > tr > th:nth-child(1), th:nth-child(8)  {
+	width: 130px;	
+}
+.rel_page_tableesize > tr > th:nth-child(2), th:nth-child(4) {
+	width: 125px;	
+}
+.rel_page_tableesize > tr > th:nth-child(3), th:nth-child(5) {
+	width: 130px;	
+}
+.rel_page_tableesize > tr > th:nth-child(6), th:nth-child(7) {
+	width: 85px;	
+}
+.rel_page_tableesize > tr > th:nth-child(9) {
+	width: 277px;	
+}
+
+.item_page_footer{
+	
+} 
+ 
+.item_relpage_footer{
 	
 }
-.item_table_main >tr:not(:first-child){
-	text-align: right; 
-	
-}
-.item_table_main >tr>td{
-	text-align: center; 
-	border: 1px solid black;
-} 
-.item_table_main >tr>td:nth-child(1){
-} 
-.item_table_main tr:not(:first-child):hover{
-	background-color: silver;
-}
-.item_table_main tr:not(:first-child):active{
-	background-color: blue;
-}
-
-.item_table_main tr.click_active {
-  background-color: blue; 
-}
-
