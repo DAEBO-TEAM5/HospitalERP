@@ -90,7 +90,7 @@ public class RecordDao {
 			pstmt.setString(1, s);
 			rs = pstmt.executeQuery();
 			rs.next();
-			codenum = rs.getInt(code); 
+			codenum = rs.getInt(1); 
 			System.out.println(codenum);
 			
 		} catch (Exception e) {
@@ -107,19 +107,20 @@ public class RecordDao {
 	
 	
 	
-	public int insertRecord(String note, int p_code, int dcode ) {
+	public int insertRecord(String note, String symptom, int p_code, int dcode ) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int recordnum=0;
 		
 		try {
-			conn = ConnectionHelper.getConnection();                      //의사소견 , 환자번호, 질병코드, 직원코드
-			String sql =  "insert into record values(r_num_seq.nextval, sysdate, ?,  ?, ?, 1010)";
+			conn = ConnectionHelper.getConnection();                      //의사소견, 증상, 환자번호, 질병코드, 직원코드
+			String sql =  "insert into record values(r_num_seq.nextval, sysdate, ?, ?, ?, ?, 1010)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, note);
-			pstmt.setInt(2, p_code);
-			pstmt.setInt(3, dcode);
+			pstmt.setString(2, symptom);
+			pstmt.setInt(3, p_code);
+			pstmt.setInt(4, dcode);
 			int num = pstmt.executeUpdate();
 			//if(num>0) System.out.println(num+"개 행 업데이트 완료");
 			ConnectionHelper.close(pstmt);  //////////////////////////////////////

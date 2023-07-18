@@ -28,14 +28,14 @@ CREATE TABLE patient (  --환자 기본정보
 	sex	varchar2(10)		NULL, -- 성별
 	height	number(10)		NULL, -- 키
 	weight	number(10)		NULL, -- 몸무게
-	note	varchar2(300)		NULL -- 특이사항
+	note	varchar2(1000)		NULL -- 특이사항
 );
 
 CREATE TABLE record ( -- 환자 진료 기록
 	r_num	number(10)		NOT NULL,  -- 진료 기록 번호
 	r_date	date		NOT NULL, -- 진료 날짜
-	r_opinion	varchar2(300)		NULL, -- 의사소견 (진단결과)
-	r_symptom	varchar2(300)		NULL, -- 의사소견 (진단결과)
+	r_opinion	varchar2(1000)		NULL, -- 의사소견 (진단결과)
+	r_symptom	varchar2(1000)		NULL, -- 증상내용 (환자 말//접수대기 명단에서 지워질때 옮겨옴)
 	r_p_num	number(10)		NULL,  -- 환자 번호 //환자 테이블
 	r_d_code	number(10)		NULL, -- 질병 코드
 	r_e_code 	number(10)		NOT NULL -- 직원 코드
@@ -43,7 +43,7 @@ CREATE TABLE record ( -- 환자 진료 기록
 
 CREATE TABLE wait ( -- 접수/대기 명단
 	w_num	number(10)		NOT NULL, -- 접수 번호
-	w_symptom	varchar2(300)		NULL, -- 증상 내용
+	w_symptom	varchar2(1000)		NULL, -- 증상 내용
 	w_p_num	number(10)		NOT NULL -- 환자 번호
 );
 
@@ -54,8 +54,8 @@ CREATE TABLE item (  -- 물품 재고,입고 테이블
 	i_stock	number(10)		NULL, -- 재고량
    	i_expire	varchar2(20)		NULL, -- 유통기한
 	i_price	number(10)		NULL, -- 물품 단가
-	i_remark	varchar2(300)		NULL, -- 비고
-	i_memo	varchar2(300)		NULL -- 메모
+	i_remark	varchar2(1000)		NULL, -- 비고
+	i_memo	varchar2(1000)		NULL -- 메모
 );
 
 CREATE TABLE item_code ( --물품종류,코드
@@ -83,7 +83,9 @@ CREATE TABLE disease ( -- 질병
 CREATE TABLE payment ( -- 요금수납
     pay_num	number(10)		NOT NULL, -- 수납번호
 	pay_amount	number(10)			NULL, -- 처방금액
-	pay_pay	number(10)			NULL, -- 수납한금액
+	pay_basic   number(10)			DEFAULT 10000 NULL,
+	pay_cash	number(10)			DEFAULT 0 NULL, -- 현금으로 수납한금액
+    pay_card	number(10)			DEFAULT 0 NULL, -- 카드로 수납한금액
 	pay_r_num	number(10)		NOT NULL -- 진료기록번호
 );
 
@@ -168,7 +170,8 @@ ALTER TABLE disease ADD CONSTRAINT PK_DISEASE PRIMARY KEY (
 );
 
 ALTER TABLE payment ADD CONSTRAINT PK_PAYMENT PRIMARY KEY (
-	pay_num
+	pay_num,
+	pay_r_num
 );
 
 ALTER TABLE medicine ADD CONSTRAINT PK_MEDICINE PRIMARY KEY (
@@ -311,6 +314,9 @@ REFERENCES employee (
 );
 ALTER TABLE item ADD CONSTRAINT UQ_i_i_code UNIQUE(
     i_i_code
+);
+ALTER TABLE payment ADD CONSTRAINT pay_r_num UNIQUE(
+    pay_r_num
 );
 
 

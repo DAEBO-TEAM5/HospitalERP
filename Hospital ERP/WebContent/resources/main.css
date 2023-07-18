@@ -1,13 +1,11 @@
 @charset "utf-8";
 
 .waitingList .select {
-	background-color: rgba(46, 91, 219);
-	color: white;
+	background-color: rgb(186, 220, 227);
 }
 
 #listinfo:hover {
-	background-color: rgba(46, 91, 219);
-	color:white;
+	background-color: rgb(186, 220, 227);
 }
 
 #modifyInfo {
@@ -57,7 +55,14 @@
 	padding: 12px;
 }
 
+#d_note {
+	height: 130px;
+}
 
+.hweight {
+	display: inline-block;
+	width: 31%;
+}
 
 .patient_name{
 	font-size: 25px;
@@ -72,11 +77,33 @@
 }
 
 
+.record, .recipt{
+	background-color: rgba(243, 243, 255, 1);
+	font-weight: bold;
+	padding: 6px 12px 6px 12px;
+	border-radius: 4px 4px 0 0;
+}
 
-
-
-
-
+.button_target{
+	color: white;
+    background-color: rgb(88, 101, 242);
+}
+.btn-outline-primary{
+	margin-top: 8px;
+	background-color: white;
+	width: 100%;
+	height: auto;
+	text-align: left;
+	overflow: hidden;
+	padding: 3px 3px 3px 6px;
+}
+.button_target{
+	color: white;
+    background-color: rgb(88, 101, 242);
+}
+.target_arrow{
+	display: none;
+}
 
 .history, .history tr, .history th, .history td{
 	border: 1px solid black;
@@ -85,6 +112,7 @@
 .button-right {
 	float: right;
 }
+
 
 .history {
 	border: 1px solid black;
@@ -141,7 +169,7 @@
 
 
 #addMed {
-	width: 65%;
+	width: 66%;
 	display: inline-block;
 }
 #medUsage {
@@ -155,17 +183,18 @@ div .result_table {
 	overflow: auto;
 	background-color: white;
 	padding: 10px;
+	border-radius: 10px;
 }
 
-#result_med {
-	border: 1px solid lightgray;
-	width: 100%;
-	
+.modalLabel {
+	width: 15%;
+	text-align: right;
+	padding-right: 5px;
 }
-#result_med > td{
-	border: 1px solid lightgray;
-	width: 100%;
-	
+
+.intext {
+	display: inline-block;
+	width: 80%;
 }
 
 #result_med .medName {
@@ -174,10 +203,10 @@ div .result_table {
 
 #result_med .medYang {
 	width: 20%;
-}
+} 
 
 #addTh {
-	width: 80%;
+	width: 81%;
 	display: inline-block;
 }
 
@@ -197,6 +226,7 @@ h3{
 }
 .form-group {
 	padding: 10px 0;
+	vertical-align: middle;
 }
 
 #calendar_memo {

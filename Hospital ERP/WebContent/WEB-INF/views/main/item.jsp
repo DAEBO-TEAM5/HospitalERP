@@ -13,56 +13,64 @@ uri="http://java.sun.com/jsp/jstl/core"%>
     <!-- 부트스트랩 -->
     <link href="${pageContext.request.contextPath }/resources/item.css?after" rel="stylesheet" />
     <!-- 사용자css -->
+    <link href="${pageContext.request.contextPath }/resources/include.css?after" rel="stylesheet" />
+    <!-- 사용자css -->
     <script src="https://kit.fontawesome.com/d7766e5822.js" crossorigin="anonymous"></script>
     <!-- fontawesome  -->
-    <title>재고 관리</title>
+    <title>5ING Hospital: 재고</title>
 </head>
 <body>
     <div class="container-fluid">
         <div class="container-fluid info">
             <c:import url="../include/header.jsp"></c:import>
             <div class="row">
-                <div class="col-md-2" style="border: 1px solid green; height: 100%; background-color: lightgrey">
-                    <h2 style="text-align: center">재고 관리</h2>
+                <div class="col-md-2 leftinfo" >
+                    <p>
+                    <h2 style="text-align: center"><b>재고 관리</b></h2>
                     <div class="">
-                        <div class="item_manage_memobox">
-                           	메모
+                        <div class="">
                             
-                            <table id="memoTable" class="table item_manage_memobox_table">
+                            <table id="memoTable" class="item_manage_memobox_table">
                          		<tr>
+								  	<td colspan="2">
+								      <h4 style="text-align: center;">품목 메모</h4>
+								    </td>
+								</tr>
+	                           	<tr>
                          			<th> 제품코드 </th>
                          			<th> 제품명 </th>
                          		</tr>
                          		<tr>
-                         			<td id="memoTable_code"> </td>
-                         			<td id="memoTable_name"> </td>                         		
+                         			<td id="memoTable_code">&nbsp; </td>
+                         			<td id="memoTable_name">&nbsp; </td>                         		
                          		</tr>
                          		<tr>
                          			<th> 재고량 </th>
                          			<th> 단위 </th>
                          		</tr>
                          		<tr>
-                         			<td id="memoTable_stock"> </td>                         		
-                         			<td id="memoTable_unit"> </td>                         		
-                         		</tr>
+                         			<td id="memoTable_stock">&nbsp; </td>                         		
+                         			<td id="memoTable_unit">&nbsp; </td>                         		
+                         		</tr><br/>	
+                         		
                          		<tr>
                          			<th colspan="2"> 메모 </th>
                          		</tr>	
                          		<tr>
                          			<td colspan="2"> 
-                         				<textarea rows="7" cols="28"  id="memoTable_memo">
+                         				<textarea rows="7" cols="28" id="memoTable_memo" class="item_manage_memobox_memotext">&nbsp;
                          				</textarea> 
                          			</td>                         		
                          		</tr>
                          		<tr>
                          			<td>
-   			                            <button type="button" class="btn btn-secondary" onclick="clearMemoTable()">
-				                           Close
+   			                            <button type="button" class="btn btn-secondary item_manage_memobox_button" onclick="clearMemoTable()">
+				                           칸 비우기
 				                        </button>
                          			</td>
                          			<td>
-   			                            <button type="button" class="btn btn-primary" onclick="updateMemoTable()">
-                                			등록
+   			                            <button type="button" class="btn btn-primary item_manage_memobox_button" onclick="updateMemoTable()">
+                                			저장
                             			</button>
                          			</td>
                          		</tr>                         		                         		
@@ -75,28 +83,26 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                 <!-- 아래왼쪽섹션 -->
 				<!-- 아래 오른쪽섹션 시작 -->
 			
-                <div class="col-md-10" style="background-color: white">
-                    <div>
-                        <button type="button" id="item_maintable" class="btn btn-primary item_btn_click">
+                <div class="col-md-10 info">
+                    <div class="item_page_btn">
+                        <button type="button" id="item_maintable" class="btn btn-primary" item_btn_itempage">
                         	품목 관리
-                        </button>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                        <button type="button" id="item_release" class="btn btn-secondary item_btn_nonclick">
+                        </button>
+                        <button type="button" id="item_release" class="btn btn-primary" item_btn_relpage">
                             출고 관리
                         </button><br />
                     </div>
                     <div class="input-itemsort">
-                        <select id="CategorySearch" class="form-select">
+                        <div>
+                	        <select id="CategorySearch" class="form-select">
               		
-                        </select>
+                        	</select>
+						</div>
 
-                        <div class="input-itemsearch">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                            <input
-                                class="input-searchfilter"
-                                type="text"
-                                placeholder="검색어 입력 (이름/품목코드)"
-                            />
-                        </div>
+						<div class="input-itemsearch">
+							<img src="https://s3.ap-northeast-2.amazonaws.com/cdn.wecode.co.kr/icon/search.png">
+						    <input class="input-searchfilter" type="text" placeholder="검색어 입력 (이름/품목코드)" />
+						</div>
                     </div>
 
                     <div class="main_page">
@@ -107,7 +113,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                             품목만 표시
                         </div>
                         <div>
-                            <table id="mainTable" class="item_table_main">
+                            <table id="mainTable" class="item_table item_page_tableesize">
                                 <tr>
                                     <td>테이블을 불러오고 있습니다...</td>
                                 </tr>
@@ -170,7 +176,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                            Close
+                                            닫기
                                         </button>
                                         <button type="submit" class="btn btn-primary" id="insert_submit">
                                             등록
@@ -246,7 +252,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 
 							<div class="modal-footer">
 								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-								<button type="submit" id="item_UpdateSubmit" class="btn btn-primary">접수</button>
+								<button type="submit" id="item_UpdateSubmit" class="btn btn-primary">수정</button>
 							</div>
 							
 
@@ -283,7 +289,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                             <input type="checkbox" class="dis_Check" checked /> 폐기 내역
                         </div>
                         <div>
-                            <table id="RelTable" class="item_table_main">
+                            <table id="RelTable" class="item_table rel_page_tableesize"> <!-- class="item_table_main" -->
                                 <tr>
                                     <td>테이블을 불러오고 있습니다...</td>
                                 </tr>
@@ -296,8 +302,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 							<div class="modal-content">
 								<div class="modal-header">
 									<h5 class="modal-title" id="itemRelModalLabel">사용 내역 추가</h5>
-									<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
+									<button type="button" class="btn-close"" data-bs-dismiss="modal" aria-label="Close">
 									</button>
 								</div>
 								<div class="modal-body">
@@ -354,8 +359,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 							<div class="modal-content">
 								<div class="modal-header">
 									<h5 class="modal-title" id="itemDisModalLabel">폐기 내역 추가</h5>
-									<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
+									<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
 									</button>
 								</div>
 								<div class="modal-body">
@@ -555,6 +559,7 @@ function itemMemoCall(row) {
         }
     });
 }
+
 //메모장 초기화
 function clearMemoTable() {
     $("#memoTable_memo").val("");
@@ -586,7 +591,6 @@ $("#StockFiveCheck").change(function () {
     //$('#CategorySearch').prop('selectedIndex', 0);
     //filterItems();
 });
-
 
 //품목관리, 출고관리별 검색필터 다르게
 $(".input-searchfilter").on("input", function () {
@@ -724,6 +728,7 @@ $(function () {
 function clearModalText() {
     $('table[page="main_ins_modal"] input[type="text"]').val("");
     $("table[page='main_ins_modal'] tbody > tr").not(".nodelete").remove();
+    $("table[page='main_ins_modal'] br").remove();
     //$('table[page="main_ins_modal"]').not(':first').remove();
 }
 
@@ -746,26 +751,35 @@ function item_modalDelBtnHandler(event) {
 }
 
 //item 추가 모달 내 항목추가
-function tableAddBtnHandler() {
+/* function tableAddBtnHandler() {
     const [tr1, tr2] = itemTableElement();
     document.querySelector("table[page='main_ins_modal'] > tbody").appendChild(tr1);
     document.querySelector("table[page='main_ins_modal'] > tbody").appendChild(tr2);
 }
-
-
+ */
+function tableAddBtnHandler() {
+    const [tr1, tr2] = itemTableElement();
+    const tbody = document.querySelector("table[page='main_ins_modal'] > tbody");
+    
+    tbody.appendChild(document.createElement('br')); // <br>태그 추가
+    tbody.appendChild(tr1);
+    tbody.appendChild(tr2);
+}
 //insert 모달 항목추가
 function itemTableElement() {
-    const tr1 = document.createElement("tr");
-    tr1.innerHTML = `
+    	const tr1 = document.createElement("tr");
+    	
+    	tr1.innerHTML = `
     	<td>품목코드</td>
 		<td><input type="text" placeholder="품목코드"></td>
 		<td>단위</td>
 		<td><input type="text" placeholder="단위"></td>
 		<td>재고량</td>
 		<td><input type="text" placeholder="재고량" ></td>
-`	;
-               const tr2 = document.createElement("tr");
-               tr2.innerHTML = `
+	`;
+        const tr2 = document.createElement("tr");
+        
+        tr2.innerHTML = `
 		<td>유통기한(YYYY-MM-DD)</td>
 		<td><input type="text" placeholder="유통기한" ></td>
 		<td>물품단가</td>
