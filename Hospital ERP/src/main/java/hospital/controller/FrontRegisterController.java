@@ -41,6 +41,7 @@ import hospital.service.SelectListServiceAction;
 import hospital.service.SignUpServiceAction;
 import hospital.service.UpdateCalendarMemoServiceAction;
 import hospital.service.UpdatePatientInfoServiceAction;
+import hospital.service.EcodeServiceAction;
 
 
 
@@ -112,6 +113,10 @@ public class FrontRegisterController extends HttpServlet {
     		
     	}else if(urlcommand.equals("/memberChangePw.do")){
     		action = new MemberChangePwAction();
+    		forward = action.execute(request, response);
+    		
+    	}else if(urlcommand.equals("/ecodefind.do")){
+    		action = new EcodeServiceAction();
     		forward = action.execute(request, response);
     		
     	}else if(urlcommand.equals("/history.do")) {

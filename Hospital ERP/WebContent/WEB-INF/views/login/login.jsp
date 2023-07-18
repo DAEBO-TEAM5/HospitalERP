@@ -12,155 +12,155 @@
 <link href="./resources/SignUp.css" rel="stylesheet" type="text/css">
 <link href="./resources/findID.css" rel="stylesheet" type="text/css">
 <link href="./resources/findpw.css" rel="stylesheet" type="text/css">
+
 <head>
-<link rel="icon" href="${pageContext.request.contextPath }/image/hp.png"/> <!-- //파비콘임 -->
+<link rel="icon" href="${pageContext.request.contextPath }/image/hp.png" />
+<!-- //파비콘임 -->
 <meta charset="UTF-8">
 
 <title>5Ing Hospital</title>
 </head>
 <body>
- <div id="login">
-        <h1 class="text-center text-white pt-5" >5Ing Hospital</h1>
-        <div class="container">
-            <div id="login-row" class="row justify-content-center align-items-center">
-                <div id="login-column" class="col-md-6">
-                    <div id="login-box" class="col-md-12">
-                        <form id="login-form" class="form" method="post">
-                            <h3 class="text-center text-info">Login</h3>
-                            <div class="form-group">
-                                <label for="username" class="text-info">ID:</label><br>
-                                <input type="text" name="username" id="username" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <label for="password" class="text-info">Password:</label><br>
-                                <input type="password" name="password" id="password" class="form-control">
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" name="submit" class="btn btn-info btn-md" onclick="javascript:form.action='./loginok.do';" value="로그인">
-                            </div>
-                            <div id="register-link" class="text-right"><br>
-                                <a href="#" onclick="openPopup();return false;" class="text-info">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <a  href="#" onclick="openPopup2();"class="text-info">ID찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <a  href="#" onclick="openPopup3();"class="text-info">PW찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-   <div id="popup" class="popup-overlay">
-	<div class="popup-content">
-		<span class="close-btn" onclick="closePopup()">&times;</span>
-		<h2>회원가입</h2>
-		
-		<form id="joinForm" action="${pageContext.request.contextPath}/signup.do" method="POST">
-			<div>
-			<input type="text" name="h_id" id="h_id" placeholder="ID">
-			<input class="formBtn" type="button" value="중복체크" name="h_idcheck" id="h_idcheck" onClick="idCheck()">  
+	<img class="fit-picture"   src="./image/hp2.png">
+	<div id="login">
+		<h1 class="text-center text-info ">5Ing Hospital</h1>
+		<div class="container">
+			<div id="login-row"
+				class="row justify-content-center align-items-center">
+				<div id="login-column" class="col-md-6">
+					<div id="login-box" class="col-md-12">
+						<form id="login-form" class="form" method="post">
+							<h3 class="text-center text-info">Login</h3>
+							<div class="form-group">
+								<label for="username" class="text-info">ID:</label><br> <input
+									type="text" name="username" id="username" class="form-control">
+							</div>
+							<div class="form-group">
+								<label for="password" class="text-info">Password:</label><br>
+								<input type="password" name="password" id="password"
+									class="form-control">
+							</div>
+							<div class="form-group">
+								<input type="submit" name="submit" class="btn btn-info btn-md"
+									onclick="javascript:form.action='./loginok.do';" value="로그인">
+							</div>
+							<div id="register-link" class="text-right">
+								<br> <a href="#" onclick="openPopup();return false;"
+									class="text-info">회원가입</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href="#"
+									onclick="openPopup2();" class="text-info">ID찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
+								<a href="#" onclick="openPopup3();" class="text-info">PW찾기</a>&nbsp;&nbsp;&nbsp;&nbsp;
+							</div>
+						</form>
+					</div>
+				</div>
 			</div>
-			<div>
-				<input type="password" name="h_pwd" id="h_pwd" placeholder="비밀번호" >
-				<input type="password" name="h_cwp" id="h_cwp" placeholder="비밀번호 확인" >
-			</div>
-			<input type="text" name="h_name" id="h_name" placeholder="병원명"> 
-			<div class = "search">
-			<input type="text" readonly name="h_post" id="h_post" placeholder="우편번호">
-			<input class="formBtn" type="button" value="검색"  onclick="postOpener(event)">
-			</div>
-			<input type="text" readonly name="h_address" id="h_address" placeholder="주소">
-			<input type="text" name="h_e_code" id="h_e_code" placeholder="직원코드">
-			<div>
-			<input type="email" name="h_email" id="h_email" placeholder="이메일">
-			<input class="formBtn" type="button" value="중복체크" name="h_emailcheck" id="h_emailcheck" onClick="emailCheck()"> 
-			</div>
-			  <div class="phone">
-            <input id="phone1" type="text" size="1" maxlength="3" oninput="changePhone1()" value="010" readonly> -
-            <input id="phone2" type="text" size="3" maxlength="4" oninput="changePhone2()"> -
-            <input id="phone3" type="text" size="3" maxlength="4" oninput="changePhone3()">
-            <input id="h_phone" type="hidden" name="h_phone"> <!-- 속성 추가 -->
-       		 </div>
-        <div class="auth">
-            <div id="certificationNumber">000000</div>
-            <button disabled id="sendMessage" onclick="event.preventDefault(); getToken()">인증번호 전송</button>
-        </div>
-
-        <div class="timer">
-            <div id="timeLimit">03:00</div>
-            <button disabled id="completion" onclick="checkCompletion(this)">인증확인</button>
-        </div>
-			<div>
-			<input type="submit" onclick="Validation(event);" value="가입" id="signbtn">
-            <input type="reset" onclick="resetBtnHandler()" value="다시 입력">
-            </div>
-		</form>
+		</div>
 	</div>
-</div>
+	<div id="popup" class="popup-overlay">
+		<div class="popup-content">
+			<span class="close-btn" onclick="closePopup()">&times;</span>
+			<h2>회원가입</h2>
+
+			<form id="joinForm"
+				action="${pageContext.request.contextPath}/signup.do" method="POST">
+				<div>
+					<input type="text" name="h_id" id="h_id" placeholder="ID">
+					<input class="formBtn" type="button" value="중복체크" name="h_idcheck"
+						id="h_idcheck" onClick="idCheck()">
+				</div>
+				<div>
+					<input type="password" name="h_pwd" id="h_pwd" placeholder="비밀번호">
+					<input type="password" name="h_cwp" id="h_cwp"
+						placeholder="비밀번호 확인">
+				</div>
+				<input type="text" name="h_name" id="h_name" placeholder="병원명">
+				<div class="search">
+					<input type="text" readonly name="h_post" id="h_post"
+						placeholder="우편번호"> <input class="formBtn" type="button"
+						value="검색" onclick="postOpener(event)">
+				</div>
+				<input type="text" readonly name="h_address" id="h_address"
+					placeholder="주소"> <input type="text" name="h_e_code"
+					id="h_e_code" placeholder="사원번호">
+				<div>
+					<input type="email" name="h_email" id="h_email" placeholder="이메일">
+					<input class="formBtn" type="button" value="중복체크"
+						name="h_emailcheck" id="h_emailcheck" onClick="emailCheck()">
+				</div>
+				<div class="phone">
+					<input id="phone1" type="text" size="1" maxlength="3"
+						oninput="changePhone1()" value="010" readonly> - <input
+						id="phone2" type="text" size="3" maxlength="4"
+						oninput="changePhone2()"> - <input id="phone3" type="text"
+						size="3" maxlength="4" oninput="changePhone3()"> <input
+						id="h_phone" type="hidden" name="h_phone">
+					<!-- 속성 추가 -->
+				</div>
+				<div>
+					<input type="submit" onclick="Validation(event);" value="가입"
+						id="signbtn"> <input type="reset"
+						onclick="resetBtnHandler()" value="다시 입력">
+				</div>
+			</form>
+		</div>
+	</div>
 
 
 	<div id="popup2" class="popup-overlay2">
 		<div class="popup-content2">
 			<span class="close-btn" onclick="closePopup2()">&times;</span>
 			<h4>ID찾기</h4>
-			<form action="${pageContext.request.contextPath}/findid.do" method = "post">
-			<input type="text" name="h_name" id="h_name2" placeholder="병원명"> 
-			<input type="email" name="h_email" id="h_email2" placeholder="이메일">
-			<div>
-			<input class="formBtn2" type="submit" value="ID찾기" name="findID" id="h_findID" >
-			  <input type="reset" onclick="resetBtnHandler()" value="다시 입력">
-			  </div>
-			  </form>
+			<form action="${pageContext.request.contextPath}/findid.do"
+				method="post">
+				<input type="text" name="h_name" id="h_name2" placeholder="병원명">
+				<input type="email" name="h_email" id="h_email2" placeholder="이메일">
+				<div>
+					<input class="formBtn2" type="submit" value="ID찾기" name="findID"
+						id="h_findID"> <input type="reset"
+						onclick="resetBtnHandler()" value="다시 입력">
+				</div>
+			</form>
 		</div>
 	</div>
-	
-	 <div id="popup3" class="popup-overlay3">
+
+	<div id="popup3" class="popup-overlay3">
 		<div class="popup-content3">
 			<span class="close-btn" onclick="closePopup3()">&times;</span>
 			<h4>비밀번호 찾기</h4>
-			<form class="changepwdform" method = "post">
-			<input type="text" name="h_id" id="h_id3" placeholder="ID" class="findpwdid"> 
-			<input type="email" name="h_email" id="h_email3" placeholder="이메일" class="findpwdemail">
-			<div>
-			<input class="formBtn2" onclick ="mailsend()" type="submit" value="인증코드 메일전송" name="findpw" id="h_findpw" >
-			  <input type="reset" onclick="resetBtnHandler()" value="다시 입력">
-			  </div>
-			  </form>
-		  </div>
-	  </div> 
-	  
-	  <div id="popup3" class="popup-overlay3">
-		<div class="popup-content3">
-			<span class="close-btn" onclick="closePopup3()">&times;</span>
-			<h4>비밀번호 찾기</h4>
-			<form class="changepwdform" method = "post">
-			<input type="text" name="h_id" id="h_id3" placeholder="ID" class="findpwdid"> 
-			<input type="email" name="h_email" id="h_email3" placeholder="이메일" class="findpwdemail">
-			<div>
-			<input class="formBtn2" type="submit" value="비밀번호찾기" name="findpw" id="h_findpw" >
-			  <input type="reset" onclick="resetBtnHandler()" value="다시 입력">
-			  </div>
-			  </form>
-		  </div>
-	  </div> 
-	  
-	  <div id="popup4" class="popup-overlay3">
+			<form class="changepwdform" method="post">
+				<input type="text" name="h_id" id="h_id3" placeholder="ID"
+					class="findpwdid"> <input type="email" name="h_email"
+					id="h_email3" placeholder="이메일" class="findpwdemail">
+				<div>
+					<input class="formBtn2" type="submit" value="인증코드 메일전송"
+						name="findpw" id="h_findpw"> <input type="reset"
+						onclick="resetBtnHandler()" value="다시 입력">
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<div id="popup4" class="popup-overlay3">
 		<div class="popup-content3">
 			<span class="close-btn" onclick="closePopup4()">&times;</span>
 			<h4>비밀번호 변경하기</h4>
-			<form action="${pageContext.request.contextPath}/memberChangePw.do" method="post" onsubmit="return checkForm()">
-		 
-			    <input type="text"id="authenCode" name="authenCode" placeholder="인증번호를 입력하세요">
-			    <div>
-                <input type="password"  id="newPw" name="newPw" placeholder="새로운 비밀번호">
-                <input type="password"  id="checkPw" name="checkPw" placeholder="비밀번호 확인">
-                </div>
-			<div>
-			<input  type="submit" value="변경하기" >
-			  <input type="reset" onclick="resetBtnHandler()" value="다시 입력">
-			  </div>
-			  </form>
-		  </div>
-	  </div> 
+			<form action="${pageContext.request.contextPath}/memberChangePw.do"
+				method="post" onsubmit="return checkForm()">
+
+				<input type="text" id="authenCode" name="authenCode"
+					placeholder="인증번호를 입력하세요">
+				<div>
+					<input type="password" id="newPw" name="newPw"
+						placeholder="새로운 비밀번호"> <input type="password"
+						id="checkPw" name="checkPw" placeholder="비밀번호 확인">
+				</div>
+				<div>
+					<input type="submit" value="변경하기"> <input type="reset"
+						onclick="resetBtnHandler()" value="다시 입력">
+				</div>
+			</form>
+		</div>
+	</div>
 </body>
 ${script}
 <script> 
@@ -170,7 +170,8 @@ function mailsend() {
 }
 
  function checkForm() {
-
+	
+	var regIdPw = /^[a-zA-Z0-9]{4,12}$/;
     var authenCode = $('#authenCode').val();
     var newPw = $('#newPw').val();
     var checkPw = $('#checkPw').val();
@@ -185,10 +186,11 @@ function mailsend() {
         alert('비밀번호가 일치하지 않습니다.!');
         return false;
     }
-    if(newPw == checkPw && authenCode ){
-    	
+    if (!regIdPw.test(newPw) || !regIdPw.test(checkPw)) {
+        alert("비밀번호는 4~12자 영문 대소문자, 숫자만 입력하세요.");
+        return false;
     }
-    
+  
 	    $.ajax({
         type: 'POST',
         url: '${pageContext.request.contextPath}/memberChangePw.do',
@@ -199,7 +201,7 @@ function mailsend() {
         },
         error: function() {
       
-            alert('비밀번호 변경에 실패했습니다. 다시 시도해주세요.');
+            alert('인증코드 확인해주세요. \n\n 안될시 관리자에게 문의바랍니다.');
         }
     });
 
@@ -210,97 +212,6 @@ function closePopup4() {
     $('#popup4').hide(); 
 }  
 
-  let processID = -1;
-
-  // 휴대전화 번호 입력 부분
-  function changePhone1() {
-    const phone1 = document.getElementById("phone1").value; // 010
-    if (phone1.length === 3) {
-      document.getElementById("phone2").focus();
-    }
-  }
-  
-  function changePhone2() {
-    const phone2 = document.getElementById("phone2").value; // 010
-    if (phone2.length === 4) {
-      document.getElementById("phone3").focus();
-    }
-  }
-  
-  function changePhone3() {
-    const phone3 = document.getElementById("phone3").value; // 010
-    if (phone3.length === 4) {
-      document.getElementById("sendMessage").focus();
-      document.getElementById("sendMessage").setAttribute("style", "background-color: rgb(209, 245, 254);");
-      document.getElementById("sendMessage").disabled = false;
-    }
-  }
-
-  // 문자인증+타이머 부분
-  function initButton() {
-    document.getElementById("sendMessage").disabled = true;
-    document.getElementById("completion").disabled = true;
-    document.getElementById("certificationNumber").value = "";
-    document.getElementById("timeLimit").innerHTML = "03:00";
-    document.getElementById("sendMessage").setAttribute("style", "background-color: none;");
-    document.getElementById("completion").setAttribute("style", "background-color: none;");
-  }
-
-  const getToken = () => {
-      var h_phone1 = document.getElementById("phone1");
-      var h_phone2 = document.getElementById("phone2");
-      var h_phone3 = document.getElementById("phone3");
-      const phonenumber = h_phone1.value + "-" +
-      h_phone2.value + "-" +
-      h_phone3.value;
-	  if(!validatePhoneNumber(phonenumber)) 	 
-		  return;
-	  
-    // 인증확인 버튼 활성화
-    document.getElementById("completion").setAttribute("style", "background-color: rgb(209, 245, 254);");
-    document.getElementById("completion").disabled = false;
-    
-    // 이전의 간격 프로세스가 존재한다면 제거
-     if (processID != -1) clearInterval(processID);
-    
-    // 무작위 토큰 생성
-    const token = String(Math.floor(Math.random() * 1000000)).padStart(6, "0");
-    document.getElementById("certificationNumber").innerText = token;
-    
-    // 타이머 기능 
-    let time = 180;
-    processID = setInterval(function () {
-      if (time < 0 || document.getElementById("sendMessage").disabled) {
-        clearInterval(processID);
-        initButton();
-        return;
-      }
-      let mm = String(Math.floor(time / 60)).padStart(2, "0");
-      let ss = String(time % 60).padStart(2, "0");
-      let result = mm + ":" + ss;
-      document.getElementById("timeLimit").innerText = result;
-      time--;
-    }, 100);
-  };
-	
-  function checkCompletion(button) {
-	  
-	// 인증번호 입력
-	  const enteredToken = prompt("인증번호를 입력하세요.");
-	
-	  // 인증번호 확인
-	  const certificationNumber = document.getElementById("certificationNumber").innerText;
-	  if (enteredToken !== certificationNumber) {
-	    alert("인증번호가 일치하지 않습니다.");
-	    return;
-	  }
-	  
-	  alert("문자 인증이 완료되었습니다.");
-	  initButton();
-	  button.innerHTML = "인증완료";
-	  button.disabled = true;
-	} 
-   
         function openPopup() {
             var popup = document.getElementById("popup");
             popup.style.visibility = "visible";
@@ -316,24 +227,24 @@ function closePopup4() {
         function openPopup2() {
             var popup2 = document.getElementById("popup2");
             popup2.style.visibility = "visible";
-            popup2.style.opacity = "2";
+            popup2.style.opacity = "1";
         }
         
         function closePopup2() {
             var popup2 = document.getElementById("popup2");
             popup2.style.visibility = "hidden";
-            popup2.style.opacity = "3";
+            popup2.style.opacity = "0";
             
         }  function openPopup3() {
             var popup3 = document.getElementById("popup3");
             popup3.style.visibility = "visible";
-            popup3.style.opacity = "4";
+            popup3.style.opacity = "1";
         }
         
         function closePopup3() {
             var popup3 = document.getElementById("popup3");
             popup3.style.visibility = "hidden";
-            popup3.style.opacity = "5";
+            popup3.style.opacity = "0";
             
         } function openPopup4() {
             var popup4 = document.getElementById("popup4");
@@ -515,14 +426,14 @@ event.preventDefault();
         h_address.focus();
         return false;
     }
-    //직원코드 확인
+    //사원코드 확인
     if (h_e_code.value.trim() === "") {
-        alert("직원코드 입력하세요.");
+        alert("사원코드 입력하세요.");
         h_e_code.focus();
         return false;
     }
     else if (!regExp.test(h_e_code.value.trim())) {
-        alert("직원코드는 숫자만 입력 가능합니다. 다시 입력해주세요.");
+        alert("사원코드는 숫자만 입력 가능합니다. 다시 입력해주세요.");
         h_e_code.focus();
         return false;
     }
@@ -557,13 +468,6 @@ event.preventDefault();
       }
          
        h_phone.value = phoneNumber; 
-       
-       var completionButton = document.getElementById("completion"); 
-      
-      if (!completionButton.disabled || completionButton.innerHTML !== "인증완료") {
-          alert("휴대폰 번호 인증이 완료되지 않았습니다.");
-          return false;
-      }
    
     // 유효성 문제 없을 시 폼에 submit
     var joinForm = document.getElementById("joinForm");
@@ -571,16 +475,11 @@ event.preventDefault();
     
 }
     
-    
     $(document).ready(function(){
     	$('.changepwdform').submit(function(){
-    		console.log("오니");
-//    		console.log(h_id);
- //   		console.log(h_id);
+
 findpassword();
  
-    		
-    		
     		return false;
     	});
     });
@@ -595,7 +494,7 @@ findpassword();
     			success: function(response){
     				openPopup4();
     				closePopup3();
-    				
+    				mailsend();
     			},
 
     		}).fail(() => {alert("Id Email 확인해주세요.")});

@@ -53,20 +53,10 @@ public class MemberChangePwAction implements Action {
 				forward.setPath("/login.do");
 				forward.setRedirect(false);
 			} else {
-				resp.setContentType("text/html;charset=utf-8");
-				PrintWriter out;
-				try {
-					out = resp.getWriter();
-					out.println("<script>");
-					out.println("alert('인증코드 확인해주세요');");
-					out.println("history.go(-1);");
-					out.println("</script>");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				
+			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500 Internal Server Error
 			}
 		}
-
 		return forward;
 	}
 }
