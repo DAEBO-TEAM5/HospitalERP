@@ -96,7 +96,7 @@
 		            				<hr style="margin-top: 8px; margin-bottom: 8px">
 		            				<div class="display-flex">
 				            			<div class="left_text font_11" data-bs-toggle="collapse" href="#pay_list" aria-expanded="false" aria-controls="pay_list"><i class="fa-solid fa-caret-right"></i> 총 진료비</div>
-				            			<div class="font_11 pay_total">20,000원</div>
+				            			<div class="font_11 pay_total"></div>
 				            		</div>
 				            		<div class="collapse font_gray" id="pay_list" style="padding: 6px 12px 0 12px;">
 										
@@ -107,9 +107,15 @@
 		            			<div style=" margin:12px; border: 1px solid black; padding: 12px;">
 				            		<div class="display-flex">
 				            			<div class="left_text font_13">수납 금액</div>
-				            			<div class="font_13">0원</div>
+				            			<div class="font_13" ></div>
 				            		</div>
 		            				<hr style="margin-top: 8px; margin-bottom: 8px">
+		            				<div class="pay_add">
+		            					<div class="display-flex">
+				            				<div class="left_text font_11 pay_by"></div>
+				            				<div class="font_11 pay_input_result"></div>
+				            			</div>
+		            				</div>
 		            				<div class="font_deepskyblue font_13 event" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="margin-left: 8px;"><i class="fa-solid fa-plus" style="color: deepskyblue"></i> 수납 추가</div>
 		            	
 		            			</div>
@@ -148,49 +154,152 @@
 	
 	<!-- 수납 추가 Modal -->
 	<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <div class="modal-title left_text font_13" id="staticBackdropLabel">수납 추가</div>
-	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-	      </div>
-	      <div class="modal-body">
-	        남은 금액 : 20000원
-	    		<div>결제수단</div>
-	    		<div class="display-flex">
-		    		<div class="display-flex pay_select">
-	           			<div class="left_text pay_check"><i class="fa-regular fa-circle" style="font-size: 13px"></i></div>
-	           			<div class="font_13" style="  display: flex; align-items: end;">현금</div>
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<div class="modal-title left_text font_13" id="staticBackdropLabel">수납 추가</div>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				
+				<div class="modal-body">
+					<div style="background-color: #F5F5F5; border-radius: 4px; padding:8px;">
+						<div class="left_text font_13" style="color: gray; margin-bottom:6px;">남은 금액</div>
+						<div class="font_13 remaining_amount "></div>
+					</div>
+					<div class="font_13 "style="color: dimgray; margin-top: 12px; margin-bottom: 3px" >결제수단*</div>
+					<div class="display-flex">
+						<div class="display-flex pay_select">
+		           			<div class="left_text pay_check pay_cash"><i class="fa-regular fa-circle" style="font-size: 13px"></i></div>
+		           			<div class="font_13" style="display: flex; align-items: end; ">현금</div>
+		           		</div>
+		           		<div class="display-flex pay_select">
+	           				<div class="left_text pay_check pay_card"><i class="fa-regular fa-circle" style="font-size: 13px"></i></div>
+	           				<div class="font_13" style="  display: flex; align-items: end;">카드</div>
+	           			</div>
 	           		</div>
-	           		<div class="display-flex pay_select">
-           			<div class="left_text pay_check"><i class="fa-regular fa-circle" style="font-size: 13px"></i></div>
-           			<div class="font_13" style="  display: flex; align-items: end;">카드</div>
-           		</div>
-           		<div class="display-flex pay_select">
-           			<div class="left_text pay_check"><i class="fa-regular fa-circle" style="font-size: 13px"></i></div>
-           			<div class="font_13" style="  display: flex; align-items: end;">외상</div>
-           		</div>
-           		</div>
-	      </div>
-	      <div class="modal-footer">
-	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary">Understood</button>
-	      </div>
-	    </div>
-	  </div>
+			
+					<div class="pay_main" style="margin-top: 12px; margin-bottom: 3px">
+ 					<!-- 	<div class="font_13 "style="color: dimgray; margin-top: 12px; margin-bottom: 3px" >결제금액*</div>
+				 		<div class="display-flex">
+							<input type="text" class="form-control pay_input" style="width: 25%; text-align: right; font-weight: bold;" onkeyup="inputNumberFormat(this)"></input>
+							<div class="font_13" style="font-size: 13px; line-height: 25px;"> &nbsp;원</div>
+						</div>
+						
+						<div class="font_13 "style="color: dimgray; margin-top: 12px; margin-bottom: 3px" >할부개월*</div>
+
+				 			<select class="form-select pay_day" aria-label=".form-select-sm"  style="width: 25%; font-size: 12px; height: 25px; padding-top: 3px; padding-bottom: 3px;">
+						  		<option selected>일시불</option>
+						 		<option value="zero">1개월</option>
+								<option value="one">2개월</option>
+								<option value="two">3개월</option>
+							</select> -->
+								
+					</div>
+				
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+					<button type="button" class="btn btn-primary pay_ok">확인</button>
+				</div>
+			</div>
+		</div>
 	</div>
 	<!-- 수납 추가 Modal end -->
 </body>
 
 <script type="text/javascript">
+var test 
+
+$(document).on("click", ".pay_select", function (e){
+	var str = "";
+	str += "<div class='font_13' style='color: dimgray; margin-top: 12px; margin-bottom: 3px' >결제금액*</div>"
+	str += "<div class='display-flex'>"
+	str += "<input type='text' class='form-control pay_input' style='width: 25%; text-align: right; font-weight: bold;' onkeyup='inputNumberFormat(this)''></input>"
+	str += "<div class='font_13' style='font-size: 13px; line-height: 25px;''> &nbsp;원</div>"
+	str += "</div>"
+	if(($(this).find(".pay_cash").length) === 1){
+		str += "<div class='font_13' style='color: dimgray; margin-top: 12px; margin-bottom: 3px' >거스름돈</div>"
+		str += "<div class='display-flex'>"
+		str += "<input type='text' class='form-control pay_change' style='width: 25%; text-align: right; font-weight: bold;' readonly='readonly'></input>"
+		str += "<div class='font_13' style='font-size: 13px; line-height: 25px;'> &nbsp;원</div>"
+ 		str += "</div>"
+			
+	}else{
+	str += "<div class='font_13' style='color: dimgray; margin-top: 12px; margin-bottom: 3px' >할부개월*</div>"
+	str += "<select class='form-select pay_day' aria-label='.form-select-sm'  style='width: 25%; font-size: 12px; height: 25px; padding-top: 3px; padding-bottom: 3px;'> <option selected>일시불</option>"	
+	str += "<option value='zero'>1개월</option>"
+	str += "<option value='one'>2개월</option>"
+	str += "<option value='two'>3개월</option>"
+	str += "</select>"
+	}
+	
+	$('.pay_main').html(str)
+});
+ 
+function comma(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+}
+
+function uncomma(str) {
+    str = String(str);
+    return str.replace(/[^\d]+/g, '');
+} 
+
+function inputNumberFormat(obj) {
+    obj.value = comma(uncomma(obj.value));
+    test = obj.value;
+}
+
+function inputOnlyNumberFormat(obj) {
+    obj.value = onlynumber(uncomma(obj.value));
+   
+}
+
+function onlynumber(str) {
+    str = String(str);
+    return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g,'$1');
+}
+
+$("#staticBackdrop").on("hidden.bs.modal", function () {
+		$(this).find("input").val("");
+		$('.pay_select').removeClass('pay_select_target');
+		$('.pay_select').find(".fa-regular").removeClass('fa-circle-check');
+		$('.pay_main').html("");
+	});
+
+
+var remaining = $($('.remaining_amount')[0]);
+//$(".pay_input").blur(function(){
+$(document).on("blur", ".pay_input", function (){
+	setTimeout(function () {
+		 
+		 $('.pay_change').val(comma(uncomma(test) - uncomma(remaining.text())))
+		}, 200);
+});
+
+$(document).on("click", ".pay_ok", function (e){  //날짜로 검색 (달력)
+	var str = $('.pay_add').html();
+	$('.remaining_amount').html(uncomma(remaining.text()) - uncomma(test))
+	$('.pay_input_result').html(uncomma(test))
+	$('.modal').modal('hide');
+	console.log($('.pay_select_target').text().trim())
+	str += "<div class='display-flex'>"
+	str += "<div class='left_text font_11 pay_by'>" + $('.pay_select_target').text().trim() + " </div>"
+	str += "<div class='font_11 pay_input_result'>" + uncomma(test) + "</div>"
+	
+	$('.pay_add').html(str)
+});
+
+
 window.addEventListener('load', function() {
 	let today = new Date();   
 	let year = today.getFullYear(); // 년도
 	let month = today.getMonth() + 1;  // 월
 	let date = today.getDate();  // 날짜
 
-	//patientSearchDate(year + '/' + month + '/' + date);
-	patientSearchDate("2023/7/13");
+	patientSearchDate(year + '/' + month + '/' + date);
+	//patientSearchDate("2023/7/13");
 	
 });
 $(document).on("click", ".pay_select", function (e){  //날짜로 검색 (달력)
@@ -294,7 +403,7 @@ $(function(){
 /* 환자 클릭 시 제일 최근 정보 띄우는 부분 */
 function infoFunc(data){ 
 	var obj = JSON.parse(data);
-	let total_pay = 0;
+//	let total_pay = 0;
 	console.log(obj);
 	var info_str = "";
 	info = obj;
@@ -303,7 +412,7 @@ function infoFunc(data){
 	$('.patient_name').html(obj.info[0].name);
 	$('.record_number').html("pn."+obj.info[0].num);
 	$('.patient_info').html(info_str);
-	$('#jupsu').html(obj.info[0].note); //접수 메모로 수정 필요
+	$('#jupsu').html(obj.info[1].symptom); //접수 메모로 수정 필요
 	$('.record').html("진료기록 [" + obj.info[1].date + "]  |  담당의 : " + obj.info[1].e_name);
 	$('#symptom').html(obj.info[1].opinion);
 	$('#disease').html(obj.info[1].disease);
@@ -338,24 +447,23 @@ function infoFunc(data){
 	
 	var str = ""
 		for(var j = 0; j < obj.info[1].therapy.length; j++){
-			str += "<div class='display-flex'>"
-			str +=	"<div class='left_text font_11'>" + obj.info[1].therapy[j].thName + "</div>"
-			str +=	"<div class='font_11'>" + numWithComma(obj.info[1].therapy[j].price) + "원" + "</div>"
-			total_pay += obj.info[1].therapy[j].price;
-			str +=	"</div>"
-			
+			if(obj.info[1].therapy[j].price != 0){
+				str += "<div class='display-flex'>"
+				str +=	"<div class='left_text font_11'>" + obj.info[1].therapy[j].thName + "</div>"
+				str +=	"<div class='font_11'>" + numWithComma(obj.info[1].therapy[j].price) + "원" + "</div>"
+				str +=	"</div>"
+			}
 		}
 		str += "<div class='display-flex'>"
 	 		str +=	"<div class='left_text font_11'>" + "진료비" + "</div>"
-			str +=	"<div class='font_11'>" + numWithComma(10000) + "원" + "</div>"
-			total_pay += 10000;
+			str +=	"<div class='font_11'>" + comma(obj.info[1].pay_basic) + "원" + "</div>"
 			str +=	"</div>"
 		
 		$('#pay_list').html(str)
-		$('.pay_total').html(numWithComma(total_pay) + "원")
-		$('.pay_amount').html(numWithComma(total_pay) + "원")
+		$('.pay_total').html(numWithComma(obj.info[1].pay_amount) + "원")
+		$('.pay_amount').html(numWithComma(obj.info[1].pay_amount) + "원")
 	
-	$('.remaining_amount').html(numWithComma(total_pay - 0) + "원")
+	$('.remaining_amount').html(numWithComma(obj.info[1].pay_amount - obj.info[1].pay_cash - obj.info[1].pay_card) + "원")
 	
 
 }
@@ -370,32 +478,14 @@ $(function(){
 		var total_pay = 0;
 		for(var i =1; i < info.info.length; i++){
 			if(i === $(this).index() + 1){
-				$('#jupsu').html(info.info[i].note);
+				$('#jupsu').html(info.info[i].symptom);
 				$('#symptom').html(info.info[i].opinion);
 				$('#disease').html(info.info[i].disease);
 				
-				for(var j = 0; j < info.info[i].therapy.length; j++){
-					str += "<div class='display-flex'>"
-		 				str +=	"<div class='left_text font_11'>" + info.info[i].therapy[j].thName + "</div>"
-						str +=	"<div class='font_11'>" + numWithComma(info.info[i].therapy[j].price) + "원" + "</div>"
-						total_pay += info.info[i].therapy[j].price;
-						str +=	"</div>"
-						
-				}
-				str += "<div class='display-flex'>"
-			 		str +=	"<div class='left_text font_11'>" + "진료비" + "</div>"
-					str +=	"<div class='font_11'>" + numWithComma(10000) + "원" + "</div>"
-					total_pay += 10000;
-					str +=	"</div>"
-				$('#pay_list').html(str)
-				$('.pay_total').html(numWithComma(total_pay) + "원")
-				$('.pay_amount').html(numWithComma(total_pay) + "원")
-				
 				$('.record').html("진료기록 [" + info.info[i].date + "]  |  담당의 : " + info.info[i].e_name);
-				str_his = ""
+				str_his = "<tr><th>번호</th> <th>품명</th> <th>투약일</th></tr>"
 				for(var j = 0; j < info.info[i].med.length; j++){
 					
-					str_his += "<tr><th>번호</th> <th>품명</th> <th>투약일</th></tr>";
 					str_his += "<tr> <td>" + (j+1) +" </td> <td> " + info.info[i].med[j].medName+ "</td> <td> " +info.info[i].med[j].use + "</td> </tr>"
 				}		
 				$('.history').html(str_his)
@@ -407,6 +497,27 @@ $(function(){
 				$('.arrow').addClass('target_arrow')
 				var t_arrow = $($('.arrow')[i-1]);
 				t_arrow.removeClass('target_arrow')
+				
+				var str = ""
+				for(var j = 0; j < info.info[i].therapy.length; j++){
+					str += "<div class='display-flex'>"
+					str +=	"<div class='left_text font_11'>" + info.info[i].therapy[j].thName + "</div>"
+					str +=	"<div class='font_11'>" + numWithComma(info.info[i].therapy[j].price) + "원" + "</div>"
+					total_pay += info.info[i].therapy[j].price;
+					str +=	"</div>"
+					
+				}
+				str += "<div class='display-flex'>"
+			 		str +=	"<div class='left_text font_11'>" + "진료비" + "</div>"
+					str +=	"<div class='font_11'>" + numWithComma(10000) + "원" + "</div>"
+					total_pay += 10000;
+					str +=	"</div>"
+				
+					$('#pay_list').html(str)
+					$('.pay_total').html(numWithComma(info.info[i].pay_amount) + "원")
+					$('.pay_amount').html(numWithComma(info.info[i].pay_amount) + "원")
+				
+				$('.remaining_amount').html(numWithComma(info.info[i].pay_amount - info.info[i].pay_cash - info.info[i].pay_card) + "원")
 			}
 		}
 		

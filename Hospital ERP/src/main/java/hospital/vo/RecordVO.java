@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class RecordVO {
 	private int r_num, r_p_num, r_d_code, r_e_code;
-	private String r_opinion;
+	private String r_opinion, r_symptom;
 	private Date r_date;
 	public int getR_num() {
 		return r_num;
@@ -41,6 +41,12 @@ public class RecordVO {
 	}
 	public void setR_date(Date r_date) {
 		this.r_date = r_date;
+	}
+	public String getR_symptom() {
+		return r_symptom;
+	}
+	public void setR_symptom(String r_symptom) {
+		this.r_symptom = r_symptom;
 	}
 	
 	
