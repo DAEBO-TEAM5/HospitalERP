@@ -471,8 +471,6 @@ $(function(){
 				$('#symptom').html(info.info[i].opinion);
 				$('#disease').html(info.info[i].disease);
 				
-				console.log("======================="+info);
-
 				
 				$('.record').html("진료기록 [" + info.info[i].date + "]  |  담당의 : " + info.info[i].e_name);
 				str_his = ""
