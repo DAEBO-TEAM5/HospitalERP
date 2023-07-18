@@ -2,7 +2,15 @@
 --약품 //코드 10001~
 insert into medicine values(m_code_seq.nextval, '타이레놀');
 insert into medicine values(m_code_seq.nextval, '아스피린');
-insert into medicine values(m_code_seq.nextval, '에스녹틸정 ');
+insert into medicine values(m_code_seq.nextval, '에스녹틸정');
+insert into medicine values( m_code_seq.nextval, '로토씨큐브아쿠아차지아이점안액' );
+insert into medicine values( m_code_seq.nextval, '디티아이주100mg(다카르바진)' );
+insert into medicine values( m_code_seq.nextval, '리렌스연고(구아이아줄렌) 20g' );
+insert into medicine values( m_code_seq.nextval, '리렌스연고(구아이아줄렌) 30g' );
+insert into medicine values( m_code_seq.nextval, '아로나민아이정' );
+insert into medicine values( m_code_seq.nextval, '아로나민아이플러스정' );
+insert into medicine values( m_code_seq.nextval, '아이간E점안액' );
+insert into medicine values( m_code_seq.nextval, '아이나졸캠슐(플루코나졸)' );
 select m_code"약품 코드", m_name"약품 이름" from medicine; 
 select * from medicine;
 
@@ -11,6 +19,11 @@ select * from medicine;
 insert into disease values(d_code_seq.nextval, '코로나');
 insert into disease values(d_code_seq.nextval, 'A형간염');
 insert into disease values(d_code_seq.nextval, '장염');
+insert into disease values(d_code_seq.nextval,'감기');
+insert into disease values(d_code_seq.nextval, '독감');
+insert into disease values(d_code_seq.nextval, '디스크');
+insert into disease values(d_code_seq.nextval, '골절');
+insert into disease values(d_code_seq.nextval, '중이염');
 select d_code"질병 코드", d_name"질병 이름" from disease;
 select * from disease;
 
@@ -19,6 +32,7 @@ select * from disease;
 insert into therapy values (t_code_seq.nextval, '없음', '0');
 insert into therapy values (t_code_seq.nextval, '도수치료', '100000');
 insert into therapy values (t_code_seq.nextval, '물리치료', '5000');
+insert into therapy values(t_code_seq.nextval, '적외선', '10000');
 
 select t_code"물리치료 코드", t_name"물리치료 이름", t_price"물리치료 가격" from therapy;
 select * from therapy;
