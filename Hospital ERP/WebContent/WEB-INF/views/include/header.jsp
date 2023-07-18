@@ -12,10 +12,8 @@
 <body>
 	<div class="d-flex" id="hospital_title">
 		<div class="p-2 flex-grow-1">
-			
 			<a  href="main2.do"><img src="${pageContext.request.contextPath}/image/logo.png" height="50px"/></a>
-				<span class = "name"></span>
-
+				<span class = "headername"></span>
 			<a href="logout.do"><i class="fa-solid fa-arrow-right-from-bracket" style="color: white;"></i></a>
 		</div>
 	    <div class="p-2"><a href="main2.do" class="title_nav">진료</a></div>
@@ -24,25 +22,23 @@
 	</div>
 </body>
 <script>
-$(function(){
-	function ecode(){
-		$.ajax({
-			type: 'post',
-			url: "./ecodefind.do",
-			success: function(data){
-				var obj=JSON.parse(data);
-				console.log(obj);
-				name = obj.h_name +" "+  obj.name+"님 환영합니다";
-				$(".name").text(name);
-				
-			}
-		, error: function(msg, error){
-			alert(error);
+	$(function() {
+		function ecode() {
+			$.ajax({
+				type : 'post',
+				url : "./ecodefind.do",
+				success : function(data) {
+					var obj = JSON.parse(data);
+					console.log(obj);
+					name = obj.h_name + " " + obj.name + "님 환영합니다";
+					$(".headername").text(name);
+				},
+				error : function(msg, error) {
+					alert(error);
+				}
+			})
 		}
-		})
-	}
-	ecode();
-})
-
+		ecode();
+	})
 </script>
 </html>

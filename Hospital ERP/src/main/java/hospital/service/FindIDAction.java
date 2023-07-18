@@ -34,13 +34,13 @@ public class FindIDAction implements Action {
 				if (h_id != null) {
 					// 아이디를 찾은 경우
 					out.println("<script>");
-					out.println("alert('아이디는 " + h_id + "입니다.');");
+					out.println("alert('회원님의 아이디는 " + h_id + "입니다.');");
 					out.println("location.href='login.do';"); // 아이디를 찾은 후 리다이렉트할 페이지
 					out.println("</script>");
 				} else {
 					// 아이디를 찾지 못한 경우
 					out.println("<script>");
-					out.println("alert('일치하는 정보로 등록된 아이디가 없습니다.');");
+					out.println("alert('등록된 정보가 없습니다.');");
 					out.println("history.back();"); // 이전 페이지로 돌아가기
 					out.println("</script>");
 				}

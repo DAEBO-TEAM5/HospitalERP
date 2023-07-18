@@ -17,11 +17,9 @@ public class MemberChangePwAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp) {
-		ActionForward forward = null;
-
-		/*
-		 * 브라우저에서 건너온 세션 확인 로그인 상태에선 접근 못하게 설정
-		 */
+		
+			ActionForward forward = null;
+		
 		HttpSession session = req.getSession(false);
 		if ((String) session.getAttribute("isLogin") != null) {
 			// 로그인된 상태

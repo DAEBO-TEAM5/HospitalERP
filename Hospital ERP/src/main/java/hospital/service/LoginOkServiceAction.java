@@ -14,7 +14,7 @@ public class LoginOkServiceAction implements Action {
 	public ActionForward execute(HttpServletRequest request,
 			HttpServletResponse response) {
 		
-		ActionForward ret = new ActionForward();
+		ActionForward Forward = new ActionForward();
 
 	      String h_id = request.getParameter("username");
 	      String h_pwd = request.getParameter("password");
@@ -28,15 +28,15 @@ public class LoginOkServiceAction implements Action {
 	         session.setAttribute("h_id", h_id);
 	         session.setAttribute("h_e_code", h_e_code);
 	         
-	         ret.setPath("main2.do");
+	         Forward.setPath("main2.do");
 	      }
 	      else {
 	    	  response.setContentType("text/html; charset=UTF-8");
 	    	  request.setAttribute("script", "<script>alert('ID 비밀번호 확인해주세요')</script>");
-	        ret.setPath("login.do");
+	    	  Forward.setPath("login.do");
 	      }
-	      ret.setRedirect(false);
-	      return ret;
+	      Forward.setRedirect(false);
+	      return Forward;
 	   }
 
 	}
