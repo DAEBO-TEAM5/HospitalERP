@@ -9,13 +9,13 @@ import hospital.utils.ConnectionHelper;
 public class EmailDao {
 
 	 public boolean EmailCheck(String h_email) {
+		 
 	        Connection conn = null;
 	        PreparedStatement pstmt = null;
 	        ResultSet rs = null;
 	        boolean isDuplicate = false;
 
 	        try {
-	            // 쿼리
 	            String query = "SELECT H_EMAIL FROM HOSPITAL_ID WHERE H_EMAIL=?";
 	            
 	            conn = ConnectionHelper.getConnection();
@@ -33,7 +33,6 @@ public class EmailDao {
 	            ConnectionHelper.close(pstmt);
 	            ConnectionHelper.close(conn);
 	        }
-
 	        return isDuplicate;
 	    }
 	}

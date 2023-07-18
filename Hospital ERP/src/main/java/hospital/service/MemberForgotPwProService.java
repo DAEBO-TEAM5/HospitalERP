@@ -10,8 +10,6 @@ public class MemberForgotPwProService {
 
 	public LoginVO getMember(String h_id, String h_email) {
 		
-	
-		/* DB 작업 */
 		Connection conn = ConnectionHelper.getConnection();
 		Member2Dao dao = new Member2Dao();
 		LoginVO vo = dao.selectMember(h_id, h_email);

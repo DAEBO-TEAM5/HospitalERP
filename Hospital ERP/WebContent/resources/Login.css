@@ -1,13 +1,21 @@
 @charset "UTF-8";
 
 body {
+  
   margin: 0;
   padding: 0;
-  background-color: #d1f5fe;
+  background-color: #d1f5fe; 
   height: 100vh;
+ 
+}
+.fit-picture{
+	width:200px;
+	text-align: center;
+	display: block; margin: 0px auto;
+	margin-top: 120px;
 }
 #login .container #login-row #login-column #login-box {
-  margin-top: 120px;
+  margin-top: 80px;
   max-width: 600px;
   height: 320px;
   border: 1px solid #9C9C9C;
