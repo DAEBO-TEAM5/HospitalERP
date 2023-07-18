@@ -295,9 +295,10 @@
 			<div class="col-md-2">
 				<c:import url="../include/calendar.jsp" />
 				<div class="memoForm">
-					<textarea class="form-control" name="calendar_memo" id="calendar_memo"></textarea>
+					<textarea class="form-control" name="calendar_memo" id="calendar_memo" placeholder="위에서 날짜를 선택해주세요"></textarea>
 
-					<input type="button" class="button-right memoButton btn btn-primary modalBtn" value="날짜 선택 우선">
+					<input type="button" class="button-right memoButton btn btn-primary modalBtn" id="memoButton"  style="visibility: hidden;">
+					<input type="button" class="button-right btn btn-primary modalBtn" id="delbtn" value="삭제" onclick="deleteMemo();" style="background-color:red; visibility: hidden;">
 				</div>
 			</div>
 
@@ -794,23 +795,21 @@ $(function(){
 function getMemo(data){
 	console.log("memo불러오기");
 	var obj = JSON.parse(data);
-	console.log(obj.memo);
-	$('#calendar_memo').val(obj.memo);
-	if(obj.memo != ""){
-		//$('.memo_submit').remove();
-		//var str = "<input type='button' class='button-right updateMemo' value='수정' onclick=''>";
-		//$('.memoForm').append(str);
+	//console.log(obj.memo);
+	$('#calendar_memo').val("");
+	var deletebtn = document.getElementById('delbtn');
+	var memobtn = document.getElementById('memoButton');
+	memobtn.style.visibility = 'visible';
+	if(obj.memo != ""){		
+		$('#calendar_memo').val(obj.memo);
 		$('.memoButton').attr("value", "수정").removeAttr("onclick").attr("onclick", "updateMemo();");
-		
+		deletebtn.style.visibility = 'visible';
 	}
 	else {
+		$('#calendar_memo').attr('placeholder', '메모를 입력해주세요');
 		$('.memoButton').attr("value", "저장").removeAttr("onclick").attr("onclick", "insertMemo();");
-		//$('.updateMemo').remove();
-		//var str2 = "<input type='button' class='button-right memo_submit' value='작성 완료' onclick='insertMemo();'>";
-		//$('.memoForm').append(str);
+		deletebtn.style.visibility = 'hidden';
 	}
-	//var str = "<input type='button' class='button-right' value='수정' onclick=''>";
-	//$('.memoForm').append(str);
 }
 
 //메모 저장
@@ -843,6 +842,20 @@ function updateMemo(){
 			document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
 			document.getElementById("calendar_memo").value="";
 			alert('저장이 완료되었습니다.');
+		} ,
+		error: errFunc
+	})
+}
+//메모 삭제
+function deleteMemo(){
+	$.ajax({
+		type: 'post',
+		url : "./deleteCalendarMemo.do",
+		data : { date: $('#calYear').text() +"-"+ $('#calMonth').text() +"-"+ $('.choiceDay').text() },
+		success : function(data){
+			document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
+			document.getElementById("calendar_memo").value="";
+			alert('삭제가 완료되었습니다.');
 		} ,
 		error: errFunc
 	})
