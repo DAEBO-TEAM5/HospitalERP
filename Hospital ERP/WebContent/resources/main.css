@@ -57,7 +57,14 @@
 	padding: 12px;
 }
 
+#d_note {
+	height: 130px;
+}
 
+.hweight {
+	display: inline-block;
+	width: 40%;
+}
 
 .patient_name{
 	font-size: 25px;
@@ -85,6 +92,7 @@
 .button-right {
 	float: right;
 }
+
 
 .history {
 	border: 1px solid black;
@@ -141,7 +149,7 @@
 
 
 #addMed {
-	width: 65%;
+	width: 66%;
 	display: inline-block;
 }
 #medUsage {
@@ -155,18 +163,10 @@ div .result_table {
 	overflow: auto;
 	background-color: white;
 	padding: 10px;
+	border-radius: 10px;
 }
 
-#result_med {
-	border: 1px solid lightgray;
-	width: 100%;
-	
-}
-#result_med > td{
-	border: 1px solid lightgray;
-	width: 100%;
-	
-}
+
 
 #result_med .medName {
 	width: 80%;
@@ -174,10 +174,10 @@ div .result_table {
 
 #result_med .medYang {
 	width: 20%;
-}
+} 
 
 #addTh {
-	width: 80%;
+	width: 81%;
 	display: inline-block;
 }
 

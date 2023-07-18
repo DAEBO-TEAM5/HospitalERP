@@ -61,7 +61,7 @@
         width: 100px;
         height: 100px;
     }
-   .Calendar > table, th, tr, td{
+   .Calendar > table, .Calendar>th,  .Calendar>tr,  .Calendar>td{
       border: 0px;
    }
 

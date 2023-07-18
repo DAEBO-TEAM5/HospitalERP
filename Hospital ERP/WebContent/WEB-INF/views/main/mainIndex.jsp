@@ -75,9 +75,10 @@
 										<input type="radio" name="gender" value="여">여
 									</div>
 									<div class="form-group">
-										<label>키 / 몸무게</label> 
-										<input type="text" class="form-control" id="InputHeight" /> 
-										<input type="text" class="form-control" id="InputWeight" />
+										<label for="InputHeight">키</label> 
+										<input type="text" class="form-control hweight" id="InputHeight" /> 
+										<label for="InputWeight">몸무게</label> 
+										<input type="text" class="form-control hweight" id="InputWeight" />
 									</div>
 									<div class="form-group">
 										<label for="InputNote">특이사항</label>
@@ -171,9 +172,10 @@
 											<input type="radio" name="genderUpdate" value="여">여
 										</div>
 										<div class="form-group">
-											<label>키 / 몸무게</label> 
-											<input type="text" class="form-control" id="LoadHeight" /> 
-											<input type="text" class="form-control" id="LoadWeight" />
+											<label for="LordHeight">키</label> 
+											<input type="text" class="form-control hweight" id="LoadHeight" /> 
+											<label for="LordWeight">몸무게</label> 
+											<input type="text" class="form-control hweight" id="LoadWeight" />
 										</div>
 										<div class="form-group">
 											<label for="LoadNote">특이사항</label>
@@ -252,7 +254,8 @@
 
 
 			<div class="col-md-4" style="border-right: 1px solid black;">
-				<br><h2><b>진료 기록 작성</b></h2>
+			<div class="panel" style="height: 90vh;">
+				<h2><b>진료 기록 작성</b></h2>
 				<form role="form" method="post" id="recordForm">
 					<div class="form-group">
 						<label><b>의사 소견</b></label>
@@ -270,13 +273,20 @@
 								<option value=6>6</option>
 								<option value=7>7</option>
 							</select> 
-							<input class="btn btn-primary" type="button" value="+" onclick="prescriptionList();"> 
-							<input class="btn btn-primary" type="button" value="-" onclick="prescriptionListDelete();">
+
+							<button type="button" class="btn btn-primary" onclick="prescriptionList()"><i class="fa-solid fa-plus" style="color: #ffffff;"></i></button>
+							<button type="button" class="btn btn-primary" onclick="prescriptionListDelete()"><i class="fa-solid fa-minus" style="color: #ffffff;"></i></button>
+							
 						</div>
 						<div class="result_table">
-							<table id="result_med">
-								<th class="medName">약품명</th>
-								<th class="medYang">처방량</th>
+							<table id="result_med" class="table table-sm">
+								<thead>
+									<tr>
+										<th class="medName" scope="col">약품명</th>
+										<th class="medYang" scope="col">처방량</th>
+									</tr>
+								</thead>
+								<tbody id="result_medicine"></tbody>
 							</table>
 						</div>
 
@@ -284,13 +294,18 @@
 						
 						<div class="form-group" style="">
 							<label> <b> < 물리치료 > </b> </label>  <br>
-							<select id="addTh" class="form-control phlist"></select> 
-							<input class="btn btn-primary" type="button" value="+" onclick="therapyList();"> 
-							<input class="btn btn-primary" type="button" value="-" onclick="therapyDelete();">
+							<select id="addTh" class="form-control phlist"></select>
+							<button type="button" class="btn btn-primary" onclick="therapyList()"><i class="fa-solid fa-plus" style="color: #ffffff;"></i></button>
+							<button type="button" class="btn btn-primary" onclick="therapyDelete()"><i class="fa-solid fa-minus" style="color: #ffffff;"></i></button> 
 						</div>
 						<div class="result_table">
-							<table id="result_Th">
-								<th>물리치료 목록</th>
+							<table id="result_Th" class="table table-sm">
+								<thead>
+									<tr>
+										<th scope="col">물리치료 목록</th>
+									</tr>
+								</thead>
+								<tbody id="result_therapy"></tbody>
 							</table>
 						</div>
 
@@ -304,11 +319,11 @@
 
 					</div>
 					
-					<input type="reset" class="button-right" value="작성 취소">
-					<input type="submit" class="button-right" value="작성 완료" onclick="insertRec();">
+					<input type="submit" class="button-right btn btn-primary" value="작성 완료" onclick="insertRec();">&nbsp;&nbsp;
+					<input type="reset" class="button-right btn btn-secondary" value="작성 취소">
 
 				</form>
-
+			</div>
 			</div>
 
 
@@ -363,6 +378,21 @@ function waitListFunc(data){
 			str += "</div>"
 	}
 	$('.list-group').html(str);
+	
+	$('.waitButton').first().addClass('select');
+	
+	var p_num = $('.waitButton').first().children('.r_num').text();
+	p_num = p_num.substring(4,);
+	console.log(p_num);
+	
+	
+ 	$.ajax({
+		type: 'post',
+		url: "./waitinginfo.do",
+		data : {num: p_num},
+		success: patientInfo,
+		error: errFunc
+	}); 
 }
 
 //처방전_select리스트 불러오기
@@ -542,7 +572,9 @@ function prescriptionList() {
 	  var usageT = usage.options[usage.selectedIndex].text;
 	  
 	  var med_table = "<tr id='prescriptionMedList'>  <td>" + m_nameT + "</td> <td>" + usageT + "</td> </tr>";
-	  $('#result_med').append(med_table);
+	  $('#result_medicine').append(med_table);
+	  
+	  $('.result_table').scrollTop($('.result_table')[0].scrollHeight);
 }
 
 /* function prescriptionList(,,name) {
@@ -566,7 +598,9 @@ function therapyList() {
 	  var t_nameT = t_name.options[t_name.selectedIndex].text;
 	  
 	  var med_table = "<tr id='prescriptionThList'>  <td>" + t_nameT + "</td>  </tr>";
-	  $('#result_Th').append(med_table);
+	  $('#result_therapy').append(med_table);
+	  
+	  $('.result_table').scrollTop($('.result_table')[0].scrollHeight);
 }
 function therapyDelete() {
 	$("tr").remove("#prescriptionThList:last");
