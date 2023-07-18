@@ -2,7 +2,15 @@
 --약품 //코드 10001~
 insert into medicine values(m_code_seq.nextval, '타이레놀');
 insert into medicine values(m_code_seq.nextval, '아스피린');
-insert into medicine values(m_code_seq.nextval, '에스녹틸정 ');
+insert into medicine values(m_code_seq.nextval, '에스녹틸정');
+insert into medicine values( m_code_seq.nextval, '로토씨큐브아쿠아차지아이점안액' );
+insert into medicine values( m_code_seq.nextval, '디티아이주100mg(다카르바진)' );
+insert into medicine values( m_code_seq.nextval, '리렌스연고(구아이아줄렌) 20g' );
+insert into medicine values( m_code_seq.nextval, '리렌스연고(구아이아줄렌) 30g' );
+insert into medicine values( m_code_seq.nextval, '아로나민아이정' );
+insert into medicine values( m_code_seq.nextval, '아로나민아이플러스정' );
+insert into medicine values( m_code_seq.nextval, '아이간E점안액' );
+insert into medicine values( m_code_seq.nextval, '아이나졸캠슐(플루코나졸)' );
 select m_code"약품 코드", m_name"약품 이름" from medicine; 
 select * from medicine;
 
@@ -11,6 +19,11 @@ select * from medicine;
 insert into disease values(d_code_seq.nextval, '코로나');
 insert into disease values(d_code_seq.nextval, 'A형간염');
 insert into disease values(d_code_seq.nextval, '장염');
+insert into disease values(d_code_seq.nextval,'감기');
+insert into disease values(d_code_seq.nextval, '독감');
+insert into disease values(d_code_seq.nextval, '디스크');
+insert into disease values(d_code_seq.nextval, '골절');
+insert into disease values(d_code_seq.nextval, '중이염');
 select d_code"질병 코드", d_name"질병 이름" from disease;
 select * from disease;
 
@@ -19,6 +32,7 @@ select * from disease;
 insert into therapy values (t_code_seq.nextval, '없음', '0');
 insert into therapy values (t_code_seq.nextval, '도수치료', '100000');
 insert into therapy values (t_code_seq.nextval, '물리치료', '5000');
+insert into therapy values(t_code_seq.nextval, '적외선', '10000');
 
 select t_code"물리치료 코드", t_name"물리치료 이름", t_price"물리치료 가격" from therapy;
 select * from therapy;
@@ -86,14 +100,15 @@ select *from prescription;
 
 
 --요금 수납  //코드 80001~
-insert into payment values(pay_num_seq.nextval, 50000, 0, 70001); 
-insert into payment values(pay_num_seq.nextval, 20000, 0, 70002); 
-insert into payment values(pay_num_seq.nextval, 40000, 0, 70003); 
-insert into payment values(pay_num_seq.nextval, 50000, 0, 70004); 
-insert into payment values(pay_num_seq.nextval, 60000, 0, 70005); 
-insert into payment values(pay_num_seq.nextval, 70000, 0, 70006); 
-insert into payment values(pay_num_seq.nextval, 20000, 0, 70007); 
-select pay_num"수납 번호", pay_amount"처방금액", pay_pay"수납한 금액", pay_r_num"진료기록 번호" from payment;
+insert into payment(pay_num, pay_amount,pay_r_num) values(pay_num_seq.nextval, (SELECT t.t_price FROM payment p JOIN record r ON p.pay_r_num = r.r_num JOIN tr_mapping tm ON r.r_num = tm.tr_r_num
+					JOIN therapy t ON tm.tr_t_code = t.t_code WHERE p.pay_r_num = 70001) + (select pay_basic from payment where pay_r_num=70001), 70001); 
+insert into payment(pay_num, pay_amount,pay_r_num) values(pay_num_seq.nextval, 15000, 70002); 
+insert into payment(pay_num, pay_amount,pay_r_num) values(pay_num_seq.nextval, 20000, 70003); 
+insert into payment(pay_num, pay_amount,pay_r_num) values(pay_num_seq.nextval, 40000, 70004); 
+insert into payment(pay_num, pay_amount,pay_r_num) values(pay_num_seq.nextval, 30000, 70005); 
+insert into payment(pay_num, pay_amount,pay_r_num) values(pay_num_seq.nextval, 66000, 70006); 
+insert into payment(pay_num, pay_amount,pay_r_num) values(pay_num_seq.nextval, 23000, 70007); 
+select pay_num"수납 번호", pay_amount"처방금액", pay_basic"기본금액", pay_cash"현금 수납한 금액", pay_card"카드 수납한 금액", pay_r_num"진료기록 번호" from payment;
 select * from payment;
 
 
@@ -127,11 +142,11 @@ select * from tr_mapping;
 
 
 --입고 관리 // 물품 재고, 입고 번호 7001 ~
-insert into item values ( i_num_seq.nextval, '다스', 2, '2023-09-03', 30000, '비고', '메모', 90001);
-insert into item values ( i_num_seq.nextval, '되', 11, '2023-07-03', 50000, '비고', '메모', 90002);
-insert into item values ( i_num_seq.nextval, '개', 100, '2025-04-30', 700, '비고', '메모', 90003);
-insert into item values ( i_num_seq.nextval, '묶음', 50, '2025-06-20', 9999, '비고', '메모', 90004);
-insert into item values ( i_num_seq.nextval, '개', 3, '2099-12-31', 200000, '비고', '메모', 90005);
+insert into item values ( i_num_seq.nextval, 90001, '다스', 2, '2023-09-03', 30000, '비고', '메모');
+insert into item values ( i_num_seq.nextval, 90002, '되', 11, '2023-07-03', 50000, '비고', '메모');
+insert into item values ( i_num_seq.nextval, 90003, '개', 100, '2025-04-30', 700, '비고', '메모');
+insert into item values ( i_num_seq.nextval, 90004, '묶음', 50, '2025-06-20', 9999, '비고', '메모');
+insert into item values ( i_num_seq.nextval, 90005, '개', 3, '2099-12-31', 200000, '비고', '메모');
 
 select i_num"물품 번호", i_unit"단위", i_stock"입고량", i_expire"유통기한", i_price"물품단가", i_remark"비고", i_memo"메모", i_i_code"품목코드" from item;
 select * from item;
