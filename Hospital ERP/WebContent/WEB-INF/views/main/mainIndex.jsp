@@ -20,6 +20,7 @@
   <script src="https://kit.fontawesome.com/d7766e5822.js" crossorigin="anonymous"></script> <!-- fontawesome  -->
 
 
+
 </head>
 <body>
 <div class="container-fluid">
@@ -195,59 +196,30 @@
 					</div>
 				</div>
 
-
-
-
-
-				<br>
-				<br>
-				<br>
-				<div style="border-top: 1px solid black" id="hLine">
-
-
-					<div class="container text-center">
-						<div class="row3">
-							<div class="col-sm-4  gap-2 col-6 mx-auto">
-								<input class="btn btn-primary" type="button" value="날짜1">
-								<button type="button" class="btn btn-secondary" data-bs-toggle="button" autocomplete="off">Secondary</button>
-							</div>
-
-							<div class="col-sm-8">
-								<label>지난 진료 기록</label>
-								<div>
-									<label>증상</label>
-									<textarea class="form-control"></textarea>
-									<div class="form-control"></div>
-
-									<label>병명</label>
-									<textarea class="form-control"></textarea>
-
-									<label>처방</label>
-									<table class="history">
-										<th>품명</th>
-										<th>중량</th>
-										<th>수</th>
-										<tr>
-											<td>1</td>
-											<td></td>
-											<td></td>
-										</tr>
-										<tr>
-											<td>2</td>
-											<td></td>
-											<td></td>
-										</tr>
-
-									</table>
-
-
-								</div>
-							</div>
-
-						</div>
-					</div>
-
-				</div>
+	         			<div class="panel" style="height: calc(70% - 24px); display:flex;">
+	         				<div style="width: 20%; margin-right: 12px;">
+	         					<div style="text-align:center; font-size: 14px; font-weight: bold">방문일자&nbsp;<i class="fa-solid fa-calendar-days fa-2xs" style="color: black;"></i></div>
+	         					<div class="date_button">
+	         					
+	         					</div>
+	         				</div>
+			            	<div style="width: 80%; background-color: white; border-radius: 4px;">
+				            	<div class="record"></div>
+				            		<div style="padding: 6px 12px 6px 12px;">
+		          						<label>증상</label>
+          								<textarea class="form-control" id="symptom" style="margin-bottom: 12px;"></textarea>
+          								<label>병명</label>
+       									<textarea class="form-control" id="disease" style="margin-bottom: 12px;"></textarea>
+		          								<label>처방</label>
+		       									<table class="history">
+									          		
+									          	</table>
+									    <label style="margin-top: 12px;">특이사항</label>
+       									<textarea class="form-control" id="special_note" style="margin-bottom: 12px;">없음</textarea>
+		          							</div>
+				            	
+			            	</div>
+	         			</div>
 
 
 			</div>
@@ -381,19 +353,53 @@ function waitListFunc(data){
 	
 	$('.waitButton').first().addClass('select');
 	
-	var p_num = $('.waitButton').first().children('.r_num').text();
-	p_num = p_num.substring(4,);
-	console.log(p_num);
+	var pnum = $('.waitButton').first().children('.r_num').text();
+	pnum = pnum.substring(4,);
+	console.log(pnum);
 	
 	
  	$.ajax({
 		type: 'post',
-		url: "./waitinginfo.do",
-		data : {num: p_num},
+		url: "./patientinfo.do",
+		data : {p_num: pnum},
 		success: patientInfo,
 		error: errFunc
 	}); 
 }
+
+$(function(){
+	$(document).on("click", ".date_button > button", function (e){
+		var str = "";
+		var total_pay = 0;
+		for(var i =1; i < info.info.length; i++){
+			if(i === $(this).index() + 1){
+				$('#jupsu').html(info.info[i].note);
+				$('#symptom').html(info.info[i].opinion);
+				$('#disease').html(info.info[i].disease);
+				
+
+				
+				$('.record').html("진료기록 [" + info.info[i].date + "]  |  담당의 : " + info.info[i].e_name);
+				str_his = ""
+				for(var j = 0; j < info.info[i].med.length; j++){
+					
+					str_his += "<tr><th>번호</th> <th>품명</th> <th>투약일</th></tr>";
+					str_his += "<tr> <td>" + (j+1) +" </td> <td> " + info.info[i].med[j].medName+ "</td> <td> " +info.info[i].med[j].use + "</td> </tr>"
+				}		
+				$('.history').html(str_his)
+				
+				$('.day_button').removeClass('button_target');
+				var t_button = $($('.day_button')[i-1]);
+				t_button.addClass('button_target')
+				
+				$('.arrow').addClass('target_arrow')
+				var t_arrow = $($('.arrow')[i-1]);
+				t_arrow.removeClass('target_arrow')
+			}
+		}
+		
+	});
+});
 
 //처방전_select리스트 불러오기
 $(function(){
@@ -442,8 +448,8 @@ function selectListFunc(data){
 	 
 	 $.ajax({
 		type: 'post',
-		url: "./waitinginfo.do",
-		data : {num: info },
+		url: "./patientinfo.do",
+		data : {p_num: info },
 		success : patientInfo,
 		error : function(msg, error) {
 				alert(error);
@@ -452,13 +458,46 @@ function selectListFunc(data){
 }); 
 function patientInfo(data){
 	var obj = JSON.parse(data);
-	var str = "";
-	str = obj.birth + " | " + obj.address + " | "+  obj.sex + " | " + obj.phone;
-	console.log(obj.w_symptom);
+	var info_str = "";
+	info = obj;
+	info_str += obj.info[0].birth + " | " + obj.info[0].address + " | "+  obj.info[0].sex + " | " + obj.info[0].phone;
 	
-	$('.patient_name').html(obj.name);
-	$('.patient_info').html(str);
-	$('#jupsu').html(obj.w_symptom);
+	$('.patient_name').html(obj.info[0].name);
+	$('.record_number').html("pn."+obj.info[0].num);
+	$('.patient_info').html(info_str);
+	$('#jupsu').html(obj.info[0].note); //접수 메모로 수정 필요
+	$('.record').html("진료기록 [" + obj.info[1].date + "]  |  담당의 : " + obj.info[1].e_name);
+	$('#symptom').html(obj.info[1].opinion);
+	$('#disease').html(obj.info[1].disease);
+	$('.pay').html(obj.info[1].p_amount)
+	str_his = ""
+	str_his += "<tr><th>번호</th> <th>품명</th> <th>투약일</th></tr>";
+	for(var i = 0; i < obj.info[1].med.length; i++){
+		str_his += "<tr> <td>" + (i+1) +" </td> <td> " + info.info[1].med[i].medName+ "</td> <td> " +info.info[1].med[i].use + "</td> </tr>"
+		
+	}
+	$('.history').html(str_his)
+	
+	
+	
+	var str = "";
+
+ 	 for(var i =1; i < obj.info.length; i++){
+		var year = obj.info[i].date.slice(0,4);
+		var month = obj.info[i].date.slice(5,7);
+		var day = obj.info[i].date.slice(8,10);
+		str += "<button class='btn btn-outline-primary font_13 day_button'>" + year + "." + month +"." + day + "<span class='arrow'> &nbsp; <i class='fa-solid fa-play' style='color: white;'></i> </span>" + "</button>"
+	} 
+	$('.date_button').html(str);
+	
+	
+	var first_button = $($('.day_button')[0]);
+	first_button.addClass('button_target')
+	$('.arrow').addClass('target_arrow')
+	
+	var first_arrow = $($('.arrow')[0]);
+	first_arrow.removeClass('target_arrow')
+	
 }
 
 function errFunc(msg, error){
