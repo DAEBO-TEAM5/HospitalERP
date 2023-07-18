@@ -13,6 +13,7 @@ import hospital.vo.PatientVO;
 import hospital.vo.PrescriptionVO;
 import hospital.vo.RecordVO;
 import hospital.vo.patientRecordVO;
+import hospital.vo.paymentVO;
 
 public class HospitalDao {
 	
@@ -220,7 +221,7 @@ public class HospitalDao {
 		ArrayList<RecordVO> list = new ArrayList<>();
 		try {
 			conn = ConnectionHelper.getConnection();
-			String sql = "select * from record where r_p_num = ? order by r_date";
+			String sql = "select * from record where r_p_num = ? order by r_date desc";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, p_num);
@@ -237,6 +238,7 @@ public class HospitalDao {
 				vo.setR_opinion(rs.getString("r_opinion"));
 				vo.setR_p_num(rs.getInt("r_p_num"));
 				vo.setR_e_code(rs.getInt("r_e_code"));
+				vo.setR_symptom(rs.getString("r_symptom"));
 				list.add(vo);
 			}
 			
@@ -394,6 +396,45 @@ public class HospitalDao {
 		}
 		
 		return map;
+	}
+	
+	public paymentVO GetPayment(int r_num) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		paymentVO vo = new paymentVO();
+		
+		try {
+			conn = ConnectionHelper.getConnection();
+			String sql = "select * from payment where pay_r_num = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, r_num);
+
+			rs = pstmt.executeQuery();
+
+			while(rs.next()) {
+				vo.setPay_num(rs.getInt("pay_num"));
+				vo.setPay_amount(rs.getInt("pay_amount"));
+				vo.setPay_basic(rs.getInt("pay_basic"));
+				vo.setPay_cash(rs.getInt("pay_cash"));
+				vo.setPay_card(rs.getInt("pay_card"));
+				
+				System.out.println(vo);
+			}
+			
+			
+			ConnectionHelper.close(rs);
+			ConnectionHelper.close(pstmt);
+			ConnectionHelper.close(conn);
+				
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		}
+		
+		return vo;
 	}
 	
 	

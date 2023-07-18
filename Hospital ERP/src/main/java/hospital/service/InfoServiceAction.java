@@ -23,6 +23,7 @@ import hospital.dao.RecordDao;
 import hospital.vo.PatientVO;
 import hospital.vo.RecordVO;
 import hospital.vo.patientRecordVO;
+import hospital.vo.paymentVO;
 
 public class InfoServiceAction implements Action {
 
@@ -55,6 +56,7 @@ public class InfoServiceAction implements Action {
 		HashMap<String, Integer> medlist = new HashMap<>();
 		HashMap<String, Integer> thlist = new HashMap<>();
 		
+		
 		for (RecordVO v : recordVo) { // 진료번호대로(날짜순)
 			jobj = new JSONObject();
 			Date d = v.getR_date();
@@ -64,8 +66,8 @@ public class InfoServiceAction implements Action {
 
 			String d_name = dao.DiesaseName(v.getR_d_code()); // 질병명
 			jobj.put("disease", d_name); // 질병명
-			
 			jobj.put("opinion", v.getR_opinion()); // 증상
+			jobj.put("symptom", v.getR_symptom()); // 방문 목적
 
 			System.out.println("진료번호-----------" + v.getR_num());
 			medlist = dao.MedName(v.getR_num()); // 약품명, 사용량
@@ -90,6 +92,12 @@ public class InfoServiceAction implements Action {
 				objArr.add(obj);
 			}
 			jobj.put("therapy", objArr);
+			
+			paymentVO paymentVo = dao.GetPayment(v.getR_num());
+			jobj.put("pay_amount", paymentVo.getPay_amount());
+			jobj.put("pay_basic", paymentVo.getPay_basic());
+			jobj.put("pay_cash", paymentVo.getPay_cash());
+			jobj.put("pay_card", paymentVo.getPay_card());
 
 			sendArray.add(jobj); // 진료 날짜 순
 		}
