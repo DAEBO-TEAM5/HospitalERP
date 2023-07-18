@@ -55,39 +55,39 @@
 							<div class="modal-body">
 								<form role="form" id="patientForm">
 									<div class="form-group">
-										<label for="InputName">이름</label> 
-										<input type="text" class="form-control" id="InputName" />
+										<label for="InputName" class="modalLabel">이름</label> 
+										<input type="text" class="form-control intext" id="InputName" />
 									</div>
 									<div class="form-group">
-										<label for="InputBirth">생년월일</label> 
-										<input type="text" class="form-control" id="InputBirth" />
+										<label for="InputBirth" class="modalLabel">생년월일</label> 
+										<input type="text" class="form-control intext" id="InputBirth" />
 									</div>
 									<div class="form-group">
-										<label for="InputPhone">연락처</label> 
-										<input type="text" class="form-control" id="InputPhone" />
+										<label for="InputPhone" class="modalLabel">연락처</label> 
+										<input type="text" class="form-control intext" id="InputPhone" />
 									</div>
 									<div class="form-group">
-										<label for="InputAddress">주소</label> 
-										<input type="text" class="form-control" id="InputAddress" />
+										<label for="InputAddress" class="modalLabel">주소</label> 
+										<input type="text" class="form-control intext" id="InputAddress" />
 									</div>
 									<div class="form-group">
-										<label>성별</label> 
+										<label class="modalLabel">성별</label> 
 										<input type="radio" name="gender" value="남">남 
 										<input type="radio" name="gender" value="여">여
 									</div>
 									<div class="form-group">
-										<label for="InputHeight">키</label> 
+										<label for="InputHeight" class="modalLabel">키</label> 
 										<input type="text" class="form-control hweight" id="InputHeight" /> 
-										<label for="InputWeight">몸무게</label> 
+										<label for="InputWeight" class="modalLabel">몸무게</label> 
 										<input type="text" class="form-control hweight" id="InputWeight" />
 									</div>
 									<div class="form-group">
-										<label for="InputNote">특이사항</label>
-										<textarea class="form-control" id="InputNote"></textarea>
+										<label for="InputNote" class="modalLabel">특이사항</label>
+										<textarea class="form-control intext" id="InputNote"></textarea>
 									</div>
 									<div class="form-group">
-										<label for="InputSymptom">증상</label>
-										<textarea class="form-control" id="InputSymptom"></textarea>
+										<label for="InputSymptom" class="modalLabel">증상</label>
+										<textarea class="form-control intext" id="InputSymptom"></textarea>
 									</div>
 
 									<br>
@@ -110,9 +110,9 @@
 
 
 			<div class="col-md-4" style="border-right: 1px solid black;">
-				<div class="panel" style="height: 30%; display: flex;">
+				<div class="panel" style="height: 30%; display: flex;"  data-bs-toggle="modal" data-bs-target="#patientModal">
 	         				<div class="patient_name" style="width: 15%;"></div>
-				            	<div style="width: 85%;">
+				            	<div style="width: 85%; padding-left: 5px;" >
 					            	<div>
 					            		<div class="record_number"></div>
 					            		<div class="patient_info"></div>
@@ -123,10 +123,7 @@
 				           				<span style="font-size: 14px; font-weight: bold">접수메모(증상/내원목적)&nbsp;<i class="fa-solid fa-pen fa-2xs" style="color: black;"></i></span>
 					            		<div class="form-control" id="jupsu" style="overflow-y:auto;"></div>
 					           		</div>
-					           		<!-- Button trigger modal -->
-					           		<div style="text-align: right">
-					           		 <input type="button" value="수정" class="btn btn-info" style="width: 25%" data-bs-toggle="modal" data-bs-target="#patientModal">
-					           		 </div>
+					           		
 				           	 </div>
 				           	
 				</div>
@@ -148,39 +145,39 @@
 								<div class="modal-body">
 									<form role="form" id="patientInfoForm">
 										<div class="form-group">
-											<label for="LoadNum">환자번호</label> 
-											<input type="text" class="form-control" id="LoadNum" disabled="disabled" />
+											<label for="LoadNum" class="modalLabel">환자번호</label> 
+											<input type="text" class="form-control intext" id="LoadNum" disabled="disabled" />
 										</div>
 										<div class="form-group">
-											<label for="LoadName">이름</label> 
-											<input type="text" class="form-control" id="LoadName" />
+											<label for="LoadName" class="modalLabel">이름</label> 
+											<input type="text" class="form-control intext" id="LoadName" />
 										</div>
 										<div class="form-group">
-											<label for="LoadBirth">생년월일</label> 
-											<input type="text" class="form-control" id="LoadBirth" />
+											<label for="LoadBirth" class="modalLabel">생년월일</label> 
+											<input type="text" class="form-control intext" id="LoadBirth" />
 										</div>
 										<div class="form-group">
-											<label for="LoadPhone">연락처</label> 
-											<input type="text" class="form-control" id="LoadPhone" />
+											<label for="LoadPhone" class="modalLabel">연락처</label> 
+											<input type="text" class="form-control intext" id="LoadPhone" />
 										</div>
 										<div class="form-group">
-											<label for="LoadAddress">주소</label> 
-											<input type="text" class="form-control" id="LoadAddress" />
+											<label for="LoadAddress" class="modalLabel">주소</label> 
+											<input type="text" class="form-control intext" id="LoadAddress" />
 										</div>
 										<div class="form-group">
-											<label>성별</label> 
+											<label class="modalLabel">성별</label> 
 											<input type="radio" name="genderUpdate" value="남">남 
 											<input type="radio" name="genderUpdate" value="여">여
 										</div>
 										<div class="form-group">
-											<label for="LordHeight">키</label> 
+											<label for="LordHeight" class="modalLabel">키</label> 
 											<input type="text" class="form-control hweight" id="LoadHeight" /> 
-											<label for="LordWeight">몸무게</label> 
+											<label for="LordWeight" class="modalLabel">몸무게</label> 
 											<input type="text" class="form-control hweight" id="LoadWeight" />
 										</div>
 										<div class="form-group">
-											<label for="LoadNote">특이사항</label>
-											<textarea class="form-control" id="LoadNote"></textarea>
+											<label for="LoadNote" class="modalLabel">특이사항</label>
+											<textarea class="form-control intext" id="LoadNote"></textarea>
 										</div> <br>
 
 								<div class="modal-footer">
@@ -196,7 +193,7 @@
 					</div>
 				</div>
 
-	         			<div class="panel" style="height: calc(70% - 24px); display:flex;">
+	         			<div class="panel" style="height: calc(70% - 34px); display:flex;">
 	         				<div style="width: 20%; margin-right: 12px;">
 	         					<div style="text-align:center; font-size: 14px; font-weight: bold">방문일자&nbsp;<i class="fa-solid fa-calendar-days fa-2xs" style="color: black;"></i></div>
 	         					<div class="date_button">
@@ -206,7 +203,7 @@
 			            	<div style="width: 80%; background-color: white; border-radius: 4px;">
 				            	<div class="record"></div>
 				            		<div style="padding: 6px 12px 6px 12px;">
-		          						<label>증상</label>
+		          						<label>의사 소견</label>
           								<textarea class="form-control" id="symptom" style="margin-bottom: 12px;"></textarea>
           								<label>병명</label>
        									<textarea class="form-control" id="disease" style="margin-bottom: 12px;"></textarea>
@@ -291,7 +288,7 @@
 
 					</div>
 					
-					<input type="submit" class="button-right btn btn-primary" value="작성 완료" onclick="insertRec();">&nbsp;&nbsp;
+					<input type="button" class="button-right btn btn-primary" value="작성 완료" onclick="insertRec();">
 					<input type="reset" class="button-right btn btn-secondary" value="작성 취소">
 
 				</form>
@@ -304,7 +301,7 @@
 				<div class="memoForm">
 					<textarea class="form-control" name="calendar_memo" id="calendar_memo"></textarea>
 
-					<input type="button" class="button-right memoButton btn btn-primary modalBtn" >
+					<input type="button" class="button-right memoButton btn btn-primary modalBtn" value="날짜 선택 우선">
 				</div>
 			</div>
 
@@ -367,39 +364,7 @@ function waitListFunc(data){
 	}); 
 }
 
-$(function(){
-	$(document).on("click", ".date_button > button", function (e){
-		var str = "";
-		var total_pay = 0;
-		for(var i =1; i < info.info.length; i++){
-			if(i === $(this).index() + 1){
-				$('#jupsu').html(info.info[i].note);
-				$('#symptom').html(info.info[i].opinion);
-				$('#disease').html(info.info[i].disease);
-				
 
-				
-				$('.record').html("진료기록 [" + info.info[i].date + "]  |  담당의 : " + info.info[i].e_name);
-				str_his = ""
-				for(var j = 0; j < info.info[i].med.length; j++){
-					
-					str_his += "<tr><th>번호</th> <th>품명</th> <th>투약일</th></tr>";
-					str_his += "<tr> <td>" + (j+1) +" </td> <td> " + info.info[i].med[j].medName+ "</td> <td> " +info.info[i].med[j].use + "</td> </tr>"
-				}		
-				$('.history').html(str_his)
-				
-				$('.day_button').removeClass('button_target');
-				var t_button = $($('.day_button')[i-1]);
-				t_button.addClass('button_target')
-				
-				$('.arrow').addClass('target_arrow')
-				var t_arrow = $($('.arrow')[i-1]);
-				t_arrow.removeClass('target_arrow')
-			}
-		}
-		
-	});
-});
 
 //처방전_select리스트 불러오기
 $(function(){
@@ -438,8 +403,8 @@ function selectListFunc(data){
 
 //대기환자 클릭하면 접수정보 띄워줌
  $(document).on('click', '#listinfo', function(){	 
-	 var info = $(this).find(".r_num").text().slice(4);
-	 console.log(info);
+	 var pnum = $(this).find(".r_num").text().slice(4);
+	 console.log(pnum);
 	 console.log('clicked');
 	 //var button = document.querySelectorAll('.waitButton');
 	 
@@ -449,7 +414,7 @@ function selectListFunc(data){
 	 $.ajax({
 		type: 'post',
 		url: "./patientinfo.do",
-		data : {p_num: info },
+		data : {p_num: pnum },
 		success : patientInfo,
 		error : function(msg, error) {
 				alert(error);
@@ -460,6 +425,7 @@ function patientInfo(data){
 	var obj = JSON.parse(data);
 	var info_str = "";
 	info = obj;
+	console.log(obj);
 	info_str += obj.info[0].birth + " | " + obj.info[0].address + " | "+  obj.info[0].sex + " | " + obj.info[0].phone;
 	
 	$('.patient_name').html(obj.info[0].name);
@@ -469,7 +435,7 @@ function patientInfo(data){
 	$('.record').html("진료기록 [" + obj.info[1].date + "]  |  담당의 : " + obj.info[1].e_name);
 	$('#symptom').html(obj.info[1].opinion);
 	$('#disease').html(obj.info[1].disease);
-	$('.pay').html(obj.info[1].p_amount)
+	
 	str_his = ""
 	str_his += "<tr><th>번호</th> <th>품명</th> <th>투약일</th></tr>";
 	for(var i = 0; i < obj.info[1].med.length; i++){
@@ -499,6 +465,40 @@ function patientInfo(data){
 	first_arrow.removeClass('target_arrow')
 	
 }
+$(function(){
+	$(document).on("click", ".date_button > button", function (e){
+		var str = "";
+		var total_pay = 0;
+		for(var i =1; i < info.info.length; i++){
+			if(i === $(this).index() + 1){
+				$('#jupsu').html(info.info[i].note);
+				$('#symptom').html(info.info[i].opinion);
+				$('#disease').html(info.info[i].disease);
+				
+				console.log("======================="+info);
+
+				
+				$('.record').html("진료기록 [" + info.info[i].date + "]  |  담당의 : " + info.info[i].e_name);
+				str_his = ""
+				for(var j = 0; j < info.info[i].med.length; j++){
+					
+					str_his += "<tr><th>번호</th> <th>품명</th> <th>투약일</th></tr>";
+					str_his += "<tr> <td>" + (j+1) +" </td> <td> " + info.info[i].med[j].medName+ "</td> <td> " +info.info[i].med[j].use + "</td> </tr>"
+				}		
+				$('.history').html(str_his)
+				
+				$('.day_button').removeClass('button_target');
+				var t_button = $($('.day_button')[i-1]);
+				t_button.addClass('button_target')
+				
+				$('.arrow').addClass('target_arrow')
+				var t_arrow = $($('.arrow')[i-1]);
+				t_arrow.removeClass('target_arrow')
+			}
+		}
+		
+	});
+});
 
 function errFunc(msg, error){
 	alert(error);
@@ -530,7 +530,9 @@ function errFunc(msg, error){
 });  
 function ModifyInfo(data){
 	var obj = JSON.parse(data);
-	//console.log(obj);
+	console.log(obj);
+	console.log(obj.note);
+	var note = obj.note
 	$('#LoadNum').val(obj.num);
 	$('#LoadName').val(obj.name);
 	$('#LoadBirth').val(obj.birth);
@@ -538,8 +540,8 @@ function ModifyInfo(data){
 	$('#LoadAddress').val(obj.address);
 	$('#LoadHeight').val(obj.height);
 	$('#LoadWeight').val(obj.weight);
-	$('#LoadNote').val(obj.note);
-	console.log(obj.sex);
+	$('#LoadNote').html(obj.note);
+	//console.log(obj.sex);
 	if(obj.sex == 'man' || obj.sex == '남' || obj.sex == '남자'){            /////////////////////////이거 radio value 뭐로 할지 정하고 고쳐야함
 		$("input:radio[name='genderUpdate'][value='남']").prop('checked', true);	
 	}
@@ -660,9 +662,11 @@ function diseaseDelete() {
 
 //처방 레코드 추가
 function insertRec() {
+	console.log("insertRec   clickkkkkk");
 	var note = $('#d_note').val();
 	var medTable = document.getElementById('result_med');
 	var medRowList = medTable.rows;
+	console.log("medrowlisttttt"+medRowList.length);
 	var medPres = [medRowList.length-1];
 	
 	for(i=1; i<medRowList.length; i++){
@@ -686,6 +690,7 @@ function insertRec() {
 		var row = ThRowList[i];
 		var t_name = row.cells[0].innerHTML;
 		tList[i-1] = t_name;
+		console.log("물리치료 이름"+t_name);
 	}
 	
 	  var d_name = document.getElementById("addD");
@@ -694,19 +699,22 @@ function insertRec() {
 	  var patientName = $('.patient_name').text();
 	  console.log(patientName);
 	  
+	  var symptom = $('#jupsu').text();
+	  console.log(symptom);
+	  
 	$.ajax({
 		 type: 'post',
 		 url: "./insertRecord.do",
 		 data : {"note": note, "medPres": JSON.stringify(medPres), "tList": JSON.stringify(tList),
-			 	"dName": d_nameT, "p_name": patientName },
+			 	"dName": d_nameT, "p_name": patientName, "symptom": symptom },
 		 success : function(data){
 			 		var obj = JSON.parse(data);
 			 		console.log(data);
 			 		var pnum = obj.pnum;
 			 		pnum = "."+pnum;
 			 		console.log(pnum);
-			 		$("button").remove(pnum);
-			 		$('#recordForm').reset();
+			 		$("div").remove(".select");    //버튼 아님 바꿔야함----------------------------
+			 		$('#recordForm')[0].reset();      
 			 		$("tr").remove("#prescriptionThList");
 			 		$("tr").remove("#prescriptionMedList");
 			 		//loadWaitList();
@@ -816,6 +824,7 @@ function insertMemo(){
 		data : { date: $('#calYear').text() +"-"+ $('#calMonth').text() +"-"+ $('.choiceDay').text(), memo: memo },
 		success : function(data){
 			document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
+			document.getElementById("calendar_memo").value="";
 			alert('저장이 완료되었습니다.');
 		} ,
 		error: errFunc
@@ -832,6 +841,7 @@ function updateMemo(){
 		data : { date: $('#calYear').text() +"-"+ $('#calMonth').text() +"-"+ $('.choiceDay').text(), memo: memo },
 		success : function(data){
 			document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
+			document.getElementById("calendar_memo").value="";
 			alert('저장이 완료되었습니다.');
 		} ,
 		error: errFunc

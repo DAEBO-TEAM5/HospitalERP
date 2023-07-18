@@ -61,7 +61,7 @@
 
 .hweight {
 	display: inline-block;
-	width: 40%;
+	width: 31%;
 }
 
 .patient_name{
@@ -186,7 +186,16 @@ div .result_table {
 	border-radius: 10px;
 }
 
+.modalLabel {
+	width: 15%;
+	text-align: right;
+	padding-right: 5px;
+}
 
+.intext {
+	display: inline-block;
+	width: 80%;
+}
 
 #result_med .medName {
 	width: 80%;
@@ -217,6 +226,7 @@ h3{
 }
 .form-group {
 	padding: 10px 0;
+	vertical-align: middle;
 }
 
 #calendar_memo {
