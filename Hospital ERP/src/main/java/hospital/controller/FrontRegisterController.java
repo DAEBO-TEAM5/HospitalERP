@@ -13,15 +13,18 @@ import hospital.action.Action;
 import hospital.action.ActionForward;
 import hospital.service.EmailCheckAction;
 import hospital.service.FindIDAction;
-import hospital.service.MemberForgotPwProAction;
 import hospital.service.HospitalWaitingInfoService;
 import hospital.service.HospitalWaitingListService;
 import hospital.service.InfoServiceAction;
 import hospital.service.InsertCalanderMemoServiceAction;
 import hospital.service.InsertPatientServiceAction;
 import hospital.service.InsertRecordServiceAction;
+import hospital.service.ItemCategoryServiceAction;
 import hospital.service.ItemDelServiceAction;
+import hospital.service.ItemDis_InsServiceAction;
 import hospital.service.ItemInsertServiceAction;
+import hospital.service.ItemMemoCallServiceAction;
+import hospital.service.ItemMemoUpdateServiceAction;
 import hospital.service.ItemRelServiceAction;
 import hospital.service.ItemRel_InsServiceAction;
 import hospital.service.ItemServiceAction;
@@ -30,6 +33,7 @@ import hospital.service.LoadCalendarMemoServiceAction;
 import hospital.service.LoadPatientInfoServiceAction;
 import hospital.service.LoginOkServiceAction;
 import hospital.service.MemberChangePwAction;
+import hospital.service.MemberForgotPwProAction;
 import hospital.service.MemberIdCheckAction;
 import hospital.service.SearchServiceDateAction;
 import hospital.service.SearchServiceInfoAction;
@@ -82,37 +86,31 @@ public class FrontRegisterController extends HttpServlet {
         		forward.setPath("./login.do");
     		
     	}else if(urlcommand.equals("/loginok.do")) { 
-    		System.out.println("여기는?");
     		action = new LoginOkServiceAction();
     		forward = action.execute(request, response);
     		
     	}else if(urlcommand.equals("/signup.do")) {
-    		System.out.println("오나요 사인?");
     		action = new SignUpServiceAction();
     		forward = action.execute(request, response);
     		
     	}else if(urlcommand.equals("/checkid.do")){
-    		System.out.println("아이디체크입니다");
         		action = new MemberIdCheckAction();
         		action.execute(request, response);
         		
     	}else if(urlcommand.equals("/emailcheck.do")){
-    		System.out.println("이메일체크입니다");
         		action = new EmailCheckAction();
         		action.execute(request, response);
         		
     	}else if(urlcommand.equals("/findid.do")){
-    		System.out.println("아이디찾기입니다.");
         		action = new FindIDAction();
         		action.execute(request, response);
         		
     	}else if(urlcommand.equals("/memberForgotPwPro.do")){
-    		System.out.println("비밀번호찾기입니다.");
     		action = new MemberForgotPwProAction();
     		forward = action.execute(request, response);
+    		return;
     		
     	}else if(urlcommand.equals("/memberChangePw.do")){
-    		System.out.println("비밀번호변경입니다.");
     		action = new MemberChangePwAction();
     		forward = action.execute(request, response);
     		
@@ -179,7 +177,23 @@ public class FrontRegisterController extends HttpServlet {
     	}else if(urlcommand.equals("/itemRelInsert.do")){
     		action = new ItemRel_InsServiceAction();
     		action.execute(request, response);	
+    
+    	}else if(urlcommand.equals("/itemDisInsert.do")){
+    		action = new ItemDis_InsServiceAction();
+    		action.execute(request, response);	
     		
+    	}else if(urlcommand.equals("/itemCategorySearch.do")){
+    		action = new ItemCategoryServiceAction();
+    		action.execute(request, response);	
+    		
+    	}else if(urlcommand.equals("/itemMemoCall.do")){
+    		action = new ItemMemoCallServiceAction();
+    		action.execute(request, response);		
+    	
+    	}else if(urlcommand.equals("/itemMemoUpdate.do")){
+    		action = new ItemMemoUpdateServiceAction();
+    		action.execute(request, response);		
+    	
     	}else if(urlcommand.equals("/main2.do")) {
     		//UI 제공 (서비스 객체가 필요없다)
     		forward = new ActionForward();

@@ -256,6 +256,40 @@ public class HospitalDao {
 		return list;
 	}
 	
+	public String EmployeeName(int e_code) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String e_name="";
+		
+		//RecordVO vo = new RecordVO();
+		//ArrayList<RecordVO> list = new ArrayList<>();
+		try {
+			conn = ConnectionHelper.getConnection();
+			String sql = "select * from employee where e_code = ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, e_code);
+
+			rs = pstmt.executeQuery();
+			
+			//List<PatientVO> list = new ArrayList<>();
+			while(rs.next()) {
+				e_name = rs.getString("e_name");
+			}
+			
+			ConnectionHelper.close(rs);
+			ConnectionHelper.close(pstmt);
+			ConnectionHelper.close(conn);
+				
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		}
+		
+		return e_name;
+	}
+	
 	public String DiesaseName(int d_code) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

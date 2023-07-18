@@ -49,19 +49,19 @@ CREATE TABLE wait ( -- 접수/대기 명단
 
 CREATE TABLE item (  -- 물품 재고,입고 테이블
 	i_num	number(10)		NOT NULL, -- 물품 번호
+    i_i_code	number(10)		NOT NULL,  --품목 코드
 	i_unit	varchar2(20)		NULL, -- 단위
 	i_stock	number(10)		NULL, -- 재고량
-	i_expire	varchar2(20)		NULL, -- 유통기한
+   	i_expire	varchar2(20)		NULL, -- 유통기한
 	i_price	number(10)		NULL, -- 물품 단가
 	i_remark	varchar2(300)		NULL, -- 비고
-	i_memo	varchar2(300)		NULL, -- 메모
-	i_i_code	number(10)		NOT NULL  --품목 코드
+	i_memo	varchar2(300)		NULL -- 메모
 );
 
 CREATE TABLE item_code ( --물품종류,코드
 	i_code	number(10)		NOT NULL, --물품코드
 	i_name	varchar2(50)		NULL, --물품이름
-	I_category	varchar2(50)		NULL --물품 카테고리
+	i_category	varchar2(50)		NULL --물품 카테고리
 );
 
 CREATE TABLE hospital_id ( -- 병원
@@ -116,6 +116,7 @@ CREATE TABLE release ( -- 출고 관리
     rel_time	varchar(20)		NULL, -- 사용 시간
 	rel_user	varchar(20)		NULL, -- 사용자
 	rel_amount	number(10)		NULL, -- 사용량
+	rel_after   number(10)      NULL, -- 잔여량
     rel_remark	varchar(100)		NULL, -- 비고
     rel_i_code	number(10)		NOT NULL -- 품목 코드
 );
@@ -126,6 +127,7 @@ CREATE TABLE discard ( -- 폐기 관리
     dis_time	varchar(20)		NULL, -- 폐기 시간
 	dis_user	varchar(20)		NULL, -- 폐기 담당자
 	dis_amount	number(10)		NULL, -- 폐기량
+	dis_after   number(10)      NULL, -- 잔여량
     dis_remark	varchar(100)		NULL, -- 비고
     dis_i_code	number(10)		NOT NULL -- 품목 코드
 );
@@ -145,166 +147,170 @@ CREATE TABLE memo (
 
 
 
-ALTER TABLE patient ADD CONSTRAINT "PK_PATIENT" PRIMARY KEY (
+ALTER TABLE patient ADD CONSTRAINT PK_PATIENT PRIMARY KEY (
 	num
 );
 
-ALTER TABLE record ADD CONSTRAINT "PK_RECORD" PRIMARY KEY (
+ALTER TABLE record ADD CONSTRAINT PK_RECORD PRIMARY KEY (
 	r_num
 );
 
-ALTER TABLE wait ADD CONSTRAINT "PK_WAIT" PRIMARY KEY (
+ALTER TABLE wait ADD CONSTRAINT PK_WAIT PRIMARY KEY (
     w_num
 );
 
-ALTER TABLE hospital_id ADD CONSTRAINT "PK_HOSPITAL_ID" PRIMARY KEY (
+ALTER TABLE hospital_id ADD CONSTRAINT PK_HOSPITAL_ID PRIMARY KEY (
 	h_id
 );
 
-ALTER TABLE disease ADD CONSTRAINT "PK_DISEASE" PRIMARY KEY (
+ALTER TABLE disease ADD CONSTRAINT PK_DISEASE PRIMARY KEY (
 	d_code
 );
 
-ALTER TABLE payment ADD CONSTRAINT "PK_PAYMENT" PRIMARY KEY (
+ALTER TABLE payment ADD CONSTRAINT PK_PAYMENT PRIMARY KEY (
 	pay_num
 );
 
-ALTER TABLE medicine ADD CONSTRAINT "PK_MEDICINE" PRIMARY KEY (
+ALTER TABLE medicine ADD CONSTRAINT PK_MEDICINE PRIMARY KEY (
 	m_code
 );
 
-ALTER TABLE therapy ADD CONSTRAINT "PK_THERAPY" PRIMARY KEY (
+ALTER TABLE therapy ADD CONSTRAINT PK_THERAPY PRIMARY KEY (
 	t_code
 );
 
-ALTER TABLE employee ADD CONSTRAINT "PK_EMPLOYEE" PRIMARY KEY (
+ALTER TABLE employee ADD CONSTRAINT PK_EMPLOYEE PRIMARY KEY (
 	e_code
 );
 
-ALTER TABLE prescription ADD CONSTRAINT "PK_PRESCRIPTION" PRIMARY KEY (
+ALTER TABLE prescription ADD CONSTRAINT PK_PRESCRIPTION PRIMARY KEY (
 	p_num
 );
 
-ALTER TABLE release ADD CONSTRAINT "PK_RELEASE" PRIMARY KEY (
+ALTER TABLE release ADD CONSTRAINT PK_RELEASE PRIMARY KEY (
 	rel_num
 );
 
-ALTER TABLE tr_mapping ADD CONSTRAINT "PK_TR_MAPPING" PRIMARY KEY (
+ALTER TABLE tr_mapping ADD CONSTRAINT PK_TR_MAPPING PRIMARY KEY (
 	tr_num
 );
 
-ALTER TABLE discard ADD CONSTRAINT "PK_DISCARD" PRIMARY KEY (
+ALTER TABLE discard ADD CONSTRAINT PK_DISCARD PRIMARY KEY (
 	dis_num
 );
 
-ALTER TABLE item ADD CONSTRAINT "PK_ITEM" PRIMARY KEY (
-	i_num
+ALTER TABLE item ADD CONSTRAINT PK_ITEM PRIMARY KEY (
+	i_num,
+	i_i_code
 );
 
-ALTER TABLE item_code ADD CONSTRAINT "PK_ITEM_CODE" PRIMARY KEY (
+ALTER TABLE item_code ADD CONSTRAINT PK_ITEM_CODE PRIMARY KEY (
 	i_code
 );
 
-ALTER TABLE memo ADD CONSTRAINT "PK_MEMO" PRIMARY KEY (
+ALTER TABLE memo ADD CONSTRAINT PK_MEMO PRIMARY KEY (
 	m_num
 );
 
-ALTER TABLE record ADD CONSTRAINT "FK_patient_TO_record_1" FOREIGN KEY (
+ALTER TABLE record ADD CONSTRAINT FK_patient_TO_record_1 FOREIGN KEY (
 	r_p_num
 )
 REFERENCES patient (
 	num
 );
 
-ALTER TABLE record ADD CONSTRAINT "FK_disease_TO_record_1" FOREIGN KEY (
+ALTER TABLE record ADD CONSTRAINT FK_disease_TO_record_1 FOREIGN KEY (
 	r_d_code
 )
 REFERENCES disease (
 	d_code
 );
 
-ALTER TABLE record ADD CONSTRAINT "FK_employee_TO_record_1" FOREIGN KEY (
+ALTER TABLE record ADD CONSTRAINT FK_employee_TO_record_1 FOREIGN KEY (
 	r_e_code
 )
 REFERENCES employee (
 	e_code
 );
 
-ALTER TABLE wait ADD CONSTRAINT "FK_patient_TO_wait_1" FOREIGN KEY (
+ALTER TABLE wait ADD CONSTRAINT FK_patient_TO_wait_1 FOREIGN KEY (
 	w_p_num
 )
 REFERENCES patient (
 	num
 );
 
-ALTER TABLE hospital_id ADD CONSTRAINT "FK_employee_TO_hospital_id_1" FOREIGN KEY (
+ALTER TABLE hospital_id ADD CONSTRAINT FK_employee_TO_hospital_id_1 FOREIGN KEY (
 	h_e_code
 )
 REFERENCES employee (
 	e_code
 );
 
-ALTER TABLE payment ADD CONSTRAINT "FK_record_TO_payment_1" FOREIGN KEY (
+ALTER TABLE payment ADD CONSTRAINT FK_record_TO_payment_1 FOREIGN KEY (
 	pay_r_num
 )
 REFERENCES record (
 	r_num
 );
 
-ALTER TABLE prescription ADD CONSTRAINT "FK_medicine_TO_prescription_1" FOREIGN KEY (
+ALTER TABLE prescription ADD CONSTRAINT FK_medicine_TO_prescription_1 FOREIGN KEY (
 	p_m_code
 )
 REFERENCES medicine (
 	m_code
 );
 
-ALTER TABLE prescription ADD CONSTRAINT "FK_record_TO_prescription_1" FOREIGN KEY (
+ALTER TABLE prescription ADD CONSTRAINT FK_record_TO_prescription_1 FOREIGN KEY (
 	p_r_num
 )
 REFERENCES record (
 	r_num
 );
 
-ALTER TABLE release ADD CONSTRAINT "FK_item_code_TO_release_1" FOREIGN KEY (
+ALTER TABLE release ADD CONSTRAINT FK_item_code_TO_release_1 FOREIGN KEY (
 	rel_i_code
 )
 REFERENCES item_code (
 	i_code
 );
 
-ALTER TABLE tr_mapping ADD CONSTRAINT "FK_therapy_TO_tr_mapping_1" FOREIGN KEY (
+ALTER TABLE tr_mapping ADD CONSTRAINT FK_therapy_TO_tr_mapping_1 FOREIGN KEY (
 	tr_t_code
 )
 REFERENCES therapy (
 	t_code
 );
 
-ALTER TABLE tr_mapping ADD CONSTRAINT "FK_record_TO_tr_mapping_1" FOREIGN KEY (
+ALTER TABLE tr_mapping ADD CONSTRAINT FK_record_TO_tr_mapping_1 FOREIGN KEY (
 	tr_r_num
 )
 REFERENCES record (
 	r_num
 );
 
-ALTER TABLE discard ADD CONSTRAINT "FK_item_code_TO_discard_1" FOREIGN KEY (
+ALTER TABLE discard ADD CONSTRAINT FK_item_code_TO_discard_1 FOREIGN KEY (
 	dis_i_code
 )
 REFERENCES item_code (
 	i_code
 );
 
-ALTER TABLE item ADD CONSTRAINT "FK_item_code_TO_item_1" FOREIGN KEY (
+ALTER TABLE item ADD CONSTRAINT FK_item_code_TO_item_1 FOREIGN KEY (
 	i_i_code
 )
 REFERENCES item_code (
 	i_code
 );
 
-ALTER TABLE memo ADD CONSTRAINT "FK_employee_TO_memo_1" FOREIGN KEY (
+ALTER TABLE memo ADD CONSTRAINT FK_employee_TO_memo_1 FOREIGN KEY (
 	m_e_code
 )
 REFERENCES employee (
 	e_code
+);
+ALTER TABLE item ADD CONSTRAINT UQ_i_i_code UNIQUE(
+    i_i_code
 );
 
 

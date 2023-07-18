@@ -22,14 +22,11 @@ public class FindIDAction implements Action {
 		   
 		   String h_name = request.getParameter("h_name");
 		   String h_email = request.getParameter("h_email");
-		   System.out.println(h_name);
-		   System.out.println(h_email);
 	        
 	        FindIdDao dao = new FindIdDao();
 	    	String h_id = dao.findId(h_name, h_email);
 	        
 	        response.setContentType("text/html;charset=UTF-8");
-	        System.out.println("왔습니다.");
 	        PrintWriter out;
 	    	try {
 				out = response.getWriter();
