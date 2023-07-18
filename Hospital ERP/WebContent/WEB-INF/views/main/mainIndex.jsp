@@ -378,6 +378,21 @@ function waitListFunc(data){
 			str += "</div>"
 	}
 	$('.list-group').html(str);
+	
+	$('.waitButton').first().addClass('select');
+	
+	var p_num = $('.waitButton').first().children('.r_num').text();
+	p_num = p_num.substring(4,);
+	console.log(p_num);
+	
+	
+ 	$.ajax({
+		type: 'post',
+		url: "./waitinginfo.do",
+		data : {num: p_num},
+		success: patientInfo,
+		error: errFunc
+	}); 
 }
 
 //처방전_select리스트 불러오기
