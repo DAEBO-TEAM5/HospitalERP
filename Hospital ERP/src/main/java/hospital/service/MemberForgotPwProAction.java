@@ -10,10 +10,11 @@ import javax.servlet.http.HttpSession;
 
 import hospital.action.Action;
 import hospital.action.ActionForward;
+import hospital.dao.Member2Dao;
 import hospital.utils.NaverMailSend;
 import hospital.vo.LoginVO;
 
-/** 회원 비밀번호 찾기 요청을 처리하는 Action 클래스 */
+
 public class MemberForgotPwProAction implements Action {
 
 	@Override
@@ -38,12 +39,12 @@ public class MemberForgotPwProAction implements Action {
 			}
 			return null;
 		} else {
-			/* DB 처리 */
+			
 			String h_email = req.getParameter("h_email");
 			String h_id = req.getParameter("h_id");
 
-			MemberForgotPwProService service = new MemberForgotPwProService();
-			LoginVO vo = (LoginVO) service.getMember(h_id, h_email);
+			Member2Dao dao = new Member2Dao();
+			LoginVO vo = (LoginVO) dao.getMember(h_id, h_email);
 			if (vo == null || !vo.getH_id().equals(h_id) || !vo.getH_email().equals(h_email)) {
 				try {
 					resp.sendError(404);
@@ -51,14 +52,14 @@ public class MemberForgotPwProAction implements Action {
 					e.printStackTrace();
 				}
 			} else {
-				/* 메일 전송 */
+				
 				NaverMailSend mailSend = new NaverMailSend();
 
 				try {
 					String authenticationCode = mailSend.sendEmail(h_email);
 					session.setAttribute("authCode", authenticationCode);
 					session.setAttribute("id", h_id);
-					/* 포워딩 처리 */
+					
 
 					forward = new ActionForward();
 					forward.setPath("./memberChangePw.do");

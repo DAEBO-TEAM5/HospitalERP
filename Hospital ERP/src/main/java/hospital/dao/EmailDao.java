@@ -16,10 +16,10 @@ public class EmailDao {
 	        boolean isDuplicate = false;
 
 	        try {
-	            String query = "SELECT H_EMAIL FROM HOSPITAL_ID WHERE H_EMAIL=?";
+	            String sql = "SELECT H_EMAIL FROM HOSPITAL_ID WHERE H_EMAIL=?";
 	            
 	            conn = ConnectionHelper.getConnection();
-	            pstmt = conn.prepareStatement(query);
+	            pstmt = conn.prepareStatement(sql);
 	            pstmt.setString(1, h_email);
 	            rs = pstmt.executeQuery();
 	            
