@@ -8,19 +8,20 @@ import java.sql.SQLException;
 import hospital.utils.ConnectionHelper;
 import hospital.vo.LoginVO;
 
-public class SignUpDao{
+public class SignUpDao {
 
 	public int signUp(LoginVO vo) throws SQLException {
 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		int resultrow = 0;
+
 		try {
 			conn = ConnectionHelper.getConnection();
-			
+
 			String sql = "INSERT INTO hospital_id(h_id, h_name, h_address, h_phone, h_pwd, h_email, h_post, h_e_code ) VALUES(?,?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setString(1, vo.getH_id());
 			pstmt.setString(2, vo.getH_name());
 			pstmt.setString(3, vo.getH_address());
@@ -31,14 +32,15 @@ public class SignUpDao{
 			pstmt.setInt(8, vo.getH_e_code());
 
 			resultrow = pstmt.executeUpdate();
-			
+
 		} catch (SQLException e) {
 			throw e;
 		} finally {
 			ConnectionHelper.close(pstmt);
 			ConnectionHelper.close(conn);
 		}
+		
 		return resultrow;
 	}
-	
+
 }

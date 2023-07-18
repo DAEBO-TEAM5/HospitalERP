@@ -17,11 +17,9 @@ public class MemberChangePwAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest req, HttpServletResponse resp) {
-		ActionForward forward = null;
-
-		/*
-		 * 브라우저에서 건너온 세션 확인 로그인 상태에선 접근 못하게 설정
-		 */
+		
+			ActionForward forward = null;
+		
 		HttpSession session = req.getSession(false);
 		if ((String) session.getAttribute("isLogin") != null) {
 			// 로그인된 상태
@@ -53,20 +51,10 @@ public class MemberChangePwAction implements Action {
 				forward.setPath("/login.do");
 				forward.setRedirect(false);
 			} else {
-				resp.setContentType("text/html;charset=utf-8");
-				PrintWriter out;
-				try {
-					out = resp.getWriter();
-					out.println("<script>");
-					out.println("alert('인증코드 확인해주세요');");
-					out.println("history.go(-1);");
-					out.println("</script>");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				
+			resp.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR); // 500 Internal Server Error
 			}
 		}
-
 		return forward;
 	}
 }
