@@ -4,7 +4,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" /> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Jquery -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -36,7 +36,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 								      <h4 style="text-align: center;">품목 메모</h4>
 								    </td>
 								</tr>
-	                           	<tr>
+                                <tr>
                          			<th> 제품코드 </th>
                          			<th> 제품명 </th>
                          		</tr>
@@ -112,13 +112,14 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                             <input type="checkbox" id="StockFiveCheck" onchange="filterItems()" /> 재고가 5개 이하인
                             품목만 표시
                         </div>
-                    <div class="table_scroll">
-					    <table id="mainTable" class="item_table item_page_tablesize">
-					        <tr>
-					            <td>테이블을 불러오고 있습니다...</td>
-					        </tr>
-					    </table>
-					</div>
+                        
+                        <div class="table_scroll">
+                            <table id="mainTable" class="item_table item_page_tablesize" style="height:auto;"> <!-- class="item_table_main" -->
+                                <tr>
+                                    <td>테이블을 불러오고 있습니다...</td>
+                                </tr>
+                            </table>
+                        </div>
 
                             
                         <!-- 모달 (아이템 입고 추가) 시작  -->
@@ -288,7 +289,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                             <input type="checkbox" class="use_Check" checked /> 사용 내역
                             <input type="checkbox" class="dis_Check" checked /> 폐기 내역
                         </div>
-                        <div>
+                        <div class="table_scroll">
                             <table id="RelTable" class="item_table rel_page_tablesize"> <!-- class="item_table_main" -->
                                 <tr>
                                     <td>테이블을 불러오고 있습니다...</td>
@@ -413,7 +414,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                         
                         
                         
-                        <div>
+                        <div class="item_page_footer">
                         	 <button type="button" id="" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#itemRelModal">
                             	사용 내역 추가 
                             </button>
@@ -459,7 +460,8 @@ function pageChange(){
 }
 
 window.onload = function() {
-    mainPageOpen();
+	mainPageOpen();
+	
 };
 	
 function loadMainTable() {
@@ -490,7 +492,7 @@ function loadMainTable() {
             filterItems();
 
             // 스크롤 기능 추가
-            var tableHeight = 300; // 테이블 높이를 적절히 설정해주세요.
+/*             var tableHeight = 40; // 테이블 높이를 적절히 설정해주세요.
             if ($("#mainTable tr").length > 7) {
                 $("#mainTable").css({
                     "height": tableHeight + "px",
@@ -501,13 +503,14 @@ function loadMainTable() {
                     "height": "auto",
                     "overflow-y": "initial"
                 });
-            }
+            } */
         },
         error: function () {
             alert("검색할 수 없습니다.");
         },
     });
 }
+
 //품목관리 (페이지) 버튼
 $(document).ready(function () {
   	$("#item_maintable").click(function () {
@@ -524,6 +527,7 @@ $("#mainTable").on("click", "tr:not(:first-child)", function () {
     $(this).toggleClass("click_active");
     itemMemoCall($(this));
 });
+
 //테이블 메모 불러오기 클릭
 $("#RelTable").on("click", "tr:not(:first-child)", function () {
     itemMemoCall($(this));
@@ -537,7 +541,6 @@ function removeClickActive() {
 $("#select_cancel").on("click", function () {
 	 removeClickActive();
 });
-
 
 
 // 테이블 메모 불러오기
@@ -633,7 +636,6 @@ $(".ReleaseCheck").change(function () {
     filterRelease();
     //$('#CategorySearch').prop('selectedIndex', 0);
 });
-
 
 //메인(재고)페이지 검색+5개이하 재고품목 확인
 function filterItems() {
@@ -762,17 +764,12 @@ $("#itemDisModal").on("hidden.bs.modal", function () {
 function item_modalDelBtnHandler(event) {
     const select_row = $(event.target).closest("tr");
     const front_row = select_row.prev("tr");
-    select_row.add(front_row).remove();
+    const br = front_row.prev("br");
+    
+    select_row.add(front_row).add(br).not(".nodelete").remove();
 }
 
-//item 추가 모달 내 항목추가
-/* function tableAddBtnHandler() {
-    const [tr1, tr2] = itemTableElement();
-    document.querySelector("table[page='main_ins_modal'] > tbody").appendChild(tr1);
-    document.querySelector("table[page='main_ins_modal'] > tbody").appendChild(tr2);
-}
- */
-function tableAddBtnHandler() {
+ function tableAddBtnHandler() {
     const [tr1, tr2] = itemTableElement();
     const tbody = document.querySelector("table[page='main_ins_modal'] > tbody");
     

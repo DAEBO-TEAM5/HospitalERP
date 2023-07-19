@@ -105,8 +105,8 @@
 	        <span class="close-btn" onclick="closePopup3()">&times;</span>
 	        <h4>비밀번호 찾기</h4>
 	        <form class="changepwdform" method="post">
-	            <input type="text" name="h_id" id="h_id3" placeholder="ID" class="findpwdid">
-	            <input type="email" name="h_email" id="h_email3" placeholder="이메일" class="findpwdemail">
+	            <input type="text" name="h_id3" id="h_id3" placeholder="ID" class="findpwdid">
+	            <input type="email" name="h_email3" id="h_email3" placeholder="이메일" class="findpwdemail">
 	            <div>
 	                <input class="formBtn2" type="submit" value="인증코드 메일전송" name="findpw" id="h_findpw">
 	                <input type="reset" onclick="resetBtnHandler()" value="다시 입력">
@@ -230,22 +230,26 @@ function closePopup4() {
 
         function idCheck() {
             var h_id = document.getElementById("h_id").value;
-           
+
             // 중복 체크를 위한 AJAX 요청
             $.ajax({
                 url: "./checkid.do",
                 method: "POST",
                 data: { h_id: h_id },
                 dataType: "text",
-             
                 success: function (response) {
                     // 중복 체크 결과에 따라 처리
                     if (response === "duplicate") {
                         alert("이미 사용 중인 아이디입니다.");
-                    } else  {
-                        alert("사용 가능한 아이디입니다.");
-                        document.getElementById("h_id").readOnly = true; 
+                    } else {
+                        if (response === "null") {
+                            alert("ID는 4~12자 영문 대소문자, 숫자만 입력하세요.");
+                        } else {
+                            alert("사용 가능한 아이디입니다.");
+                            document.getElementById("h_id").readOnly = true;
+                        }
                     }
+
                 },
                 error: function () {
                     alert("중복 체크 과정에서 오류가 발생했습니다.");
@@ -255,7 +259,7 @@ function closePopup4() {
    
         function emailCheck() {
             var h_email = document.getElementById("h_email").value;
-           
+            
             // 중복 체크를 위한 AJAX 요청
             $.ajax({
                 url: "./emailcheck.do",
@@ -268,8 +272,12 @@ function closePopup4() {
                     if (response === "duplicate") {
                         alert("이미 사용 중인 이메일입니다.");
                     } else  {
+                    	if (response === "null") {
+                            alert("Email 형식이 올바르지 않습니다.");
+                    	} else {
                         alert("사용 가능한 이메일입니다.");
                         document.getElementById("h_email").readOnly = true; 
+                    	} 
                     }
                 },
                 error: function () {
@@ -328,7 +336,7 @@ event.preventDefault();
     // 숫자만
     var regExp = /^[0-9]*$/;
     
-    //아이디 확인
+     //아이디 확인
     if (h_id.value.trim() === "") {
         alert("아이디를 입력하세요.");
         h_id.focus();
@@ -340,7 +348,7 @@ event.preventDefault();
         alert("ID는 4~12자 영문 대소문자, 숫자만 입력하세요.");
         h_id.focus();
         return false;
-    } 
+    }  
     
     //비밀번호 확인
     if (h_pwd.value.trim() === "") {
@@ -406,7 +414,7 @@ event.preventDefault();
         alert("사원번호는 숫자만 입력 가능합니다. 다시 입력해주세요.");
         h_e_code.focus();
         return false;
-    }
+    }  
     
     //메일주소 확인
     if (h_email.value.trim() === "") {

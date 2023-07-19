@@ -2,15 +2,7 @@
 --약품 //코드 10001~
 insert into medicine values(m_code_seq.nextval, '타이레놀');
 insert into medicine values(m_code_seq.nextval, '아스피린');
-insert into medicine values(m_code_seq.nextval, '에스녹틸정');
-insert into medicine values( m_code_seq.nextval, '로토씨큐브아쿠아차지아이점안액' );
-insert into medicine values( m_code_seq.nextval, '디티아이주100mg(다카르바진)' );
-insert into medicine values( m_code_seq.nextval, '리렌스연고(구아이아줄렌) 20g' );
-insert into medicine values( m_code_seq.nextval, '리렌스연고(구아이아줄렌) 30g' );
-insert into medicine values( m_code_seq.nextval, '아로나민아이정' );
-insert into medicine values( m_code_seq.nextval, '아로나민아이플러스정' );
-insert into medicine values( m_code_seq.nextval, '아이간E점안액' );
-insert into medicine values( m_code_seq.nextval, '아이나졸캠슐(플루코나졸)' );
+insert into medicine values(m_code_seq.nextval, '에스녹틸정 ');
 insert into medicine values(m_code_seq.nextval, '오셀타미비르');
 insert into medicine values(m_code_seq.nextval, '시트라진');
 insert into medicine values(m_code_seq.nextval, '엔알라프릴');
@@ -46,7 +38,6 @@ insert into therapy values (t_code_seq.nextval, '없음', '0');
 insert into therapy values (t_code_seq.nextval, '도수치료', '100000');
 insert into therapy values (t_code_seq.nextval, '물리치료', '30000');
 insert into therapy values (t_code_seq.nextval, '재활치료', '50000');
-insert into therapy values(t_code_seq.nextval, '적외선', '10000');
 
 select t_code"물리치료 코드", t_name"물리치료 이름", t_price"물리치료 가격" from therapy;
 select * from therapy;
@@ -164,15 +155,25 @@ select *from prescription;
 
 
 --요금 수납  //코드 80001~
-insert into payment values(pay_num_seq.nextval, 50000, 0, 70001); 
-insert into payment values(pay_num_seq.nextval, 20000, 0, 70002); 
-insert into payment values(pay_num_seq.nextval, 40000, 0, 70003); 
-insert into payment values(pay_num_seq.nextval, 50000, 0, 70004); 
-insert into payment values(pay_num_seq.nextval, 60000, 0, 70005); 
-insert into payment values(pay_num_seq.nextval, 70000, 0, 70006); 
-insert into payment values(pay_num_seq.nextval, 20000, 0, 70007); 
-select pay_num"수납 번호", pay_amount"처방금액", pay_pay"수납한 금액", pay_r_num"진료기록 번호" from payment;
+insert into payment(pay_num, pay_amount,pay_r_num) values(pay_num_seq.nextval, 10000, 70001); 
+insert into payment(pay_num, pay_amount,pay_r_num) values(pay_num_seq.nextval, 110000, 70002); 
+insert into payment(pay_num, pay_amount,pay_r_num) values(pay_num_seq.nextval, 40000, 70003); 
+insert into payment(pay_num, pay_amount,pay_r_num) values(pay_num_seq.nextval, 60000, 70004); 
+insert into payment(pay_num, pay_amount,pay_r_num) values(pay_num_seq.nextval, 10000, 70005); 
+insert into payment(pay_num, pay_amount,pay_r_num) values(pay_num_seq.nextval, 140000, 70006); 
+insert into payment(pay_num, pay_amount,pay_r_num) values(pay_num_seq.nextval, 90000, 70007);
+insert into payment(pay_num, pay_amount,pay_r_num) values(pay_num_seq.nextval, 160000, 70008); 
+insert into payment(pay_num, pay_amount,pay_r_num) values(pay_num_seq.nextval, 10000, 70009); 
+insert into payment(pay_num, pay_amount,pay_r_num) values(pay_num_seq.nextval, 10000, 70010); 
+insert into payment(pay_num, pay_amount,pay_r_num) values(pay_num_seq.nextval, 140000, 70011); 
+insert into payment(pay_num, pay_amount,pay_r_num) values(pay_num_seq.nextval, 10000, 70012); 
+insert into payment(pay_num, pay_amount,pay_r_num) values(pay_num_seq.nextval, 10000, 70013); 
+insert into payment(pay_num, pay_amount,pay_r_num) values(pay_num_seq.nextval, 110000, 70014); 
+insert into payment(pay_num, pay_amount,pay_r_num) values(pay_num_seq.nextval, 40000, 70015); 
+insert into payment(pay_num, pay_amount,pay_r_num) values(pay_num_seq.nextval, 160000, 70016); 
+select pay_num"수납 번호", pay_amount"처방금액", pay_basic"기본금액", pay_cash"현금 수납한 금액", pay_card"카드 수납한 금액", pay_r_num"진료기록 번호" from payment;
 select * from payment;
+
 
 
 --물품종류코드   //코드 90001~
@@ -247,3 +248,5 @@ select dis_num"폐기기록 번호", dis_date"폐기날짜", dis_time"폐기시�
 select * from discard;
 
 commit;
+
+select * from payment where pay_r_num = 70001;
