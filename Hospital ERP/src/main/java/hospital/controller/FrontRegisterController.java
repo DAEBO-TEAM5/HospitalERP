@@ -13,6 +13,7 @@ import hospital.action.Action;
 import hospital.action.ActionForward;
 import hospital.service.EmailCheckAction;
 import hospital.service.FindIDAction;
+import hospital.service.GetEcodeServiceAction;
 import hospital.service.HospitalWaitingInfoService;
 import hospital.service.HospitalWaitingListService;
 import hospital.service.InfoServiceAction;
@@ -245,6 +246,9 @@ public class FrontRegisterController extends HttpServlet {
     		
     	}else if(urlcommand.equals("/deleteCalendarMemo.do")) {
     		action = new DeleteCalendarMemoServiceAction();
+    		action.execute(request, response);
+    	}else if(urlcommand.equals("/getEcode.do")) {
+    		action = new GetEcodeServiceAction();
     		action.execute(request, response);
     	}
     	
