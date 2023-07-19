@@ -17,8 +17,8 @@
 			<a href="logout.do"><i class="fa-solid fa-arrow-right-from-bracket" style="color: white;"></i></a>
 		</div>
 	    <div class="p-2"><a href="main2.do" class="title_nav">진료</a></div>
-		<div class="p-2"><a href="item.do" class="title_nav">재고</a></div>
 		<div class="p-2"><a href="history.do" class="title_nav">진료기록</a></div>  
+		<div class="p-2"><a href="item.do" class="title_nav">재고</a></div>
 	</div>
 </body>
 <script>

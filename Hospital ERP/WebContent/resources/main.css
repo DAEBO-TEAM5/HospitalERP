@@ -1,5 +1,14 @@
 @charset "utf-8";
 
+body{
+	/* font-family: 'Noto Sans KR', sans-serif; */
+	font-family: 'Questrial', sans-serif;
+	
+}
+label{
+	font-size: 16px;
+	font-weight: bold;
+}
 .waitingList .select {
 	background-color: rgb(186, 220, 227);
 }
@@ -34,25 +43,27 @@
 	max-height: 70vh;
 	overFlow-y : auto;
 }
-.list-group::-webkit-scrollbar {
+.list-group::-webkit-scrollbar, .tablediv::-webkit-scrollbar {
     width: 8px;  /* 스크롤바의 너비 */
 }
 
-.list-group::-webkit-scrollbar-thumb {
+.list-group::-webkit-scrollbar-thumb, .tablediv::-webkit-scrollbar-thumb {
     height: 30%; /* 스크롤바의 길이 */
     background: #217af4; /* 스크롤바의 색상 */
-    border-radius: 10px;
+    border-radius: 0.375rem;
 }
 
-.list-group::-webkit-scrollbar-track {
-    background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
-}
+
 
 .panel{
 	background-color: lightgray;
 	border-radius:7px;
 	margin-top: 12px;
 	padding: 12px;
+}
+.font_13{
+	font-size: 13px;
+	font-weight: bold;
 }
 
 #d_note {
@@ -75,7 +86,9 @@
 .patient_info{
 	font-size: 15px;
 }
-
+.calendarArea {
+	height: 270px;
+}
 
 .record, .recipt{
 	background-color: rgba(243, 243, 255, 1);
@@ -106,17 +119,22 @@
 }
 
 .history, .history tr, .history th, .history td{
+	padding: 3px;
 	border: 1px solid black;
-}
+} 
 
 .button-right {
 	float: right;
 }
-
+.tablediv{
+	height: 19vh;
+	overflow: auto;
+}
 
 .history {
-	border: 1px solid black;
+	 border: 1px solid gray; 
 	width: 100%;
+	
 }
 
 .loadInfo {
@@ -141,9 +159,9 @@
 	background-color: white;
 	display: inline-block;
 	align-items: center;
-	border-radius: 10px;
+	border-radius: 0.375rem;
 	text-align: center;
-	vertical-align: center;
+	line-height: 10vh;
 }
 #jupsu::-webkit-scrollbar-track
 {
@@ -160,7 +178,7 @@
 #jupsu::-webkit-scrollbar-thumb
 {
   background-color: dimgray;
-  border-radius: 10px;
+  border-radius: 0.375rem;
 }
 
 #hLine {
@@ -183,7 +201,7 @@ div .result_table {
 	overflow: auto;
 	background-color: white;
 	padding: 10px;
-	border-radius: 10px;
+	border-radius: 0.375rem;
 }
 
 .modalLabel {
@@ -214,6 +232,11 @@ div .result_table {
 .col-md-2 .leftinfo{
 	padding-left: 24px;
 }
+
+.col-md-2 {
+	padding: 12px;
+}
+
 h3{
 	height: 30px;
 }

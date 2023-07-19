@@ -19,7 +19,11 @@ public class InsertPatientServiceAction implements Action {
 		String name = request.getParameter("name");
 		String phone = request.getParameter("phone");
 		String birth = request.getParameter("birth");
-		//System.out.println(name+phone+birth);
+		String height = request.getParameter("height");
+		String weight = request.getParameter("weight");
+		
+		String result = "";
+		
 		vo.setName(name);
 		vo.setPhone(phone);
 		vo.setBirth(birth);
@@ -27,37 +31,43 @@ public class InsertPatientServiceAction implements Action {
 		int pnum=0;
 		
 		if(phone.isEmpty()) {
-			//System.out.println("정보 찾아오기");
-			//System.out.println("name: "+name+" birth:"+birth);
 			vo = dao.getPatientInfo(name, birth);
-			//System.out.println("가져온이름"+vo.getName());
-			//System.out.println(vo.getNum());
 			pnum = vo.getNum();
-			System.out.println(pnum);
-			if(vo.getNum()!=0) dao.InsertWait(symptom, pnum);
+			if(vo.getNum()!=0) {
+				dao.InsertWait(symptom, pnum);
+				result = "success";
+			}
+			else result = "first"; //해당하는 환자 없음
 		}
 		else {
-			//System.out.println("정보 넣기");
-			
 			vo.setAddress(request.getParameter("address"));
 			vo.setSex(request.getParameter("gender"));
-			vo.setHeight(Integer.parseInt(request.getParameter("height")));
-			vo.setWeight(Integer.parseInt(request.getParameter("weight")));
+			if(height != "") vo.setHeight(Integer.parseInt(height));
+			if(weight != "") vo.setWeight(Integer.parseInt(weight));
 			vo.setNote(request.getParameter("note"));
 
 			pnum = dao.InsertPatient(vo);
 			dao.InsertWait(symptom, pnum);
+			
+			if(pnum != 0) {
+				dao.InsertWait(symptom, pnum);
+				result = "success--";
+			}
+			else result = "insert"; //입력실패
 		}
 		
-		/*
-		 * try { System.out.println(pnum); JSONObject sendObject = new JSONObject();
-		 * sendObject.put("pnum", pnum);
-		 * response.setContentType("application/text; charset=utf-8");
-		 * response.getWriter().print(sendObject); } catch (Exception e) {
-		 * e.printStackTrace(); }
-		 */
 		
-		
+		try {
+			
+			JSONObject sendObject = new JSONObject();
+			sendObject.put("res", result);
+			
+			response.setContentType("application/text; charset=utf-8");
+			response.getWriter().print(sendObject);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		return null;
 	}
