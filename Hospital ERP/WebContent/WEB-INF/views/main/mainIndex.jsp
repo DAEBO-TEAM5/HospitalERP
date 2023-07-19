@@ -203,13 +203,13 @@
 				            	<div class="record"></div>
 				            		<div style="padding: 6px 12px 6px 12px;">
 		          						<label>의사 소견</label>
-          								<textarea class="form-control" id="opinion" style="margin-bottom: 12px;"></textarea>
+          								<textarea class="form-control" id="opinion" readonly style="margin-bottom: 12px;"></textarea>
           								<label>병명</label>
-       									<textarea class="form-control" id="disease" style="margin-bottom: 12px;"></textarea>
+       									<textarea class="form-control" id="disease"  readonly style="margin-bottom: 12px;"></textarea>
 									    <label style="margin-top: 12px;">증상</label>
-       									<textarea class="form-control" id="symptom" style="margin-bottom: 12px;">없음</textarea>
+       									<textarea class="form-control" id="symptom" readonly  style="margin-bottom: 12px;">없음</textarea>
 		          								<label>처방</label>
-		          								<div class="tablediv" style="height: 200px; overflow: auto;background-color: white;">
+		          								<div class="tablediv" >
 		       									<table class="history ">
 									          		
 									          	</table>
@@ -355,6 +355,7 @@ function waitListFunc(data){
 	
 }
 
+//대기 첫번째 환자 클릭
 function firstPatient(){
 	$('.waitButton').first().addClass('select');
 	
@@ -383,11 +384,6 @@ $(function(){
 });
 function selectListFunc(data){
 	var obj = JSON.parse(data);
-	//console.log("obj---"+obj);
-	//console.log("medlist---"+obj.final[0]);
-	//console.log("therapylist---"+obj.final[1]);
-	//console.log("diseaselist---"+obj.final[2]);
-	//console.log(Array.isArray(obj.final[1]));
 	
 	for(var k in obj.final[0]){
 		var m_name = obj.final[0][k].m_name;
@@ -412,7 +408,6 @@ function selectListFunc(data){
 	 var pnum = $(this).find(".r_num").text().slice(4);
 	 console.log(pnum);
 	 console.log('clicked');
-	 //var button = document.querySelectorAll('.waitButton');
 	 
  	 $(".waitingList .select").removeClass('select');
 	 $(this).addClass('select');
@@ -436,14 +431,13 @@ function patientInfo(data){
 	info_str += obj.info[0].birth + " | " + obj.info[0].address + " | "+  obj.info[0].sex + " | " + obj.info[0].phone;
 	
 	var jupsusym = $('.select .jupsu_symptom').text();
-	//console.log(jupsusym);
 	
 	$('.patient_name').html(obj.info[0].name);
 	$('.record_number').html("pn."+obj.info[0].num);
 	$('.patient_info').html(info_str);
 	$('#jupsu').html(jupsusym); 
 	
-	if(obj.info.length == 1){
+	if(obj.info.length <= 1){
 		$('.record').html("방문 기록이 없습니다");
 		$('#opinion').html("");
 		$('#disease').html("");
@@ -452,43 +446,36 @@ function patientInfo(data){
 		$('.day_button').remove();
 	}
 	else {
+		$('.record').html("진료기록 [" + obj.info[1].date + "]  |  담당의 : " + obj.info[1].e_name);
+		$('#opinion').html(obj.info[1].opinion);
+		$('#disease').html(obj.info[1].disease);
+		$('#symptom').html(obj.info[1].symptom);
+	
+		str_his = ""
+		str_his += "<tr><th style='width: 13%;'>번호</th> <th style='width: 72%;'>품명</th> <th style='width: 15%;'>투약일</th></tr>";
+		for(var i = 0; i < obj.info[1].med.length; i++){
+			str_his += "<tr> <td>" + (i+1) +" </td> <td> " + info.info[1].med[i].medName+ "</td> <td> " +info.info[1].med[i].use + "</td> </tr>"
 		
+		}
+		$('.history').html(str_his)
 	
-	$('.record').html("진료기록 [" + obj.info[1].date + "]  |  담당의 : " + obj.info[1].e_name);
-	$('#opinion').html(obj.info[1].opinion);
-	$('#disease').html(obj.info[1].disease);
-	$('#symptom').html(obj.info[1].symptom);
+		var str = "";
+		for(var i =1; i < obj.info.length; i++){
+			var year = obj.info[i].date.slice(0,4);
+			var month = obj.info[i].date.slice(5,7);
+			var day = obj.info[i].date.slice(8,10);
+			str += "<button class='btn btn-outline-primary font_13 day_button'>" + year + "." + month +"." + day + "<span class='arrow'> &nbsp; <i class='fa-solid fa-play' style='color: white;'></i> </span>" + "</button>"
+		} 
+		$('.date_button').html(str);
 	
-	str_his = ""
-	str_his += "<tr><th style='width: 13%;'>번호</th> <th style='width: 72%;'>품명</th> <th style='width: 15%;'>투약일</th></tr>";
-	for(var i = 0; i < obj.info[1].med.length; i++){
-		str_his += "<tr> <td>" + (i+1) +" </td> <td> " + info.info[1].med[i].medName+ "</td> <td> " +info.info[1].med[i].use + "</td> </tr>"
-		
+		var first_button = $($('.day_button')[0]);
+		first_button.addClass('button_target')
+		$('.arrow').addClass('target_arrow')
+	
+		var first_arrow = $($('.arrow')[0]);
+		first_arrow.removeClass('target_arrow')
 	}
-	$('.history').html(str_his)
 	
-	
-	
-	
-	
-	var str = "";
-
- 	 for(var i =1; i < obj.info.length; i++){
-		var year = obj.info[i].date.slice(0,4);
-		var month = obj.info[i].date.slice(5,7);
-		var day = obj.info[i].date.slice(8,10);
-		str += "<button class='btn btn-outline-primary font_13 day_button'>" + year + "." + month +"." + day + "<span class='arrow'> &nbsp; <i class='fa-solid fa-play' style='color: white;'></i> </span>" + "</button>"
-	} 
-	$('.date_button').html(str);
-	
-	
-	var first_button = $($('.day_button')[0]);
-	first_button.addClass('button_target')
-	$('.arrow').addClass('target_arrow')
-	
-	var first_arrow = $($('.arrow')[0]);
-	first_arrow.removeClass('target_arrow')
-	}
 }
 $(function(){
 	$(document).on("click", ".date_button > button", function (e){
@@ -500,13 +487,10 @@ $(function(){
 				$('#opinion').html(info.info[i].opinion);
 				$('#disease').html(info.info[i].disease);
 				
-				
 				$('.record').html("진료기록 [" + info.info[i].date + "]  |  담당의 : " + info.info[i].e_name);
 				str_his = ""
-					str_his += "<tr><th style='width: 13%;'>번호</th> <th style='width: 72%;'>품명</th> <th style='width: 15%;'>투약일</th></tr>";
+				str_his += "<tr><th style='width: 13%;'>번호</th> <th style='width: 72%;'>품명</th> <th style='width: 15%;'>투약일</th></tr>";
 				for(var j = 0; j < info.info[i].med.length; j++){
-					
-					
 					str_his += "<tr> <td>" + (j+1) +" </td> <td> " + info.info[i].med[j].medName+ "</td> <td> " +info.info[i].med[j].use + "</td> </tr>"
 				}		
 				$('.history').html(str_his);
@@ -531,10 +515,6 @@ function errFunc(msg, error){
 //접수모달
  $('#patientModal').on('show.bs.modal', function(e){	 
 	var name =  $('.patient_name').text();
-	console.log("namename=============="+name);
-	 //var info = $(this).val();
-	 //console.log(info);
-	 console.log('수정버튼--');
 	 var winfo = $('.patient_info').text();
 	 var arr = winfo.split("|");
 	 
@@ -549,13 +529,11 @@ function errFunc(msg, error){
 		error : function(msg, error) {
 				alert(error);
 			}
-		 
 	 }); 
 });  
 function ModifyInfo(data){
 	var obj = JSON.parse(data);
 	console.log(obj);
-	console.log(obj.note);
 	var note = obj.note
 	$('#LoadNum').val(obj.num);
 	$('#LoadName').val(obj.name);
@@ -565,7 +543,6 @@ function ModifyInfo(data){
 	$('#LoadHeight').val(obj.height);
 	$('#LoadWeight').val(obj.weight);
 	$('#LoadNote').html(obj.note);
-	//console.log(obj.sex);
 	if(obj.sex == 'man' || obj.sex == '남' || obj.sex == '남자'){            /////////////////////////이거 radio value 뭐로 할지 정하고 고쳐야함
 		$("input:radio[name='genderUpdate'][value='남']").prop('checked', true);	
 	}
@@ -616,7 +593,6 @@ function ModifyForm(){
 
 
 //--------------------------------------------------------------------------------
-
 	
 function prescriptionList() {
 
@@ -631,7 +607,6 @@ function prescriptionList() {
 	  
 	  $('.result_table').scrollTop($('.result_table')[0].scrollHeight);
 }
-
 
 function prescriptionListDelete() {
 	$("tr").remove("#prescriptionMedList:last");
@@ -671,8 +646,6 @@ function insertRec() {
 		
 		var m_name = row.cells[0].innerHTML;
 		var yang = row.cells[1].innerHTML;
-		console.log(m_name);
-		console.log(yang);
 		
 		medPres[i-1] = {m_name,yang};
 		console.log("-------------------"+medPres[i-1]);
@@ -687,7 +660,6 @@ function insertRec() {
 		var row = ThRowList[i];
 		var t_name = row.cells[0].innerHTML;
 		tList[i-1] = t_name;
-		console.log("물리치료 이름"+t_name);
 	}
 	
 	  var d_name = document.getElementById("addD");
@@ -704,49 +676,30 @@ function insertRec() {
 		 url: "./insertRecord.do",
 		 data : {"note": note, "medPres": JSON.stringify(medPres), "tList": JSON.stringify(tList),
 			 	"dName": d_nameT, "p_name": patientName, "symptom": symptom },
-		 success : function(data){
-			 		var obj = JSON.parse(data);
-			 		//console.log(data);
-			 		//var pnum = obj.pnum;
-			 		//pnum = "."+pnum;
-			 		//console.log(pnum);
+		 success : function(){
 			 		$("div").remove(".select");  
 			 		alert('저장되었습니다');
 			 		firstPatient();
 			 		resetRec();
-			 		//loadWaitList();
 		 		},
 		error : function(msg, error) {
 				alert(error);
 			}
 	 });  
-	//function insertRecord(data){
-		console.log("insert 성공");
-		//var obj = JSON.parse(data);
-		//console.log(obj);
-		//var pnum = obj.pnum;
-		//console.log(pnum);
-		//$('button').remove('.'pnum);
-	//}
 	
 }
 
 
-
-
-//대기 리스트 추가 + 환자 정보 추가  (submit 클릭이벤트)
+//대기 리스트 추가 / 환자 정보 추가  (submit 클릭이벤트)
 $(document).ready(function(){
 	$('#patientForm').submit(function(event){
-		console.log("오니");
 		submitForm();
-		
 		loadWaitList();
 		return false;
 	});
 });
 
 function submitForm(){
-	console.log("여기까지");
 	var name = document.getElementById('InputName').value;
 	var birth = document.getElementById('InputBirth').value;
 	var phone = document.getElementById('InputPhone').value;
@@ -755,9 +708,7 @@ function submitForm(){
 	var height = document.getElementById('InputHeight').value;
 	var weight = document.getElementById('InputWeight').value;
 	var note = $('#InputNote').val();
-	//console.log("noteTttt============="+note);
 	var symptom = document.getElementById('InputSymptom').value;
-	//console.log("증상:::::::"+symptom);
 	$.ajax({
 		type:'POST',
 		url: "./insertPatient.do",
@@ -766,7 +717,6 @@ function submitForm(){
 		success: function(response){
 			$("#exampleModal").modal('hide');
 			alert('추가가 완료되었습니다');
-			
 		},
 		error: function(msg, error) {
 			alert(error);
@@ -791,7 +741,6 @@ $(function(){
 function getMemo(data){
 	console.log("memo불러오기");
 	var obj = JSON.parse(data);
-	//console.log(obj.memo);
 	$('#calendar_memo').val("");
 	var deletebtn = document.getElementById('delbtn');
 	var memobtn = document.getElementById('memoButton');
@@ -826,7 +775,6 @@ function insertMemo(){
 //메모 수정
 function updateMemo(){
 	var memo = $('#calendar_memo').val();
-	//console.log(memo);
 	
 	$.ajax({
 		type: 'post',

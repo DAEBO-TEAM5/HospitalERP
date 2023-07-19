@@ -126,7 +126,10 @@ label{
 .button-right {
 	float: right;
 }
-
+.tablediv{
+	height: 19vh;
+	overflow: auto;
+}
 
 .history {
 	 border: 1px solid gray; 

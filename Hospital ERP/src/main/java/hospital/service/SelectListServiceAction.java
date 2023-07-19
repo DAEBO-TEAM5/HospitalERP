@@ -21,7 +21,6 @@ public class SelectListServiceAction implements Action {
 		ActionForward forward = null;
 		
 		try {
-			//System.out.println("MedicineList 출력-----------");
 			RecordDao dao = new RecordDao();
 			
 			LinkedHashMap<String, Integer> list = new LinkedHashMap<>();
@@ -41,7 +40,6 @@ public class SelectListServiceAction implements Action {
 				medObj.put("m_code", list.get(str));
 				sendArray.add(medObj);
 			}
-			//System.out.println("MedicineInfo : "+list); ////////////////////////////////////
 			
 			ArrayList<String> tlist = new ArrayList<>();
 			ArrayList<String> dlist = new ArrayList<>();
@@ -49,14 +47,10 @@ public class SelectListServiceAction implements Action {
 			dlist = dao.SelectList("disease", "d_name");
 			
 			for(String s: tlist) {
-				//medObj = new JSONObject();
-				//medObj.put("t_name", s);
 				tArray.add(s);
-				//tArray.put("t_name", s);
 			}
 			
 			for(String s: dlist) {
-				//dArray.put("d_name", s);
 				dArray.add(s);
 			}
 			
@@ -66,7 +60,6 @@ public class SelectListServiceAction implements Action {
 			
 			sendObject.put("final", hapArrap);
 			
-			//System.out.println(sendObject);
 			response.setContentType("application/text; charset=utf-8");
 			response.getWriter().print(sendObject);
 			

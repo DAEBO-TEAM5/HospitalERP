@@ -45,7 +45,6 @@ public class HospitalWaitingListService implements Action{
 				
 			}
 			sendObject.put("waitList", listarray);
-			System.out.println(listarray);
 			
 			response.setContentType("application/text; charset=utf-8");
 			response.getWriter().print(sendObject);
