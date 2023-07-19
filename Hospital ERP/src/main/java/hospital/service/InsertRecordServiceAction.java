@@ -67,7 +67,7 @@ public class InsertRecordServiceAction implements Action {
 			
 			
 			
-			
+			int hap = 0;
 			String tList = request.getParameter("tList");  //처방 물리치료 목록
 			tList = tList.substring(1, tList.length()-1);
 			String[] tlist = tList.split(",");
@@ -76,8 +76,10 @@ public class InsertRecordServiceAction implements Action {
 				//System.out.println(s);
 				int tcode = dao.getCode("t_code", "therapy", "t_name", s);
 				dao.insertTherapyMapping(tcode, recordNum);
+				int price = dao.getThPrice(tcode);
+				hap += price;
 			}
-			
+			dao.insertPay(recordNum, hap);
 			dao.deleteWaitList(p_code);
 			
 				

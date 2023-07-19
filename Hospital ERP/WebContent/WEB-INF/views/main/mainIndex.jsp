@@ -200,15 +200,15 @@
 				            	<div class="record"></div>
 				            		<div style="padding: 6px 12px 6px 12px;">
 		          						<label>의사 소견</label>
-          								<textarea class="form-control" id="symptom" style="margin-bottom: 12px;"></textarea>
+          								<textarea class="form-control" id="opinion" style="margin-bottom: 12px;"></textarea>
           								<label>병명</label>
        									<textarea class="form-control" id="disease" style="margin-bottom: 12px;"></textarea>
 		          								<label>처방</label>
 		       									<table class="history">
-									          		
+									          		<tr><th>번호</th> <th>품명</th> <th>투약일</th></tr>
 									          	</table>
-									    <label style="margin-top: 12px;">특이사항</label>
-       									<textarea class="form-control" id="special_note" style="margin-bottom: 12px;">없음</textarea>
+									    <label style="margin-top: 12px;">증상</label>
+       									<textarea class="form-control" id="symptom" style="margin-bottom: 12px;">없음</textarea>
 		          							</div>
 				            	
 			            	</div>
@@ -295,9 +295,10 @@
 			<div class="col-md-2">
 				<c:import url="../include/calendar.jsp" />
 				<div class="memoForm">
-					<textarea class="form-control" name="calendar_memo" id="calendar_memo"></textarea>
+					<textarea class="form-control" name="calendar_memo" id="calendar_memo" placeholder="위에서 날짜를 선택해주세요"></textarea>
 
-					<input type="button" class="button-right memoButton btn btn-primary modalBtn" value="날짜 선택 우선">
+					<input type="button" class="button-right memoButton btn btn-primary modalBtn" id="memoButton"  style="visibility: hidden;">
+					<input type="button" class="button-right btn btn-primary modalBtn" id="delbtn" value="삭제" onclick="deleteMemo();" style="background-color:red; visibility: hidden;">
 				</div>
 			</div>
 
@@ -325,7 +326,8 @@ $(document).ready(function(){
 function waitListFunc(data){
 	var str = "";
 	var obj = JSON.parse(data);
-	console.log(data);
+	console.log("-----------------------");
+	console.log(obj);
 	for(var k in obj.waitList){
 		var num = obj.waitList[k].num;
 		var name = obj.waitList[k].name;
@@ -339,7 +341,7 @@ function waitListFunc(data){
 			str += "<span class = 'p_num'> wn." + w_num + "</span><br>";
 			str += "<span class = 'semi_info r_num'> rn."+ num + "</span>";
 			str += "<span class = 'semi_info'>" + " | " + birth + " | "+ sex + "</span><br>";
-			str += "<span class = 'semi_info'>"+ w_symptom + "</span>";
+			str += "<span class = 'semi_info jupsu_symptom'>"+ w_symptom + "</span>";
 			str += "</div>"
 	}
 	$('.list-group').html(str);
@@ -424,13 +426,17 @@ function patientInfo(data){
 	console.log(obj);
 	info_str += obj.info[0].birth + " | " + obj.info[0].address + " | "+  obj.info[0].sex + " | " + obj.info[0].phone;
 	
+	var jupsusym = $('.select .jupsu_symptom').text();
+	//console.log(jupsusym);
+	
 	$('.patient_name').html(obj.info[0].name);
 	$('.record_number').html("pn."+obj.info[0].num);
 	$('.patient_info').html(info_str);
-	$('#jupsu').html(obj.info[0].note); //접수 메모로 수정 필요
+	$('#jupsu').html(jupsusym); 
 	$('.record').html("진료기록 [" + obj.info[1].date + "]  |  담당의 : " + obj.info[1].e_name);
-	$('#symptom').html(obj.info[1].opinion);
+	$('#opinion').html(obj.info[1].opinion);
 	$('#disease').html(obj.info[1].disease);
+	$('#symptom').html(obj.info[1].symptom);
 	
 	str_his = ""
 	str_his += "<tr><th>번호</th> <th>품명</th> <th>투약일</th></tr>";
@@ -467,21 +473,20 @@ $(function(){
 		var total_pay = 0;
 		for(var i =1; i < info.info.length; i++){
 			if(i === $(this).index() + 1){
-				$('#jupsu').html(info.info[i].note);
-				$('#symptom').html(info.info[i].opinion);
+				$('#symptom').html(info.info[i].symptom);
+				$('#opinion').html(info.info[i].opinion);
 				$('#disease').html(info.info[i].disease);
 				
-				console.log("======================="+info);
-
 				
 				$('.record').html("진료기록 [" + info.info[i].date + "]  |  담당의 : " + info.info[i].e_name);
 				str_his = ""
+					str_his += "<tr><th>번호</th> <th>품명</th> <th>투약일</th></tr>";
 				for(var j = 0; j < info.info[i].med.length; j++){
 					
-					str_his += "<tr><th>번호</th> <th>품명</th> <th>투약일</th></tr>";
+					
 					str_his += "<tr> <td>" + (j+1) +" </td> <td> " + info.info[i].med[j].medName+ "</td> <td> " +info.info[i].med[j].use + "</td> </tr>"
 				}		
-				$('.history').html(str_his)
+				$('.history').html(str_his);
 				
 				$('.day_button').removeClass('button_target');
 				var t_button = $($('.day_button')[i-1]);
@@ -709,10 +714,10 @@ function insertRec() {
 			 		var pnum = obj.pnum;
 			 		pnum = "."+pnum;
 			 		console.log(pnum);
-			 		$("div").remove(".select");    //버튼 아님 바꿔야함----------------------------
+			 		$("div").remove(".select");    
 			 		$('#recordForm')[0].reset();      
 			 		$("tr").remove("#prescriptionThList");
-			 		$("tr").remove("#prescriptionMedList");
+			 		$("tr").remove("#prescriptionMedList");           /////////환자정보리셋추가해야함
 			 		//loadWaitList();
 		 		},
 		error : function(msg, error) {
@@ -790,23 +795,21 @@ $(function(){
 function getMemo(data){
 	console.log("memo불러오기");
 	var obj = JSON.parse(data);
-	console.log(obj.memo);
-	$('#calendar_memo').val(obj.memo);
-	if(obj.memo != ""){
-		//$('.memo_submit').remove();
-		//var str = "<input type='button' class='button-right updateMemo' value='수정' onclick=''>";
-		//$('.memoForm').append(str);
+	//console.log(obj.memo);
+	$('#calendar_memo').val("");
+	var deletebtn = document.getElementById('delbtn');
+	var memobtn = document.getElementById('memoButton');
+	memobtn.style.visibility = 'visible';
+	if(obj.memo != ""){		
+		$('#calendar_memo').val(obj.memo);
 		$('.memoButton').attr("value", "수정").removeAttr("onclick").attr("onclick", "updateMemo();");
-		
+		deletebtn.style.visibility = 'visible';
 	}
 	else {
+		$('#calendar_memo').attr('placeholder', '메모를 입력해주세요');
 		$('.memoButton').attr("value", "저장").removeAttr("onclick").attr("onclick", "insertMemo();");
-		//$('.updateMemo').remove();
-		//var str2 = "<input type='button' class='button-right memo_submit' value='작성 완료' onclick='insertMemo();'>";
-		//$('.memoForm').append(str);
+		deletebtn.style.visibility = 'hidden';
 	}
-	//var str = "<input type='button' class='button-right' value='수정' onclick=''>";
-	//$('.memoForm').append(str);
 }
 
 //메모 저장
@@ -839,6 +842,20 @@ function updateMemo(){
 			document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
 			document.getElementById("calendar_memo").value="";
 			alert('저장이 완료되었습니다.');
+		} ,
+		error: errFunc
+	})
+}
+//메모 삭제
+function deleteMemo(){
+	$.ajax({
+		type: 'post',
+		url : "./deleteCalendarMemo.do",
+		data : { date: $('#calYear').text() +"-"+ $('#calMonth').text() +"-"+ $('.choiceDay').text() },
+		success : function(data){
+			document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
+			document.getElementById("calendar_memo").value="";
+			alert('삭제가 완료되었습니다.');
 		} ,
 		error: errFunc
 	})
