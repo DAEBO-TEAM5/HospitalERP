@@ -204,50 +204,46 @@ public class FrontRegisterController extends HttpServlet {
 			}
 		
     	}else if(urlcommand.equals("/mainWaitList.do")) {
-    		//System.out.println("mainwaitList-----대기리스트-------");
     		action = new HospitalWaitingListService();
     		action.execute(request, response);
-
+    		
     	}else if(urlcommand.equals("/mainSelectList.do")) {
     		action = new SelectListServiceAction();
     		action.execute(request, response);
-
+    		
     	}else if(urlcommand.equals("/waitinginfo.do")) {
-    		//forward = new ActionForward();
-    		//System.out.println("waitinginfo-----------");
     		action = new HospitalWaitingInfoService();
     		forward = action.execute(request, response);
-    	}
-    	else if(urlcommand.equals("/insertRecord.do")) {
-    		//System.out.println("insertRecord-----------");
+    		
+    	}else if(urlcommand.equals("/insertRecord.do")) {
     		action = new InsertRecordServiceAction();
     		action.execute(request, response);
+    		
     	}else if(urlcommand.equals("/insertPatient.do")) {
-    		//System.out.println("insertPatient-----------");
     		action = new InsertPatientServiceAction();
     		action.execute(request, response);
+    		
     	}else if(urlcommand.equals("/loadPatientInfo.do")) {
-    		//System.out.println("loadPatientInfo-----------");
     		action = new LoadPatientInfoServiceAction();
     		action.execute(request, response);
+    		
     	}else if(urlcommand.equals("/updatePatientInfo.do")) {
-    		//System.out.println("loadPatientInfo-----------");
     		action = new UpdatePatientInfoServiceAction();
     		action.execute(request, response);
+    		
     	}else if(urlcommand.equals("/loadCalendarMemo.do")) {
-    		System.out.println("loadMemo-----------");
     		action = new LoadCalendarMemoServiceAction();
     		action.execute(request, response);
+    		
     	}else if(urlcommand.equals("/insertCalendarMemo.do")) {
-    		System.out.println("insert Memo-----------");
     		action = new InsertCalanderMemoServiceAction();
     		action.execute(request, response);
+    		
     	}else if(urlcommand.equals("/updateCalendarMemo.do")) {
-    		System.out.println("insert Memo-----------");
     		action = new UpdateCalendarMemoServiceAction();
     		action.execute(request, response);
+    		
     	}else if(urlcommand.equals("/deleteCalendarMemo.do")) {
-    		System.out.println("delete Memo-----------");
     		action = new DeleteCalendarMemoServiceAction();
     		action.execute(request, response);
     	}

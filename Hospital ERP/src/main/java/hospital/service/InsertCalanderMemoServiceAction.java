@@ -3,6 +3,7 @@ package hospital.service;
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import hospital.action.Action;
 import hospital.action.ActionForward;
@@ -15,10 +16,13 @@ public class InsertCalanderMemoServiceAction implements Action {
 		
 		String memo = request.getParameter("memo");
 		String date = request.getParameter("date");
-		//System.out.println("memo, date:  "+memo+" "+date);
+		
+		HttpSession session = request.getSession();
+		String e_code = (String) session.getAttribute("h_e_code");
+		int ecode = Integer.parseInt(e_code);
 		
 		MemoDao dao = new MemoDao();
-		dao.insertMemo(memo, date);
+		dao.insertMemo(memo, date, ecode);
 		
 		return null;
 	}
