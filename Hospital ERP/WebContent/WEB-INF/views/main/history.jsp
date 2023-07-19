@@ -114,7 +114,9 @@
 
 		            				</div>
 		            				
-		            				<div class="font_deepskyblue font_13 event" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="margin-left: 8px;"><i class="fa-solid fa-plus" style="color: deepskyblue"></i> 수납 추가</div>
+		            				<div class="font_deepskyblue font_13 event" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="margin-left: 8px;">
+		            				<!-- 	<i class="fa-solid fa-plus" style="color: deepskyblue"></i> 수납 추가 -->
+		            				</div> 
 		            	
 		            			</div>
 		            			
@@ -125,7 +127,7 @@
 				            		</div>
 				            	</div>
 				            	<div class="pay_end">
-				            		<button class="pay_update">sunap</button>
+				            		<!-- <button class="pay_update">수납</button> -->
 				            	</div>
 		       			</div>
 		       			<div>
@@ -146,6 +148,35 @@
 
          		<div class="col-md-2 right">
          			<c:import url="../include/calendar.jsp"/>
+         			
+         						<div style="background-color : rgb(101, 178, 255); padding : 0px 12px 12px 12px; color : #fff; margin-top: 12px; border-radius: 4px;">
+								    <div class="display-flex">
+								        <div class="weather_icon"></div>
+								        <div class="current_temp" style="font-size : 36pt; padding-left: 36px;"></div>
+								   
+								        <div style="padding-left: 12px;">
+								        	<div class="weather_description" style="font-size : 20pt;"></div>
+								        	<div class="city" style="font-size : 13pt"></div>
+								        </div>
+								    </div>
+								
+								    <div class="display-flex" style="justify-content: space-between;">
+							            <div class="temp_min"></div>
+							            <div class="temp_max"></div>
+								    </div>
+								    <div class="display-flex" style="justify-content: space-between;">
+							            <div class="humidity"></div>
+							            <div class="wind"></div>
+								    </div>
+								</div>
+								
+							<div style="width: 100%; height:30%; background-color: white; border-radius: 4px; margin-top: 12px">
+								<div>내원 환자 수 : </div>
+								<div class="today_visit"></div>
+								<div>금일 일당 : </div>
+								<div class="today_money"></div>
+							</div>	
+								
 				</div>
       			
       			
@@ -196,12 +227,65 @@
 
 <script type="text/javascript">
 
+
+
+
+
+var weatherIcon = {
+    '01' : 'fas fa-sun',
+    '02' : 'fas fa-cloud-sun',
+    '03' : 'fas fa-cloud',
+    '04' : 'fas fa-cloud-meatball',
+    '09' : 'fas fa-cloud-sun-rain',
+    '10' : 'fas fa-cloud-showers-heavy',
+    '11' : 'fas fa-poo-storm',
+    '13' : 'far fa-snowflake',
+    '50' : 'fas fa-smog'
+};
+
+	// 날씨 api - 서울
+var apiURI = "http://api.openweathermap.org/data/2.5/weather?q="+'seoul'+"&appid="+"7a1ec66578807a91a8efeda47f1aea05";
+$.ajax({
+    url: apiURI,
+    dataType: "json",
+    type: "GET",
+    async: "false",
+    success: function(resp) {
+
+        var $Icon = (resp.weather[0].icon).substr(0,2);
+        var $weather_description = resp.weather[0].main;
+        var $Temp = Math.floor(resp.main.temp- 273.15) + 'º';
+        var $humidity = '습도 : ' + resp.main.humidity+ ' %';
+        var $wind = '바람 : ' +resp.wind.speed + ' m/s';
+        var $city = '서울';
+        var $cloud = '구름' + resp.clouds.all +"%";
+        var $temp_min = '최저 온도 : ' + Math.floor(resp.main.temp_min- 273.15) + 'º';
+        var $temp_max = '최고 온도 : ' + Math.floor(resp.main.temp_max- 273.15) + 'º';
+        
+
+        $('.weather_icon').append('<i class="' + weatherIcon[$Icon] +' fa-5x" style="height : 30px; width : 30px; font-size: 3em; padding-top: 12px;"></i>');
+        $('.weather_description').prepend($weather_description);
+        $('.current_temp').prepend($Temp);
+        $('.humidity').prepend($humidity);
+        $('.wind').prepend($wind);
+        $('.city').append($city);
+        $('.cloud').append($cloud);
+        $('.temp_min').append($temp_min);
+        $('.temp_max').append($temp_max);               
+    }
+})
+
+
+
 $(document).on("click", ".pay_update", function (e){
 	var sunap_value =  uncomma($('.sunap').text())
 	if(sunap_value == 0){
 		alert('수납내역이 추가되지않음');
 		return;
 	}
+	if(!confirm('수납 하시겠습니까?')){
+        return false;
+    }
 	var cash = 0;
 	var card = 0;
 	
@@ -213,9 +297,24 @@ $(document).on("click", ".pay_update", function (e){
 		}
 		
 	}
-	alert("cash : " + cash)
-	alert("card : " + card)
-	
+
+	$.ajax({	
+		url: "./payment.do",
+		type: "post",
+		data : { r_num: $('#record_num').val(),
+				cash: cash,
+				card: card
+			   },
+		success: function(data){
+			alert('수납이 정상적으로 처리되었습니다.')
+			str = "<button class='pay_update pay_comp' disabled>수납완료</button>"
+			$(".event").html("");
+			$(".pay_end").html(str)
+
+			
+		},
+		error: errFunc
+	});	
 	
 });
 
@@ -281,7 +380,7 @@ $(document).on("input", ".pay_input", function (){ //거스름돈 계산
 		if(change_value < 0){
 			change_value = 0;
 		}
-		 $('.pay_change').val(change_value)
+		 $('.pay_change').val(comma(change_value))
 		 
 		}, 200);
 });
@@ -314,7 +413,7 @@ $(document).on("click", ".pay_ok", function (e){
 	var remaining_value = uncomma(remaining.text())
 	var input_result = uncomma($('.pay_input').val())
 	
-	$('.remaining_amount').html(remaining_value - input_result)
+	$('.remaining_amount').html(comma(remaining_value - input_result) + "원")
 	
 	str += "<div class='display-flex'>"
 	str += "<div class='left_text font_11 pay_by'>" + $('.pay_select_target').text().trim() + " </div>"
@@ -333,12 +432,13 @@ $(document).on("click", ".pay_ok", function (e){
 
 
 window.addEventListener('load', function() {
-	let today = new Date();   
-	let year = today.getFullYear(); // 년도
-	let month = today.getMonth() + 1;  // 월
-	let date = today.getDate();  // 날짜
-
+	var today = new Date();   
+	var year = today.getFullYear(); // 년도
+	var month = today.getMonth() + 1;  // 월
+	var date = today.getDate();  // 날짜 
+	
 	patientSearchDate(year + '/' + month + '/' + date);
+	
 	//patientSearchDate("2023/7/13");
 	
 });
@@ -362,6 +462,8 @@ function patientSearchInfo(){ //검색창 검색
 		success: successSearch,
 		error: errFunc
 	});
+	
+	
 }
 
 function patientSearchDate(day){ //날짜로 검색
@@ -372,18 +474,32 @@ function patientSearchDate(day){ //날짜로 검색
 		success: successSearch,
 		error: errFunc
 	});
+	
+	
 }
 
 $(document).on("click", ".test p", function (e){  //날짜로 검색 (달력)
 	var day = $('#calYear').text()+$('#calMonth').text()+$(this).text();
 	patientSearchDate(day);
+	
+	$.ajax({	
+		url: "./dailysales.do",
+		type: "post",
+		data : { date1: day},
+		success: dailyfunc,
+		error: function(e){
+			alert('무엇인가 오류' + e)
+		}
+	});
 });
 
 
 function successSearch(data){
+	
 	let str = "";
 	var obj = JSON.parse(data);
 
+	
 	/* 검색 결과 생성 */
 	if(obj.list.length === 0){
 		str += "<div class='list-group-item list-group-item-action list-group-item-info'>"
@@ -418,6 +534,8 @@ function successSearch(data){
 		error: errFunc
 	});
 	
+	
+	
 }
 function errFunc(e){
 	console.log('검색 결과 없음');	
@@ -442,6 +560,7 @@ $(function(){
 
 /* 환자 클릭 시 제일 최근 정보 띄우는 부분 */
 function infoFunc(data){ 
+	$('.sunap').html(comma(0) + "원")
 	var obj = JSON.parse(data);
 
 	console.log(obj);
@@ -450,10 +569,12 @@ function infoFunc(data){
 	info_str += obj.info[0].birth + " | " + obj.info[0].address + " | "+  obj.info[0].sex + " | " + obj.info[0].phone;
 	
 	$('.patient_name').html(obj.info[0].name);
+	
 	$('.record_number').html("pn."+obj.info[0].num);
 	$('.patient_info').html(info_str);
 	$('#jupsu').html(obj.info[1].symptom); //접수 메모로 수정 필요
-	$('.record').html("진료기록 [" + obj.info[1].date + "]  |  담당의 : " + obj.info[1].e_name);
+	str = "<input type='hidden' id='record_num' value='"+ obj.info[1].r_num + "' /> ";
+	$('.record').html("진료기록 [" + obj.info[1].date + "]  |  담당의 : " + obj.info[1].e_name + str);
 	$('#symptom').html(obj.info[1].opinion);
 	$('#disease').html(obj.info[1].disease);
 	$('.pay').html(obj.info[1].p_amount)
@@ -465,6 +586,34 @@ function infoFunc(data){
 	}
 	$('.history').html(str_his)
 	
+	var str = "";
+	if(info.info[1].pay_cash > 0){
+		str += "<div class='display-flex'>"
+		str += "<div class='left_text font_11 pay_by'>" + "현금" + " </div>"
+		str += "<div class='font_11 pay_input_result'>" + comma(info.info[1].pay_cash) + "원</div>"
+		str += "</div>"
+	}
+	if(info.info[1].pay_card > 0){
+		str += "<div class='display-flex'>"
+		str += "<div class='left_text font_11 pay_by'>" + "카드" + " </div>"
+		str += "<div class='font_11 pay_input_result'>" + comma(info.info[1].pay_card) + "원</div>"
+		str += "</div>"
+	}
+	
+	$('.pay_add').html(str)
+	str = "<i class='fa-solid fa-plus' style='color: deepskyblue'></i> 수납 추가"
+	if(info.info[1].pay_cash + info.info[1].pay_card == info.info[1].pay_amount){
+		str = "<button class='pay_update pay_comp' disabled>수납완료</button>"
+		$(".event").html("");
+		$(".pay_end").html(str)
+
+		
+	}else{
+		str1 = "<i class='fa-solid fa-plus' style='color: deepskyblue'></i> 수납 추가"
+		$(".event").html(str1);
+		str = "<button class='pay_update'>수납</button>"
+		$(".pay_end").html(str)
+	}
 	
 	
 	var str = "";
@@ -502,10 +651,45 @@ function infoFunc(data){
 		$('#pay_list').html(str)
 		$('.pay_total').html(numWithComma(obj.info[1].pay_amount) + "원")
 		$('.pay_amount').html(numWithComma(obj.info[1].pay_amount) + "원")
+	var sunapvalue = 0;
+	for(var i = 0; i< $('.pay_input_result').length; i++){
+		sunapvalue += Number(uncomma(($($('.pay_input_result')[i]).text())))
+		$('.sunap').html(comma(sunapvalue) + "원")
+	}
+	
+	
 	
 	$('.remaining_amount').html(numWithComma(obj.info[1].pay_amount - obj.info[1].pay_cash - obj.info[1].pay_card) + "원")
 	
 
+}
+var ddd = new Date();   
+var year1 = ddd.getFullYear(); // 년도
+var month1 = ddd.getMonth() + 1;  // 월
+var date1 = ddd.getDate();  // 날짜 
+
+$(function(){
+	$.ajax({	
+		url: "./dailysales.do",
+		type: "post",
+		data : { date1: year1 + '/' + month1 + '/' + date1},
+		success: dailyfunc,
+		error: function(e){
+			alert('무엇인가 오류' + e)
+		}
+	});
+});
+function dailyfunc(data){
+	var daily = JSON.parse(data);
+
+	var avg_sales = daily.sale_total[0].avg_sales
+	var today_sales = daily.sale_total[0].today_sales
+	var avg_visit = daily.sale_total[0].avg_visit
+	var today_visit = daily.sale_total[0].today_visit1
+	
+	$('.today_visit').text(today_visit)
+	$('.today_money').text(today_sales)
+	
 }
 
 function numWithComma(num) {
@@ -514,14 +698,15 @@ function numWithComma(num) {
 	
 $(function(){
 	$(document).on("click", ".date_button > button", function (e){
+		$('.sunap').html(comma(0) + "원")
 		var str = "";
 		for(var i =1; i < info.info.length; i++){
 			if(i === $(this).index() + 1){
 				$('#jupsu').html(info.info[i].symptom);
 				$('#symptom').html(info.info[i].opinion);
 				$('#disease').html(info.info[i].disease);
-				
-				$('.record').html("진료기록 [" + info.info[i].date + "]  |  담당의 : " + info.info[i].e_name);
+				str = "<input type='hidden' id='record_num' value='"+ info.info[i].r_num + "' /> ";
+				$('.record').html("진료기록 [" + info.info[i].date + "]  |  담당의 : " + info.info[i].e_name + str);
 				str_his = "<tr><th>번호</th> <th>품명</th> <th>투약일</th></tr>"
 				for(var j = 0; j < info.info[i].med.length; j++){
 					
@@ -554,6 +739,36 @@ $(function(){
 					$('.pay_total').html(numWithComma(info.info[i].pay_amount) + "원")
 					$('.pay_amount').html(numWithComma(info.info[i].pay_amount) + "원")
 				
+					var str = "";
+					
+				if(info.info[i].pay_cash > 0){
+					str += "<div class='display-flex'>"
+					str += "<div class='left_text font_11 pay_by'>" + "현금" + " </div>"
+					str += "<div class='font_11 pay_input_result'>" + comma(info.info[i].pay_cash) + "원</div>"
+					str += "</div>"
+				}
+				if(info.info[i].pay_card > 0){
+					str += "<div class='display-flex'>"
+					str += "<div class='left_text font_11 pay_by'>" + "카드" + " </div>"
+					str += "<div class='font_11 pay_input_result'>" + comma(info.info[i].pay_card) + "원</div>"
+					str += "</div>"
+				}
+				
+				$('.pay_add').html(str)
+				str = "<i class='fa-solid fa-plus' style='color: deepskyblue'></i> 수납 추가"
+				if(info.info[i].pay_cash + info.info[i].pay_card == info.info[i].pay_amount){
+					str = "<button class='pay_update pay_comp' disabled>수납완료</button>"
+					$(".event").html("");
+					$(".pay_end").html(str)
+
+					
+				}else{
+					str1 = "<i class='fa-solid fa-plus' style='color: deepskyblue'></i> 수납 추가"
+					$(".event").html(str1);
+					str = "<button class='pay_update'>수납</button>"
+					$(".pay_end").html(str)
+				}
+					
 				$('.remaining_amount').html(numWithComma(info.info[i].pay_amount - info.info[i].pay_cash - info.info[i].pay_card) + "원")
 			}
 		}
