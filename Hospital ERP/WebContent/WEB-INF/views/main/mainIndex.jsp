@@ -739,7 +739,6 @@ $(function(){
 	});
 });
 function getMemo(data){
-	console.log("memo불러오기");
 	var obj = JSON.parse(data);
 	$('#calendar_memo').val("");
 	var deletebtn = document.getElementById('delbtn');
