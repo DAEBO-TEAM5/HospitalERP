@@ -3,31 +3,25 @@ package hospital.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
+import java.util.LinkedHashMap;
 
 import hospital.utils.ConnectionHelper;
-import hospital.vo.patientRecordVO;
 
 public class RecordDao {
 	
 	
-	public HashMap<String, Integer> medicineList() {
+	public LinkedHashMap<String, Integer> medicineList() {
 		//ArrayList<String> list = new ArrayList<>();
-		HashMap<String, Integer> list = new HashMap<>();
+		LinkedHashMap<String, Integer> list = new LinkedHashMap<>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
 			conn = ConnectionHelper.getConnection();
-			String sql = "select * from medicine";
+			String sql = "select * from medicine order by m_name";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
@@ -48,7 +42,7 @@ public class RecordDao {
 	}
 	
 	
-	public ArrayList<String> SelectList(String table) {   
+	public ArrayList<String> SelectList(String table, String name) {   
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -57,7 +51,7 @@ public class RecordDao {
 		try {
 			conn = ConnectionHelper.getConnection();
 			
-			String str = "select * from "+ table;
+			String str = "select * from "+ table + " order by " + name;
 			String sql = str;
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -107,7 +101,7 @@ public class RecordDao {
 	
 	
 	
-	public int insertRecord(String note, String symptom, int p_code, int dcode ) {
+	public int insertRecord(String note, String symptom, int p_code, int dcode, int ecode ) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -115,12 +109,13 @@ public class RecordDao {
 		
 		try {
 			conn = ConnectionHelper.getConnection();                      //의사소견, 증상, 환자번호, 질병코드, 직원코드
-			String sql =  "insert into record values(r_num_seq.nextval, sysdate, ?, ?, ?, ?, 1010)";
+			String sql =  "insert into record values(r_num_seq.nextval, sysdate, ?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, note);
 			pstmt.setString(2, symptom);
 			pstmt.setInt(3, p_code);
 			pstmt.setInt(4, dcode);
+			pstmt.setInt(5, ecode);
 			int num = pstmt.executeUpdate();
 			//if(num>0) System.out.println(num+"개 행 업데이트 완료");
 			ConnectionHelper.close(pstmt);  //////////////////////////////////////

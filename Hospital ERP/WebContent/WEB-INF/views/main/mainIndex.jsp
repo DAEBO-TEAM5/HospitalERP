@@ -107,7 +107,7 @@
 			</div>
 
 
-			<div class="col-md-4" style="border-right: 1px solid black;">
+			<div class="col-md-4" >
 				<div class="panel" style="height: 30%; display: flex;"  data-bs-toggle="modal" data-bs-target="#patientModal">
 	         				<div class="patient_name" style="width: 15%;"></div>
 				            	<div style="width: 85%; padding-left: 5px;" >
@@ -218,7 +218,7 @@
 			</div>
 
 
-			<div class="col-md-4" style="border-right: 1px solid black;">
+			<div class="col-md-4">
 			<div class="panel" style="height: 90vh;">
 				<h2><b>진료 기록 작성</b></h2>
 				<form role="form" method="post" id="recordForm">
@@ -298,7 +298,7 @@
 					<textarea class="form-control" name="calendar_memo" id="calendar_memo" placeholder="위에서 날짜를 선택해주세요"></textarea>
 
 					<input type="button" class="button-right memoButton btn btn-primary modalBtn" id="memoButton"  style="visibility: hidden;">
-					<input type="button" class="button-right btn btn-primary modalBtn" id="delbtn" value="삭제" onclick="deleteMemo();" style="background-color:red; visibility: hidden;">
+					<input type="button" class="button-right btn btn-danger" id="delbtn" value="삭제" onclick="deleteMemo();" style="visibility: hidden; width:50%;">
 				</div>
 			</div>
 

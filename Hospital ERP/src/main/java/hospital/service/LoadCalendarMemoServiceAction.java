@@ -2,6 +2,7 @@ package hospital.service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 
@@ -18,8 +19,11 @@ public class LoadCalendarMemoServiceAction implements Action {
 		
 		MemoDao dao = new MemoDao();
 		
+		HttpSession session = request.getSession();
+		int ecode = (int) session.getAttribute("h_e_id");
+		
 		try {
-			String memo = dao.fetchMemo(date);
+			String memo = dao.fetchMemo(date, ecode);
 			
 			
 			JSONObject sendObject = new JSONObject();
