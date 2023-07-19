@@ -90,6 +90,9 @@
 	text-align: right;
 	margin: 35px 60px 0px 10px;
 }
+.item_checkbox  *{
+	margin-left: 25px;
+}
  
 .item_table{
 	border: 4px solid white;
@@ -121,38 +124,64 @@
 }
 
 
-.item_page_tableesize > tr > th:nth-child(1) {
+.item_page_tablesize > tr > th:nth-child(1) {
 	width: 60px;	
 }
-.item_page_tableesize > tr > th:nth-child(6), th:nth-child(7) {
+.item_page_tablesize > tr > th:nth-child(6), th:nth-child(7) {
 	width: 95px;		
 } 
-.item_page_tableesize > tr > th:nth-child(2), th:nth-child(4), th:nth-child(9) {
+.item_page_tablesize > tr > th:nth-child(2), th:nth-child(4), th:nth-child(9) {
 	width: 125px;		
 }
-.item_page_tableesize > tr > th:nth-child(3), th:nth-child(5), th:nth-child(8), th:nth-child(10) {
+.item_page_tablesize > tr > th:nth-child(3), th:nth-child(5), th:nth-child(8), th:nth-child(10) {
 	width: 148px;		
 }  
 
 
-.rel_page_tableesize > tr > th:nth-child(1), th:nth-child(8)  {
+.rel_page_tablesize > tr > th:nth-child(1), th:nth-child(8)  {
 	width: 130px;	
 }
-.rel_page_tableesize > tr > th:nth-child(2), th:nth-child(4) {
+.rel_page_tablesize > tr > th:nth-child(2), th:nth-child(4) {
 	width: 125px;	
 }
-.rel_page_tableesize > tr > th:nth-child(3), th:nth-child(5) {
+.rel_page_tablesize > tr > th:nth-child(3), th:nth-child(5) {
 	width: 130px;	
 }
-.rel_page_tableesize > tr > th:nth-child(6), th:nth-child(7) {
+.rel_page_tablesize > tr > th:nth-child(6), th:nth-child(7) {
 	width: 85px;	
 }
-.rel_page_tableesize > tr > th:nth-child(9) {
+.rel_page_tablesize > tr > th:nth-child(9) {
 	width: 277px;	
 }
-
+.table_scroll{
+	widht: 100%;
+	max-height: 400px;
+	overFlow-y : auto;
+	display: block;
+	margin-top: 0px;
+}
+.table_scroll::-webkit-scrollbar {
+    width: 10px;  /* 스크롤바의 너비 */
+}
+.table_scroll::-webkit-scrollbar-thumb {
+    height: 366px; /* 스크롤바의 길이 */
+    background: #217af4; /* 스크롤바의 색상 */
+    border-radius: 10px;
+}
+.table_scroll::-webkit-scrollbar-track {
+    background: rgba(33, 122, 244, .1);  /*스크롤바 뒷 배경 색상*/
+} 
+ 
+ 
+ 
+ 
+ 
+ 
 .item_page_footer{
-	
+	width: 800px;
+	display: flex;
+	justify-content: flex-end;
+	margin-left: 500px;
 } 
  
 .item_relpage_footer{
