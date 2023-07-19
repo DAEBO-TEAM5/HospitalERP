@@ -289,7 +289,7 @@
 
 					</div>
 					
-					<input type="button" class="button-right btn btn-primary" value="작성 완료" onclick="insertRec();">
+					<input type="button" id="docBtn" class="button-right btn btn-primary" value="작성 완료" onclick="insertRec();">
 					<input type="button" class="button-right btn btn-secondary" value="작성 취소" onclick="resetRec();" style="margin-right: 6px;">
 
 				</form>
@@ -372,16 +372,48 @@ function firstPatient(){
 	}); 
 }
 
+//의사-간호사 구분해서 간호사-처방전 못쓰게 막기
+$(function(){
+	$.ajax({
+		type: 'post',
+		url: "./getEcode.do",
+		success : getSession,
+		error: errFunc
+	});
+});
+function getSession(data){
+	var obj = JSON.parse(data);
+	var s_ecode = obj.ecode;
+	//console.log(s_ecode);
+	console.log(typeof(s_ecode));
+	var ecode = parseInt(s_ecode, 0);
+	
+	if(ecode <= 45000){
+		console.log("doctor");
+		$.ajax({    //처방전 selectList 불러오기
+			type: 'post',
+			url: "./mainSelectList.do",
+			success : selectListFunc,
+			error: errFunc
+		});
+	}
+	else {
+		console.log("nurse");
+		$('#docBtn').attr('disabled', true);
+	}
+	console.log(typeof(ecode));
+}
+
 
 //처방전_select리스트 불러오기
-$(function(){
+/* $(function(){
 	$.ajax({
 		type: 'post',
 		url: "./mainSelectList.do",
 		success : selectListFunc,
 		error: errFunc
 	});
-});
+}); */
 function selectListFunc(data){
 	var obj = JSON.parse(data);
 	
