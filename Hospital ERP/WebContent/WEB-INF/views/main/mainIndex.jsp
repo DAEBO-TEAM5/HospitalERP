@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" href="${pageContext.request.contextPath }/image/hp.png" /> <!-- //파비콘임 -->
 <meta charset="UTF-8">
 <title>진료</title>
 
