@@ -15,7 +15,7 @@ public class MemoDao {
 		try {
 			conn = ConnectionHelper.getConnection();
 			
-			String sql = "insert into memo values(m_num_seq.nextval, ?, ?, ?)";  
+			String sql = "INSERT INTO MEMO VALUES(M_NUM_SEQ.NEXTVAL, ?, ?, ?)";  
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memo);
 			pstmt.setString(2, date);  
@@ -37,7 +37,7 @@ public class MemoDao {
 		String memo = "";
 		try {
 			conn = ConnectionHelper.getConnection();
-			String sql = "select m_memo from memo where m_date=? and m_e_code=?";  //직원번호 변경해야함
+			String sql = "SELECT M_MEMO FROM MEMO WHERE M_DATE=? AND M_E_CODE=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, date);  
 			pstmt.setInt(2, ecode);
@@ -62,7 +62,7 @@ public class MemoDao {
 		try {
 			conn = ConnectionHelper.getConnection();
 			
-			String sql = "update memo set m_memo=? where m_date=? and m_e_code = ?";  
+			String sql = "UPDATE MEMO SET M_MEMO=? WHERE M_DATE=? AND M_E_CODE = ?";  
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, memo);
 			pstmt.setString(2, date);  
@@ -83,7 +83,7 @@ public class MemoDao {
 		try {
 			conn = ConnectionHelper.getConnection();
 			
-			String sql = "delete from memo where m_date = ? and m_e_code = ?";  
+			String sql = "DELETE FROM MEMO WHERE M_DATE = ? AND M_E_CODE = ?";  
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, date);
 			pstmt.setInt(2, ecode);

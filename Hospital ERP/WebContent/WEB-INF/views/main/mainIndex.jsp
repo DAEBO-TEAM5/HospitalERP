@@ -19,7 +19,9 @@
   <link href="${pageContext.request.contextPath }/resources/main.css" rel="stylesheet"> <!-- 사용자css -->
   <script src="https://code.jquery.com/jquery-3.7.0.js"></script> <!-- Jquery -->
   <script src="https://kit.fontawesome.com/d7766e5822.js" crossorigin="anonymous"></script> <!-- fontawesome  -->
-
+  <style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500&family=Questrial&display=swap');
+</style>
 
 
 </head>
@@ -204,12 +206,14 @@
           								<textarea class="form-control" id="opinion" style="margin-bottom: 12px;"></textarea>
           								<label>병명</label>
        									<textarea class="form-control" id="disease" style="margin-bottom: 12px;"></textarea>
-		          								<label>처방</label>
-		       									<table class="history">
-									          		<tr><th>번호</th> <th>품명</th> <th>투약일</th></tr>
-									          	</table>
 									    <label style="margin-top: 12px;">증상</label>
        									<textarea class="form-control" id="symptom" style="margin-bottom: 12px;">없음</textarea>
+		          								<label>처방</label>
+		          								<div class="tablediv" style="height: 200px; overflow: auto;background-color: white;">
+		       									<table class="history ">
+									          		
+									          	</table>
+									          	</div>
 		          							</div>
 				            	
 			            	</div>
@@ -221,14 +225,14 @@
 
 			<div class="col-md-4">
 			<div class="panel" style="height: 90vh;">
-				<h2><b>진료 기록 작성</b></h2>
+				<h3><b>진료 기록 작성</b></h3>
 				<form role="form" method="post" id="recordForm">
 					<div class="form-group">
-						<label><b>의사 소견</b></label>
+						<label><b>의사 소견</b> <i class="fa-solid fa-stethoscope"></i></label>
 						<textarea class="form-control" name="d_note" id="d_note"></textarea>
 						
 						<div class="form-group" style="">
-							<label> <b> < 처방약 > </b></label> <br>
+							<label> <b>  처방약  </b><i class="fa-solid fa-pills"></i></label> <br>
 							<select id="addMed" class="form-control medlist"></select> 
 							<select id="medUsage" class="form-control medyang">
 								<option value=1>1</option>
@@ -244,7 +248,7 @@
 							<button type="button" class="btn btn-primary" onclick="prescriptionListDelete()"><i class="fa-solid fa-minus" style="color: #ffffff;"></i></button>
 							
 						</div>
-						<div class="result_table">
+						<div class="result_table tablediv">
 							<table id="result_med" class="table table-sm">
 								<thead>
 									<tr>
@@ -259,12 +263,12 @@
 
 						
 						<div class="form-group" style="">
-							<label> <b> < 물리치료 > </b> </label>  <br>
+							<label> <b> 물리치료 </b> <i class="fa-solid fa-syringe"></i></label>  <br>
 							<select id="addTh" class="form-control phlist"></select>
 							<button type="button" class="btn btn-primary" onclick="therapyList()"><i class="fa-solid fa-plus" style="color: #ffffff;"></i></button>
 							<button type="button" class="btn btn-primary" onclick="therapyDelete()"><i class="fa-solid fa-minus" style="color: #ffffff;"></i></button> 
 						</div>
-						<div class="result_table">
+						<div class="result_table tablediv">
 							<table id="result_Th" class="table table-sm">
 								<thead>
 									<tr>
@@ -278,7 +282,7 @@
 
 						
 						<div class="form-group" style="">
-							<label> <b> < 진단 질병 > </b></label> 
+							<label> <b>진단 질병</b> <i class="fa-solid fa-viruses"></i> </label> 
 							<select id="addD" class="form-control"></select>
 						</div>
 
@@ -286,7 +290,7 @@
 					</div>
 					
 					<input type="button" class="button-right btn btn-primary" value="작성 완료" onclick="insertRec();">
-					<input type="reset" class="button-right btn btn-secondary" value="작성 취소">
+					<input type="button" class="button-right btn btn-secondary" value="작성 취소" onclick="resetRec();" style="margin-right: 6px;">
 
 				</form>
 			</div>
@@ -294,7 +298,8 @@
 
 
 			<div class="col-md-2">
-				<c:import url="../include/calendar.jsp" />
+			
+				<div class="calendarArea"><c:import url="../include/calendar.jsp" /></div>
 				<div class="memoForm">
 					<textarea class="form-control" name="calendar_memo" id="calendar_memo" placeholder="위에서 날짜를 선택해주세요"></textarea>
 
@@ -346,13 +351,16 @@ function waitListFunc(data){
 			str += "</div>"
 	}
 	$('.list-group').html(str);
+	firstPatient();
 	
+}
+
+function firstPatient(){
 	$('.waitButton').first().addClass('select');
 	
 	var pnum = $('.waitButton').first().children('.r_num').text();
 	pnum = pnum.substring(4,);
 	console.log(pnum);
-	
 	
  	$.ajax({
 		type: 'post',
@@ -362,7 +370,6 @@ function waitListFunc(data){
 		error: errFunc
 	}); 
 }
-
 
 
 //처방전_select리스트 불러오기
@@ -425,6 +432,7 @@ function patientInfo(data){
 	var info_str = "";
 	info = obj;
 	console.log(obj);
+	console.log(obj.info.length);
 	info_str += obj.info[0].birth + " | " + obj.info[0].address + " | "+  obj.info[0].sex + " | " + obj.info[0].phone;
 	
 	var jupsusym = $('.select .jupsu_symptom').text();
@@ -434,18 +442,32 @@ function patientInfo(data){
 	$('.record_number').html("pn."+obj.info[0].num);
 	$('.patient_info').html(info_str);
 	$('#jupsu').html(jupsusym); 
+	
+	if(obj.info.length == 1){
+		$('.record').html("방문 기록이 없습니다");
+		$('#opinion').html("");
+		$('#disease').html("");
+		$('#symptom').html("");
+		$('.history').html("");
+		$('.day_button').remove();
+	}
+	else {
+		
+	
 	$('.record').html("진료기록 [" + obj.info[1].date + "]  |  담당의 : " + obj.info[1].e_name);
 	$('#opinion').html(obj.info[1].opinion);
 	$('#disease').html(obj.info[1].disease);
 	$('#symptom').html(obj.info[1].symptom);
 	
 	str_his = ""
-	str_his += "<tr><th>번호</th> <th>품명</th> <th>투약일</th></tr>";
+	str_his += "<tr><th style='width: 13%;'>번호</th> <th style='width: 72%;'>품명</th> <th style='width: 15%;'>투약일</th></tr>";
 	for(var i = 0; i < obj.info[1].med.length; i++){
 		str_his += "<tr> <td>" + (i+1) +" </td> <td> " + info.info[1].med[i].medName+ "</td> <td> " +info.info[1].med[i].use + "</td> </tr>"
 		
 	}
 	$('.history').html(str_his)
+	
+	
 	
 	
 	
@@ -466,7 +488,7 @@ function patientInfo(data){
 	
 	var first_arrow = $($('.arrow')[0]);
 	first_arrow.removeClass('target_arrow')
-	
+	}
 }
 $(function(){
 	$(document).on("click", ".date_button > button", function (e){
@@ -481,7 +503,7 @@ $(function(){
 				
 				$('.record').html("진료기록 [" + info.info[i].date + "]  |  담당의 : " + info.info[i].e_name);
 				str_his = ""
-					str_his += "<tr><th>번호</th> <th>품명</th> <th>투약일</th></tr>";
+					str_his += "<tr><th style='width: 13%;'>번호</th> <th style='width: 72%;'>품명</th> <th style='width: 15%;'>투약일</th></tr>";
 				for(var j = 0; j < info.info[i].med.length; j++){
 					
 					
@@ -595,16 +617,6 @@ function ModifyForm(){
 
 //--------------------------------------------------------------------------------
 
-/* function handleOnChange(e) {
-	  // 선택된 데이터의 텍스트값 가져오기
-	  const text = e.options[e.selectedIndex].text;
-	  
-	  console.log(e.options);
-	  
-	  // 선택한 텍스트 출력
-	  document.getElementById('result').innerText
-	    += text;
-	} */
 	
 function prescriptionList() {
 
@@ -620,17 +632,6 @@ function prescriptionList() {
 	  $('.result_table').scrollTop($('.result_table')[0].scrollHeight);
 }
 
-/* function prescriptionList(,,name) {
-
-		  var m_name = document.getElementById("addMed");
-		  var m_nameT = m_name.options[m_name.selectedIndex].text;
-		  
-		  var usage = document.getElementById("medUsage");
-		  var usageT = usage.options[usage.selectedIndex].text;
-		  
-		  var med_table = "<tr id='prescriptionMedList'>  <td>  "+m_nameT+"</td> <td> " + usageT + "</td> </tr>";
-		  $(name).append(med_table);
-} */
 
 function prescriptionListDelete() {
 	$("tr").remove("#prescriptionMedList:last");
@@ -649,18 +650,12 @@ function therapyDelete() {
 	$("tr").remove("#prescriptionThList:last");
 }
 
-/* function diseaseList() {
-	  var d_name = document.getElementById("addD");
-	  var d_nameT = d_name.options[d_name.selectedIndex].text;
-	  
-	  var med_table = "<tr id='prescriptionDList'>  <td>" + d_nameT + "</td>  </tr>";
-	  $('#result_D').append(med_table);
+
+function resetRec(){
+	$('#recordForm')[0].reset();      
+	$("tr").remove("#prescriptionThList");
+	$("tr").remove("#prescriptionMedList");  
 }
-function diseaseDelete() {
-	$("tr").remove("#prescriptionDList");
-} */
-
-
 
 //처방 레코드 추가
 function insertRec() {
@@ -711,14 +706,14 @@ function insertRec() {
 			 	"dName": d_nameT, "p_name": patientName, "symptom": symptom },
 		 success : function(data){
 			 		var obj = JSON.parse(data);
-			 		console.log(data);
-			 		var pnum = obj.pnum;
-			 		pnum = "."+pnum;
-			 		console.log(pnum);
-			 		$("div").remove(".select");    
-			 		$('#recordForm')[0].reset();      
-			 		$("tr").remove("#prescriptionThList");
-			 		$("tr").remove("#prescriptionMedList");           /////////환자정보리셋추가해야함
+			 		//console.log(data);
+			 		//var pnum = obj.pnum;
+			 		//pnum = "."+pnum;
+			 		//console.log(pnum);
+			 		$("div").remove(".select");  
+			 		alert('저장되었습니다');
+			 		firstPatient();
+			 		resetRec();
 			 		//loadWaitList();
 		 		},
 		error : function(msg, error) {
@@ -816,15 +811,13 @@ function getMemo(data){
 //메모 저장
 function insertMemo(){
 	var memo = $('#calendar_memo').val();
-	//console.log(memo);
 	
 	$.ajax({
 		type: 'post',
 		url : "./insertCalendarMemo.do",
 		data : { date: $('#calYear').text() +"-"+ $('#calMonth').text() +"-"+ $('.choiceDay').text(), memo: memo },
 		success : function(data){
-			document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
-			document.getElementById("calendar_memo").value="";
+			memoReset();
 			alert('저장이 완료되었습니다.');
 		} ,
 		error: errFunc
@@ -840,9 +833,8 @@ function updateMemo(){
 		url : "./updateCalendarMemo.do",
 		data : { date: $('#calYear').text() +"-"+ $('#calMonth').text() +"-"+ $('.choiceDay').text(), memo: memo },
 		success : function(data){
-			document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
-			document.getElementById("calendar_memo").value="";
-			alert('저장이 완료되었습니다.');
+			memoReset();
+			alert('수정이 완료되었습니다.');
 		} ,
 		error: errFunc
 	})
@@ -854,14 +846,21 @@ function deleteMemo(){
 		url : "./deleteCalendarMemo.do",
 		data : { date: $('#calYear').text() +"-"+ $('#calMonth').text() +"-"+ $('.choiceDay').text() },
 		success : function(data){
-			document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
-			document.getElementById("calendar_memo").value="";
+			memoReset();
 			alert('삭제가 완료되었습니다.');
 		} ,
 		error: errFunc
 	})
 }
-
+function memoReset(){
+	document.getElementsByClassName("choiceDay")[0].classList.remove("choiceDay");
+	document.getElementById("calendar_memo").value="";
+	var deletebtn = document.getElementById('delbtn');
+	var memobtn = document.getElementById('memoButton');
+	memobtn.style.visibility = 'hidden';
+	deletebtn.style.visibility = 'hidden';
+	$('#calendar_memo').attr('placeholder', '위에서 날짜를 선택해주세요');
+}
 	
 </script>
 

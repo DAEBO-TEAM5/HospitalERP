@@ -16,8 +16,8 @@ public class DeleteCalendarMemoServiceAction implements Action {
 		String date = request.getParameter("date");
 		
 		HttpSession session = request.getSession();
-		int ecode = (int) session.getAttribute("h_e_code");
-		//System.out.println("ecode---------------"+ecode);
+		String e_code = (String) session.getAttribute("h_e_code");
+		int ecode = Integer.parseInt(e_code);
 		
 		MemoDao dao = new MemoDao();
 		dao.deleteMemo(date, ecode);

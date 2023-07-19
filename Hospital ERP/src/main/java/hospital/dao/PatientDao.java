@@ -25,20 +25,20 @@ public class PatientDao {
 		ResultSet rs = null;
 		try {
 			conn = ConnectionHelper.getConnection();
-			String sql = "select p.num, p.name, p.address, p.phone, p.birth, p.sex, w.w_symptom from patient p join wait w on p.num = w.w_p_num where p.num = ?";
+			String sql = "SELECT P.NUM, P.NAME, P.ADDRESS, P.PHONE, P.BIRTH, P.SEX, W.W_SYMPTOM FROM PATIENT P JOIN WAIT W ON P.NUM = W.W_P_NUM WHERE P.NUM = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			
 			rs = pstmt.executeQuery();
-			rs.next();
-			
-			list.add(Integer.toString( rs.getInt("num")));
-			list.add(rs.getString("name"));
-			list.add(rs.getString("address"));
-			list.add(rs.getString("phone"));
-			list.add(rs.getString("birth"));
-			list.add(rs.getString("sex"));
-			list.add(rs.getString("w_symptom"));
+			while(rs.next()) {
+				list.add(Integer.toString( rs.getInt("num")));
+				list.add(rs.getString("name"));
+				list.add(rs.getString("address"));
+				list.add(rs.getString("phone"));
+				list.add(rs.getString("birth"));
+				list.add(rs.getString("sex"));
+				list.add(rs.getString("w_symptom"));
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -58,7 +58,7 @@ public class PatientDao {
 		PreparedStatement pstmt = null;
 		try {
 			conn = ConnectionHelper.getConnection();
-			String sql = "select p.num, p.name, p.birth, p.sex, w.w_symptom, w.w_num from patient p join wait w on p.num = w.w_p_num order by w.w_num";
+			String sql = "SELECT P.NUM, P.NAME, P.BIRTH, P.SEX, W.W_SYMPTOM, W.W_NUM FROM PATIENT P JOIN WAIT W ON P.NUM = W.W_P_NUM ORDER BY W.W_NUM";
 			pstmt = conn.prepareStatement(sql);
 			
 			ResultSet rs = pstmt.executeQuery();
@@ -93,7 +93,7 @@ public PatientVO getPatientInfo(String name, String birth) {
 		PreparedStatement pstmt = null;
 		try {
 			conn = ConnectionHelper.getConnection();
-			String sql = "select * from patient where name = ? and birth = ?";
+			String sql = "SELECT * FROM PATIENT WHERE NAME = ? AND BIRTH = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, name);
 			pstmt.setString(2, birth);
@@ -131,7 +131,7 @@ public int InsertPatient(PatientVO vo) {
 	int num = 0;
 	try {
 		conn = ConnectionHelper.getConnection();
-		String sql = "insert into patient values(num_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO PATIENT VALUES(NUM_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?)";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, vo.getName());
 		pstmt.setString(2, vo.getBirth());
@@ -146,7 +146,7 @@ public int InsertPatient(PatientVO vo) {
 		ConnectionHelper.close(pstmt);
 		
 		
-		sql = "select num from patient where name=? and birth=?";
+		sql = "SELECT NUM FROM PATIENT WHERE NAME=? AND BIRTH=?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, vo.getName());
 		pstmt.setString(2, vo.getBirth());
@@ -171,7 +171,7 @@ public PatientVO InsertWait(String symptom, int pnum) {
 	PreparedStatement pstmt = null;
 	try {
 		conn = ConnectionHelper.getConnection();
-		String sql = "insert into wait values(w_num_seq.nextval, ?, ?)";
+		String sql = "INSERT INTO WAIT VALUES(W_NUM_SEQ.NEXTVAL, ?, ?)";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, symptom);
 		pstmt.setInt(2, pnum);
@@ -195,7 +195,7 @@ public PatientVO UpdatePatient(PatientVO vo) {
 	PreparedStatement pstmt = null;
 	try {
 		conn = ConnectionHelper.getConnection();
-		String sql = "update patient set name=?, birth=?, phone=?, address=?, sex=?, height=?, weight=?, note=? where num=?";
+		String sql = "UPDATE PATIENT SET NAME=?, BIRTH=?, PHONE=?, ADDRESS=?, SEX=?, HEIGHT=?, WEIGHT=?, NOTE=? WHERE NUM=?";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, vo.getName());
 		pstmt.setString(2, vo.getBirth());

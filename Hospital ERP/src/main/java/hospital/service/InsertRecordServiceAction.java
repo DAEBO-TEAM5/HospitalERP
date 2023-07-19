@@ -36,7 +36,8 @@ public class InsertRecordServiceAction implements Action {
 			int p_code = dao.getCode("num", "patient", "name", p_name);    //환자코드
 			
 			HttpSession session = request.getSession();
-			int ecode = (int) session.getAttribute("h_e_id");  //직원코드 
+			String e_code = (String) session.getAttribute("h_e_code");
+			int ecode = Integer.parseInt(e_code);  //직원코드 
 			
 			String symptom = request.getParameter("symptom");
 			//System.out.println("dddddddddddddd"+symptom);

@@ -19,7 +19,8 @@ public class InsertCalanderMemoServiceAction implements Action {
 		//System.out.println("memo, date:  "+memo+" "+date);
 		
 		HttpSession session = request.getSession();
-		int ecode = (int) session.getAttribute("h_e_id");
+		String e_code = (String) session.getAttribute("h_e_code");
+		int ecode = Integer.parseInt(e_code);
 		
 		MemoDao dao = new MemoDao();
 		dao.insertMemo(memo, date, ecode);

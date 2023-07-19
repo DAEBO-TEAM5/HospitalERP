@@ -17,7 +17,8 @@ public class UpdateCalendarMemoServiceAction implements Action {
 		String date = request.getParameter("date");
 		
 		HttpSession session = request.getSession();
-		int ecode = (int) session.getAttribute("h_e_id");
+		String e_code = (String) session.getAttribute("h_e_code");
+		int ecode = Integer.parseInt(e_code);
 		
 		MemoDao dao = new MemoDao();
 		dao.updateMemo(memo, date, ecode);

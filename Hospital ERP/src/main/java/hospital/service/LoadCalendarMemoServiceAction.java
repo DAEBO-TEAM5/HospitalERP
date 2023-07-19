@@ -20,7 +20,9 @@ public class LoadCalendarMemoServiceAction implements Action {
 		MemoDao dao = new MemoDao();
 		
 		HttpSession session = request.getSession();
-		int ecode = (int) session.getAttribute("h_e_id");
+		String e_code = (String) session.getAttribute("h_e_code");
+		System.out.println("ecode---------------"+e_code);
+		int ecode = Integer.parseInt(e_code);
 		
 		try {
 			String memo = dao.fetchMemo(date, ecode);
