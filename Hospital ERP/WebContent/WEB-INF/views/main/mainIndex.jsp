@@ -544,7 +544,7 @@ function errFunc(msg, error){
 	alert(error);
 }
 //-----------------------------------------------------------------------------
-//접수모달
+//환자정보수정 모달
  $('#patientModal').on('show.bs.modal', function(e){	 
 	var name =  $('.patient_name').text();
 	 var winfo = $('.patient_info').text();
@@ -722,7 +722,7 @@ function insertRec() {
 }
 
 
-//대기 리스트 추가 / 환자 정보 추가  (submit 클릭이벤트)
+//대기 리스트 추가 / 환자 정보 추가  (submit 클릭이벤트)   추가 모달
 $(document).ready(function(){
 	$('#patientForm').submit(function(event){
 		submitForm();
@@ -748,7 +748,10 @@ function submitForm(){
 				"height":height, "weight":weight, "note":note, "symptom": symptom},
 		success: function(response){
 			$("#exampleModal").modal('hide');
-			alert('추가가 완료되었습니다');
+			var obj = JSON.parse(response);
+			if(obj.res == 'first') alert('해당하는 환자 정보가 없습니다');
+			else if(obj.res == 'insert') alert('환자 등록 시 이름, 생년월일, 전화번호는 필수 항목 입니다');
+			else alert('추가가 완료되었습니다');
 		},
 		error: function(msg, error) {
 			alert(error);
