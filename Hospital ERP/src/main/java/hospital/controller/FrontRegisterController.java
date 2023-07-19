@@ -36,12 +36,14 @@ import hospital.service.LoginOkServiceAction;
 import hospital.service.MemberChangePwAction;
 import hospital.service.MemberForgotPwProAction;
 import hospital.service.MemberIdCheckAction;
+import hospital.service.PaymentServiceAction;
 import hospital.service.SearchServiceDateAction;
 import hospital.service.SearchServiceInfoAction;
 import hospital.service.SelectListServiceAction;
 import hospital.service.SignUpServiceAction;
 import hospital.service.UpdateCalendarMemoServiceAction;
 import hospital.service.UpdatePatientInfoServiceAction;
+import hospital.service.DailySalesServiceAction;
 import hospital.service.DeleteCalendarMemoServiceAction;
 import hospital.service.EcodeServiceAction;
 
@@ -141,7 +143,12 @@ public class FrontRegisterController extends HttpServlet {
     	}else if(urlcommand.equals("/patientinfo.do")) {
     		action = new InfoServiceAction();
     		action.execute(request, response);
-    		
+    	}else if(urlcommand.equals("/payment.do")) {
+    		action = new PaymentServiceAction();
+    		action.execute(request, response);
+    	}else if(urlcommand.equals("/dailysales.do")) {
+    		action = new DailySalesServiceAction();
+    		action.execute(request, response);
     	}else if(urlcommand.equals("/item.do")) {
 			String h_id = (String) request.getSession().getAttribute("h_id");
 			forward = new ActionForward();

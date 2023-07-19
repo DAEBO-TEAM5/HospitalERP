@@ -68,6 +68,7 @@ public class InfoServiceAction implements Action {
 			jobj.put("disease", d_name); // 질병명
 			jobj.put("opinion", v.getR_opinion()); // 증상
 			jobj.put("symptom", v.getR_symptom()); // 방문 목적
+			jobj.put("r_num", v.getR_num());
 
 			System.out.println("진료번호-----------" + v.getR_num());
 			medlist = dao.MedName(v.getR_num()); // 약품명, 사용량

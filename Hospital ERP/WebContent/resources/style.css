@@ -215,6 +215,9 @@ h3{
     transition: background-color .17s ease,color .17s ease;
 	
 }
+.pay_comp{
+	background-color: darkgray;
+}
 .pay_end{
 	margin: 12px;
 	display: flex;
