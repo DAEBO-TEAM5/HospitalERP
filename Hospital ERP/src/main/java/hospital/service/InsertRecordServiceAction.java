@@ -50,6 +50,7 @@ public class InsertRecordServiceAction implements Action {
 				medname = medname.substring(11, medname.length()-1);
 				String use = medlist[i+1];
 				use = use.substring(8, use.length()-2);
+				System.out.println("약이름: "+medname+"   양: "+use);
 				int m_code = dao.getCode("m_code", "medicine", "m_name", medname);
 				dao.insertPrescription(m_code, Integer.parseInt(use), recordNum);
 			}
