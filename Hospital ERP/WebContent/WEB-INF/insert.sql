@@ -97,9 +97,9 @@ insert into patient values(num_seq.nextval, '홍길동', '1999-09-09', '010-1234
 insert into patient values(num_seq.nextval, '양승윤', '1995-12-31', '010-0000-9999', '신림동', '남자', 205, 45, '신림동 잠만보');
 insert into patient values(num_seq.nextval, '윤성호', '1994-08-21', '010-5344-2342', '의정부', '여자', 187, 77, '의정부 자바머신');
 insert into patient values(num_seq.nextval, '정준열', '1992-05-17', '010-5823-9657', '부산', '여자', 187, 77, '뜨거운 부산남자');
-insert into patient values(num_seq.nextval, '신지애', '1983-02-3', '010-9107-4286', '서울', '남자', 187, 77, '5팀의 희망');
+insert into patient values(num_seq.nextval, '신지애', '1983-02-03', '010-9107-4286', '서울', '남자', 187, 77, '5팀의 희망');
 insert into patient values(num_seq.nextval, '김영수', '1987-07-26', '010-6890-7063', '강원도', '여자', 187, 77, '행복한 하루되세요.');
-insert into patient values(num_seq.nextval, '이지은', '1996-10-8', '010-1475-1948', '대구', '남자', 187, 77, '내일은 새로운 시작이야.');
+insert into patient values(num_seq.nextval, '이지은', '1996-10-08', '010-1475-1948', '대구', '남자', 187, 77, '내일은 새로운 시작이야.');
 insert into patient values(num_seq.nextval, '박준호', '1985-04-12', '010-7438-8294', '대전', '여자', 187, 77, '꿈을 이뤄나갈 때야!');
 insert into patient values(num_seq.nextval, '최민지', '1990-08-20', '010-5236-6721', '인천', '남자', 187, 77, '이상한 사람(주의필요)');
 insert into patient values(num_seq.nextval, '정성민', '1994-06-30', '010-8102-2342', '수원', '남자', 187, 77, '호들갑이 심함');
@@ -204,7 +204,7 @@ select r_num"진료기록 번호", r_date"진료날짜", r_opinion"의사소견(
 select * from record;
 
 
---처방  //처방맵핑 코드 1001~
+--처방  //처방 코드 1001~
 insert into prescription values(p_num_seq.nextval, 10001, 3, 70001);
 insert into prescription values(p_num_seq.nextval, 10002, 4, 70001);
 insert into prescription values(p_num_seq.nextval, 10003, 5, 70002);
@@ -282,41 +282,41 @@ select * from payment;
 
 --물품종류코드   //코드 90001~
 
-insert into item_code values( i_code_num_seq.nextval, '면봉', '소모품');
+insert into item_code values( i_code_num_seq.nextval, '면봉', '카테고리4');
 insert into item_code values( i_code_num_seq.nextval, '붕대', '카테고리2');
-insert into item_code values( i_code_num_seq.nextval, '정맥 카테터', '소모품');
+insert into item_code values( i_code_num_seq.nextval, '정맥 카테터', '카테고리4');
 insert into item_code values( i_code_num_seq.nextval, '소독용 장갑', '카테고리1');
-insert into item_code values( i_code_num_seq.nextval, '알코올 솜', '소모품');
-insert into item_code values( i_code_num_seq.nextval, '거즈 패드', '소모품');
+insert into item_code values( i_code_num_seq.nextval, '알코올 솜', '카테고리4');
+insert into item_code values( i_code_num_seq.nextval, '거즈 패드', '카테고리4');
 insert into item_code values( i_code_num_seq.nextval, '드레싱', '카테고리2');
 insert into item_code values( i_code_num_seq.nextval, '포도당', '카테고리2');
 insert into item_code values( i_code_num_seq.nextval, '코에 쏘는 약', '카테고리2');
 insert into item_code values( i_code_num_seq.nextval, '입에 쏘는 약', '카테고리2');
-insert into item_code values( i_code_num_seq.nextval, '붙이는 및 탄력 붕대', '소모품');
+insert into item_code values( i_code_num_seq.nextval, '탄력 붕대', '카테고리4');
 insert into item_code values( i_code_num_seq.nextval, '수술용 마스크', '카테고리1');
 insert into item_code values( i_code_num_seq.nextval, '수술용 드레이프', '카테고리2');
 insert into item_code values( i_code_num_seq.nextval, '멸균 수술 가운', '카테고리3');
 insert into item_code values( i_code_num_seq.nextval, '멸균된 메스 날', '카테고리2');
 insert into item_code values( i_code_num_seq.nextval, '봉합사', '카테고리1');
-insert into item_code values( i_code_num_seq.nextval, '상처 폐쇄 스트립 (Steri-Strips)', '카테고리2');
+insert into item_code values( i_code_num_seq.nextval, '상처 스트립', '카테고리2');
 insert into item_code values( i_code_num_seq.nextval, '흡수성 면불', '카테고리3');
-insert into item_code values( i_code_num_seq.nextval, '체온계 (디지털 및 무수은)', '카테고리3');
+insert into item_code values( i_code_num_seq.nextval, '체온계', '카테고리3');
 insert into item_code values( i_code_num_seq.nextval, '혈압측정기', '카테고리1');
 insert into item_code values( i_code_num_seq.nextval, '청진기', '카테고리2');
 insert into item_code values( i_code_num_seq.nextval, '심전도 전극', '카테고리3');
-insert into item_code values( i_code_num_seq.nextval, '맥박 산소포화도계', '소모품');
-insert into item_code values( i_code_num_seq.nextval, '네뷸라이저 마스크와 키트', '카테고리1');
+insert into item_code values( i_code_num_seq.nextval, '산소포화도계', '카테고리4');
+insert into item_code values( i_code_num_seq.nextval, '네뷸라이저 키트', '카테고리1');
 insert into item_code values( i_code_num_seq.nextval, '소변 수거 봉투', '카테고리2');
 insert into item_code values( i_code_num_seq.nextval, 'Foley 카테터', '카테고리3');
-insert into item_code values( i_code_num_seq.nextval, '코마스크 (Nasogastric, NG 관)', '카테고리2');
-insert into item_code values( i_code_num_seq.nextval, '산소 마스크와 튜브', '카테고리1');
-insert into item_code values( i_code_num_seq.nextval, '정맥 주사용 액체와 용액', '카테고리2');
-insert into item_code values( i_code_num_seq.nextval, '방부제용액 (예: 폴리비닌요오딘)', '카테고리3');
+insert into item_code values( i_code_num_seq.nextval, '코마스크 (NG)', '카테고리2');
+insert into item_code values( i_code_num_seq.nextval, '산소 튜브', '카테고리1');
+insert into item_code values( i_code_num_seq.nextval, '정맥 주사 용액', '카테고리2');
+insert into item_code values( i_code_num_seq.nextval, '방부제용액 ', '카테고리3');
 insert into item_code values( i_code_num_seq.nextval, '배변기', '카테고리1');
-insert into item_code values( i_code_num_seq.nextval, '화장실 의자', '카테고리1');
+insert into item_code values( i_code_num_seq.nextval, '폴리비닌요오딘', '카테고리1');
 insert into item_code values( i_code_num_seq.nextval, '일회용 환자 가운', '카테고리2');
-insert into item_code values( i_code_num_seq.nextval, '코 삽관 (Nasal cannula)', '카테고리3');
-insert into item_code values( i_code_num_seq.nextval, '밴드 에이드 (접착식 상처 포대)', '소모품');
+insert into item_code values( i_code_num_seq.nextval, '코 삽관', '카테고리3');
+insert into item_code values( i_code_num_seq.nextval, '밴드 에이드', '카테고리4');
 select i_code"품목코드",i_name"물품이름", i_category"카테고리" from item_code;
 select * from item_code;
 
@@ -384,12 +384,12 @@ insert into item values ( i_num_seq.nextval, 90002, '10개 1묶음', 50, '2024-0
 insert into item values ( i_num_seq.nextval, 90003, '낱개', 200, '2025-04-30', 700, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90004, '5개 1묶음', 50, '2025-06-20', 9999, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90005, '낱개', 150, '2029-12-31', 20000, '비고', '메모');
-insert into item values ( i_num_seq.nextval, 90006, '낱개', 350, '2029-5-11', 20000, '비고', '메모');
+insert into item values ( i_num_seq.nextval, 90006, '낱개', 350, '2029-05-11', 20000, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90007, '100ml', 30, '2024-12-31', 10000, '비고', '메모');
-insert into item values ( i_num_seq.nextval, 90008, '30ml', 200, '2024-06-31', 5000, '비고', '메모');
+insert into item values ( i_num_seq.nextval, 90008, '30ml', 200, '2024-06-06', 5000, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90009, '50ml', 100, '2024-11-17', 4000, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90010, '100ml', 30, '2023-11-27', 100000, '비고', '메모');
-insert into item values ( i_num_seq.nextval, 90011, '100ml', 30, '2023-11-27', 25000, '비고', '메모');
+insert into item values ( i_num_seq.nextval, 90011, '다스', 30, '2023-11-27', 25000, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90012, '다스', 40, '2023-09-03', 30000, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90013, '10개 1묶음', 20, '2024-07-03', 2000, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90014, '낱개', 100, '2025-04-30', 700, '비고', '메모');
@@ -408,7 +408,7 @@ insert into item values ( i_num_seq.nextval, 90026, '다스', 12, '2025-09-16', 
 insert into item values ( i_num_seq.nextval, 90027, '10개 1묶음', 11, '2024-05-13', 2000, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90028, '낱개', 100, '2024-08-24', 3700, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90029, '5개 1묶음', 50, '2023-11-20', 4900, '비고', '메모');
-insert into item values ( i_num_seq.nextval, 90030, '낱개', 300, '2026-09-24', 6300, '비고', '메모');
+insert into item values ( i_num_seq.nextval, 90030, '30ml', 300, '2026-09-24', 6300, '비고', '메모');
 
 select i_num"물품 번호", i_unit"단위", i_stock"입고량", i_expire"유통기한", i_price"물품단가", i_remark"비고", i_memo"메모", i_i_code"품목코드" from item;
 select * from item;
@@ -426,7 +426,7 @@ insert into release values( rel_num_seq.nextval, '2023-07-10','16:43', '강태�
 insert into release values( rel_num_seq.nextval, '2023-07-11','17:23', '윤서율', 3, 30, '비고', 90007);
 insert into release values( rel_num_seq.nextval, '2023-07-12','18:12', '남현빈', 2, 200, '비고', 90008);
 insert into release values( rel_num_seq.nextval, '2023-07-13','09:21', '강백호', 1, 100, '비고', 90009);
-insert into release values( rel_num_seq.nextval, '2023-07-14','10:62', '채치수', 2, 30, '비고', 90010);
+insert into release values( rel_num_seq.nextval, '2023-07-14','10:52', '채치수', 2, 30, '비고', 90010);
 insert into release values( rel_num_seq.nextval, '2023-07-15','11:53', '최수민', 3, 40, '비고', 90011);
 insert into release values( rel_num_seq.nextval, '2023-07-16','12:44', '조민준', 4, 30, '비고', 90012);
 insert into release values( rel_num_seq.nextval, '2023-07-17','13:35', '정시우', 5, 20, '비고', 90013);
@@ -474,14 +474,17 @@ commit;
 -- 진료기록(record) //코드 r_num (70001~70040)   ::: 아마 알 필요 없음
 	-- >>70021~70040 사용 가능
 
--- 요금 수납(payment)  //코드 pay_num 80001~20    ::: 아마 알 필요 없음
+-- 요금 수납(payment)  //코드 pay_num 80001~80020    ::: 아마 알 필요 없음
+
 
 -- 물품 종류 코드 (item_code)//코드 i_code_num 90001 ~ 90035    ::: ※※ 재고 추가 시 필요
 -- 	>> 재고 추가시 90031~ 90035 추가 가능,  사용/폐기 추가시 90001~90030 사용
 
+-- 처방 테이블 // p_num 1001~1044  ::: 아마 알 필요 없음
+
 -- 달력메모 테이블 (memo) // 코드 m_num 5001~ 5020   ::: 아마 알 필요 없음
 
--- 물리치료 환자 맵핑 (tr_mapping) // 코드 tr_num 6001~6020    ::: 아마 알 필요 없음
+-- 물리치료 환자 맵핑 (tr_mapping) // 코드 tr_num 6001~6026    ::: 아마 알 필요 없음
 
 -- 재고번호 (item) // 코드 i_num 7001~ 7030  ::: 아마 알 필요 없음
 
