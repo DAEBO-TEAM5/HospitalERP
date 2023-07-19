@@ -112,13 +112,13 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                             <input type="checkbox" id="StockFiveCheck" onchange="filterItems()" /> 재고가 5개 이하인
                             품목만 표시
                         </div>
-                        <div>
-                            <table id="mainTable" class="item_table item_page_tableesize">
-                                <tr>
-                                    <td>테이블을 불러오고 있습니다...</td>
-                                </tr>
-                            </table>
-                        </div>
+                    <div class="table_scroll">
+					    <table id="mainTable" class="item_table item_page_tablesize">
+					        <tr>
+					            <td>테이블을 불러오고 있습니다...</td>
+					        </tr>
+					    </table>
+					</div>
 
                             
                         <!-- 모달 (아이템 입고 추가) 시작  -->
@@ -262,7 +262,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 					</div>
 				</div><!-- 모달(아이템 입고 수정)끝 -->
                             
-                      <div>
+                      <div class ="item_page_footer">
                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                 물품 추가
                             </button>
@@ -289,7 +289,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                             <input type="checkbox" class="dis_Check" checked /> 폐기 내역
                         </div>
                         <div>
-                            <table id="RelTable" class="item_table rel_page_tableesize"> <!-- class="item_table_main" -->
+                            <table id="RelTable" class="item_table rel_page_tablesize"> <!-- class="item_table_main" -->
                                 <tr>
                                     <td>테이블을 불러오고 있습니다...</td>
                                 </tr>
@@ -469,6 +469,7 @@ function loadMainTable() {
         type: "post",
         success: function (data) {
             var obj = JSON.parse(data);
+            console.log(obj)
             str +=
                 "<tr><th>index</th><th>입고번호</th><th>품명</th><th>품목코드</th><th>카테고리</th><th>단위</th><th>재고량</th><th>유통기한</th><th>물품단가</th><th>비고</th></tr>";
             for (var i = 0; i < obj.item.length; i++) {
@@ -487,6 +488,20 @@ function loadMainTable() {
             }
             $("#mainTable").html(str);
             filterItems();
+
+            // 스크롤 기능 추가
+            var tableHeight = 300; // 테이블 높이를 적절히 설정해주세요.
+            if ($("#mainTable tr").length > 7) {
+                $("#mainTable").css({
+                    "height": tableHeight + "px",
+                    "overflow-y": "scroll"
+                });
+            } else {
+                $("#mainTable").css({
+                    "height": "auto",
+                    "overflow-y": "initial"
+                });
+            }
         },
         error: function () {
             alert("검색할 수 없습니다.");
@@ -740,7 +755,7 @@ $("#itemRelModal").on("hidden.bs.modal", function () {
 	$(this).find("input").val("");
 });
 $("#itemDisModal").on("hidden.bs.modal", function () {
-	$(this).find("input").val("");
+	$(this).find("input").not('#dis_InputRemark').val("");
 });
 
  //item 추가 모달 내 "항목추가"된것 삭제

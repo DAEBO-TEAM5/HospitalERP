@@ -41,6 +41,7 @@ import hospital.service.SelectListServiceAction;
 import hospital.service.SignUpServiceAction;
 import hospital.service.UpdateCalendarMemoServiceAction;
 import hospital.service.UpdatePatientInfoServiceAction;
+import hospital.service.DeleteCalendarMemoServiceAction;
 import hospital.service.EcodeServiceAction;
 
 
@@ -120,20 +121,16 @@ public class FrontRegisterController extends HttpServlet {
     		forward = action.execute(request, response);
     		
     	}else if(urlcommand.equals("/history.do")) {
-    		forward = new ActionForward();
-    		forward.setRedirect(false);
-    		forward.setPath("/WEB-INF/views/main/history.jsp");
-    		/* 임의로 주소입력해서 페이지 이동못하게 ID로그인에만 이동할수있도록 
-			  String h_id = (String) request.getSession().getAttribute("h_id");
+			 String h_id = (String) request.getSession().getAttribute("h_id");
 			forward = new ActionForward();
 			if (h_id != null) {
-				forward.setRedirect(false);ote, p.num, p.name, p.birth,
+				forward.setRedirect(false);
 				forward.setPath("/WEB-INF/views/main/history.jsp");
 			} else {
 				forward.setRedirect(true);
 				forward.setPath("login.do");
 			}
-		*/
+		
     	}else if(urlcommand.equals("/patientsearchinfo.do")) {
     		action = new SearchServiceInfoAction();
     		action.execute(request, response);
@@ -145,11 +142,7 @@ public class FrontRegisterController extends HttpServlet {
     		action.execute(request, response);
     		
     	}else if(urlcommand.equals("/item.do")) {
-    		forward = new ActionForward();
-    		forward.setRedirect(false);
-    		forward.setPath("/WEB-INF/views/main/item.jsp");
-    		/* 임의로 주소입력해서 페이지 이동못하게 ID로그인에만 이동할수있도록 
-			  String h_id = (String) request.getSession().getAttribute("h_id");
+			String h_id = (String) request.getSession().getAttribute("h_id");
 			forward = new ActionForward();
 			if (h_id != null) {
 				forward.setRedirect(false);
@@ -158,7 +151,7 @@ public class FrontRegisterController extends HttpServlet {
 				forward.setRedirect(true);
 				forward.setPath("login.do");
 			}
-		*/
+		
     	}else if(urlcommand.equals("/itemMainTable.do")){
     		action = new ItemServiceAction();
     		action.execute(request, response);
@@ -200,12 +193,7 @@ public class FrontRegisterController extends HttpServlet {
     		action.execute(request, response);		
     	
     	}else if(urlcommand.equals("/main2.do")) {
-    		//UI 제공 (서비스 객체가 필요없다)
-    		forward = new ActionForward();
-    		forward.setRedirect(false);
-    		forward.setPath("/WEB-INF/views/main/mainIndex.jsp");
-    		/* 임의로 주소입력해서 페이지 이동못하게 ID로그인에만 이동할수있도록 
-			  String h_id = (String) request.getSession().getAttribute("h_id");
+			 String h_id = (String) request.getSession().getAttribute("h_id");
 			forward = new ActionForward();
 			if (h_id != null) {
 				forward.setRedirect(false);
@@ -214,7 +202,7 @@ public class FrontRegisterController extends HttpServlet {
 				forward.setRedirect(true);
 				forward.setPath("login.do");
 			}
-		*/
+		
     	}else if(urlcommand.equals("/mainWaitList.do")) {
     		//System.out.println("mainwaitList-----대기리스트-------");
     		action = new HospitalWaitingListService();
@@ -257,6 +245,10 @@ public class FrontRegisterController extends HttpServlet {
     	}else if(urlcommand.equals("/updateCalendarMemo.do")) {
     		System.out.println("insert Memo-----------");
     		action = new UpdateCalendarMemoServiceAction();
+    		action.execute(request, response);
+    	}else if(urlcommand.equals("/deleteCalendarMemo.do")) {
+    		System.out.println("delete Memo-----------");
+    		action = new DeleteCalendarMemoServiceAction();
     		action.execute(request, response);
     	}
     	

@@ -17,9 +17,7 @@ public class Member2Dao {
 	ResultSet rs;
 	DataSource ds;
 
-	public Member2Dao() {
-
-	}
+	public Member2Dao() {}
 
 	public LoginVO selectMember(String h_id, String h_email) {
 
@@ -65,7 +63,16 @@ public class Member2Dao {
 		} finally {
 			ConnectionHelper.close(pstmt);
 		}
-
 		return updateCount;
 	}
+		public LoginVO getMember(String h_id, String h_email) {
+		
+		Connection conn = ConnectionHelper.getConnection();
+		Member2Dao dao = new Member2Dao();
+		LoginVO vo = dao.selectMember(h_id, h_email);
+		
+		ConnectionHelper.close(conn);
+		return vo;
+	}
 }
+
