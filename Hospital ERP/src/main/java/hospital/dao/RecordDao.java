@@ -142,7 +142,7 @@ public class RecordDao {
 	public void insertPrescription(int m_code, int use, int recordnum ) {   //처방약 
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		
+		System.out.println("---------"+m_code+" "+use+" "+recordnum);
 		try {
 			conn = ConnectionHelper.getConnection();                     //약품코드, 사용량, 진료기록번호
 			String sql = "INSERT INTO PRESCRIPTION VALUES(P_CODE_SEQ.NEXTVAL, ?, ?, ?)";
