@@ -112,13 +112,11 @@ public class ItemRelDao {
 		
 	} catch (Exception e) {
 		e.printStackTrace();
-	       if (conn != null) {
 	            try {
 	                conn.rollback(); // 오류 발생 시 롤백합니다.
 	            } catch (SQLException e1) {
 	                e1.printStackTrace();
 	            }
-	        }
 	} finally {
 		ConnectionHelper.close(pstmt);
 		ConnectionHelper.close(conn);
@@ -170,13 +168,12 @@ public class ItemRelDao {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-		       if (conn != null) {
 		            try {
 		                conn.rollback(); // 오류 발생 시 롤백합니다.
 		            } catch (SQLException e1) {
 		                e1.printStackTrace();
 		            }
-		        }
+		       
 		} finally {
 			ConnectionHelper.close(pstmt);
 			ConnectionHelper.close(conn);
