@@ -300,6 +300,10 @@
 			<div class="col-md-2">
 			
 				<div class="calendarArea"><c:import url="../include/calendar.jsp" /></div>
+				
+				<c:import url="../include/weather.jsp" />
+				
+				
 				<div class="memoForm">
 					<textarea class="form-control" name="calendar_memo" id="calendar_memo" placeholder="위에서 날짜를 선택해주세요"></textarea>
 
