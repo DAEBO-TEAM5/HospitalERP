@@ -23,13 +23,18 @@ public class MemberIdCheckAction implements Action {
 		boolean result = dao.duplicateIdCheck(h_id);
 
 		response.setContentType("text/html;charset=UTF-8");
+		boolean result1 = h_id.matches("^[a-zA-Z0-9]{4,12}$");
 		PrintWriter out;
 		try {
 			out = response.getWriter();
 			if (result) {
 				out.print("duplicate"); // 아이디 중복
 			} else {
-				out.print("available"); // 사용 가능한 아이디
+				if (!result1) {
+					out.print("null");
+				} else {
+					out.print("available"); // 사용 가능한 아이디
+				}
 			}
 			out.close();
 		} catch (IOException e) {
