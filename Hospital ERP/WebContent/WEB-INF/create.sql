@@ -320,6 +320,7 @@ ALTER TABLE payment ADD CONSTRAINT pay_r_num UNIQUE(
 );
 
 
+
 -----------------------------------------------------------------------
 drop sequence m_code_seq;
 drop sequence d_code_seq;
