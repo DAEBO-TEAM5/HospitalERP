@@ -207,6 +207,47 @@ public class RecordDao {
 		}
 	}
 	
+	public int getThPrice(int t_code) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int price=0;
+		
+		try {
+			conn = ConnectionHelper.getConnection();
+			String sql = "select t_price from therapy where t_code = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, t_code);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				price = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionHelper.close(pstmt);
+			ConnectionHelper.close(conn);
+		}
+		return price;
+	}
 	
+	public void insertPay(int r_num, int hap) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = ConnectionHelper.getConnection();
+			String sql = "insert into payment(pay_num, pay_r_num, pay_amount) values(pay_num_seq.nextval, ?, ?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, r_num);
+			pstmt.setInt(2, hap);
+			int num = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionHelper.close(pstmt);
+			ConnectionHelper.close(conn);
+		}
+	}
 	
 }

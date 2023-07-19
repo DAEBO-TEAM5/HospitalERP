@@ -41,6 +41,7 @@ import hospital.service.SelectListServiceAction;
 import hospital.service.SignUpServiceAction;
 import hospital.service.UpdateCalendarMemoServiceAction;
 import hospital.service.UpdatePatientInfoServiceAction;
+import hospital.service.DeleteCalendarMemoServiceAction;
 import hospital.service.EcodeServiceAction;
 
 
@@ -244,6 +245,10 @@ public class FrontRegisterController extends HttpServlet {
     	}else if(urlcommand.equals("/updateCalendarMemo.do")) {
     		System.out.println("insert Memo-----------");
     		action = new UpdateCalendarMemoServiceAction();
+    		action.execute(request, response);
+    	}else if(urlcommand.equals("/deleteCalendarMemo.do")) {
+    		System.out.println("delete Memo-----------");
+    		action = new DeleteCalendarMemoServiceAction();
     		action.execute(request, response);
     	}
     	

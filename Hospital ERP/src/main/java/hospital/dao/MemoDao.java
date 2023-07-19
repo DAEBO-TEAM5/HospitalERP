@@ -73,6 +73,25 @@ public class MemoDao {
 		}
 		
 	}
+	
+	public void deleteMemo(String date) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = ConnectionHelper.getConnection();
+			
+			String sql = "delete from memo where m_date = ?";  
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, date);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionHelper.close(pstmt);
+			ConnectionHelper.close(conn);
+		}
+		
+	}
 
 
 }

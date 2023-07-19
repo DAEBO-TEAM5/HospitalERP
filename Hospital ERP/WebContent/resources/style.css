@@ -234,7 +234,7 @@ h3{
 	width: 20%;
 	height: 50px; 
 	border: 1px solid black; 
-	padding: 0px 6px 6px 6px; 
+	padding: 0px 6px 0px 6px; 
 	box-shadow : 1px 1px 1px 0px rgb(220,220,220); 
 	border-color: lightgray; 
 	border-radius: 4px;
@@ -245,11 +245,16 @@ h3{
     background-color: rgb(88, 101, 242);
     color: white;
 }
-.pay_select{
+.pay_check{
 	color: lightgray;
 }
 .pay_select_target{
 	background-color: rgb(88, 101, 242);
 	color: white;
 	
+}
+.pay_input, .pay_change, pay_day{
+	width: 25%;
+    height: 25px;
+    font-size: 13px;
 }
