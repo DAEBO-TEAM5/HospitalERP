@@ -323,6 +323,7 @@
 <script type="text/javascript">
 //대기 리스트 가져오고 화면에 출력
 $(document).ready(function(){
+	$('.test .Calendar .today').addClass('choiceDay');
 	function loadWaitList(){
 		$.ajax({
 			type: 'post',
@@ -332,12 +333,13 @@ $(document).ready(function(){
 		});
 	}
 	loadWaitList();
+	
 });
+
+
 function waitListFunc(data){
 	var str = "";
 	var obj = JSON.parse(data);
-	console.log("-----------------------");
-	console.log(obj);
 	for(var k in obj.waitList){
 		var num = obj.waitList[k].num;
 		var name = obj.waitList[k].name;
@@ -355,8 +357,8 @@ function waitListFunc(data){
 			str += "</div>"
 	}
 	$('.list-group').html(str);
-	firstPatient();
 	
+	firstPatient();
 }
 
 //대기 첫번째 환자 클릭
@@ -365,7 +367,6 @@ function firstPatient(){
 	
 	var pnum = $('.waitButton').first().children('.r_num').text();
 	pnum = pnum.substring(4,);
-	console.log(pnum);
 	
  	$.ajax({
 		type: 'post',
@@ -375,6 +376,7 @@ function firstPatient(){
 		error: errFunc
 	}); 
 }
+
 
 //의사-간호사 구분해서 간호사-처방전 못쓰게 막기
 $(function(){
@@ -442,8 +444,6 @@ function selectListFunc(data){
 //대기환자 클릭하면 접수정보 띄워줌
  $(document).on('click', '#listinfo', function(){	 
 	 var pnum = $(this).find(".r_num").text().slice(4);
-	 console.log(pnum);
-	 console.log('clicked');
 	 
  	 $(".waitingList .select").removeClass('select');
 	 $(this).addClass('select');
@@ -463,7 +463,6 @@ function patientInfo(data){
 	var info_str = "";
 	info = obj;
 	console.log(obj);
-	console.log(obj.info.length);
 	info_str += obj.info[0].birth + " | " + obj.info[0].address + " | "+  obj.info[0].sex + " | " + obj.info[0].phone;
 	
 	var jupsusym = $('.select .jupsu_symptom').text();
@@ -555,7 +554,6 @@ function errFunc(msg, error){
 	 var arr = winfo.split("|");
 	 
 	 birth = arr[0].trim();
-	 console.log(birth);
 	 
  	 $.ajax({
 		 type: 'post',
@@ -606,8 +604,6 @@ function ModifyForm(){
 	var height = document.getElementById('LoadHeight').value;
 	var weight = document.getElementById('LoadWeight').value;
 	var note = $('#LoadNote').val();
-	
-	console.log(gender);
 	
 	$.ajax({
 		type:'POST',
@@ -670,11 +666,9 @@ function resetRec(){
 
 //처방 레코드 추가
 function insertRec() {
-	console.log("insertRec   clickkkkkk");
 	var note = $('#d_note').val();
 	var medTable = document.getElementById('result_med');
 	var medRowList = medTable.rows;
-	console.log("medrowlisttttt"+medRowList.length);
 	var medPres = [medRowList.length-1];
 	
 	for(i=1; i<medRowList.length; i++){
@@ -684,7 +678,6 @@ function insertRec() {
 		var yang = row.cells[1].innerHTML;
 		
 		medPres[i-1] = {m_name,yang};
-		console.log("-------------------"+medPres[i-1]);
 	}
 	
 	console.log(medPres);
@@ -705,7 +698,6 @@ function insertRec() {
 	  console.log(patientName);
 	  
 	  var symptom = $('#jupsu').text();
-	  console.log(symptom);
 	  
 	$.ajax({
 		 type: 'post',
@@ -847,7 +839,9 @@ function memoReset(){
 	deletebtn.style.visibility = 'hidden';
 	$('#calendar_memo').attr('placeholder', '위에서 날짜를 선택해주세요');
 }
-	
+
+
+
 </script>
 
 </body>
