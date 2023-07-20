@@ -66,6 +66,7 @@ public class InsertRecordServiceAction implements Action {
 				int price = dao.getThPrice(tcode);
 				hap += price;
 			}
+			hap += 10000;
 			dao.insertPay(recordNum, hap);
 			dao.deleteWaitList(p_code);
 			
