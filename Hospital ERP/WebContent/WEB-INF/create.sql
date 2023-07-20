@@ -317,6 +317,7 @@ ALTER TABLE item ADD CONSTRAINT UQ_i_i_code UNIQUE(
 );
 
 
+
 -----------------------------------------------------------------------
 drop sequence m_code_seq;
 drop sequence d_code_seq;

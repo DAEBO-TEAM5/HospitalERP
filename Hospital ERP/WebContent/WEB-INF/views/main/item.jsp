@@ -17,6 +17,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
     <!-- 사용자css -->
     <script src="https://kit.fontawesome.com/d7766e5822.js" crossorigin="anonymous"></script>
     <!-- fontawesome  -->
+    <link rel="icon" href="${pageContext.request.contextPath }/image/hp.png" /> <!-- //파비콘임 -->
     <title>5ING Hospital: 재고</title>
 </head>
 <body>

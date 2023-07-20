@@ -8,8 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import hospital.action.Action;
 import hospital.action.ActionForward;
-import hospital.dao.EmailDao;
-import hospital.dao.MemberDao;
+import hospital.dao.LoginDao;
 
 public class EmailCheckAction implements Action {
 
@@ -20,7 +19,7 @@ public class EmailCheckAction implements Action {
 
 		String h_email = request.getParameter("h_email");
 
-		EmailDao dao = new EmailDao();
+		LoginDao dao = new LoginDao();
 		boolean result = dao.EmailCheck(h_email);
 
 		response.setContentType("text/html;charset=UTF-8");

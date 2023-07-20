@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import hospital.action.Action;
 import hospital.action.ActionForward;
-import hospital.dao.Member2Dao;
+import hospital.dao.MemberDao;
 
 /** 임시코드를 발급받은 후, 새 비밀번호로 변경하는 페이지 요청을 처리하는 클래스 */
 public class MemberChangePwAction implements Action {
@@ -45,7 +45,7 @@ public class MemberChangePwAction implements Action {
 				
 				// 인증코드가 저장된 속성이 있는 경우
 				String id = (String) session.getAttribute("id");
-				Member2Dao dao = new Member2Dao();
+				MemberDao dao = new MemberDao();
 				dao.updatePw(id, pwd);
 				forward = new ActionForward();
 				forward.setPath("/login.do");
