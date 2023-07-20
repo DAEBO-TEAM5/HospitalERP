@@ -205,45 +205,39 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 									<table class ="table ">
 										<tr>
 											<td>
-												<label for="InputNum">입고번호</label>
-												<input type="text" class="form-control" id="InputNum" disabled="disabled"/>
-											</td>
-											<td>							
 												<label for="InputName">품명</label> 
 												<input type="text" class="form-control" id="InputName" disabled="disabled" />
+											</td>
+											<td>							
+												<label for="InputCode">품목코드</label> 
+												<input type="text" class="form-control" id="InputCode" disabled="disabled" />
 											</td>
 										</tr>
 										<tr>
 											<td>
-												<label for="InputCode">품목코드</label> 
-												<input type="text" class="form-control" id="InputCode" disabled="disabled" />
-											</td>
-											<td>										
 												<label for="InputCategory">카테고리</label> 
 												<input type="text" class="form-control" id="InputCategory" disabled="disabled" />
 											</td>
-										</tr>
-										<tr>
 											<td>										
 												<label for="InputUnit">단위</label>
 												<input type="text" class="form-control" id="InputUnit">
 											</td>
-											<td>
+										</tr>
+										<tr>
+											<td>										
 												<label for="InputStock">재고량</label>
 												<input type="text" class="form-control" id="InputStock">
 											</td>
-										</tr>
-										<tr>
 											<td>
 												<label for="InputExpire">유통기한 (YYYY-MM-DD)</label>
 												<input type="text" class="form-control" id="InputExpire">
 											</td>
+										</tr>
+										<tr>
 											<td>
 												<label for="InputPrice">물품단가</label>
 												<input type="text" class="form-control" id="InputPrice">
 											</td>
-										</tr>
-										<tr>
 											<td>
 												<label for="InputRemark">비고</label>
 												<input type="text" class="form-control" id="InputRemark">
@@ -857,9 +851,9 @@ $("#item_DeleteButton").click(function () {
     } else {
         active_rows.each(function () {
             var active_row = $(this);
-            var itemId = active_row.find('td[main-column="inum"]').text();
+            var itemId = active_row.find('td[main-column="code"]').text();
             var itemDel = {
-                iNum: itemId,
+                iCode: itemId,
             };
 
             itemDels.push(itemDel);
@@ -896,7 +890,6 @@ $(document).on('click', '#item_ModifyButton', function() {
         return;
     } else if (select_rows.length === 1) {
         var select_row = select_rows.first();
-        var inum = select_row.find('td[main-column="inum"]').text();
         var name = select_row.find('td[main-column="name"]').text();
         var code = select_row.find('td[main-column="code"]').text();
         var category = select_row.find('td[main-column="category"]').text();
@@ -908,7 +901,6 @@ $(document).on('click', '#item_ModifyButton', function() {
 
         $('#itemModifyModal').modal('show');
         
-        $('#InputNum').val(inum);
         $('#InputName').val(name);
         $('#InputCode').val(code);
         $('#InputCategory').val(category);
@@ -928,7 +920,6 @@ $(document).on('click', '#item_ModifyButton', function() {
 
 // 아이템 수정-> 모달내 작성 후 전송 버튼
 $("#item_UpdateSubmit").click(function () {
-    var inum = document.getElementById('InputNum').value;
     var name = document.getElementById('InputName').value;
     var code = document.getElementById('InputCode').value;
     var category = document.getElementById('InputCategory').value;
@@ -942,7 +933,7 @@ $("#item_UpdateSubmit").click(function () {
         type:'POST',
         url: "./itemUpdate.do",
         data: {
-            "inum": inum, "name": name, "code": code, "category": category,
+            "name": name, "code": code, "category": category,
             "unit": unit, "stock": stock, "expire": expire, "price": price, "remark": remark
         },
         success: function(response){
