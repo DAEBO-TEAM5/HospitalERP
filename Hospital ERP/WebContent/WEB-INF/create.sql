@@ -38,7 +38,8 @@ CREATE TABLE record ( -- 환자 진료 기록
 	r_symptom	varchar2(1000)		NULL, -- 증상내용 (환자 말//접수대기 명단에서 지워질때 옮겨옴)
 	r_p_num	number(10)		NULL,  -- 환자 번호 //환자 테이블
 	r_d_code	number(10)		NULL, -- 질병 코드
-	r_e_code 	number(10)		NOT NULL -- 직원 코드
+	r_e_code 	number(10)		NOT NULL, -- 직원 코드
+    r_pay number(10)  DEFAULT 0
 );
 
 CREATE TABLE wait ( -- 접수/대기 명단
@@ -170,8 +171,7 @@ ALTER TABLE disease ADD CONSTRAINT PK_DISEASE PRIMARY KEY (
 );
 
 ALTER TABLE payment ADD CONSTRAINT PK_PAYMENT PRIMARY KEY (
-	pay_num,
-	pay_r_num
+	pay_num
 );
 
 ALTER TABLE medicine ADD CONSTRAINT PK_MEDICINE PRIMARY KEY (
@@ -314,9 +314,6 @@ REFERENCES employee (
 );
 ALTER TABLE item ADD CONSTRAINT UQ_i_i_code UNIQUE(
     i_i_code
-);
-ALTER TABLE payment ADD CONSTRAINT pay_r_num UNIQUE(
-    pay_r_num
 );
 
 

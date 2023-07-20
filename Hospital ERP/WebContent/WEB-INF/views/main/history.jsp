@@ -68,16 +68,16 @@
 			            	<div style="width: 80%; background-color: white; border-radius: 4px;">
 				            	<div class="record"></div>
 				            		<div style="padding: 6px 12px 6px 12px;">
-		          						<label>증상</label>
-          								<textarea class="form-control" id="symptom" style="margin-bottom: 12px;"></textarea>
+		          						<label>의사 소견</label>
+          								<textarea class="form-control font_11" id="symptom" style="margin-bottom: 12px;" readonly rows="4"></textarea>
           								<label>병명</label>
-       									<textarea class="form-control" id="disease" style="margin-bottom: 12px;"></textarea>
+       									<textarea class="form-control font_11" id="disease" style="margin-bottom: 12px;" readonly rows="4"></textarea>
 		          								<label>처방</label>
 		       									<table class="history">
 									          		
 									          	</table>
 									    <label style="margin-top: 12px;">특이사항</label>
-       									<textarea class="form-control" id="special_note" style="margin-bottom: 12px;">없음</textarea>
+       									<textarea class="form-control font_11" id="special_note" style="margin-bottom: 12px;" readonly rows="4">없음</textarea>
 		          							</div>
 				            	
 			            	</div>
@@ -88,7 +88,7 @@
 		           		<div style="width: 100%; height:100%; background-color: white; border-radius: 4px;">
 		           		<div>
 		            		<div class="recipt" style="font-size: 14px">수납내역 <i class="fa-solid fa-receipt" style="color: black; size: 14px"></i></div>
-		            			<div style=" margin:12px; border: 1px solid black; padding: 12px;">
+		            			<div style=" margin:12px; border: 1px solid black; padding: 12px; border-radius: 4px">
 				            		<div class="display-flex">
 				            			<div class="left_text font_13">받을 금액</div>
 				            			<div class="font_13 pay_amount"></div>
@@ -98,13 +98,13 @@
 				            			<div class="left_text font_11" data-bs-toggle="collapse" href="#pay_list" aria-expanded="false" aria-controls="pay_list"><i class="fa-solid fa-caret-right"></i> 총 진료비</div>
 				            			<div class="font_11 pay_total"></div>
 				            		</div>
-				            		<div class="collapse font_gray" id="pay_list" style="padding: 6px 12px 0 12px;">
+				            		<div class="collapse font_dimgray" id="pay_list" style="padding: 6px 12px 0 12px;">
 										
 									</div>
 		            			</div>
 		            			
 		            			
-		            			<div style=" margin:12px; border: 1px solid black; padding: 12px;">
+		            			<div style=" margin:12px; border: 1px solid black; padding: 12px;  border-radius: 4px">
 				            		<div class="display-flex">
 				            			<div class="left_text font_13">수납 금액</div>
 				            			<div class="font_13 sunap" >0원</div>
@@ -120,7 +120,7 @@
 		            	
 		            			</div>
 		            			
-		            			<div style=" margin:12px; border: 1px solid black; padding: 12px;">
+		            			<div style=" margin:12px; border: 1px solid black; padding: 12px;  border-radius: 4px">
 				            		<div class="display-flex">
 				            			<div class="left_text font_13">남은 금액</div>
 				            			<div class="font_13 font_deepskyblue remaining_amount "></div>
@@ -131,8 +131,8 @@
 				            	</div>
 		       			</div>
 		       			<div>
-		            	<div class="recipt" style="font-size: 14px">문서발급 <i class="fa-solid fa-file-lines" style="size: 14px;"></i></div>
-		            		<div style=" margin:12px; border: 1px solid black; padding: 12px;">
+		            	<div class="recipt" style="font-size: 14px;">문서발급 <i class="fa-solid fa-file-lines" style="size: 14px;"></i></div>
+		            		<div style=" margin:12px; border: 1px solid black; padding: 12px;  border-radius: 4px">
 				            	<div class="left_text font_13 margin_bottom"><i class="fa-solid fa-file-lines"></i> 진료확인서</div>
 				            	<div class="left_text font_13 margin_bottom"><i class="fa-solid fa-file-lines"></i> 진단서</div>
 		            			<div class="left_text font_13 margin_bottom"><i class="fa-solid fa-file-lines"></i> 처방전</div>
@@ -170,11 +170,18 @@
 								    </div>
 								</div>
 								
-							<div style="width: 100%; height:30%; background-color: white; border-radius: 4px; margin-top: 12px">
-								<div>내원 환자 수 : </div>
-								<div class="today_visit"></div>
-								<div>금일 일당 : </div>
-								<div class="today_money"></div>
+							<div style="width: 100%; height:20%; background-color: white; border-radius: 4px; margin-top: 12px">
+							<div class="current" style="font-size: 14px;" >오늘의 현황 <i class="fa-solid fa-chart-simple"></i></div>
+								<div class="display-flex font_13" style="margin: 12px">
+									<div><i class="fa-solid fa-hospital-user"></i> 내원 환자 수 : </div>
+									<div class="today_visit" style="margin-left: 6px" ></div>
+									<div class="visit_difference" style="margin-left: 6px"></div>
+								</div>
+								<div class="display-flex font_13" style="margin: 0px 12px 12px 12px">
+									<div><i class="fa-solid fa-won-sign"></i> 매출 : </div>
+									<div class="today_money" style="margin-left: 6px"></div>
+									<div class="money_difference" style="margin-left: 6px"></div>
+								</div>
 							</div>	
 								
 				</div>
@@ -310,6 +317,7 @@ $(document).on("click", ".pay_update", function (e){
 			str = "<button class='pay_update pay_comp' disabled>수납완료</button>"
 			$(".event").html("");
 			$(".pay_end").html(str)
+			$(".patient_target .unpaid").remove();
 
 			
 		},
@@ -498,7 +506,7 @@ function successSearch(data){
 	
 	let str = "";
 	var obj = JSON.parse(data);
-
+	console.log(obj)
 	
 	/* 검색 결과 생성 */
 	if(obj.list.length === 0){
@@ -509,8 +517,14 @@ function successSearch(data){
 	else{
 		for(var i =0; i< obj.list.length; i++){
 			str += "<div class='list-group-item list-group-item-action list-group-item-info result_set'>"
+			str += "<div class='display-flex'>"
 			str += "<span class = 'name'>" + obj.list[i].name + "</span>";
 			str += "<span class = 'p_num'> pn." + obj.list[i].num + "</span><br>";
+			if(obj.list[i].pay_check == 0){
+				str += "<div class ='unpaid'><i class='fa-solid fa-circle-exclamation' style='color: red;'></i></div>"
+			}
+			
+			str += "</div>"
 			if(obj.list[i].r_num != null){
 				str += "<span class = 'r_num semi_info'> rn." + obj.list[i].r_num + "</span><br>";
 			}
@@ -519,10 +533,11 @@ function successSearch(data){
 			str += "<span class = 'semi_info'>" + obj.list[i].note + "</span><br>";
 			str += "</div>"
 		}
+		
 	}
 	
 	$('.list-group').html(str);
-	let result_first = $($('.result_set')[0]);
+	var result_first = $($('.result_set')[0]);
 	result_first.addClass('patient_target');
 	
 	$.ajax({	
@@ -607,12 +622,13 @@ function infoFunc(data){
 		$(".event").html("");
 		$(".pay_end").html(str)
 
-		
 	}else{
 		str1 = "<i class='fa-solid fa-plus' style='color: deepskyblue'></i> 수납 추가"
 		$(".event").html(str1);
 		str = "<button class='pay_update'>수납</button>"
 		$(".pay_end").html(str)
+
+		
 	}
 	
 	
@@ -687,8 +703,30 @@ function dailyfunc(data){
 	var avg_visit = daily.sale_total[0].avg_visit
 	var today_visit = daily.sale_total[0].today_visit1
 	
-	$('.today_visit').text(today_visit)
-	$('.today_money').text(today_sales)
+	$('.today_visit').text(comma(today_visit))
+	$('.today_money').text(comma(today_sales))
+	
+	if(today_visit > avg_visit){
+		$('.visit_difference').text("(+ " + comma(Number(today_visit - avg_visit)) + ")")
+		$('.visit_difference').css("color", "red");
+	}else if(today_visit == avg_visit){
+		$('.visit_difference').text("(+ 0)")
+		$('.visit_difference').css("color", "gray");
+	}else{
+		$('.visit_difference').text("(- " + comma(Number(avg_visit - today_visit)) + ")")
+		$('.visit_difference').css("color", "blue");
+	}
+	
+	if(today_sales > avg_sales){
+		$('.money_difference').text("(+ " + comma(Number(today_sales - avg_sales)) + ")")
+		$('.money_difference').css("color", "red");
+	}else if(today_sales == avg_sales){
+		$('.money_difference').text("(+ 0)")
+		$('.money_difference').css("color", "gray");
+	}else{
+		$('.money_difference').text("(- " + comma(Number(avg_sales - today_sales)) + ")")
+		$('.money_difference').css("color", "blue");
+	}
 	
 }
 
@@ -756,17 +794,18 @@ $(function(){
 				
 				$('.pay_add').html(str)
 				str = "<i class='fa-solid fa-plus' style='color: deepskyblue'></i> 수납 추가"
+				
 				if(info.info[i].pay_cash + info.info[i].pay_card == info.info[i].pay_amount){
 					str = "<button class='pay_update pay_comp' disabled>수납완료</button>"
 					$(".event").html("");
 					$(".pay_end").html(str)
-
 					
 				}else{
 					str1 = "<i class='fa-solid fa-plus' style='color: deepskyblue'></i> 수납 추가"
 					$(".event").html(str1);
 					str = "<button class='pay_update'>수납</button>"
 					$(".pay_end").html(str)
+
 				}
 					
 				$('.remaining_amount').html(numWithComma(info.info[i].pay_amount - info.info[i].pay_cash - info.info[i].pay_card) + "원")
