@@ -133,10 +133,10 @@
 		       			<div>
 		            	<div class="recipt" style="font-size: 14px;">문서발급 <i class="fa-solid fa-file-lines" style="size: 14px;"></i></div>
 		            		<div style=" margin:12px; border: 1px solid black; padding: 12px;  border-radius: 4px">
-				            	<div class="left_text font_13 margin_bottom"><i class="fa-solid fa-file-lines"></i> 진료확인서</div>
-				            	<div class="left_text font_13 margin_bottom"><i class="fa-solid fa-file-lines"></i> 진단서</div>
-		            			<div class="left_text font_13 margin_bottom"><i class="fa-solid fa-file-lines"></i> 처방전</div>
-		            			<div class="left_text font_13 margin_bottom"><i class="fa-solid fa-file-lines"></i> 영수증</div>
+				            	<div class="left_text font_13 margin_bottom pnt"><i class="fa-solid fa-file-lines"></i> 진료확인서</div>
+				            	<div class="left_text font_13 margin_bottom pnt"><i class="fa-solid fa-file-lines"></i> 진단서</div>
+		            			<div class="left_text font_13 margin_bottom pnt"><i class="fa-solid fa-file-lines"></i> 처방전</div>
+		            			<div class="left_text font_13 margin_bottom pnt"><i class="fa-solid fa-file-lines"></i> 영수증</div>
 		            			
 		            		</div>
 		            	</div>
@@ -317,6 +317,7 @@ $(document).on("click", ".pay_update", function (e){
 			str = "<button class='pay_update pay_comp' disabled>수납완료</button>"
 			$(".event").html("");
 			$(".pay_end").html(str)
+			$(".patient_target").trigger("click");
 			$(".patient_target .unpaid").remove();
 
 			
@@ -420,11 +421,14 @@ $(document).on("click", ".pay_ok", function (e){
 	var remaining = $($('.remaining_amount')[0]);
 	var remaining_value = uncomma(remaining.text())
 	var input_result = uncomma($('.pay_input').val())
-	
+	if(Number(input_result) > Number(remaining_value)){
+		input_result = remaining_value;
+	}
 	$('.remaining_amount').html(comma(remaining_value - input_result) + "원")
 	
 	str += "<div class='display-flex'>"
 	str += "<div class='left_text font_11 pay_by'>" + $('.pay_select_target').text().trim() + " </div>"
+	
 	str += "<div class='font_11 pay_input_result'>" + comma(input_result) + "원</div>"
 	
 	$('.pay_add').html(str)
@@ -656,6 +660,8 @@ function infoFunc(data){
 	var first_arrow = $($('.arrow')[0]);
 	first_arrow.removeClass('target_arrow')
 	
+	console.log('떼라피');
+	console.log(obj);
 	var str = ""
 		for(var j = 0; j < obj.info[1].therapy.length; j++){
 			if(obj.info[1].therapy[j].price != 0){
@@ -768,10 +774,12 @@ $(function(){
 				
 				var str = ""
 				for(var j = 0; j < info.info[i].therapy.length; j++){
-					str += "<div class='display-flex'>"
-					str +=	"<div class='left_text font_11'>" + info.info[i].therapy[j].thName + "</div>"
-					str +=	"<div class='font_11'>" + numWithComma(info.info[i].therapy[j].price) + "원" + "</div>"
-					str +=	"</div>"
+					if(info.info[i].therapy[j].price != 0){
+						str += "<div class='display-flex'>"
+						str +=	"<div class='left_text font_11'>" + info.info[i].therapy[j].thName + "</div>"
+						str +=	"<div class='font_11'>" + numWithComma(info.info[i].therapy[j].price) + "원" + "</div>"
+						str +=	"</div>"
+					}
 					
 				}
 				str += "<div class='display-flex'>"
