@@ -233,7 +233,7 @@
 						
 						<div class="form-group" style="">
 							<label> <b>  처방약  </b><i class="fa-solid fa-pills"></i></label> <br>
-							<select id="addMed" class="form-control medlist"></select> 
+							<select id="addMed" class="form-control medlist " ></select> 
 							<select id="medUsage" class="form-control medyang">
 								<option value=1>1</option>
 								<option value=2>2</option>
@@ -264,7 +264,7 @@
 						
 						<div class="form-group" style="">
 							<label> <b> 물리치료 </b> <i class="fa-solid fa-syringe"></i></label>  <br>
-							<select id="addTh" class="form-control phlist"></select>
+							<select id="addTh" class="form-control phlist "></select>
 							<button type="button" class="btn btn-primary" onclick="therapyList()"><i class="fa-solid fa-plus" style="color: #ffffff;"></i></button>
 							<button type="button" class="btn btn-primary" onclick="therapyDelete()"><i class="fa-solid fa-minus" style="color: #ffffff;"></i></button> 
 						</div>
