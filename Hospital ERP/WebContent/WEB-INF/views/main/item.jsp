@@ -87,7 +87,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                 <div class="col-md-10 info">
                     <div class="item_page_btn">
                         <button type="button" id="item_maintable" class="btn item_btn_itempage">
-                        	품목 관리
+                        	재고 조회
                         </button>
                         <button type="button" id="item_release" class="btn item_btn_relpage">
                             출고 관리
@@ -129,7 +129,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                             <div class="modal-dialog modal-xl modal-dialog-scrollable">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="staticBackdropLabel">물품 추가</h5>
+                                        <h5 class="modal-title" id="staticBackdropLabel">품목 추가</h5>
                                         <button
                                             type="button"
                                             class="btn-close"
@@ -195,10 +195,8 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 					<div class="modal-dialog  modal-lg  modal-dialog-centered  modal-dialog-scrollable"> 
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" id="itemModifyModalLabel">재고 수정</h5>
-								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
+								<h5 class="modal-title" id="itemModifyModalLabel">품목 수정</h5>
+								     <button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close"></button>
 							</div>
 							<div class="modal-body">
 									
@@ -260,13 +258,13 @@ uri="http://java.sun.com/jsp/jstl/core"%>
                             
                       <div class ="item_page_footer">
                            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                물품 추가
+                                품목 추가
                             </button>
                             <button type="button" id="item_DeleteButton" class="btn btn-secondary" >
-                                물품 삭제
+                                품목 삭제
                             </button>
                             <button type="button" id="item_ModifyButton" class="btn btn-secondary" data-bs-target="#itemModifyModal">
-                            	재고 수정
+                            	품목 수정
                             </button>
                             <button type="button" id="select_cancel" class="btn btn-secondary" >
                             	선택 전체해제
@@ -478,7 +476,7 @@ function loadMainTable() {
         type: "post",
         success: function (data) {
             var obj = JSON.parse(data);
-            console.log(obj)
+            
             str +=
                 "<tr><th>index</th><th>품명</th><th>품목코드</th><th>카테고리</th><th>단위</th><th>재고량</th><th>유통기한</th><th>물품단가</th><th>비고</th></tr>";
             for (var i = 0; i < obj.item.length; i++) {
@@ -557,7 +555,7 @@ function itemMemoCall(row) {
                 stock += obj.i_stock ;
                 unit +=  obj.i_unit ;
                 memo +=  obj.i_i_memo ;
-                console.log(memo);
+                
             $("#memoTable_code").html(code);
             $("#memoTable_name").html(name);
             $("#memoTable_stock").html(stock);
@@ -619,14 +617,11 @@ $("#CategorySearch").change(function () {
     } else if ($(".rel_page").is(":visible")) {
         filterRelease();
     }
-    //$('#CategorySearch').prop('selectedIndex', 0);
 });
 
 // 사용내역/ 폐기내역 클릭시
 $(".ReleaseCheck").change(function () {
-    //$(".input-searchfilter").val("");
     filterRelease();
-    //$('#CategorySearch').prop('selectedIndex', 0);
 });
 
 //메인(재고)페이지 검색+5개이하 재고품목 확인
