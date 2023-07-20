@@ -147,7 +147,7 @@ insert into wait values(w_num_seq.nextval, '복통', 50008);
 insert into wait values(w_num_seq.nextval, '가려움증', 50012);
 --insert into wait values(w_num_seq.nextval, '코막힘', 50013);
 --insert into wait values(w_num_seq.nextval, '피로감', 50014);
-insert into wait values(w_num_seq.nextval, '기침', 50015);
+--insert into wait values(w_num_seq.nextval, '기침', 50015);
 --insert into wait values(w_num_seq.nextval, '손가락이 또 아파요', 50016);
 INSERT INTO wait VALUES (w_num_seq.nextval, '코막힘, 목 간지럽고 아픔', 50017);
 INSERT INTO wait VALUES (w_num_seq.nextval, '코막힘, 재채기, 코 주변 통증', 50018);
@@ -470,7 +470,7 @@ insert into item values ( i_num_seq.nextval, 90014, '낱개', 100, '2025-04-30',
 insert into item values ( i_num_seq.nextval, 90015, '5개 1묶음', 30, '2024-06-20', 1900, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90016, '10개 1묶음', 170, '2029-01-21', 2000, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90017, '다스', 12, '2023-09-03', 3500, '비고', '메모');
-insert into item values ( i_num_seq.nextval, 90018, '10개 1묶음', 4, '2023-05-13', 4600, '비고', '메모');
+insert into item values ( i_num_seq.nextval, 90018, '10개 1묶음', 4, '2024-05-13', 4600, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90019, '낱개', 150, '2024-04-18', 1700, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90020, '5개 1묶음', 30, '2024-06-20', 3300, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90021, '다스', 16, '2024-09-03', 4000, '비고', '메모');
