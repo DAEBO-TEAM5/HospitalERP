@@ -145,7 +145,7 @@ public class RecordDao {
 		System.out.println("---------"+m_code+" "+use+" "+recordnum);
 		try {
 			conn = ConnectionHelper.getConnection();                     //약품코드, 사용량, 진료기록번호
-			String sql = "INSERT INTO PRESCRIPTION VALUES(P_CODE_SEQ.NEXTVAL, ?, ?, ?)";
+			String sql = "INSERT INTO PRESCRIPTION VALUES(P_NUM_SEQ.NEXTVAL, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, m_code);
 			pstmt.setInt(2, use);

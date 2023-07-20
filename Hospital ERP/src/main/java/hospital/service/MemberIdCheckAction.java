@@ -40,7 +40,6 @@ public class MemberIdCheckAction implements Action {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		return forward;
 	}
 }
