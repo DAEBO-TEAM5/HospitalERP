@@ -91,8 +91,8 @@
 	        <span class="close-btn" onclick="closePopup2()">&times;</span>
 	        <h4>ID찾기</h4>
 	        <form action="${pageContext.request.contextPath}/findid.do" method="post">
-	            <input type="text" name="h_name" id="h_name2" placeholder="병원명">
-	            <input type="email" name="h_email" id="h_email2" placeholder="이메일">
+	            <input type="text" name="h_name2" id="h_name2" placeholder="병원명">
+	            <input type="email" name="h_email2" id="h_email2" placeholder="이메일">
 	            <div>
 	                <input class="formBtn2" type="submit" value="ID찾기" name="findID" id="h_findID">
 	                <input type="reset" onclick="resetBtnHandler()" value="다시 입력">
