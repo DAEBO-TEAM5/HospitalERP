@@ -47,7 +47,6 @@ public class InsertPatientServiceAction implements Action {
 			vo.setNote(request.getParameter("note"));
 
 			pnum = dao.InsertPatient(vo);
-			dao.InsertWait(symptom, pnum);
 			
 			if(pnum != 0) {
 				dao.InsertWait(symptom, pnum);

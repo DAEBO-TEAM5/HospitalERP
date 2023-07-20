@@ -48,8 +48,8 @@
 .item_page_btn *{
 	width: 300px;
 	height: 50px;
-	margin: 35px 0px 10px 81px;
-} 
+	margin: 35px 0px 10px 84px;
+}
 .input-itemsort{
 	display: flex;
 	flex-direction: row;
@@ -101,14 +101,14 @@
 	background-color: #DBDDDE;
 }
 .item_table >tr>th{
-	/* border: 1px solid rgba(46, 91, 219); */
 	border: 2px solid white;
 	height: 65px;
 	background-color: #A9ADAF;
+	position: sticky;
+    top: -4px;
 }
 .item_table >tr>td{
 	text-align: center; 
-	/* border: 1px solid rgba(46, 91, 219)	; */
 	border: 2px solid white;
 	height: 43px;
 } 
@@ -124,18 +124,23 @@
 
 
 .item_page_tablesize > tr > th:nth-child(1) {
-	width: 60px;	
+	width: 70px;	
 }
-.item_page_tablesize > tr > th:nth-child(6), th:nth-child(7) {
-	width: 95px;		
-} 
-.item_page_tablesize > tr > th:nth-child(2), th:nth-child(4), th:nth-child(9) {
-	width: 125px;		
+.item_page_tablesize > tr > th:nth-child(2), th:nth-child(7), th:nth-child(8) {
+	width: 200px;
 }
-.item_page_tablesize > tr > th:nth-child(3), th:nth-child(5), th:nth-child(8), th:nth-child(10) {
-	width: 150px;		
-}  
-
+.item_page_tablesize > tr > th:nth-child(3) {
+	width: 120px;
+}
+.item_page_tablesize > tr > th:nth-child(4), th:nth-child(5) {
+	width: 160px;
+}
+.item_page_tablesize > tr > th:nth-child(6) {
+	width: 80px;
+}
+.item_page_tablesize > tr > th:nth-child(9){
+	width: auto;
+}
 
 .rel_page_tablesize > tr > th:nth-child(1), th:nth-child(5) {
 	width: 130px;	
@@ -143,8 +148,11 @@
 .rel_page_tablesize > tr > th:nth-child(2), th:nth-child(4) {
 	width: 120px;	
 }
-.rel_page_tablesize > tr > th:nth-child(6), th:nth-child(7) {
+.rel_page_tablesize > tr > th:nth-child(6) {
 	width: 80px;	
+}
+.rel_page_tablesize > tr > th:nth-child(7) {
+	width: 90px;	
 }
 .rel_page_tablesize > tr > th:nth-child(3), th:nth-child(8)  {
 	width: 140px;	
@@ -152,6 +160,7 @@
 .rel_page_tablesize > tr > th:nth-child(9) {
 	width: 277px;	
 }
+
 .table_scroll{
 	max-height: 501px;
 	overflow-y : auto;
@@ -178,7 +187,7 @@
     margin: 0px 74px 65px 0px;
     position: fixed;
     bottom: 0;
-    right: 0; /* 오른쪽으로 이동하기 위해 "right" 속성 사용 */
+    right: 0; 
 }
  
  
