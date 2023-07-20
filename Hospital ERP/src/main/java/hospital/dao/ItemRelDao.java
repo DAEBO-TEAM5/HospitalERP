@@ -37,7 +37,7 @@ public class ItemRelDao {
 		            + "    JOIN item_code ic ON d.dis_i_code = ic.i_code "
 		            + " ) rd "
 		            //+ " JOIN item i ON rd.rel_i_code = i.i_i_code "
-		            + " ORDER BY TO_DATE(rel_date, 'YYYY-MM-DD') ASC, TO_DATE(rel_time, 'HH24:MI') ASC ";
+		            + " ORDER BY TO_DATE(rel_date, 'YYYY-MM-DD') DESC, TO_DATE(rel_time, 'HH24:MI') DESC ";
 
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery(sql);

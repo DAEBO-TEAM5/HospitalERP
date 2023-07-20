@@ -101,13 +101,13 @@ public class ItemDao {
 		try {
 			conn = ConnectionHelper.getConnection();
 		
-			StringBuffer sql = new StringBuffer(" DELETE ITEM WHERE I_NUM = ? ");
+			StringBuffer sql = new StringBuffer(" DELETE ITEM WHERE I_I_CODE = ? ");
 			pstmt = conn.prepareStatement(sql.toString());
 
 			pstmt.clearBatch();
 			
 			for(ItemVO vo : itemList) {
-				  	pstmt.setInt(1, vo.getI_num());
+				  	pstmt.setInt(1, vo.getI_code());
 		            
 		            pstmt.addBatch();
 			}
@@ -130,14 +130,14 @@ public class ItemDao {
 		PreparedStatement pstmt = null;
 		try {
 			conn = ConnectionHelper.getConnection();
-			String sql = "UPDATE ITEM SET I_UNIT=?, I_STOCK=?, I_EXPIRE=?, I_PRICE=?, I_REMARK=? WHERE I_NUM=? ";
+			String sql = "UPDATE ITEM SET I_UNIT=?, I_STOCK=?, I_EXPIRE=?, I_PRICE=?, I_REMARK=? WHERE I_I_CODE = ? ";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, vo.getI_unit());
 			pstmt.setInt(2, vo.getI_stock());
 			pstmt.setString(3, vo.getI_expire());
 			pstmt.setInt(4, vo.getI_price());
 			pstmt.setString(5, vo.getI_remark());
-			pstmt.setInt(6, vo.getI_num());
+			pstmt.setInt(6, vo.getI_code());
 			pstmt.executeUpdate();
 			
 		} catch (Exception e) {

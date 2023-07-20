@@ -63,7 +63,7 @@ public class ItemDelServiceAction implements Action {
 	            for (int i = 0; i < array.size(); i++) {
 	                JSONObject item = (JSONObject) array.get(i);
 	                ItemVO itemVO = new ItemVO();
-	                itemVO.setI_num(Integer.parseInt((String) item.get("iNum")));
+	                itemVO.setI_code(Integer.parseInt((String) item.get("iCode")));
 	                itemList.add(itemVO);
 	            }
 	            System.out.println(itemList);
