@@ -66,7 +66,6 @@ public class ItemDelServiceAction implements Action {
 	                itemVO.setI_code(Integer.parseInt((String) item.get("iCode")));
 	                itemList.add(itemVO);
 	            }
-	            System.out.println(itemList);
 	            ItemDao dao;
 	            try {
 	                dao = new ItemDao();

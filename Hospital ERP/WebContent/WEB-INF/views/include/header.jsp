@@ -29,7 +29,7 @@
 				url : "./ecodefind.do",
 				success : function(data) {
 					var obj = JSON.parse(data);
-					name = obj.h_name + " " + obj.name + "님 환영합니다";
+					name = obj.h_name + " " + obj.name + "님 환영합니다　";
 					$(".headername").text(name);
 				},
 				error : function(msg, error) {
