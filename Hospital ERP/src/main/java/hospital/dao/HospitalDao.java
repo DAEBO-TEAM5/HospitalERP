@@ -71,8 +71,7 @@ public class HospitalDao {
 		try {
 			conn = ConnectionHelper.getConnection();
 			String sql = "";
-			sql = "select p.address, p.note, p.num, p.name, p.birth, p.sex, p.phone, r.r_num, r.r_date from patient p join record r on p.num = r.r_p_num where r_date = ? order by r_num desc";
-
+			sql = "select p.address, p.note, p.num, p.name, p.birth, p.sex, p.phone, r.r_num, r.r_date from patient p join record r on p.num = r.r_p_num where to_char(r_date,'YYYYMMDD') = ? order by r_num desc";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, date);
 

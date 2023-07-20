@@ -18,7 +18,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
     <script src="https://kit.fontawesome.com/d7766e5822.js" crossorigin="anonymous"></script>
     <!-- fontawesome  -->
     <link rel="icon" href="${pageContext.request.contextPath }/image/hp.png" /> <!-- //파비콘임 -->
-    <title>5ING Hospital: 재고</title>
+    <title>재고</title>
 </head>
 <body>
     <div class="container-fluid">
@@ -86,10 +86,10 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 			
                 <div class="col-md-10 info">
                     <div class="item_page_btn">
-                        <button type="button" id="item_maintable" class=" item_btn_itempage">
+                        <button type="button" id="item_maintable" class="btn item_btn_itempage">
                         	품목 관리
                         </button>
-                        <button type="button" id="item_release" class=" item_btn_relpage">
+                        <button type="button" id="item_release" class="btn item_btn_relpage">
                             출고 관리
                         </button><br />
                     </div>
@@ -265,7 +265,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 				</div><!-- 모달(아이템 입고 수정)끝 -->
                             
                       <div class ="item_page_footer">
-                           <button type="button" class="btn btn-seoncdary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                           <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                 물품 추가
                             </button>
                             <button type="button" id="item_DeleteButton" class="btn btn-secondary" >
@@ -435,7 +435,6 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 
 
 <script type="text/javascript">
-/////////////////////////////////////////////////////////////////////////////////////////////자바 스크립트
 
 function mainPageOpen() {
     $(".main_page").show();
@@ -444,7 +443,11 @@ function mainPageOpen() {
 	filterItems();
     loadMainTable();
     
-
+    $('#item_maintable').removeClass('btn-secondary');
+    $('#item_release').removeClass('btn-primary'); 
+    $('#item_maintable').addClass('btn-primary');
+    $('#item_release').addClass('btn-secondary');
+    
 }
 function relPageOpen() {
     $(".main_page").hide();
@@ -452,6 +455,11 @@ function relPageOpen() {
     pageChange();
     filterRelease();
     loadItemRelTable();
+    
+	$('#item_maintable').removeClass('btn-primary');
+	$('#item_release').removeClass('btn-secondary');
+	$('#item_maintable').addClass('btn-secondary');
+	$('#item_release').addClass('btn-primary');
 
 }
 function pageChange(){
@@ -495,19 +503,6 @@ function loadMainTable() {
             $("#mainTable").html(str);
             filterItems();
 
-            // 스크롤 기능 추가
-/*             var tableHeight = 40; // 테이블 높이를 적절히 설정해주세요.
-            if ($("#mainTable tr").length > 7) {
-                $("#mainTable").css({
-                    "height": tableHeight + "px",
-                    "overflow-y": "scroll"
-                });
-            } else {
-                $("#mainTable").css({
-                    "height": "auto",
-                    "overflow-y": "initial"
-                });
-            } */
         },
         error: function () {
             alert("검색할 수 없습니다.");
@@ -546,7 +541,6 @@ $("#select_cancel").on("click", function () {
 	 removeClickActive();
 });
 
-
 // 테이블 메모 불러오기
 function itemMemoCall(row) {
 	var code;
@@ -582,7 +576,7 @@ function itemMemoCall(row) {
     });
 }
 
-//메모장 초기화
+//왼쪽 메모장 초기화
 function clearMemoTable() {
     $("#memoTable_memo").val("");
 }
@@ -851,7 +845,6 @@ $("#insert_submit").click(function () {
         },
     });
 });
-           
            
 
 // 아이템 삭제버튼

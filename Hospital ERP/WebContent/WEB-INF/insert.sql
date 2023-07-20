@@ -383,8 +383,8 @@ insert into item values ( i_num_seq.nextval, 90001, '다스', 50, '2023-09-03', 
 insert into item values ( i_num_seq.nextval, 90002, '10개 1묶음', 50, '2024-08-03', 50000, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90003, '낱개', 200, '2025-04-30', 700, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90004, '5개 1묶음', 50, '2025-06-20', 9999, '비고', '메모');
-insert into item values ( i_num_seq.nextval, 90005, '낱개', 150, '2029-12-31', 20000, '비고', '메모');
-insert into item values ( i_num_seq.nextval, 90006, '낱개', 350, '2029-05-11', 20000, '비고', '메모');
+insert into item values ( i_num_seq.nextval, 90005, '10개 1묶음', 150, '2029-12-31', 20000, '비고', '메모');
+insert into item values ( i_num_seq.nextval, 90006, '10개 1묶음', 350, '2029-05-11', 20000, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90007, '100ml', 30, '2024-12-31', 10000, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90008, '30ml', 200, '2024-06-06', 5000, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90009, '50ml', 100, '2024-11-17', 4000, '비고', '메모');
@@ -394,7 +394,7 @@ insert into item values ( i_num_seq.nextval, 90012, '다스', 40, '2023-09-03', 
 insert into item values ( i_num_seq.nextval, 90013, '10개 1묶음', 20, '2024-07-03', 2000, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90014, '낱개', 100, '2025-04-30', 700, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90015, '5개 1묶음', 30, '2024-06-20', 1900, '비고', '메모');
-insert into item values ( i_num_seq.nextval, 90016, '낱개', 170, '2029-01-21', 2000, '비고', '메모');
+insert into item values ( i_num_seq.nextval, 90016, '10개 1묶음', 170, '2029-01-21', 2000, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90017, '다스', 12, '2023-09-03', 3500, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90018, '10개 1묶음', 31, '2023-05-13', 4600, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90019, '낱개', 150, '2024-04-18', 1700, '비고', '메모');
