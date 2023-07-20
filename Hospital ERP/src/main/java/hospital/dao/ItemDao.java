@@ -29,7 +29,6 @@ public class ItemDao {
 			rs = pstmt.executeQuery(sql);
 			while(rs.next()) {
 				ItemVO dao = new ItemVO();
-				//dao.setI_num(rs.getInt("i_num"));
 				dao.setI_name(rs.getString("i_name"));
 				dao.setI_code(rs.getInt("i_code"));
 				dao.setI_category(rs.getString("i_category"));
