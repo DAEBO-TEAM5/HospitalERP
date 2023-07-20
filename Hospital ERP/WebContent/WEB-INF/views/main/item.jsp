@@ -86,10 +86,10 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 			
                 <div class="col-md-10 info">
                     <div class="item_page_btn">
-                        <button type="button" id="item_maintable" class="btn btn-primary" item_btn_itempage">
+                        <button type="button" id="item_maintable" class=" item_btn_itempage">
                         	품목 관리
                         </button>
-                        <button type="button" id="item_release" class="btn btn-primary" item_btn_relpage">
+                        <button type="button" id="item_release" class=" item_btn_relpage">
                             출고 관리
                         </button><br />
                     </div>
@@ -265,7 +265,7 @@ uri="http://java.sun.com/jsp/jstl/core"%>
 				</div><!-- 모달(아이템 입고 수정)끝 -->
                             
                       <div class ="item_page_footer">
-                           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                           <button type="button" class="btn btn-seoncdary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                 물품 추가
                             </button>
                             <button type="button" id="item_DeleteButton" class="btn btn-secondary" >
@@ -443,6 +443,8 @@ function mainPageOpen() {
     pageChange();
 	filterItems();
     loadMainTable();
+    
+
 }
 function relPageOpen() {
     $(".main_page").hide();
@@ -450,6 +452,7 @@ function relPageOpen() {
     pageChange();
     filterRelease();
     loadItemRelTable();
+
 }
 function pageChange(){
     removeClickActive(); 
@@ -458,6 +461,7 @@ function pageChange(){
 	$("#StockFiveCheck").prop("checked", false);
     $(".use_Check").prop("checked", true);
     $(".dis_Check").prop("checked", true);
+    $(".table_scroll").scrollTop(0);
 }
 
 window.onload = function() {
@@ -474,11 +478,10 @@ function loadMainTable() {
             var obj = JSON.parse(data);
             console.log(obj)
             str +=
-                "<tr><th>index</th><th>입고번호</th><th>품명</th><th>품목코드</th><th>카테고리</th><th>단위</th><th>재고량</th><th>유통기한</th><th>물품단가</th><th>비고</th></tr>";
+                "<tr><th>index</th><th>품명</th><th>품목코드</th><th>카테고리</th><th>단위</th><th>재고량</th><th>유통기한</th><th>물품단가</th><th>비고</th></tr>";
             for (var i = 0; i < obj.item.length; i++) {
                 str += "<tr>";
                 str += "<td main-column='index'>" + (i + 1) + "</td>";
-                str += "<td main-column='inum'>" + obj.item[i].i_num + "</td>";
                 str += "<td main-column='name'>" + obj.item[i].i_name + "</td>";
                 str += "<td main-column='code'>" + obj.item[i].i_code + "</td>";
                 str += "<td main-column='category'>" + obj.item[i].i_category + "</td>";
@@ -1031,6 +1034,7 @@ $("#item_DisSubmit").click(function () {
     success: function(data) {
       var obj = JSON.parse(data);
       str += "<option selected>카테고리별 분류</option>";
+      str += "<option disabled>------------------------------</option>";
       for (var i = 0; i < obj.item.length; i++) {
         str += "<option>" + obj.item[i].i_category + "</option>";
       }

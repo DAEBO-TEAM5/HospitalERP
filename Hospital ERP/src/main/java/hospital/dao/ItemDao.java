@@ -21,8 +21,7 @@ public class ItemDao {
 		ResultSet rs = null;
 		try {
 			conn = ConnectionHelper.getConnection();
-			//String sql ="SELECT I_NAME, I_CODE, I_CATEGORY, I_UNIT, I_STOCK, I_EXPIRE, I_PRICE, I_REMARK FROM ITEM ";
-			String sql = "SELECT IC.I_CODE, I.I_NUM, IC.I_NAME, IC.I_CATEGORY, I.I_UNIT, I.I_STOCK, I.I_EXPIRE, I.I_PRICE,"
+			String sql = "SELECT IC.I_CODE, IC.I_NAME, IC.I_CATEGORY, I.I_UNIT, I.I_STOCK, I.I_EXPIRE, I.I_PRICE,"
 					   + " NVL(I.I_REMARK, ' ') AS I_REMARK FROM ITEM I JOIN ITEM_CODE IC ON IC.I_CODE=I.I_I_CODE "
 					   + " ORDER BY TO_DATE(I_EXPIRE, 'YYYY-MM-DD') ";
 			
@@ -30,7 +29,7 @@ public class ItemDao {
 			rs = pstmt.executeQuery(sql);
 			while(rs.next()) {
 				ItemVO dao = new ItemVO();
-				dao.setI_num(rs.getInt("i_num"));
+				//dao.setI_num(rs.getInt("i_num"));
 				dao.setI_name(rs.getString("i_name"));
 				dao.setI_code(rs.getInt("i_code"));
 				dao.setI_category(rs.getString("i_category"));
@@ -159,7 +158,7 @@ public class ItemDao {
 		ResultSet rs = null;
 		try {
 			conn = ConnectionHelper.getConnection();
-			String sql = "SELECT DISTINCT I_CATEGORY FROM ITEM_CODE ";
+			String sql = "SELECT DISTINCT I_CATEGORY FROM ITEM_CODE ORDER BY I_CATEGORY ";
 			
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
