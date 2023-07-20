@@ -1,7 +1,5 @@
 package hospital.vo;
 
-import java.sql.Connection;
-
 //로그인 정보
 public class LoginVO {
 

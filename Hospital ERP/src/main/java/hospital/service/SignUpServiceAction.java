@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import hospital.action.Action;
 import hospital.action.ActionForward;
-import hospital.dao.SignUpDao;
+import hospital.dao.LoginDao;
 import hospital.vo.LoginVO;
 
 public class SignUpServiceAction implements Action {
@@ -24,9 +24,9 @@ public class SignUpServiceAction implements Action {
 		String h_post = request.getParameter("h_post");
 		int h_e_code = Integer.parseInt(request.getParameter("h_e_code"));
 
-		SignUpDao dao = new SignUpDao();
-
+		LoginDao dao = new LoginDao();
 		LoginVO vo = new LoginVO();
+		
 		vo.setH_id(h_id);
 		vo.setH_name(h_name);
 		vo.setH_address(h_address);
@@ -35,6 +35,7 @@ public class SignUpServiceAction implements Action {
 		vo.setH_email(h_email);
 		vo.setH_post(h_post);
 		vo.setH_e_code(h_e_code);
+		
 		int result = 0;
 
 		try {
@@ -44,8 +45,7 @@ public class SignUpServiceAction implements Action {
 			ActionForward forward = new ActionForward();
 			forward.setRedirect(false);
 			forward.setPath("/WEB-INF/views/main/signup.jsp");
-			request.setAttribute("script",
-					"<script>alert('중복 ID 및 이메일이 있습니다. 다시 회원가입 해주세요'); window.location.href='login.do';</script>");
+			request.setAttribute("script","<script>alert('중복 ID 및 이메일이 있습니다. 다시 회원가입 해주세요'); window.location.href='login.do';</script>");
 			return forward;
 		}
 
