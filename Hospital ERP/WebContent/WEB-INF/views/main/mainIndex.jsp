@@ -46,12 +46,12 @@
 					<input type="button" value="등록" class="btn btn-primary modalBtn" id="modifyInfo" data-bs-toggle="modal" data-bs-target="#exampleModal">
 				</div>
 				<!-- Modal -->
-				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
 					<div class="modal-dialog modal-dialog-centered">
 						<div class="modal-content">
 							<div class="modal-header">
 								<h5 class="modal-title" id="exampleModalLabel">대기 접수</h5>
-								<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close"></button>
+								<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close" onclick="$('#patientForm')[0].reset(); "></button>
 							</div>
 							<div class="modal-body">
 								<form role="form" id="patientForm">
@@ -94,7 +94,7 @@
 									<br>
 
 							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="$('#patientForm')[0].reset(); ">닫기</button>
 								<button type="submit" class="btn btn-primary">접수</button>
 							</div>
 							
@@ -134,12 +134,12 @@
 					
 
 					<!-- Modal -->
-					<div class="modal fade" id="patientModal" tabindex="-1" aria-labelledby="patientModalLabel" aria-hidden="true">
+					<div class="modal fade" id="patientModal" tabindex="-1" aria-labelledby="patientModalLabel" aria-hidden="true" data-bs-backdrop="static">
 						<div class="modal-dialog modal-dialog-centered">
 							<div class="modal-content">
 								<div class="modal-header">
 									<h5 class="modal-title" id="patientModalLabel">환자 정보</h5>
-									<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close"></button>
+									<button type="button" class="btn-close"  data-bs-dismiss="modal" aria-label="Close" onclick="$('#patientInfoForm')[0].reset(); "></button>
 								</div>
 								<div class="modal-body">
 									<form role="form" id="patientInfoForm">
@@ -180,7 +180,7 @@
 										</div> <br>
 
 								<div class="modal-footer">
-									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+									<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="$('#patientInfoForm')[0].reset(); ">닫기</button>
 									<button type="submit" class="btn btn-primary">수정</button>
 								</div>
 									</form>
