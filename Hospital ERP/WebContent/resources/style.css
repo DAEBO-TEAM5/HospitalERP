@@ -6,8 +6,14 @@
 	margin-right: 5px;
 }
 .p_num{
-	font-size:12px;
-	font-weight: 600;
+	display: flex;
+    font-size: 12px;
+    font-weight: 600;
+    align-items: flex-end;
+}
+.unpaid{
+	display: flex;
+	margin-left: auto;
 }
 
 #search::-webkit-input-placeholder { text-align: center; }
@@ -94,8 +100,9 @@
 	overflow: hidden;
 	padding: 3px 3px 3px 6px;
 }
-.record, .recipt{
+.record, .recipt, .current {
 	background-color: rgba(243, 243, 255, 1);
+	font-size: 14px;
 	font-weight: bold;
 	padding: 6px 12px 6px 12px;
 	border-radius: 4px 4px 0 0;
@@ -105,9 +112,6 @@ label{
 	font-weight: bold;
 }
 
-#symptom, #r_d_code, #special_note {
-	font-size: 14px;
-}
 
 .history, .history tr, .history th, .history td{
 	border: 1px solid black;
@@ -186,8 +190,8 @@ h3{
 	font-size: 11px;
 	font-weight: bold;
 }
-.font_gray{
-	color: gray;
+.font_dimgray{
+	color: dimgray;
 }
 .font_deepskyblue{
 	color: deepskyblue;
@@ -213,7 +217,6 @@ h3{
     color: #fff;
     background-color: rgb(88, 101, 242);
     transition: background-color .17s ease,color .17s ease;
-	
 }
 .pay_comp{
 	background-color: darkgray;
@@ -263,12 +266,12 @@ h3{
     font-size: 13px;
 }
 .pay_by{
-	padding-left: 6px;
+	padding-left: 12px;
 	color: dimgray;
 }
 
 .pay_input_result{
-	padding-right: 6px;
+	padding-right: 12px;
 	color: dimgray;
 	margin-bottom: 6px;
 }
