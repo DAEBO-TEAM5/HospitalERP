@@ -29,7 +29,6 @@
 				url : "./ecodefind.do",
 				success : function(data) {
 					var obj = JSON.parse(data);
-					console.log(obj);
 					name = obj.h_name + " " + obj.name + "님 환영합니다";
 					$(".headername").text(name);
 				},

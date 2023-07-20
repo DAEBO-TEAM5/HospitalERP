@@ -166,22 +166,22 @@ select * from wait;
 
 
 --진료기록 번호/ 진료날짜/ 의사소견/증상내용(복사)/ 환자번호/ 질병코드/ 직원 코드   //진료기록 코드 70001~
-insert into RECORD values(r_num_seq.nextval, '2023-07-16', '의사소견1', '머리가 아파요', 50001, 20001, 40001);
-insert into record values(r_num_seq.nextval, '2023-07-17', '의사소견2', '눈이 퍽퍽해요', 50001, 20002, 40002);
-insert into record values(r_num_seq.nextval, '2023-07-17', '의사소견3', '배가 아파요', 50002, 20003, 40003);
-insert into record values(r_num_seq.nextval, '2023-07-18', '의사소견4', '다리가 아파요', 50002, 20004, 40004);
-insert into record values(r_num_seq.nextval, '2023-07-18', '의사소견5', '허리가 아파요', 50003, 20004, 40005);
-insert into record values(r_num_seq.nextval, '2023-07-18', '의사소견6', '손가락이 아파요', 50004, 20005, 40006);
-insert into record values(r_num_seq.nextval, '2023-07-18', '의사소견7', '두통', 50005, 20006, 40007);
-insert into record values(r_num_seq.nextval, '2023-07-18', '의사소견8', '복통', 50006, 20007, 40008);
-insert into record values(r_num_seq.nextval, '2023-07-18', '의사소견9', '근육통', 50007, 20008, 40001);
-insert into record values(r_num_seq.nextval, '2023-07-18', '의사소견10', '구토', 50008, 20009, 40002);
-insert into record values(r_num_seq.nextval, '2023-07-19', '의사소견11', '설사', 50009, 20010, 40003);
-insert into record values(r_num_seq.nextval, '2023-07-20', '의사소견12', '가려움증', 50010, 20011, 40004);
-insert into record values(r_num_seq.nextval, '2023-07-21', '의사소견13', '코막힘', 50001, 20012, 40005);
-insert into record values(r_num_seq.nextval, '2023-07-21', '의사소견14', '피로감', 50005, 20001, 40006);
-insert into record values(r_num_seq.nextval, '2023-07-21', '의사소견15', '기침', 50004, 20005, 40007);
-insert into record values(r_num_seq.nextval, '2023-07-21', '의사소견16', '손가락이 또 아파요', 50002, 20004, 40008);
+insert into RECORD values(r_num_seq.nextval, '2023-07-16', '의사소견1', '머리가 아파요', 50001, 20001, 40001 ,0);
+insert into record values(r_num_seq.nextval, '2023-07-17', '의사소견2', '눈이 퍽퍽해요', 50001, 20002, 40002 ,0);
+insert into record values(r_num_seq.nextval, '2023-07-17', '의사소견3', '배가 아파요', 50002, 20003, 40003 ,0);
+insert into record values(r_num_seq.nextval, '2023-07-18', '의사소견4', '다리가 아파요', 50002, 20004, 40004 ,0);
+insert into record values(r_num_seq.nextval, '2023-07-18', '의사소견5', '허리가 아파요', 50003, 20004, 40005 ,0);
+insert into record values(r_num_seq.nextval, '2023-07-18', '의사소견6', '손가락이 아파요', 50004, 20005, 40006 ,0);
+insert into record values(r_num_seq.nextval, '2023-07-18', '의사소견7', '두통', 50005, 20006, 40007 ,0);
+insert into record values(r_num_seq.nextval, '2023-07-18', '의사소견8', '복통', 50006, 20007, 40008 ,0);
+insert into record values(r_num_seq.nextval, '2023-07-18', '의사소견9', '근육통', 50007, 20008, 40001 ,0);
+insert into record values(r_num_seq.nextval, '2023-07-18', '의사소견10', '구토', 50008, 20009, 40002 ,0);
+insert into record values(r_num_seq.nextval, '2023-07-19', '의사소견11', '설사', 50009, 20010, 40003 ,0);
+insert into record values(r_num_seq.nextval, '2023-07-20', '의사소견12', '가려움증', 50010, 20011, 40004 ,0);
+insert into record values(r_num_seq.nextval, '2023-07-21', '의사소견13', '코막힘', 50001, 20012, 40005 ,0);
+insert into record values(r_num_seq.nextval, '2023-07-21', '의사소견14', '피로감', 50005, 20001, 40006 ,0);
+insert into record values(r_num_seq.nextval, '2023-07-21', '의사소견15', '기침', 50004, 20005, 40007 ,0);
+insert into record values(r_num_seq.nextval, '2023-07-21', '의사소견16', '손가락이 또 아파요', 50002, 20004, 40008 ,0);
 
 INSERT INTO record (r_num, r_date, r_opinion, r_symptom, r_p_num, r_d_code, r_e_code)
 SELECT
@@ -383,8 +383,8 @@ insert into item values ( i_num_seq.nextval, 90001, '다스', 50, '2023-09-03', 
 insert into item values ( i_num_seq.nextval, 90002, '10개 1묶음', 50, '2024-08-03', 50000, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90003, '낱개', 200, '2025-04-30', 700, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90004, '5개 1묶음', 50, '2025-06-20', 9999, '비고', '메모');
-insert into item values ( i_num_seq.nextval, 90005, '낱개', 150, '2029-12-31', 20000, '비고', '메모');
-insert into item values ( i_num_seq.nextval, 90006, '낱개', 350, '2029-05-11', 20000, '비고', '메모');
+insert into item values ( i_num_seq.nextval, 90005, '10개 1묶음', 150, '2029-12-31', 20000, '비고', '메모');
+insert into item values ( i_num_seq.nextval, 90006, '10개 1묶음', 350, '2029-05-11', 20000, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90007, '100ml', 30, '2024-12-31', 10000, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90008, '30ml', 200, '2024-06-06', 5000, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90009, '50ml', 100, '2024-11-17', 4000, '비고', '메모');
@@ -394,7 +394,7 @@ insert into item values ( i_num_seq.nextval, 90012, '다스', 40, '2023-09-03', 
 insert into item values ( i_num_seq.nextval, 90013, '10개 1묶음', 20, '2024-07-03', 2000, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90014, '낱개', 100, '2025-04-30', 700, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90015, '5개 1묶음', 30, '2024-06-20', 1900, '비고', '메모');
-insert into item values ( i_num_seq.nextval, 90016, '낱개', 170, '2029-01-21', 2000, '비고', '메모');
+insert into item values ( i_num_seq.nextval, 90016, '10개 1묶음', 170, '2029-01-21', 2000, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90017, '다스', 12, '2023-09-03', 3500, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90018, '10개 1묶음', 31, '2023-05-13', 4600, '비고', '메모');
 insert into item values ( i_num_seq.nextval, 90019, '낱개', 150, '2024-04-18', 1700, '비고', '메모');

@@ -1,6 +1,7 @@
 package hospital.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -28,8 +29,15 @@ public class SearchServiceDateAction implements Action{
 		JSONObject sendObject = new JSONObject();
 		JSONArray sendArray = new JSONArray();
 		JSONObject jobj = null;
+		
+		
 		for(int i =0; i < list.size(); i++) {
 			jobj = new JSONObject();
+			int pay_check = 1;
+			ArrayList<Integer> arr = dao.checkPay(list.get(i).getNum());
+			if(arr.contains(0)) {
+				pay_check = 0;
+			}
 			jobj.put("num", list.get(i).getNum());
 			jobj.put("name", list.get(i).getName());
 			jobj.put("birth", list.get(i).getBirth());
@@ -39,6 +47,7 @@ public class SearchServiceDateAction implements Action{
 			jobj.put("note", list.get(i).getNote());
 			jobj.put("r_date", list.get(i).getR_date());
 			jobj.put("r_num", list.get(i).getR_num());
+			jobj.put("pay_check", pay_check);
 
 			sendArray.add(jobj);
 		}

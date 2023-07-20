@@ -71,8 +71,7 @@ public class HospitalDao {
 		try {
 			conn = ConnectionHelper.getConnection();
 			String sql = "";
-			sql = "select p.address, p.note, p.num, p.name, p.birth, p.sex, p.phone, r.r_num, r.r_date from patient p join record r on p.num = r.r_p_num where r_date = ? order by r_num desc";
-
+			sql = "select p.address, p.note, p.num, p.name, p.birth, p.sex, p.phone, r.r_num, r.r_date from patient p join record r on p.num = r.r_p_num where to_char(r_date,'YYYYMMDD') = ? order by r_num desc";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, date);
 
@@ -434,18 +433,42 @@ public class HospitalDao {
 	public void UpdatePayment(int r_num, int cash, int card) {
 		Connection conn = null;
 		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		
+		int total_amount = 0; 
 
 		try {
 			conn = ConnectionHelper.getConnection();
 			String sql = " UPDATE payment " + " SET PAY_CASH = '" + cash + "', PAY_CARD = '" + card
 					+ "' WHERE PAY_R_NUM = " + r_num;
+			String sql2 = "select pay_amount from payment where pay_r_num = ?";
+			String sql3 = "update record set r_pay = 1 where r_num = " + r_num;
+			
 			stmt = conn.createStatement();
 			int res = stmt.executeUpdate(sql);
 			if (res > 0) {
 				System.out.println("입력 성공");
 			} else {
 				System.out.println("입력 실패");
+			}
+			pstmt = conn.prepareStatement(sql2);
+			pstmt.setInt(1, r_num);
+
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				total_amount = rs.getInt(1);
+			}
+			
+			if( (cash + card) >= total_amount ) {
+				stmt = conn.createStatement();
+				int res2 = stmt.executeUpdate(sql3);
+			
+				if (res2 > 0) {
+					System.out.println("입력 성공");
+				} else {
+					System.out.println("입력 실패");
+				}
 			}
 			ConnectionHelper.close(rs);
 			ConnectionHelper.close(stmt);
@@ -593,5 +616,37 @@ public class HospitalDao {
 	return avgvisit;
 
 	}
+	
+	public ArrayList<Integer> checkPay(int p_num) {
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<Integer> arr = new ArrayList<>();
+		
+		try {
+			conn = ConnectionHelper.getConnection();
+			String sql = "SELECT r_pay from record where r_p_num = ?";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, p_num);
+
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				arr.add(rs.getInt(1));
+			}
+			
+			ConnectionHelper.close(rs);
+			ConnectionHelper.close(pstmt);
+			ConnectionHelper.close(conn);
+			return arr;
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
+
+		return arr;
+
+		}
 	
 }

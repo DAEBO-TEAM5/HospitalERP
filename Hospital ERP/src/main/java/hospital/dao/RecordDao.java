@@ -109,7 +109,7 @@ public class RecordDao {
 		
 		try {
 			conn = ConnectionHelper.getConnection();                      //의사소견, 증상, 환자번호, 질병코드, 직원코드
-			String sql =  "INSERT INTO RECORD VALUES(R_NUM_SEQ.NEXTVAL, SYSDATE, ?, ?, ?, ?, ?)";
+			String sql =  "INSERT INTO RECORD VALUES(R_NUM_SEQ.NEXTVAL, SYSDATE, ?, ?, ?, ?, ?,0)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, note);
 			pstmt.setString(2, symptom);
