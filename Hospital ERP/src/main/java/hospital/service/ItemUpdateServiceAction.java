@@ -15,7 +15,7 @@ public class ItemUpdateServiceAction implements Action {
 		try {
 			ItemDao dao = new ItemDao();
 			ItemVO vo = new ItemVO();
-			System.out.println(Integer.parseInt(request.getParameter("code")));
+			
 			vo.setI_code(Integer.parseInt(request.getParameter("code")));
 			vo.setI_unit(request.getParameter("unit"));
 			vo.setI_stock(Integer.parseInt(request.getParameter("stock")));
