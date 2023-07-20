@@ -443,12 +443,18 @@ window.addEventListener('load', function() {
 	var today = new Date();   
 	var year = today.getFullYear(); // 년도
 	var month = today.getMonth() + 1;  // 월
+	if(month <10){
+		month = "0"+month 
+	}
 	var date = today.getDate();  // 날짜 
 	
-	patientSearchDate(year + '/' + month + '/' + date);
+	year +=""
+	month +=""
+	date +=""
+	
+	patientSearchDate(year+month+date);
 	
 	//patientSearchDate("2023/7/13");
-	
 });
 $(document).on("click", ".pay_select", function (e){  //날짜로 검색 (달력)
 	$('.pay_select').find(".fa-regular").addClass('fa-circle');
