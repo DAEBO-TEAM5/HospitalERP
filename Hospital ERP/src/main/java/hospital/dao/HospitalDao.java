@@ -490,7 +490,7 @@ public class HospitalDao {
 		
 		try {
 			conn = ConnectionHelper.getConnection();
-			String sql = "select * from record where r_date = ?";
+			String sql = "select * from record where to_char(r_date,'YYYYMMDD') = ?";
 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, date);
@@ -595,7 +595,7 @@ public class HospitalDao {
 	
 	try {
 		conn = ConnectionHelper.getConnection();
-		String sql = "SELECT ROUND(count(*)/count(distinct r_date)) FROM record";
+		String sql = "SELECT ROUND(count(*)/count(distinct to_char(r_date, 'YYYYMMDD'))) FROM record";
 
 		pstmt = conn.prepareStatement(sql);
 

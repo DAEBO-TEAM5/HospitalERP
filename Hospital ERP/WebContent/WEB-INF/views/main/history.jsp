@@ -498,6 +498,7 @@ function patientSearchDate(day){ //날짜로 검색
 
 $(document).on("click", ".test p", function (e){  //날짜로 검색 (달력)
 	var day = $('#calYear').text()+$('#calMonth').text()+$(this).text();
+
 	patientSearchDate(day);
 	
 	$.ajax({	
@@ -696,11 +697,22 @@ var year1 = ddd.getFullYear(); // 년도
 var month1 = ddd.getMonth() + 1;  // 월
 var date1 = ddd.getDate();  // 날짜 
 
+if(month1 <10){
+	month1 = "0"+month1 
+}
+ // 날짜 
+
+year1 +=""
+month1 +=""
+date1 +=""
+
+
+
 $(function(){
 	$.ajax({	
 		url: "./dailysales.do",
 		type: "post",
-		data : { date1: year1 + '/' + month1 + '/' + date1},
+		data : { date1: year1+ month1+ date1},
 		success: dailyfunc,
 		error: function(e){
 			alert('무엇인가 오류' + e)
