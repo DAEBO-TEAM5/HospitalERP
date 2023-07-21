@@ -745,6 +745,7 @@ $("#itemRelModal").on("hidden.bs.modal", function () {
 });
 $("#itemDisModal").on("hidden.bs.modal", function () {
 	$(this).find("input").not('#dis_InputRemark').val("");
+	$(this).find('#dis_InputRemark').val("폐기 사유: ");
 });
 
  //item 추가 모달 내 "항목추가"된것 삭제
