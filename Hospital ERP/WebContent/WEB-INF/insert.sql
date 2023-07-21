@@ -96,26 +96,26 @@ select * from hospital_id;
 
 
 --환자 기본정보 //코드 num 50001~ 50030
-insert into patient values(num_seq.nextval, '홍길동', '1999-09-09', '010-1234-5678', '서울 턱별시', '남자', 190, 90, '동에번쩍 서에번쩍');
-insert into patient values(num_seq.nextval, '양승윤', '1995-12-31', '010-0000-9999', '신림동', '남자', 205, 45, '신림동 잠만보');
-insert into patient values(num_seq.nextval, '윤성호', '1994-08-21', '010-5344-2342', '의정부', '여자', 187, 77, '의정부 자바머신');
-insert into patient values(num_seq.nextval, '정준열', '1992-05-17', '010-5823-9657', '부산', '여자', 187, 77, '뜨거운 부산남자');
-insert into patient values(num_seq.nextval, '신지애', '1983-02-03', '010-9107-4286', '서울', '남자', 187, 77, '5팀의 희망');
-insert into patient values(num_seq.nextval, '김영수', '1987-07-26', '010-6890-7063', '강원도', '여자', 187, 77, '행복한 하루되세요.');
-insert into patient values(num_seq.nextval, '이지은', '1996-10-08', '010-1475-1948', '대구', '남자', 187, 77, '내일은 새로운 시작이야.');
-insert into patient values(num_seq.nextval, '박준호', '1985-04-12', '010-7438-8294', '대전', '여자', 187, 77, '꿈을 이뤄나갈 때야!');
-insert into patient values(num_seq.nextval, '최민지', '1990-08-20', '010-5236-6721', '인천', '남자', 187, 77, '이상한 사람(주의필요)');
-insert into patient values(num_seq.nextval, '정성민', '1994-06-30', '010-8102-2342', '수원', '남자', 187, 77, '호들갑이 심함');
-insert into patient values(num_seq.nextval, '김덕배', '1990-01-01', '010-1234-5678', '서울시 강남구', '남성', 175, 70, '알레르기 있음');
-insert into patient values(num_seq.nextval, '김수지', '1985-03-15', '010-9876-5432', '서울시 종로구', '여성', 160, 55, '수술 경력 있음');
-insert into patient values(num_seq.nextval, '이철수', '1995-07-10', '010-2222-3333', '부산시 해운대구', '남성', 180, 80, '천식환자');
-insert into patient values(num_seq.nextval, '박지민', '1992-11-20', '010-5555-6666', '대구시 동구', '남성', 168, 65, '무릎 통증 있음');
-insert into patient values (num_seq.nextval, '정형돈', '1982-02-02', '010-8888-8888', '세종시', '남성', 175, 73, '독거 노인');
-insert into patient values(num_seq.nextval, '송영철', '1988-09-05', '010-7777-8888', '인천시 부평구', '남성', 172, 75, '심장질환');
-insert into patient values (num_seq.nextval, '이미란', '1994-04-25', '010-1111-2222', '경기도 수원시', '여성', 163, 58, '골반 근육 약함');
-insert into patient values (num_seq.nextval, '유재석', '1980-12-07', '010-4444-9999', '대전시 유성구', '남성', 178, 68, '저혈압 조심');
-insert into patient values (num_seq.nextval, '김태희', '1981-03-29', '010-3333-7777', '광주시 남구', '여성', 165, 50, '피가 잘 안 뽑힘');
-insert into patient values (num_seq.nextval, '장동건', '1978-06-14', '010-7777-7777', '전주시 덕진구', '남성', 181, 82, '건강 상태 양호');
+insert into patient values(num_seq.nextval, '홍길동', '1999-09-09', '010-1234-5678', '서울 턱별시', '남', 190, 90, '동에번쩍 서에번쩍');
+insert into patient values(num_seq.nextval, '양승윤', '1995-12-31', '010-0000-9999', '신림동', '남', 205, 45, '신림동 잠만보');
+insert into patient values(num_seq.nextval, '윤성호', '1994-08-21', '010-5344-2342', '의정부', '여', 187, 77, '의정부 자바머신');
+insert into patient values(num_seq.nextval, '정준열', '1992-05-17', '010-5823-9657', '부산', '여', 187, 77, '뜨거운 부산남자');
+insert into patient values(num_seq.nextval, '신지애', '1983-02-03', '010-9107-4286', '서울', '남', 187, 77, '5팀의 희망');
+insert into patient values(num_seq.nextval, '김영수', '1987-07-26', '010-6890-7063', '강원도', '여', 187, 77, '행복한 하루되세요.');
+insert into patient values(num_seq.nextval, '이지은', '1996-10-08', '010-1475-1948', '대구', '남', 187, 77, '내일은 새로운 시작이야.');
+insert into patient values(num_seq.nextval, '박준호', '1985-04-12', '010-7438-8294', '대전', '여', 187, 77, '꿈을 이뤄나갈 때야!');
+insert into patient values(num_seq.nextval, '최민지', '1990-08-20', '010-5236-6721', '인천', '남', 187, 77, '이상한 사람(주의필요)');
+insert into patient values(num_seq.nextval, '정성민', '1994-06-30', '010-8102-2342', '수원', '남', 187, 77, '호들갑이 심함');
+insert into patient values(num_seq.nextval, '김덕배', '1990-01-01', '010-1234-5678', '서울시 강남구', '남', 175, 70, '알레르기 있음');
+insert into patient values(num_seq.nextval, '김수지', '1985-03-15', '010-9876-5432', '서울시 종로구', '여', 160, 55, '수술 경력 있음');
+insert into patient values(num_seq.nextval, '이철수', '1995-07-10', '010-2222-3333', '부산시 해운대구', '남', 180, 80, '천식환자');
+insert into patient values(num_seq.nextval, '박지민', '1992-11-20', '010-5555-6666', '대구시 동구', '남', 168, 65, '무릎 통증 있음');
+insert into patient values (num_seq.nextval, '정형돈', '1982-02-02', '010-8888-8888', '세종시', '남', 175, 73, '독거 노인');
+insert into patient values(num_seq.nextval, '송영철', '1988-09-05', '010-7777-8888', '인천시 부평구', '남', 172, 75, '심장질환');
+insert into patient values (num_seq.nextval, '이미란', '1994-04-25', '010-1111-2222', '경기도 수원시', '여', 163, 58, '골반 근육 약함');
+insert into patient values (num_seq.nextval, '유재석', '1980-12-07', '010-4444-9999', '대전시 유성구', '남', 178, 68, '저혈압 조심');
+insert into patient values (num_seq.nextval, '김태희', '1981-03-29', '010-3333-7777', '광주시 남구', '여', 165, 50, '피가 잘 안 뽑힘');
+insert into patient values (num_seq.nextval, '장동건', '1978-06-14', '010-7777-7777', '전주시 덕진구', '남', 181, 82, '건강 상태 양호');
 --
 --insert into patient values (num_seq.nextval, '한지민', '1990-08-18', '010-6666-6666', '울산시 남구', '여성', 167, 54, '직원들한테 잘 해줌');
 --insert into patient values (num_seq.nextval, '송지효', '1985-10-28', '010-2222-5555', '제주시', '여성', 162, 49, '기관지 약함');
